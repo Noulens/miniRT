@@ -28,7 +28,7 @@ SRCS		=	main.c
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror -g -O3
 LDFLAGS		=	$(LIB_PATH)libft.a -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 # Run 'make re MODE=fsanitize' to run fsanitize.
@@ -81,6 +81,8 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 
 .PHONY:	all bonus clean fclean re
 
+.SILENT:
+
 all:			subsystem $(NAME)
 
 subsystem: # Make the libft first then the minilibx
@@ -90,13 +92,13 @@ subsystem: # Make the libft first then the minilibx
 $(BUILDIR)/%.o:	%.c
 				@mkdir -p build
 				@ printf "$(YELLOW)Compiling $@ and generating .o files...$(DEFAULT)\n"
-				$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
+				@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 				@ printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
 
 
 $(NAME):		$(OBJ)
 				@ printf "$(YELLOW)Linking source files and generating $@ binary...\n$(DEFAULT)"
-				$(CC) $(CFLAGS) $(INCFLAGS) -o $@ $^ $(LDFLAGS)
+				@$(CC) $(CFLAGS) $(INCFLAGS) -o $@ $^ $(LDFLAGS)
 				@ printf "$(DELPREV)$(GREEN)Binary generated$(DEFAULT)\n"
 
 clean:
