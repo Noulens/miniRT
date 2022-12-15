@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "init.h"
+#include "destroy.h"
 
 int	rt_name_checker(char *path)
 {
@@ -34,4 +35,24 @@ int	rt_name_checker(char *path)
 	if (!map)
 		ft_fprintf(2, RED"Usage : ./miniRT <filename.rt>\n"RESET);
 	return (map);
+}
+
+void	win_launcher(void)
+{
+	void	*mlx;
+	void	*win;
+	t_img	img;
+
+	mlx = mlx_init();
+	if (!mlx)
+		exit(EXIT_FAILURE);
+	win = mlx_new_window(mlx, 600, 300, "miniRT");
+	img.img = mlx_new_image(mlx, 600, 300);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
+			&img.endian);
+//		mlx_key_hook(win, ft_key, NULL);
+//		mlx_hook(win, 17, 1L << 17, ft_closebutton, NULL);
+//		mlx_hook(win, 2, 1L << 0, ft_escape, NULL);
+	mlx_loop(mlx);
+	des_mlx(mlx, img.img, win);
 }

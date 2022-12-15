@@ -14,14 +14,9 @@
 
 int	main(int argc, char **argv)
 {
-	void	*mlx;
 	if (argc == 2 && rt_name_checker(argv[1]))
 	{
-//		TODO core
-		mlx = mlx_init();
-		if (!mlx)
-			exit(EXIT_FAILURE);
-		des_mlx(mlx);
+		win_launcher();
 	}
 	else
 		exit(EXIT_FAILURE);
