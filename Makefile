@@ -118,3 +118,6 @@ re:				fclean
 lc:			all
 				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT
 
+norm:
+			norminette ./srcs ./libft ./include
+

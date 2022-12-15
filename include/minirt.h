@@ -1,13 +1,19 @@
-//
-// Created by tnoulens on 12/15/22.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/15 17:19:40 by tnoulens          #+#    #+#             */
+/*   Updated: 2022/12/15 17:21:04 by tnoulens         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef MINIRT_MINIRT_H
-# define MINIRT_MINIRT_H
+#ifndef MINIRT_H
+# define MINIRT_H
 
-# include "libft.h"
 # include "mlx.h"
+# include "libft.h"
 
-
-
-#endif //MINIRT_MINIRT_H
+#endif
