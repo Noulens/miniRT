@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CLionExternalBuildManager">
-    <target id="91a81e56-0ecf-4709-84cb-e0ac5b137712" name="Unnamed" defaultType="MAKE">
-      <configuration id="2112fc7d-ad30-4834-b402-5a0ee0fb16b0" name="Unnamed" />
+    <target id="084e110e-0d19-46c6-9806-97cd3255fd56" name="Unnamed" defaultType="MAKE">
+      <configuration id="f7c9077f-b8f0-4fc8-9ae1-a35ddd4ab519" name="Unnamed">
+        <build type="MAKE">
+          <make targetName="all" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="clean" />
+        </clean>
+      </configuration>
+    </target>
+    <target id="329dbb38-c345-4e27-8379-4a92c395d9a4" name="fclean" defaultType="MAKE">
+      <configuration id="d47e21e6-f963-4ed3-9c26-f1d18655cded" name="fclean">
+        <clean type="MAKE">
+          <make targetName="fclean" />
+        </clean>
+      </configuration>
     </target>
   </component>
 </project>
