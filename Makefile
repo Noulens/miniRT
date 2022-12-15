@@ -24,10 +24,12 @@ MLX_PATH	=	mlx_linux/
 
 BUILDIR		=	build
 
-SRCS_DIR	=	init/	\
+SRCS_DIR	=	init/		\
+				destroy/	\
 
-SRCS		=						main.c	\
-				$(addprefix init/,	init.c)	\
+SRCS		=							main.c		\
+				$(addprefix init/,		init.c)		\
+				$(addprefix destroy/,	des_mlx.c)	\
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "init.h"
 
 int	rt_name_checker(char *path)
 {
