@@ -15,5 +15,8 @@
 
 # include "mlx.h"
 # include "libft.h"
+# include "colors.h"
+
+int	rt_name_checker(char *path);
 
 #endif

@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 17:12:29 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/15 17:12:39 by tnoulens         ###   ########.fr       */
+/*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
+/*   Updated: 2022/12/15 19:22:56 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main(int argc, char **argv)
+int	rt_name_checker(char *path)
 {
-	if (argc == 2 && rt_name_checker(argv[1]))
-	{
-		;
-	}
+	int	i;
+	int	fd;
+	int	map;
+
+	map = 1;
+	if (path == NULL)
+		map = 0;
+	i = ft_strlen(path);
+	if (i <= 3)
+		map = 0;
+	if (!ft_strnstr(path + i - 3, ".rt", 3))
+		map = 0;
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		map = 0;
 	else
-		exit(EXIT_FAILURE);
-	return (0);
+		close(fd);
+	if (!map)
+		ft_fprintf(2, RED"Usage : ./miniRT <filename.rt>\n"RESET);
+	return (map);
 }

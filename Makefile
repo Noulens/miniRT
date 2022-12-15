@@ -24,7 +24,10 @@ MLX_PATH	=	mlx_linux/
 
 BUILDIR		=	build
 
-SRCS		=	main.c
+SRCS_DIR	=	init/	\
+
+SRCS		=						main.c	\
+				$(addprefix init/,	init.c)	\
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
@@ -90,7 +93,7 @@ subsystem: # Make the libft first then the minilibx
 				@make -C $(MLX_PATH) all
 
 $(BUILDIR)/%.o:	%.c
-				@mkdir -p build
+				@mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
 				@ printf "$(YELLOW)Compiling $@ and generating .o files...$(DEFAULT)\n"
 				@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 				@ printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
@@ -122,4 +125,3 @@ lc:			all
 
 norm:
 			norminette ./srcs ./libft ./include
-
