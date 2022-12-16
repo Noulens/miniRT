@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 17:12:29 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/15 17:12:39 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:37:29 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	main(int argc, char **argv)
 	t_data	img;
 
 
-	img.win_w = 1920;
-	img.win_h = 1080;
+	img.win_w = 256;
+	img.win_h = 256;
 	img.mlx_ptr = mlx_init();
 	if (!img.mlx_ptr)
 		return (0);
@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 		return (0);
 	img.img = mlx_new_image(img.mlx_ptr, img.win_w , img.win_h);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	my_mlx_pixel_put(&img, 500, 500, 0x00FF0000);
+	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(img.mlx_ptr, img.mlx_win, img.img, 0, 0);
 	mlx_hook(img.mlx_win, 2, 1L << 0, &key_press, &img);
 	mlx_hook(img.mlx_win, 17, 1L << 0, &close_window, &img);
