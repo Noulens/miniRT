@@ -12,45 +12,66 @@
 
 #include "minirt.h"
 
-int	error_image(t_data *data)
+# define KEY_ESC	65307
+
+typedef struct s_data{
+	void	*mlx_ptr;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		win_w;
+	int		win_h;
+}	t_data;
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    mlx_destroy_image(data->mlx_ptr, data->img);
-    return (0);
+		char	*dst;
+
+		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel )/ 8);
+		*(unsigned int*)dst = color;
 }
 
-void	data_init(t_data *img)
+int	close_window(t_data *img)
 {
-    img->win_w = WINDOW_WIDTH;
-    img->win_h = WINDOW_HEIGHT;
+	mlx_destroy_window(img->mlx_ptr, img->mlx_win);
+	mlx_loop_end(img->mlx_ptr);
+	mlx_destroy_image(img->mlx_ptr, img->img);
+	mlx_destroy_display(img->mlx_ptr);
+	free(img->mlx_ptr);
+	exit(0);
+	return (0);
 }
-void	mlx_functions(t_data *img)
+
+int	key_press(int keycode, t_data *img)
 {
-    mlx_put_image_to_window(img->mlx_ptr, img->win_ptr, img->img, 0, 0);
-//    mlx_hook_interaction(img);
-    mlx_loop(img->mlx_ptr);
-    mlx_destroy_image(img->mlx_ptr, img->img);
-    mlx_destroy_window(img->mlx_ptr, img->win_ptr);
-    mlx_loop_end(img->mlx_ptr);
+	if (keycode == KEY_ESC)
+		close_window(img);
+	return (0);
 }
+
 int	main(int argc, char **argv)
 {
-    t_data  data;
+	(void) argc;
+	(void) argv;
+	t_data	img;
 
-    (void) argc;
-    (void) argv;
-    data_init(&data);
-    data.mlx_ptr = mlx_init();
-    if (!data.mlx_ptr)
-        return (0);
-    printf("a\n");
-    data.win_ptr = mlx_new_window(data.mlx_ptr, data.win_w, data.win_h, "MiniRT");
-    printf("b\n");
-    if (!data.win_ptr)
-        return (error_image(&data));
-    printf("c\n");
-    data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.linel, &data.endian);
-    printf("d\n");
-    mlx_functions(&data);
-    printf("e\n");
-    return (0);
+
+	img.win_w = 1920;
+	img.win_h = 1080;
+	img.mlx_ptr = mlx_init();
+	if (!img.mlx_ptr)
+		return (0);
+	img.mlx_win= mlx_new_window(img.mlx_ptr, img.win_w , img.win_h, "Mini RT");
+	if (!img.mlx_ptr)
+		return (0);
+	img.img = mlx_new_image(img.mlx_ptr, img.win_w , img.win_h);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	my_mlx_pixel_put(&img, 500, 500, 0x00FF0000);
+	mlx_put_image_to_window(img.mlx_ptr, img.mlx_win, img.img, 0, 0);
+	mlx_hook(img.mlx_win, 2, 1L << 0, &key_press, &img);
+	mlx_hook(img.mlx_win, 17, 1L << 0, &close_window, &img);
+	mlx_loop(img.mlx_ptr);
 }
