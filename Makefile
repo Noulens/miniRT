@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+         #
+#    By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/11/07 15:11:38 by tnoulens         ###   ########.fr        #
+#    Updated: 2022/12/18 08:07:38 by hyunah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,13 @@ BUILDIR		=	build
 
 SRCS_DIR	=	init/		\
 				destroy/	\
+				math/	\
 
 SRCS		=							main.c		\
 				$(addprefix init/,		init.c)		\
 				$(addprefix destroy/,	des_mlx.c)	\
+				$(addprefix math/,		vector_simple.c) \
+				$(addprefix math/,		vector.c)	\
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
