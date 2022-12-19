@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/19 11:41:59 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/19 12:38:52 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,36 @@ int	rt_name_checker(char *path)
 	return (map);
 }
 
-t_scene scene_init(void)
+t_scene *scene_init()
 {
-	t_scene	scene;
+	t_scene	*s;
 
-	scene.win_h = 300;
-	scene.win_w = 600;
-	return (scene);
+	s = malloc(sizeof(t_scene));
+	if (!s)
+		return (NULL);
+	s->win_h = 500;
+	s->win_w = 1000;
+	s->bg_color = set_vec(255, 255, 255);
+	return (s);
 }
 
 void	win_launcher(void)
 {
-	t_scene	scene;
+	t_scene	*scene;
 	t_img	img;
 
 	img.mlx = mlx_init();
 	if (!img.mlx)
 		exit(EXIT_FAILURE);
 	scene = scene_init();
-	img.win = mlx_new_window(img.mlx, scene.win_w, scene.win_h, "miniRT");
-	img.img = mlx_new_image(img.mlx, scene.win_w, scene.win_h);
+	img.win = mlx_new_window(img.mlx, scene->win_w, scene->win_h, "miniRT");
+	img.img = mlx_new_image(img.mlx, scene->win_w, scene->win_h);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
 			&img.endian);
 	// mlx_key_hook(win, ft_key, &img);
+	render(&img, scene);
+	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	mlx_hook(img.win, 17, 1L << 17, ft_closebutton, &img);
 	mlx_hook(img.win, 2, 1L << 0, ft_key, &img);
-	render(img, scene);
 	mlx_loop(img.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:57:36 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/19 11:42:24 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/19 12:27:38 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ typedef struct s_cam{
 
 typedef struct s_scene
 {
-	int	win_w;
-	int	win_h;
-	int	num_objects_in_scene;
+	int			win_w;
+	int			win_h;
+	int			num_objects_in_scene;
 	t_object	*objects;
 	t_cam		*cam;
-	t_vec	bg_color;
+	t_vec		bg_color;
 }	t_scene;
 
 typedef struct s_ray
@@ -40,6 +40,6 @@ typedef struct s_ray
 
 }	t_ray;
 
-int	render(t_img img, t_scene scene);
+int	render(t_img *img, t_scene *scene);
 
 #endif
