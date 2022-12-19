@@ -6,13 +6,12 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:48:59 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/18 07:29:35 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/19 11:21:23 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATH_FUNC_H
 # define MATH_FUNC_H
-
 # include "math.h"
 
 typedef struct s_vec{

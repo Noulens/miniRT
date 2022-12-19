@@ -6,11 +6,11 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 05:58:45 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/18 08:08:11 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/19 09:44:19 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/math_func.h"
+#include "math_func.h"
 #include <stdio.h>
 
 double	vec_dot(t_vec a, t_vec b)

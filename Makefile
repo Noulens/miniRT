@@ -6,7 +6,7 @@
 #    By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/12/18 08:07:38 by hyunah           ###   ########.fr        #
+#    Updated: 2022/12/19 11:38:31 by hyunah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,16 @@ BUILDIR		=	build
 SRCS_DIR	=	init/		\
 				destroy/	\
 				math/	\
+				interaction/ \
+				render \
 
 SRCS		=							main.c		\
-				$(addprefix init/,		init.c)		\
-				$(addprefix destroy/,	des_mlx.c)	\
-				$(addprefix math/,		vector_simple.c) \
-				$(addprefix math/,		vector.c)	\
+				$(addprefix init/,			init.c)		\
+				$(addprefix destroy/,		des_mlx.c)	\
+				$(addprefix math/,			vector_simple.c) \
+				$(addprefix math/,			vector.c)	\
+				$(addprefix interaction/,	interaction.c)	\
+				$(addprefix render/,		render.c)	\
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 

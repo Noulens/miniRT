@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 20:18:53 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/15 20:18:55 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:27:04 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 typedef struct s_data
 {
 	void	*img;
+	void	*mlx;
+	void	*win;
 	char	*addr;
 	int		bpp;
 	int		line_length;

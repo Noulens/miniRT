@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/15 19:22:56 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:41:59 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
-#include "destroy.h"
+#include "interaction.h"
+#include "scene.h"
 
 int	rt_name_checker(char *path)
 {
@@ -37,22 +38,31 @@ int	rt_name_checker(char *path)
 	return (map);
 }
 
+t_scene scene_init(void)
+{
+	t_scene	scene;
+
+	scene.win_h = 300;
+	scene.win_w = 600;
+	return (scene);
+}
+
 void	win_launcher(void)
 {
-	void	*mlx;
-	void	*win;
+	t_scene	scene;
 	t_img	img;
 
-	mlx = mlx_init();
-	if (!mlx)
+	img.mlx = mlx_init();
+	if (!img.mlx)
 		exit(EXIT_FAILURE);
-	win = mlx_new_window(mlx, 600, 300, "miniRT");
-	img.img = mlx_new_image(mlx, 600, 300);
+	scene = scene_init();
+	img.win = mlx_new_window(img.mlx, scene.win_w, scene.win_h, "miniRT");
+	img.img = mlx_new_image(img.mlx, scene.win_w, scene.win_h);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
 			&img.endian);
-//		mlx_key_hook(win, ft_key, NULL);
-//		mlx_hook(win, 17, 1L << 17, ft_closebutton, NULL);
-//		mlx_hook(win, 2, 1L << 0, ft_escape, NULL);
-	mlx_loop(mlx);
-	des_mlx(mlx, img.img, win);
+	// mlx_key_hook(win, ft_key, &img);
+	mlx_hook(img.win, 17, 1L << 17, ft_closebutton, &img);
+	mlx_hook(img.win, 2, 1L << 0, ft_key, &img);
+	render(img, scene);
+	mlx_loop(img.mlx);
 }
