@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:48:59 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/20 07:47:26 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/20 17:58:05 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,36 @@
 # define MATH_FUNC_H
 # include "math.h"
 
-typedef struct s_vec{
+typedef struct s_vec3{
 	double	x;
 	double	y;
 	double	z;
-}	t_vec;
+}	t_vec3;
 
 
 typedef struct s_matrix4{
 	double	m[4][4];
 }	t_matrix4;
 
-
-t_vec		vec_add(t_vec a, t_vec b);
-t_vec		vec_sub(t_vec a, t_vec b);
-t_vec		vec_mult(t_vec a, double scale);
-t_vec		set_vec(double x, double y, double z);
-double		vec_length(t_vec a);
-double		vec_dot(t_vec a, t_vec b);
-t_vec		vec_cross(t_vec a, t_vec b);
-t_vec		vec_normalize(t_vec vec);
-t_matrix4	set_matrix(t_vec t, t_vec r, t_vec s);
+t_vec3		vec_add(t_vec3 a, t_vec3 b);
+t_vec3		vec_sub(t_vec3 a, t_vec3 b);
+t_vec3		vec_mult(t_vec3 a, double scale);
+t_vec3		set_vec(double x, double y, double z);
+double		vec_length(t_vec3 a);
+double		vec_dot(t_vec3 a, t_vec3 b);
+t_vec3		vec_cross(t_vec3 a, t_vec3 b);
+t_vec3		vec_normalize(t_vec3 vec);
+t_matrix4	set_matrix(t_vec3 t, t_vec3 r, t_vec3 s);
 void		matrix_print(t_matrix4 n);
-void		matrix_vec_mult(t_matrix4 new, t_vec *vector);
+void		matrix_vec_mult(t_matrix4 new, t_vec3 *vector);
+double		to_degree(double radian);
 double		to_radian(double degree);
 t_matrix4	init_matrix(t_matrix4 *new);
-t_matrix4	matrix_transformation(t_vec *src, t_vec t, t_vec r);
+t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r);
 t_matrix4	matrix_rotateX(double x);
 t_matrix4	matrix_rotateY(double y);
 t_matrix4	matrix_rotateZ(double z);
-t_matrix4	matrix_scale(t_vec s);
-t_matrix4	matrix_translate(t_vec t);
+t_matrix4	matrix_scale(t_vec3 s);
+t_matrix4	matrix_translate(t_vec3 t);
 
 #endif

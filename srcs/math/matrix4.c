@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 07:23:37 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/20 07:49:18 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/20 15:29:42 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	matrix_print(t_matrix4 n)
 	printf("----------------------\n");
 }
 
-void	matrix_vec_mult(t_matrix4 new, t_vec *vector)
+void	matrix_vec_mult(t_matrix4 new, t_vec3 *vector)
 {
-	t_vec	v;
+	t_vec3	v;
 	double	forth;
 
 	(void) forth;
@@ -58,7 +58,7 @@ void	matrix_vec_mult(t_matrix4 new, t_vec *vector)
 	+ v.z * new.m[3][2] + new.m[3][3];
 }
 
-t_matrix4	matrix_transformation(t_vec *src, t_vec t, t_vec r)
+t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r)
 {
 	t_matrix4	transform;
 

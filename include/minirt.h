@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 17:19:40 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/19 11:37:01 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/20 15:37:56 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 # include "destroy.h"
 # include "math_func.h"
 # include "scene.h"
-#include "interaction.h"
+# include "interaction.h"
 
 #endif

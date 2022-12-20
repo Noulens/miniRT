@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 05:58:45 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/19 17:38:08 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/20 15:34:08 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_func.h"
 #include <stdio.h>
 
-double	vec_dot(t_vec a, t_vec b)
+double	vec_dot(t_vec3 a, t_vec3 b)
 {
 	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }
 
-double	vec_length(t_vec a)
+double	vec_length(t_vec3 a)
 {
 	double	b;
 
@@ -26,7 +26,7 @@ double	vec_length(t_vec a)
 	return (sqrt(b));
 }
 
-t_vec	vec_normalize(t_vec vec)
+t_vec3	vec_normalize(t_vec3 vec)
 {
 	double	len;
 
@@ -36,7 +36,7 @@ t_vec	vec_normalize(t_vec vec)
 	return (set_vec(vec.x * 1 / len, vec.y * 1 / len, vec.z * 1 / len));
 }
 
-t_vec	vec_cross(t_vec a, t_vec b)
+t_vec3	vec_cross(t_vec3 a, t_vec3 b)
 {
 	return (set_vec(a.y * b.z - a.z * b.y, \
 					a.z * b.x - a.x * b.z, \
