@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/19 12:40:59 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/19 20:05:11 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ t_ray	build_camera_ray(int i, int j)
 	return (ray);
 }
 
-int	interset(t_ray ray, t_object obj)
+int	interset(t_ray ray, t_scene *scene)
 {
 	(void) ray;
-	(void) obj;
+	(void) scene;
 	return (1);
 }
 
@@ -41,19 +41,20 @@ void	compute_pixel(t_scene *scene, t_vec *framebuffer, int i, int j)
 	int		k;
 	t_ray	ray;
 
+	(void) framebuffer;
 	k = -1;
 	while (++k < scene->num_objects_in_scene)
 	{
 		ray = build_camera_ray(i, j);
-		if (interset(ray, scene->objects[k]))
+		if (interset(ray, scene))
 		{
 			// do complex shading here but for now basic (just constant color)
-			framebuffer[j * scene->win_w + i] = scene->objects[k].color;
+			// framebuffer[j * scene->win_w + i] = scene->objects[k].color;
 		}
 		else
 		{
 			// or don't do anything and leave it black
-			framebuffer[j * scene->win_w + i] = scene->bg_color;
+			// framebuffer[j * scene->win_w + i] = scene->bg_color;
 		}
 	}
 }
@@ -75,7 +76,7 @@ int	render(t_img *img, t_scene *scene)
 		while (++j < scene->win_w)
 		{
 			compute_pixel(scene, framebuffer, i, j);
-			// my_mlx_pixel_put(img, j, i, 0x00FF0000); // test color red
+			my_mlx_pixel_put(img, j, i, scene->bg_color); // test color red
 		}
 	}
 	free(framebuffer);

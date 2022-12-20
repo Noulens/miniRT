@@ -6,7 +6,7 @@
 #    By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/12/19 11:38:31 by hyunah           ###   ########.fr        #
+#    Updated: 2022/12/20 07:49:35 by hyunah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ SRCS		=							main.c		\
 				$(addprefix destroy/,		des_mlx.c)	\
 				$(addprefix math/,			vector_simple.c) \
 				$(addprefix math/,			vector.c)	\
+				$(addprefix math/,			matrix4.c)	\
+				$(addprefix math/,			math_utils.c)	\
 				$(addprefix interaction/,	interaction.c)	\
 				$(addprefix render/,		render.c)	\
 
