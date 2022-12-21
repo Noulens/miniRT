@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:58:53 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 16:20:12 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 17:09:07 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,50 @@ int	rt_name_checker(char *path)
 	return (map);
 }
 
-static int	get_space_attribute(char *line, t_scene *scn)
+static int	get_space_attribute(char *line, t_scene *scn, char a)
 {
+	static int	nba;
+	static int	nbc;
+	static int	nbl;
 
-	return(0);
+	if (nba > 1 || nbc > 1 || nbl > 1)
+		return (FAIL);
+	if (a == 'A')
+	{
+		++nba;
+	}
+	else if (a == 'C')
+	{
+		++nbc;
+	}
+	else if (a == 'L')
+	{
+		++nbl;
+	}
+	else
+		if (nba + nbl + nbc != 3)
+			return (ft_fprintf(2, RED "element missing\n" RESET), 1);
+	return(SUCCESS);
 }
 
 static int	get_obj_attribute(char *line, t_scene *scn)
 {
 
-	return(0);
+	return (0);
 }
 
 static int	get_infos(char *line, t_scene *scn)
 {
-	(void)scn;
-	while(*line == ' ')
+	while (*line == ' ')
 		++line;
-	if (ft_cmpchr(line, "A", ' '))
-		;//get A
-	else if (ft_cmpchr(line, "C", ' '))
-		; //get C
-	else if (ft_cmpchr(line, "L", ' '))
-		; // get L
-	else if (ft_cmpchr(line, "pl", ' '))
-		; // get object pl
-	else if (ft_cmpchr(line, "cy", ' '))
-		; // get object cy
-	else if (ft_cmpchr(line, "sp", ' '))
-		; // get object sp
+	if (ft_cmpchr(line, "A", ' ') || ft_cmpchr(line, "C", ' ')
+		|| ft_cmpchr(line, "L", ' '))
+		return(get_space_attribute(line, scn, *line));
+	else if (ft_cmpchr(line, "pl", ' ') || ft_cmpchr(line, "cy", ' ')
+		|| ft_cmpchr(line, "sp", ' '))
+		return(get_obj_attribute(line, scn));
 	else
-		return(ft_fprintf(2, RED"unknown element in .rt file\n"RESET), 1);
+		return (ft_fprintf(2, RED"unknown element in .rt file\n"RESET), 1);
 }
 
 int	parse(t_scene *scn, char *str)
@@ -69,12 +82,12 @@ int	parse(t_scene *scn, char *str)
 	char	*line;
 	int		ok;
 
-	ok = EXIT_FAILURE;
+	ok = FAIL;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 		return (ft_fprintf(2, "Could not open .rt file\n"), 1);
 	line = get_next_line(fd);
-	while(line)
+	while (line)
 	{
 		ok = get_infos(line, scn);
 		free(line);
