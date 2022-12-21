@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 10:58:53 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 14:21:46 by waxxy            ###   ########.fr       */
+/*   Created: 2022/12/21 14:34:14 by waxxy             #+#    #+#             */
+/*   Updated: 2022/12/21 14:34:44 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "libft.h"
 
-int	rt_name_checker(char *path)
+double  ft_atod(const char *str)
 {
-	int	i;
-	int	fd;
-	int	map;
+    double  nbr;
+    double  exponent;
+    int     i;
 
-	map = 1;
-	if (path == NULL)
-		map = 0;
-	i = ft_strlen(path);
-	if (i <= 3)
-		map = 0;
-	if (!ft_strnstr(path + i - 3, ".rt", 3))
-		map = 0;
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		map = 0;
-	else
-		close(fd);
-	if (!map)
-		ft_fprintf(2, RED"Usage : ./miniRT <filename.rt>\n"RESET);
-	return (map);
+    nbr = (double)ft_atoi(str);
+    i = 0;
+    while (str[i] && str[i] != '.')
+        i++;
+    exponent = 0.1;
+    if (str[i])
+        i++;
+    while (ft_isdigit(str[i]))
+    {
+        nbr += (str[i] - '0') * exponent;
+        exponent *= 0.1;
+        i++;
+    }
+    return (nbr);
 }
-
-int	parse_light
