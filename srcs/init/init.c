@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/21 13:29:11 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 15:01:25 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_cam	cam_init(t_scene *s)
 {
 	t_cam	*cam;
-	double	tmp;
+	float	tmp;
 
 	cam = &s->cam;
 	cam->pos = set_vec(0, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:32:44 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 13:32:59 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 14:48:36 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void win_launcher(void)
 {
     t_scene scene;
-    t_img img;
+    t_img   img;
 
     img.mlx = mlx_init();
     if (!img.mlx)

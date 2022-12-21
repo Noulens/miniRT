@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 05:58:45 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/20 15:34:08 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/21 15:03:26 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_func.h"
 #include <stdio.h>
 
-double	vec_dot(t_vec3 a, t_vec3 b)
+float	vec_dot(t_vec3 a, t_vec3 b)
 {
 	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }
 
-double	vec_length(t_vec3 a)
+float	vec_length(t_vec3 a)
 {
-	double	b;
+	float	b;
 
 	b = (a.x * a.x) + (a.y * a.y) + (a.z * a.z);
 	return (sqrt(b));
@@ -28,7 +28,7 @@ double	vec_length(t_vec3 a)
 
 t_vec3	vec_normalize(t_vec3 vec)
 {
-	double	len;
+	float	len;
 
 	len = vec_length(vec);
 	if (len == 0)

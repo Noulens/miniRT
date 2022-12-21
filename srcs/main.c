@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 17:12:29 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/15 17:12:39 by tnoulens         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:04:38 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	main(int argc, char **argv)
 {
+	t_scene	scn;
+
 	if (argc == 2 && rt_name_checker(argv[1]))
 	{
 		win_launcher();
