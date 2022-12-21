@@ -32,7 +32,7 @@ SRCS_DIR	=	init/		\
 				parsing/	\
 
 SRCS		=								main.c				\
-				$(addprefix parsing/,		parse_scene.c)		\
+				$(addprefix parsing/,		parser.c)			\
 				$(addprefix init/,			init.c)				\
 				$(addprefix destroy/,		des_mlx.c)			\
 				$(addprefix math/,			vector3_simple.c	\

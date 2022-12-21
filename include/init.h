@@ -30,7 +30,6 @@ typedef struct s_data
 	t_scene	*scene;
 }	t_img;
 
-int		rt_name_checker(char *path);
 void	win_launcher(void);
 int		render(t_img *img, t_scene *scene);
 

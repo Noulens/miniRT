@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 17:19:40 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/20 15:37:56 by hyunah           ###   ########.fr       */
+/*   Created: 2022/12/21 10:58:19 by waxxy             #+#    #+#             */
+/*   Updated: 2022/12/21 10:58:27 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef PARSING_H
+# define PARSING_H
 
-# include "mlx.h"
 # include "libft.h"
 # include "colors.h"
-# include "init.h"
-# include "destroy.h"
-# include "math_func.h"
-# include "scene.h"
-# include "interaction.h"
-# include "parsing.h"
-# include <stdlib.h>
-# include <unistd.h>
+
+int	rt_name_checker(char *path);
 
 #endif
