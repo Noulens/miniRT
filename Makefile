@@ -26,19 +26,21 @@ BUILDIR		=	build
 
 SRCS_DIR	=	init/		\
 				destroy/	\
-				math/	\
-				interaction/ \
-				render \
+				math/		\
+				interaction/\
+				render/		\
+				parsing/	\
 
-SRCS		=							main.c		\
-				$(addprefix init/,			init.c)		\
-				$(addprefix destroy/,		des_mlx.c)	\
-				$(addprefix math/,			vector3_simple.c) \
-				$(addprefix math/,			vector3.c)	\
-				$(addprefix math/,			matrix4.c)	\
-				$(addprefix math/,			math_utils.c)	\
-				$(addprefix interaction/,	interaction.c)	\
-				$(addprefix render/,		render.c)	\
+SRCS		=								main.c				\
+				$(addprefix parsing/,		parse_scene.c)		\
+				$(addprefix init/,			init.c)				\
+				$(addprefix destroy/,		des_mlx.c)			\
+				$(addprefix math/,			vector3_simple.c	\
+											vector3.c			\
+											matrix4.c			\
+											math_utils.c)		\
+				$(addprefix interaction/,	interaction.c)		\
+				$(addprefix render/,		render.c)			\
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
