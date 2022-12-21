@@ -6,7 +6,7 @@
 #    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/12/21 12:57:13 by waxxy            ###   ########.fr        #
+#    Updated: 2022/12/21 13:35:14 by waxxy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ BUILDIR		=	build
 
 SRCS_DIR	=	$(sort $(dir $(wildcard ./srcs/*/)))
 
-SRCS		=									main.c				\
-				$(addprefix srcs/,									\
+SRCS		=	$(addprefix srcs/,									\
+												main.c				\
 					$(addprefix parsing/,		parser.c)			\
 					$(addprefix init/,			init.c)				\
 					$(addprefix destroy/,		des_mlx.c)			\
@@ -36,7 +36,8 @@ SRCS		=									main.c				\
 												matrix4.c			\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c)		\
-					$(addprefix render/,		render.c)			\
+					$(addprefix render/,		render.c			\
+												windows_rend.c)		\
 					$(addprefix tools/,			rgb_utils.c)		\
 				)
 
@@ -129,7 +130,7 @@ re:				fclean
 				@$(MAKE) -s all
 
 lc:			all
-				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT
+				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT ./scenes/basic.rt
 
 norm:
 			norminette ./srcs ./libft ./include

@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/21 12:41:54 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 13:29:11 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_cam	cam_init(t_scene *s)
 
 t_scene	scene_init(t_scene *s)
 {
-	s->win_w = 198;
-	s->win_h = 102;
+	s->win_w = 192;
+	s->win_h = 108;
 	s->image_ratio = (double)s->win_w / (double)s->win_h;
 	// I'm not sure if we need to calculate this. would it be useful in the future?
 	// s->cam.focal_length = (s->win_w / 2) / tan(to_radian((s->cam.fov / 2)));
