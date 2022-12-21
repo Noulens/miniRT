@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 14:31:42 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 14:34:51 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 20:04:03 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ float   ft_atof(const char *str)
     nbr = (float)ft_atoi(str);
     i = 0;
     sign = 1;
-    while (str[i] && str[i] != '.' && str[i + 1] != ',')
+    while (str[i] && str[i] != '.')
     {
         if (str[i] == '-')
             sign = -1;

@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 17:12:29 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/21 16:05:14 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 20:08:30 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_scene	scn;
+	t_scene		scn;
 
 	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
 	{

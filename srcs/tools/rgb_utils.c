@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 11:56:01 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 12:47:38 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 18:30:34 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_trgb(int t, int r, int g, int b)
 
 int	get_t(int trgb)
 {
-	return ((trgb >> 24) & 0xFF);
+	return ((trgb >> 24) & 0xff);
 }
 
 int	get_r(int trgb)

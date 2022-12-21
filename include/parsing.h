@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:58:19 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 17:17:40 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 20:08:41 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 # include "libft.h"
 # include "colors.h"
 # include "math_func.h"
-
-# define FAIL 1
-# define SUCCESS 0
+# include "tools.h"
 
 typedef enum e_obj
 {
@@ -69,8 +67,8 @@ typedef struct s_scene
 	int			win_h;
 	float		image_ratio;
 	int			num_objects_in_scene;
-	t_light		*light;
-	t_alight	*alight;
+	t_light		light;
+	t_alight	alight;
 	t_object	*objects;
 	t_cam		cam;
 	int			bg_color;
@@ -78,8 +76,8 @@ typedef struct s_scene
 
 int rt_name_checker(char *path);
 int parse(t_scene *scn, char *str);
-int get_infos_a(char *line, t_scene scn);
-int get_infos_c(char *line, t_scene scn);
-int get_infos_l(char *line, t_scene scn);
+int get_infos_a(char *line, t_scene *scn);
+int get_infos_c(char *line, t_scene *scn);
+int get_infos_l(char *line, t_scene *scn);
 
 #endif
