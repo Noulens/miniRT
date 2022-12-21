@@ -24,23 +24,18 @@ MLX_PATH	=	mlx_linux/
 
 BUILDIR		=	build
 
-SRCS_DIR	=	init/		\
-				destroy/	\
-				math/		\
-				interaction/\
-				render/		\
-				parsing/	\
+SRCS_DIR	=	$(sort $(dir $(wildcard ./srcs/*/)))
 
-SRCS		=								main.c				\
-				$(addprefix parsing/,		parser.c)			\
-				$(addprefix init/,			init.c)				\
-				$(addprefix destroy/,		des_mlx.c)			\
-				$(addprefix math/,			vector3_simple.c	\
-											vector3.c			\
-											matrix4.c			\
-											math_utils.c)		\
-				$(addprefix interaction/,	interaction.c)		\
-				$(addprefix render/,		render.c)			\
+SRCS		=									main.c				\
+				$(addprefix srcs/parsing/,		parser.c)			\
+				$(addprefix srcs/init/,			init.c)				\
+				$(addprefix srcs/destroy/,		des_mlx.c)			\
+				$(addprefix srcs/math/,			vector3_simple.c	\
+												vector3.c			\
+												matrix4.c			\
+												math_utils.c)		\
+				$(addprefix srcs/interaction/,	interaction.c)		\
+				$(addprefix srcs/render/,		render.c)			\
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
@@ -49,9 +44,6 @@ LDFLAGS		=	$(LIB_PATH)libft.a -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -Imlx_lin
 
 # Run 'make re MODE=fsanitize' to run fsanitize.
 MODE	= none
-ifeq ($(MODE), fsanitize)
-	CFLAGS	+= -fsanitize=thread -g3
-endif
 
 CC			=	cc
 

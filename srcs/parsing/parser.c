@@ -35,3 +35,5 @@ int	rt_name_checker(char *path)
 		ft_fprintf(2, RED"Usage : ./miniRT <filename.rt>\n"RESET);
 	return (map);
 }
+
+
