@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:58:53 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 20:13:38 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 22:33:49 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 	static int	nbc;
 	static int	nbl;
 
-	if (nba > 1 || nbc > 1 || nbl > 1)
-		return (FAIL);
 	if (chr == 'A')
 	{
 		++nba;
@@ -53,9 +51,11 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 		++nbl;
 		return (get_infos_l(++line, scn));
 	}
-	else
-		if (nba + nbl + nbc != 3)
-			return (ft_fprintf(2, RED "element missing\n" RESET), 1);
+	else if (chr == 'X')
+	{
+		if (nba != 1 /*|| nbl != 1 || nbc != 1*/)
+			return (ft_fprintf(2, RED "data missing or in excess\n" RESET), 1);
+	}
 	return(SUCCESS);
 }
 
@@ -69,13 +69,21 @@ static int	get_obj_attribute(char *line, t_scene *scn)
 static int	get_infos(char *line, t_scene *scn)
 {
 	while (*line == ' ')
+	{
 		++line;
-	if (ft_cmpchr(line, "A", ' ') || ft_cmpchr(line, "C", ' ')
-		|| ft_cmpchr(line, "L", ' '))
+	}
+	if (*line == '\0' || *line == '\n')
+		return (0);
+	else if (!ft_strncmp(line, "A", 1) || !ft_strncmp(line, "C", 1)
+		|| !ft_strncmp(line, "L", 1))
+	{
 		return(get_space_attribute(line, scn, *line));
-	else if (ft_cmpchr(line, "pl", ' ') || ft_cmpchr(line, "cy", ' ')
-		|| ft_cmpchr(line, "sp", ' '))
+	}
+	else if (!ft_strncmp(line, "pl", 2) || !ft_strncmp(line, "cy", 2)
+		|| !ft_strncmp(line, "sp", 2))
+	{
 		return(get_obj_attribute(line, scn));
+	}
 	else
 		return (ft_fprintf(2, RED"unknown element in .rt file\n"RESET), 1);
 }
@@ -99,5 +107,7 @@ int	parse(t_scene *scn, char *str)
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (get_space_attribute(NULL, NULL, 'X') == 1)
+		return (ft_fprintf(2, RED"duplicate in .rt file\n"RESET), 1);
 	return (ok);
 }

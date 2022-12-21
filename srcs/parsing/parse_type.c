@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:12:13 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 20:20:14 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 22:42:32 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,40 +28,39 @@ int	check_rgb(char *str)
 		i++;
 	if (str[i] != ',' || i > 7)
 		return (ft_fprintf(2, "l2 Error in A data: rgb not valid"), 1);
-	++i;
-	if (!ft_isdigit(str[i]))
+	if (!ft_isdigit(str[++i]))
 		return (ft_fprintf(2, "l3 Error in A data: rgb not valid"), 1);
 	while (ft_isdigit(str[i]))
 		i++;
 	if (i > 11)
 		return (ft_fprintf(2, "l4 Error in A data: rgb not valid"), 1);
+	while (str[++i] != '\0')
+		if (!ft_isspace(str[i]))
+			return (ft_fprintf(2, "l5 Error in A data: rgb not valid"), 1);
 	return (SUCCESS);
 }
 
 int	atorgb(char *line, t_scene *scn)
 {
 	int	i;
-	int	b;
 	int	r;
 	int	g;
+	int	b;
 
 	i = 0;
 	while (line[i] == ' ')
 		++i;
 	r = ft_atoi(line + i);
-	ft_printf("%d\n", r);
 	if (r > 255 || r < 0)
 		return (ft_fprintf(2, "Error in A data: rgb not in range"), 1);
 	while (line[i] != ',')
 		++i;
-	g = ft_atoi(line + i);
-	ft_printf("%d\n", r);
+	g = ft_atoi(line + ++i);
 	if (g > 255 || g < 0)
 		return (ft_fprintf(2, "Error in A data: rgb not in range"), 1);
 	while (line[i] != ',')
 		++i;
-	b = ft_atoi(line + i);
-	ft_printf("%d\n", r);
+	b = ft_atoi(line + ++i);
 	if (b > 255 || b < 0)
 		return (ft_fprintf(2, "Error in A data: rgb not in range"), 1);
 	scn->alight.color = ft_trgb(255, r, g, b);
