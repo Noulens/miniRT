@@ -15,8 +15,6 @@
 
 # include "libft.h"
 # include "colors.h"
-# include <stdlib.h>
-# include <unistd.h>
 
 int	rt_name_checker(char *path);
 

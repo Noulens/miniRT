@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+         #
+#    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/12/20 15:30:27 by hyunah           ###   ########.fr        #
+#    Updated: 2022/12/21 12:57:13 by waxxy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS		=									main.c				\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c)		\
 					$(addprefix render/,		render.c)			\
+					$(addprefix tools/,			rgb_utils.c)		\
 				)
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)

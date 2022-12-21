@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 17:19:40 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/20 15:37:56 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/21 13:16:51 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 # include "mlx.h"
 # include "libft.h"
 # include "colors.h"
-# include "init.h"
 # include "destroy.h"
-# include "math_func.h"
-# include "scene.h"
+# include "init.h"
 # include "interaction.h"
+# include "math_func.h"
 # include "parsing.h"
-# include <stdlib.h>
-# include <unistd.h>
+# include "render.h"
+# include "tools.h"
 
 #endif

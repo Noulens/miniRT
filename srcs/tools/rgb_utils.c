@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interaction.h                                      :+:      :+:    :+:   */
+/*   rgb_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 12:54:45 by waxxy            ###   ########.fr       */
+/*   Created: 2022/12/21 11:56:01 by waxxy             #+#    #+#             */
+/*   Updated: 2022/12/21 12:47:38 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERACTION_H
-# define INTERACTION_H
-# define KEY_ESC 65307
-# define KEY_A 97
+#include "tools.h"
 
-# include "init.h"
-# include "destroy.h"
+int	ft_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
-int	ft_closebutton(void *param);
-int	ft_key(int keycode, void *img);
+int	get_t(int trgb)
+{
+	return ((trgb >> 24) & 0xFF);
+}
 
-#endif
+int	get_r(int trgb)
+{
+	return ((trgb >> 16) & 0xff);
+}
+
+int	get_g(int trgb)
+{
+	return ((trgb >> 8) & 0xff);
+}
+
+int	get_b(int trgb)
+{
+	return (trgb & 0xff);
+}

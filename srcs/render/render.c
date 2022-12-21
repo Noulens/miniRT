@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/20 21:30:34 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/21 12:40:24 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "render.h"
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
@@ -102,4 +102,25 @@ int	render(t_img *img, t_scene *scene)
 	}
 	free(framebuffer);
 	return (0);
+}
+
+void win_launcher(void)
+{
+	t_scene scene;
+	t_img img;
+
+	img.mlx = mlx_init();
+	if (!img.mlx)
+		exit(EXIT_FAILURE);
+	scene = scene_init(&scene);
+	img.win = mlx_new_window(img.mlx, scene.win_w, scene.win_h, "miniRT");
+	img.img = mlx_new_image(img.mlx, scene.win_w, scene.win_h);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
+								 &img.endian);
+	// mlx_key_hook(win, ft_key, &img);
+	render(&img, &scene);
+	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
+	mlx_hook(img.win, 17, 1L << 17, ft_closebutton, &img);
+	mlx_hook(img.win, 2, 1L << 0, ft_key, &img);
+	mlx_loop(img.mlx);
 }

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interaction.h                                      :+:      :+:    :+:   */
+/*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 12:54:45 by waxxy            ###   ########.fr       */
+/*   Created: 2022/12/21 12:44:04 by waxxy             #+#    #+#             */
+/*   Updated: 2022/12/21 12:47:55 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERACTION_H
-# define INTERACTION_H
-# define KEY_ESC 65307
-# define KEY_A 97
+#ifndef TOOLS_H
+# define TOOLS_H
 
-# include "init.h"
-# include "destroy.h"
-
-int	ft_closebutton(void *param);
-int	ft_key(int keycode, void *img);
+int ft_trgb(int t, int r, int g, int b);
+int get_t(int trgb);
+int get_r(int trgb);
+int get_g(int trgb);
+int get_b(int trgb);
 
 #endif
