@@ -37,7 +37,7 @@ SRCS		=									main.c				\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c)		\
 					$(addprefix render/,		render.c)			\
-					)
+				)
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
