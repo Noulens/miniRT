@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:48:59 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/20 17:58:05 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/20 21:40:10 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,5 @@ double		to_degree(double radian);
 double		to_radian(double degree);
 t_matrix4	init_matrix(t_matrix4 *new);
 t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r);
-t_matrix4	matrix_rotateX(double x);
-t_matrix4	matrix_rotateY(double y);
-t_matrix4	matrix_rotateZ(double z);
-t_matrix4	matrix_scale(t_vec3 s);
-t_matrix4	matrix_translate(t_vec3 t);
 
 #endif

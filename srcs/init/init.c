@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/20 21:35:50 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/20 21:39:23 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	create_trgb(int t, int r, int g, int b)
 t_cam	cam_init(t_scene *s)
 {
 	t_cam	*cam;
-	double	tmp;
+	double	fov_w_half_len;
 
 	cam = &s->cam;
 	cam->pos = set_vec(0, 0, 0);
 	cam->orientation = set_vec(0, 0, -1);
 	cam->fov_w = 70;
-	tmp = tan(to_radian((double)cam->fov_w / 2));
-	cam->fov_h_len = 2 * tmp / s->image_ratio;
+	fov_w_half_len = tan(to_radian((double)cam->fov_w / 2));
+	cam->fov_h_len = 2 * fov_w_half_len / s->image_ratio;
 	cam->fov_h = (int)to_degree(atan(cam->fov_h_len / 2)) * 2;
 	// we would need this to do translation. codes are written but never tested yet.
 	// cam->translate = set_vec(0, 0, 0);
