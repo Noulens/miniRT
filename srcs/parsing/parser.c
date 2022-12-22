@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:58:53 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 22:33:49 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/22 22:35:39 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 	}
 	else if (chr == 'X')
 	{
-		if (nba != 1 /*|| nbl != 1 || nbc != 1*/)
+		if (nba != 1 || nbl != 1 /*|| nbc != 1*/)
 			return (ft_fprintf(2, RED "data missing or in excess\n" RESET), 1);
 	}
 	return(SUCCESS);

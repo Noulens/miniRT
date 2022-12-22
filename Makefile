@@ -6,7 +6,7 @@
 #    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/12/21 19:56:52 by waxxy            ###   ########.fr        #
+#    Updated: 2022/12/22 19:47:43 by waxxy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ SRCS_DIR	=	$(sort $(dir $(wildcard ./srcs/*/)))
 SRCS		=	$(addprefix srcs/,									\
 												main.c				\
 					$(addprefix parsing/,		parser.c			\
-												parse_type.c)		\
+												parse_type.c		\
+												parser_utils.c		\
+												parser_utils2.c)	\
 					$(addprefix init/,			init.c)				\
 					$(addprefix destroy/,		des_mlx.c)			\
 					$(addprefix math/,			vector3_simple.c	\

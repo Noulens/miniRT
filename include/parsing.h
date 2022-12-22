@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:58:19 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 20:08:41 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/22 22:13:13 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,18 @@ typedef struct s_scene
 	int			bg_color;
 }	t_scene;
 
-int rt_name_checker(char *path);
-int parse(t_scene *scn, char *str);
-int get_infos_a(char *line, t_scene *scn);
-int get_infos_c(char *line, t_scene *scn);
-int get_infos_l(char *line, t_scene *scn);
+int		rt_name_checker(char *path);
+int		parse(t_scene *scn, char *str);
+int		get_infos_a(char *line, t_scene *scn);
+int		get_infos_c(char *line, t_scene *scn);
+int		get_infos_l(char *line, t_scene *scn);
+void	init_iter(int *i, int *commas);
+void	inc_iter(int *i, int *commas);
+void	skip_spaces(int *i, char *line);
+int		check_decimal(int *i, char *line);
+int		check_int_part(int *i, int *commas, char *line);
+int		check_fformat(int *i, int *commas, char *line, t_scene *scn);
+int		check_float_nb(int *i, char *line);
+int		count_element(char *line);
 
 #endif

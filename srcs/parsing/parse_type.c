@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:12:13 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/21 22:42:32 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/22 23:00:11 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_rgb(char *str)
 	return (SUCCESS);
 }
 
-int	atorgb(char *line, t_scene *scn)
+int	atorgb(char *line)
 {
 	int	i;
 	int	r;
@@ -52,19 +52,18 @@ int	atorgb(char *line, t_scene *scn)
 		++i;
 	r = ft_atoi(line + i);
 	if (r > 255 || r < 0)
-		return (ft_fprintf(2, "Error in A data: rgb not in range"), 1);
+		return (ft_fprintf(2, "Error in A data: rgb not in range"), -1);
 	while (line[i] != ',')
 		++i;
 	g = ft_atoi(line + ++i);
 	if (g > 255 || g < 0)
-		return (ft_fprintf(2, "Error in A data: rgb not in range"), 1);
+		return (ft_fprintf(2, "Error in A data: rgb not in range"), -1);
 	while (line[i] != ',')
 		++i;
 	b = ft_atoi(line + ++i);
 	if (b > 255 || b < 0)
-		return (ft_fprintf(2, "Error in A data: rgb not in range"), 1);
-	scn->alight.color = ft_trgb(255, r, g, b);
-	return (0);
+		return (ft_fprintf(2, "Error in A data: rgb not in range"), -1);
+	return (ft_trgb(255, r, g, b));
 }
 
 int	get_infos_a(char *line, t_scene *scn)
@@ -72,21 +71,17 @@ int	get_infos_a(char *line, t_scene *scn)
 	int	i;
 
 	i = 0;
-	while (line[i] != '.')
-	{
-		if (!ft_isdigit(line[i]) && line[i] != ' ')
-			return (ft_fprintf(2, "Error in A data: check ratio"), 1);
-		++i;
-	}
-	while (line[++i] != ' ')
-		if (!ft_isdigit(line[i]))
-			return (ft_fprintf(2, "Error in A data: check ratio"), 1);
+	if (count_element(line) != 2)
+		return (ft_fprintf(2, "Error in A data: too much data"), 1);
+	if (check_float_nb(&i, line))
+		return (1);
 	scn->alight.al = ft_atof(line);
 	if (float_range_checker(scn->alight.al, 0.0f, 1.0f, TRUE) == FALSE)
 		return (ft_fprintf(2, "Error in A data: value not in [0;1]"), 1);
 	if (check_rgb(line + i) == SUCCESS)
 	{
-		if (atorgb(line + i, scn))
+		scn->alight.color = atorgb(line + i);
+		if (scn->alight.color == -1)
 			return (FAIL);
 	}
 	else
@@ -104,8 +99,28 @@ int get_infos_c(char *line, t_scene *scn)
 
 int get_infos_l(char *line, t_scene *scn)
 {
-	(void)scn;
-	while (*line == ' ')
-		++line;
+	int	i;
+	int	j;
+	int	commas;
+	int	res;
+
+	if (count_element(line) != 3)
+		return (ft_fprintf(2, "Error in L data: too much data"), 1);
+	if (check_fformat(&i, &commas, line, scn))
+		return (1);
+	j = i;
+	if (check_float_nb(&i, line))
+		return (FAIL);
+	scn->light.brightness = ft_atof(line + j);
+	if (float_range_checker(scn->light.brightness, 0.0f, 1.0f, TRUE) == FALSE)
+		return (ft_fprintf(2, "Error in L data: value not in [0;1]"), 1);
+	if (check_rgb(line + i) == SUCCESS)
+	{
+		scn->light.color = atorgb(line + i);
+		if (scn->light.color == -1)
+			return (FAIL);
+	}
+	else
+		return (FAIL);
 	return (SUCCESS);
 }
