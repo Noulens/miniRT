@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 17:12:29 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/21 20:08:30 by waxxy            ###   ########.fr       */
+/*   Created: 2022/12/21 12:44:04 by waxxy             #+#    #+#             */
+/*   Updated: 2022/12/21 19:03:49 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef TOOLS_H
+# define TOOLS_H
 
-int	main(int argc, char **argv)
-{
-	t_scene		scn;
+# define FAIL 1
+# define SUCCESS 0
+# define TRUE 1
+# define FALSE 0
+# include <math.h>
 
-	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
-	{
-		win_launcher();
-	}
-	else
-		exit(EXIT_FAILURE);
-	return (0);
-}
+int ft_trgb(int t, int r, int g, int b);
+int get_t(int trgb);
+int get_r(int trgb);
+int get_g(int trgb);
+int get_b(int trgb);
+int int_range_checker(int val, int lower, int upper, int include);
+int float_range_checker(float val, float lower, float upper, int include);
+
+#endif

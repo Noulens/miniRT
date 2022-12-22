@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 17:12:29 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/21 20:08:30 by waxxy            ###   ########.fr       */
+/*   Created: 2022/12/21 14:34:14 by waxxy             #+#    #+#             */
+/*   Updated: 2022/12/21 14:34:44 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+double  ft_atod(const char *str)
 {
-	t_scene		scn;
+    double  nbr;
+    double  exponent;
+    int     i;
 
-	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
-	{
-		win_launcher();
-	}
-	else
-		exit(EXIT_FAILURE);
-	return (0);
+    nbr = (double)ft_atoi(str);
+    i = 0;
+    while (str[i] && str[i] != '.')
+        i++;
+    exponent = 0.1;
+    if (str[i])
+        i++;
+    while (ft_isdigit(str[i]))
+    {
+        nbr += (str[i] - '0') * exponent;
+        exponent *= 0.1;
+        i++;
+    }
+    return (nbr);
 }

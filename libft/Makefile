@@ -90,6 +90,8 @@ SRCS		=	ft_isalpha.c\
 				ft_fdi.c\
 				ft_fxupx.c\
 				ft_fprintf.c\
+				ft_atof.c\
+				ft_atod.c
 
 
 OBJS		=	${SRCS:.c=.o}

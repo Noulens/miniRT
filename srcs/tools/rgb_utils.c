@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector3_simple.c                                   :+:      :+:    :+:   */
+/*   rgb_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 07:16:47 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 15:03:20 by waxxy            ###   ########.fr       */
+/*   Created: 2022/12/21 11:56:01 by waxxy             #+#    #+#             */
+/*   Updated: 2022/12/21 18:30:34 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math_func.h"
+#include "tools.h"
 
-t_vec3	set_vec(float x, float y, float z)
+int	ft_trgb(int t, int r, int g, int b)
 {
-	t_vec3	new;
-
-	new.x = x;
-	new.y = y;
-	new.z = z;
-	return (new);
+	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-t_vec3	vec_add(t_vec3 a, t_vec3 b)
+int	get_t(int trgb)
 {
-	return (set_vec(a.x + b.x, a.y + b.y, a.z + b.z));
+	return ((trgb >> 24) & 0xff);
 }
 
-t_vec3	vec_sub(t_vec3 a, t_vec3 b)
+int	get_r(int trgb)
 {
-	return (set_vec(a.x - b.x, a.y - b.y, a.z - b.z));
+	return ((trgb >> 16) & 0xff);
 }
 
-t_vec3	vec_mult(t_vec3 a, float scale)
+int	get_g(int trgb)
 {
-	return (set_vec(a.x * scale, a.y * scale, a.z * scale));
+	return ((trgb >> 8) & 0xff);
+}
+
+int	get_b(int trgb)
+{
+	return (trgb & 0xff);
 }

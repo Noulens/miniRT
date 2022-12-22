@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:05:08 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/10/10 14:43:54 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/21 14:35:11 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4096
-# endif 
+# endif
 
 typedef struct s_list
 {
@@ -113,5 +113,7 @@ int			ft_isspace(char c);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_cmpchr(const char *s1, const char *s2, char c);
 char		*ft_strjoinsep(char const *s1, char const *s2, char *sep);
+float		ft_atof(const char *str);
+double		ft_atod(const char *str);
 
 #endif

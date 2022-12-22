@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 20:18:53 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/20 15:38:25 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/21 16:02:48 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,16 @@
 # include "mlx.h"
 # include "libft.h"
 # include "colors.h"
-# include "scene.h"
+# include "tools.h"
+# include "math_func.h"
+# include "interaction.h"
+# include "parsing.h"
+
+typedef struct s_ray
+{
+	t_vec3	origin;
+	t_vec3	dir;
+}	t_ray;
 
 typedef struct s_data
 {
@@ -30,8 +39,6 @@ typedef struct s_data
 	t_scene	*scene;
 }	t_img;
 
-int		rt_name_checker(char *path);
-void	win_launcher(void);
-int		render(t_img *img, t_scene *scene);
+t_scene scene_init(t_scene *s);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/20 21:41:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/22 08:51:03 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "render.h"
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {

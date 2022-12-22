@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+         #
+#    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/12/20 15:30:27 by hyunah           ###   ########.fr        #
+#    Updated: 2022/12/21 19:56:52 by waxxy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,32 +24,29 @@ MLX_PATH	=	mlx_linux/
 
 BUILDIR		=	build
 
-SRCS_DIR	=	init/		\
-				destroy/	\
-				math/	\
-				interaction/ \
-				render \
+SRCS_DIR	=	$(sort $(dir $(wildcard ./srcs/*/)))
 
-SRCS		=							main.c		\
-				$(addprefix init/,			init.c)		\
-				$(addprefix destroy/,		des_mlx.c)	\
-				$(addprefix math/,			vector3_simple.c) \
-				$(addprefix math/,			vector3.c)	\
-				$(addprefix math/,			matrix4.c)	\
-				$(addprefix math/,			math_utils.c)	\
-				$(addprefix interaction/,	interaction.c)	\
-				$(addprefix render/,		render.c)	\
+SRCS		=	$(addprefix srcs/,									\
+												main.c				\
+					$(addprefix parsing/,		parser.c			\
+												parse_type.c)		\
+					$(addprefix init/,			init.c)				\
+					$(addprefix destroy/,		des_mlx.c)			\
+					$(addprefix math/,			vector3_simple.c	\
+												vector3.c			\
+												matrix4.c			\
+												math_utils.c)		\
+					$(addprefix interaction/,	interaction.c)		\
+					$(addprefix render/,		render.c			\
+												windows_rend.c)		\
+					$(addprefix tools/,			rgb_utils.c			\
+												range_check.c)		\
+				)
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
 CFLAGS		=	-Wall -Wextra -Werror -g -O3
 LDFLAGS		=	$(LIB_PATH)libft.a -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-
-# Run 'make re MODE=fsanitize' to run fsanitize.
-MODE	= none
-ifeq ($(MODE), fsanitize)
-	CFLAGS	+= -fsanitize=thread -g3
-endif
 
 CC			=	cc
 
@@ -131,8 +128,8 @@ fclean:			clean
 re:				fclean
 				@$(MAKE) -s all
 
-lc:			all
-				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT
+lc:				all
+				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT ./scenes/basic.rt
 
 norm:
 			norminette ./srcs ./libft ./include

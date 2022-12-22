@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 07:23:37 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/20 15:29:42 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/21 15:03:09 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	matrix_print(t_matrix4 n)
 void	matrix_vec_mult(t_matrix4 new, t_vec3 *vector)
 {
 	t_vec3	v;
-	double	forth;
+	float	forth;
 
 	(void) forth;
 	v = *vector;
