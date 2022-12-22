@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 13:32:15 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/22 08:51:03 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	pixel_camera.y = pixel_screenspace.y * scene->cam.fov_h_len;
 	pixel_camera.z = -1;
 	ray.origin = scene->cam.pos;
+	// when camera is moving, has to do these calculations.
 	// matrix_transformation(); one for ray.origin
 	// matrix_transformation(); other for ray.dir
 	ray.dir = vec_sub(pixel_camera, ray.origin);

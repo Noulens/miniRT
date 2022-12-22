@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_func.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:48:59 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 15:02:40 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/22 08:51:49 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,5 @@ float		to_degree(float radian);
 float		to_radian(float degree);
 t_matrix4	init_matrix(t_matrix4 *new);
 t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r);
-t_matrix4	matrix_rotateX(float x);
-t_matrix4	matrix_rotateY(float y);
-t_matrix4	matrix_rotateZ(float z);
-t_matrix4	matrix_scale(t_vec3 s);
-t_matrix4	matrix_translate(t_vec3 t);
 
 #endif
