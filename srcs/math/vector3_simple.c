@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3_simple.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 07:16:47 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 15:03:20 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/22 09:24:44 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec3	vec_sub(t_vec3 a, t_vec3 b)
 	return (set_vec(a.x - b.x, a.y - b.y, a.z - b.z));
 }
 
-t_vec3	vec_mult(t_vec3 a, float scale)
+t_vec3	vec_mult(t_vec3 a, float c)
 {
-	return (set_vec(a.x * scale, a.y * scale, a.z * scale));
+	return (set_vec(a.x * c, a.y * c, a.z * c));
 }

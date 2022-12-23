@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/22 08:51:03 by hyunah           ###   ########.fr       */
+/*   Updated: 2022/12/23 17:18:32 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,73 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	return (ray);
 }
 
-int	interset(t_ray ray, t_scene *scene)
+void	ft_swap(float *a, float *b)
 {
-	(void) ray;
+	float	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+int	intersect(t_ray ray, t_scene *scene)
+{
+	float	t0;
+	float	t1;
+	float	tca;
+	float	thc;
+	float	d2;
+	float	sphere_radius;
+	t_vec3	sphere_pos;
+	t_vec3	l;
+
+	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
+	////////varaibles to be replaced from parsing.///////
 	(void) scene;
+	sphere_radius = 0.2;
+	sphere_pos = set_vec(0, 0, -1);
+	////////////////////////////////////////////////////
+
+	l = vec_sub(sphere_pos, ray.origin);
+	tca = vec_dot(l, ray.dir);
+	if (tca < 0)
+		return (0);
+	d2 = vec_dot(l, l) - tca * tca;
+	if (d2 > sphere_radius)
+		return (0);
+	thc = sqrt(sphere_radius - d2);
+	t0 = tca - thc;
+	t1 = tca + thc;
+	if (t0 > t1)
+		ft_swap(&t0, &t1);
+	if (t0 < 0)
+	{
+		t0 = t1;
+		if (t0 < 0)
+			return (0);
+	}
 	return (1);
 }
 
-void	compute_pixel(t_scene *scene, t_vec3 *framebuffer, int i, int j)
+void	compute_pixel(t_img *img, int i, int j)
 {
-	// int		k;
 	t_ray	ray;
 
-	(void) framebuffer;
+	ray = build_camera_ray(img->scene, i, j);
+	if (intersect(ray, img->scene))
+	{
+		// do complex shading here but for now basic (just constant color)
+		my_mlx_pixel_put(img, i, j, ft_trgb(255, 255, 0, 0));
+	}
+	else
+		my_mlx_pixel_put(img, i, j, img->scene->bg_color);
+	// when we have several objects, we need to iteracte throu all objects.
+	// int		k;
 	// k = -1;
-	ray = build_camera_ray(scene, i, j);
-	(void) ray;
 	// while (++k < scene->num_objects_in_scene)
 	// {
 		// ray = build_camera_ray(i, j);
-		// if (interset(ray, scene))
+		// if (intersect(ray, scene))
 		// {
 			// do complex shading here but for now basic (just constant color)
 			// framebuffer[j * scene->win_w + i] = scene->objects[k].color;
@@ -80,27 +127,20 @@ void	compute_pixel(t_scene *scene, t_vec3 *framebuffer, int i, int j)
 	// }
 }
 
-int	render(t_img *img, t_scene *scene)
+int	render(t_img *img)
 {
 	int		i;
 	int		j;
-	t_vec3	*framebuffer;
 
 	i = -1;
 	j = -1;
-	(void) img;
-	framebuffer = malloc(sizeof(t_vec3) * scene->win_h * scene->win_w);
-	if (!framebuffer)
-		return (EXIT_FAILURE);
-	while (++j < scene->win_h)
+	while (++j < img->scene->win_h)
 	{
 		i = -1;
-		while (++i < scene->win_w)
+		while (++i < img->scene->win_w)
 		{
-			compute_pixel(scene, framebuffer, i, j);
-			my_mlx_pixel_put(img, i, j, scene->bg_color); // test color red
+			compute_pixel(img, i, j);
 		}
 	}
-	free(framebuffer);
 	return (0);
 }
