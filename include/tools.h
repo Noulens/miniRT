@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:44:04 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/22 22:58:18 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/23 12:43:26 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define TRUE 1
 # define FALSE 0
 # include <math.h>
+# include "libft.h"
 
 int ft_trgb(int t, int r, int g, int b);
 int get_t(int trgb);
@@ -26,5 +27,6 @@ int get_g(int trgb);
 int get_b(int trgb);
 int int_range_checker(int val, int lower, int upper, int include);
 int float_range_checker(float val, float lower, float upper, int include);
+int	rgb_range_checker(char *line);
 
 #endif

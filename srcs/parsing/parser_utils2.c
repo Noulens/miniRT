@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 19:44:38 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/22 22:12:18 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/23 12:30:09 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_element(char *line)
 	word_count = 0;
 	while (line && line[i])
 	{
-		if (line[i] == ' ')
+		if (ft_isspace(line[i]))
 		{
 			word_flag = 0;
 			++i;

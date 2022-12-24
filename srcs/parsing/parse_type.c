@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:12:13 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/22 23:00:11 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/23 12:43:03 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_rgb(char *str)
 	while (str[++i] != '\0')
 		if (!ft_isspace(str[i]))
 			return (ft_fprintf(2, "l5 Error in A data: rgb not valid"), 1);
-	return (SUCCESS);
+	return (rgb_range_checker(str));
 }
 
 int	atorgb(char *line)
@@ -51,18 +51,12 @@ int	atorgb(char *line)
 	while (line[i] == ' ')
 		++i;
 	r = ft_atoi(line + i);
-	if (r > 255 || r < 0)
-		return (ft_fprintf(2, "Error in A data: rgb not in range"), -1);
 	while (line[i] != ',')
 		++i;
 	g = ft_atoi(line + ++i);
-	if (g > 255 || g < 0)
-		return (ft_fprintf(2, "Error in A data: rgb not in range"), -1);
 	while (line[i] != ',')
 		++i;
 	b = ft_atoi(line + ++i);
-	if (b > 255 || b < 0)
-		return (ft_fprintf(2, "Error in A data: rgb not in range"), -1);
 	return (ft_trgb(255, r, g, b));
 }
 
@@ -81,8 +75,6 @@ int	get_infos_a(char *line, t_scene *scn)
 	if (check_rgb(line + i) == SUCCESS)
 	{
 		scn->alight.color = atorgb(line + i);
-		if (scn->alight.color == -1)
-			return (FAIL);
 	}
 	else
 		return (FAIL);
@@ -102,7 +94,6 @@ int get_infos_l(char *line, t_scene *scn)
 	int	i;
 	int	j;
 	int	commas;
-	int	res;
 
 	if (count_element(line) != 3)
 		return (ft_fprintf(2, "Error in L data: too much data"), 1);
@@ -117,8 +108,7 @@ int get_infos_l(char *line, t_scene *scn)
 	if (check_rgb(line + i) == SUCCESS)
 	{
 		scn->light.color = atorgb(line + i);
-		if (scn->light.color == -1)
-			return (FAIL);
+		printf("%u", UINT_MAX);
 	}
 	else
 		return (FAIL);
