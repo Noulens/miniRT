@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 20:18:53 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/21 16:02:48 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/23 17:13:29 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ typedef struct s_data
 	t_scene	*scene;
 }	t_img;
 
-t_scene scene_init(t_scene *s);
+t_scene *scene_init(t_scene *s);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 07:23:37 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 15:03:09 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/23 16:43:49 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,26 @@ void	matrix_vec_mult(t_matrix4 new, t_vec3 *vector)
 t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r)
 {
 	t_matrix4	transform;
-
+ 
+	// calculation order to be tested.
+	// UPDATE : it doesn't work. Feel free to rewrite.
 	init_matrix(&transform);
-	src->x += t.x;
-	src->y += t.y;
-	src->z += t.z;
 	transform.m[0][0] = cos(to_radian(r.y)) * cos(to_radian(r.z));
 	transform.m[0][1] = sin(to_radian(r.x)) * sin(to_radian(r.y)) * \
 	cos(to_radian(r.z)) - cos(to_radian(r.x)) * sin(to_radian(r.z));
 	transform.m[0][2] = cos(to_radian(r.x)) * sin(to_radian(r.y)) * \
 	cos(to_radian(r.z)) + sin(to_radian(r.x)) * sin((r.z));
+	transform.m[0][3] = t.x;
 	transform.m[1][0] = cos(to_radian(r.y)) * sin(to_radian(r.z));
 	transform.m[1][1] = sin(to_radian(r.x)) * sin(to_radian(r.y)) * \
 	sin(to_radian(r.z)) + cos(to_radian(r.x)) * cos(to_radian(r.z));
 	transform.m[1][2] = cos(to_radian(r.x)) * sin(to_radian(r.y)) * \
 	sin(to_radian(r.z)) - sin(to_radian(r.x)) * cos(to_radian(r.z));
+	transform.m[1][3] = t.y;
 	transform.m[2][0] = -sin(to_radian(r.y));
 	transform.m[2][1] = sin(to_radian(r.x)) * cos(to_radian(r.y));
 	transform.m[2][2] = cos(to_radian(r.x)) * cos(to_radian(r.y));
+	transform.m[2][3] = t.z;
 	matrix_vec_mult(transform, src);
 	return (transform);
 }

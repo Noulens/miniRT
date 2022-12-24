@@ -6,7 +6,7 @@
 /*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:12:13 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/23 12:43:03 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/24 10:22:33 by waxxy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int get_infos_l(char *line, t_scene *scn)
 	int	j;
 	int	commas;
 
+	(void) res;
 	if (count_element(line) != 3)
 		return (ft_fprintf(2, "Error in L data: too much data"), 1);
 	if (check_fformat(&i, &commas, line, scn))

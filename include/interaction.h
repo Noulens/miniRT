@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 12:54:45 by waxxy            ###   ########.fr       */
+/*   Updated: 2022/12/23 16:49:59 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define INTERACTION_H
 # define KEY_ESC 65307
 # define KEY_A 97
+# define KEY_D 100
 
 # include "init.h"
 # include "destroy.h"
