@@ -21,7 +21,6 @@ int	main(int argc, char **argv)
 		win_launcher();
 	else
 	{
-		ft_fprintf(2, RED"Error\n"RESET);
 		exit(EXIT_FAILURE);
 	}
 	return (0);

@@ -35,7 +35,7 @@ int	check_decimal(int *i, char *line)
 	while (++*i, line[*i] != ',' && !ft_isspace(line[*i]))
 	{
 		if (!ft_isdigit(line[*i]))
-			return (ft_fprintf(2, "2 Error in L data: brightness"), 1);
+			return (ft_fprintf(2, "Error\nin L data: brightness"), 1);
 	}
 	return (0);
 }
@@ -50,7 +50,7 @@ int	check_int_part(int *i, int *commas, char *line)
 		{
 			if (line[*i] == ' ' && *commas == 2)
 				break;
-			return (ft_fprintf(2, "1 Error in L data: brightness"), 1);
+			return (ft_fprintf(2, "Error\nin L data: brightness"), 1);
 		}
 		++*i;
 	}

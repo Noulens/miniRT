@@ -26,7 +26,7 @@ int	rt_name_checker(char *path)
 	if (!ft_strnstr(path + i - 3, ".rt", 3))
 		map = 0;
 	if (!map)
-		ft_fprintf(2, RED"Usage : ./miniRT <filename.rt>\n"RESET);
+		ft_fprintf(2, RED"Error\nUsage : ./miniRT <filename.rt>\n"RESET);
 	return (map);
 }
 
@@ -54,7 +54,7 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 	else if (chr == 'X')
 	{
 		if (nba != 1 || nbl != 1 /*|| nbc != 1*/)
-			return (ft_fprintf(2, RED "data missing or in excess\n" RESET), 1);
+			return (ft_fprintf(2, RED "Error\ndata missing or in excess\n" RESET), 1);
 	}
 	return(SUCCESS);
 }
@@ -85,7 +85,7 @@ static int	get_infos(char *line, t_scene *scn)
 		return(get_obj_attribute(line, scn));
 	}
 	else
-		return (ft_fprintf(2, RED"unknown element in .rt file\n"RESET), 1);
+		return (ft_fprintf(2, RED"Error\nunknown element in .rt file\n"RESET), 1);
 }
 
 int	parse(t_scene *scn, char *str)
@@ -97,7 +97,7 @@ int	parse(t_scene *scn, char *str)
 	ok = FAIL;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		return (ft_fprintf(2, "Could not open .rt file\n"), 1);
+		return (ft_fprintf(2, "Error\nCould not open .rt file\n"), 1);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -108,6 +108,6 @@ int	parse(t_scene *scn, char *str)
 		line = get_next_line(fd);
 	}
 	if (get_space_attribute(NULL, NULL, 'X') == 1)
-		return (ft_fprintf(2, RED"duplicate in .rt file\n"RESET), 1);
+		return (ft_fprintf(2, RED"Error\nduplicate in .rt file\n"RESET), 1);
 	return (ok);
 }

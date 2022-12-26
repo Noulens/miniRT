@@ -22,21 +22,21 @@ int	check_rgb(char *str)
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] != ',' || i > 3)
-		return (ft_fprintf(2, "l1 Error in A data: rgb not valid"), 1);
+		return (ft_fprintf(2, "Error\nin A data: rgb not valid"), 1);
 	++i;
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] != ',' || i > 7)
-		return (ft_fprintf(2, "l2 Error in A data: rgb not valid"), 1);
+		return (ft_fprintf(2, "Error\nin A data: rgb not valid"), 1);
 	if (!ft_isdigit(str[++i]))
-		return (ft_fprintf(2, "l3 Error in A data: rgb not valid"), 1);
+		return (ft_fprintf(2, "Error\nin A data: rgb not valid"), 1);
 	while (ft_isdigit(str[i]))
 		i++;
 	if (i > 11)
-		return (ft_fprintf(2, "l4 Error in A data: rgb not valid"), 1);
+		return (ft_fprintf(2, "Error\nin A data: rgb not valid"), 1);
 	while (str[++i] != '\0')
 		if (!ft_isspace(str[i]))
-			return (ft_fprintf(2, "l5 Error in A data: rgb not valid"), 1);
+			return (ft_fprintf(2, "Error\nin A data: rgb not valid"), 1);
 	return (rgb_range_checker(str));
 }
 
@@ -66,12 +66,12 @@ int	get_infos_a(char *line, t_scene *scn)
 
 	i = 0;
 	if (count_element(line) != 2)
-		return (ft_fprintf(2, "Error in A data: too much data"), 1);
+		return (ft_fprintf(2, "Error\nin A data: too much data"), 1);
 	if (check_float_nb(&i, line))
 		return (1);
 	scn->alight.al = ft_atof(line);
 	if (float_range_checker(scn->alight.al, 0.0f, 1.0f, TRUE) == FALSE)
-		return (ft_fprintf(2, "Error in A data: value not in [0;1]"), 1);
+		return (ft_fprintf(2, "Error\nin A data: value not in [0;1]"), 1);
 	if (check_rgb(line + i) == SUCCESS)
 	{
 		scn->alight.color = atorgb(line + i);
@@ -96,7 +96,7 @@ int get_infos_l(char *line, t_scene *scn)
 	int	commas;
 
 	if (count_element(line) != 3)
-		return (ft_fprintf(2, "Error in L data: too much data"), 1);
+		return (ft_fprintf(2, "Error\nin L data: too much data"), 1);
 	if (check_fformat(&i, &commas, line, scn))
 		return (1);
 	get_floats(line, scn);
@@ -105,7 +105,7 @@ int get_infos_l(char *line, t_scene *scn)
 		return (FAIL);
 	scn->light.brightness = ft_atof(line + j);
 	if (float_range_checker(scn->light.brightness, 0.0f, 1.0f, TRUE) == FALSE)
-		return (ft_fprintf(2, "Error in L data: value not in [0;1]"), 1);
+		return (ft_fprintf(2, "Error\nin L data: value not in [0;1]"), 1);
 	if (check_rgb(line + i) == SUCCESS)
 		scn->light.color = atorgb(line + i);
 	else

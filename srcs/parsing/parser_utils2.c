@@ -96,13 +96,13 @@ int	check_float_nb(int *i, char *line)
 	while (line[*i] != '.')
 	{
 		if (!ft_isdigit(line[*i]) && line[*i] != ' ')
-			return (ft_fprintf(2, "Error in data: check float"), 1);
+			return (ft_fprintf(2, "Error\nin data: check float"), 1);
 		++*i;
 	}
 	while (line[++*i] != ' ')
 	{
 		if (!ft_isdigit(line[*i]))
-			return (ft_fprintf(2, "Error in data: check float"), 1);
+			return (ft_fprintf(2, "Error\nin data: check float"), 1);
 	}
 	return (0);
 }
