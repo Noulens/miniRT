@@ -105,13 +105,26 @@ int	check_float_nb(int *i, char *line)
 	while (line[*i] != '.')
 	{
 		if (!ft_isdigit(line[*i]) && line[*i] != ' ')
-			return (ft_fprintf(2, "Error\nin data: check float"), 1);
+			return (ft_fprintf(2, "Error\nin 1 data: check float"), 1);
 		++*i;
 	}
 	while (line[++*i] != ' ')
 	{
 		if (!ft_isdigit(line[*i]))
+			return (ft_fprintf(2, "Error\nin 2 data: check float"), 1);
+	}
+	return (0);
+}
+
+int check_int_nb(int *i, char *line)
+{
+	while (line[*i] == ' ')
+		++*i;
+	while (!ft_isspace(line[*i]))
+	{
+		if (!ft_isdigit(line[*i]))
 			return (ft_fprintf(2, "Error\nin data: check float"), 1);
+		++*i;
 	}
 	return (0);
 }

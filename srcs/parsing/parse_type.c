@@ -85,6 +85,7 @@ int get_infos_c(char *line, t_scene *scn)
 {
 	int	i;
 	int j;
+	int k;
 	int	commas;
 
 	if (count_element(line) != 3)
@@ -92,16 +93,23 @@ int get_infos_c(char *line, t_scene *scn)
 	if (check_fformat(&i, &commas, line, scn))
 		return (1);
 	get_floats(line, scn, 'C');
-	//printf("coord: %f, %f, %f\n", scn->cam.pos.x, scn->cam.pos.y, scn->cam.pos.z);
 	j = i;
 	if (check_fformat(&i, &commas, line + j, scn))
 		return (1);
 	if (get_floats(line + j, scn, 'c'))
 		return (FAIL);
-	//printf("orientation: %f, %f, %f\n", scn->cam.orientation.x, scn->cam.orientation.y, scn->cam.orientation.z);
-	while (*line == ' ')
+	k = i + j;
+	i = k;
+	while (*(line + k) == ' ')
 		++line;
-
+	if (check_int_nb(&k, line))
+		return (FAIL);
+	scn->cam.focal_length = ft_atof(line + i);
+	printf("%f\n", scn->cam.focal_length);
+	if (!float_range_checker(scn->cam.focal_length, 0, 180, TRUE))
+	{
+		return (ft_fprintf(2, "Error\nin focal data"), FAIL);
+	}
 	return (SUCCESS);
 }
 

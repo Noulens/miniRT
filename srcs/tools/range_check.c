@@ -64,7 +64,9 @@ int	float_range_checker(float val, float lower, float upper, int include)
 	else if (include == 1)
 	{
 		if (val >= lower && val <= upper)
+		{
 			return (TRUE);
+		}
 	}
 	return (FALSE);
 }
