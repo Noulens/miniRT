@@ -77,12 +77,12 @@ static int	get_infos(char *line, t_scene *scn)
 	else if (!ft_strncmp(line, "A", 1) || !ft_strncmp(line, "C", 1)
 		|| !ft_strncmp(line, "L", 1))
 	{
-		return(get_space_attribute(line, scn, *line));
+		return (get_space_attribute(line, scn, *line));
 	}
 	else if (!ft_strncmp(line, "pl", 2) || !ft_strncmp(line, "cy", 2)
 		|| !ft_strncmp(line, "sp", 2))
 	{
-		return(get_obj_attribute(line, scn));
+		return (get_obj_attribute(line, scn));
 	}
 	else
 		return (ft_fprintf(2, RED"Error\nunknown element in .rt file\n"RESET), 1);
