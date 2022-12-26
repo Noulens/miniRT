@@ -108,6 +108,6 @@ int	parse(t_scene *scn, char *str)
 		line = get_next_line(fd);
 	}
 	if (get_space_attribute(NULL, NULL, 'X') == 1)
-		return (ft_fprintf(2, RED"Error\nduplicate in .rt file\n"RESET), 1);
+		return (ft_fprintf(2, RED"Error\nACL format not respected\n"RESET), 1);
 	return (ok);
 }

@@ -83,9 +83,25 @@ int	get_infos_a(char *line, t_scene *scn)
 
 int get_infos_c(char *line, t_scene *scn)
 {
-	(void)scn;
+	int	i;
+	int j;
+	int	commas;
+
+	if (count_element(line) != 3)
+		return (ft_fprintf(2, "Error\nin C data"), 1);
+	if (check_fformat(&i, &commas, line, scn))
+		return (1);
+	get_floats(line, scn, 'C');
+	//printf("coord: %f, %f, %f\n", scn->cam.pos.x, scn->cam.pos.y, scn->cam.pos.z);
+	j = i;
+	if (check_fformat(&i, &commas, line + j, scn))
+		return (1);
+	if (get_floats(line + j, scn, 'c'))
+		return (FAIL);
+	//printf("orientation: %f, %f, %f\n", scn->cam.orientation.x, scn->cam.orientation.y, scn->cam.orientation.z);
 	while (*line == ' ')
 		++line;
+
 	return (SUCCESS);
 }
 
@@ -96,10 +112,10 @@ int get_infos_l(char *line, t_scene *scn)
 	int	commas;
 
 	if (count_element(line) != 3)
-		return (ft_fprintf(2, "Error\nin L data: too much data"), 1);
+		return (ft_fprintf(2, "Error\nin L data"), 1);
 	if (check_fformat(&i, &commas, line, scn))
 		return (1);
-	get_floats(line, scn);
+	get_floats(line, scn, 'L');
 	j = i;
 	if (check_float_nb(&i, line))
 		return (FAIL);

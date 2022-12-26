@@ -40,7 +40,7 @@ int	count_element(char *line)
 	return (word_count);
 }
 
-int	get_floats(char *line, t_scene *scn)
+int	get_floats(char *line, t_scene *scn, char mode)
 {
 	int		i;
 	float	x;
@@ -49,19 +49,28 @@ int	get_floats(char *line, t_scene *scn)
 
 	i = 0;
 	x = ft_atof(line);
-	while (line[i] != ' ')
+	while (line[i] != ',')
 		++i;
-	y = ft_atof(line + i);
-	while (line[i] != ' ')
+	y = ft_atof(line + ++i);
+	while (line[i] != ',')
 		++i;
-	z = ft_atof(line + i);
-	scn->light.pos = set_vec(x, y, z);
-	ft_printf("%f, %f, %f\n", scn->light.pos.x, scn->light.pos.y, scn->light.pos.z);
+	z = ft_atof(line + ++i);
+	if (mode == 'L')
+		scn->light.pos = set_vec(x, y, z);
+	else if (mode == 'C')
+		scn->cam.pos = set_vec(x, y, z);
+	else if (mode == 'c' && float_range_checker(x, -1.0f, 1.0f, TRUE)
+		&&float_range_checker(y, -1.0f, 1.0f, TRUE)
+		&& float_range_checker(z, -1.0f, 1.0f, TRUE))
+		scn->cam.orientation = set_vec(x, y, z);
+	else
+		return (1);
 	return (0);
 }
 
 int	check_fformat(int *i, int *commas, char *line, t_scene *scn)
 {
+	(void)scn;
 	init_iter(i, commas);
 	skip_spaces(i, line);
 	while (line[*i] != ' ')
@@ -86,7 +95,7 @@ int	check_fformat(int *i, int *commas, char *line, t_scene *scn)
 				++*commas;
 		}
 	}
-	return (get_floats(line, scn));
+	return (0);
 }
 
 int	check_float_nb(int *i, char *line)

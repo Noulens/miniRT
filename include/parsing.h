@@ -87,6 +87,6 @@ int		check_int_part(int *i, int *commas, char *line);
 int		check_fformat(int *i, int *commas, char *line, t_scene *scn);
 int		check_float_nb(int *i, char *line);
 int		count_element(char *line);
-int		get_floats(char *line, t_scene *scn);
+int		get_floats(char *line, t_scene *scn, char mode);
 
 #endif
