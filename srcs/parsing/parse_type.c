@@ -105,11 +105,8 @@ int get_infos_c(char *line, t_scene *scn)
 	if (check_int_nb(&k, line))
 		return (FAIL);
 	scn->cam.focal_length = ft_atof(line + i);
-	printf("%f\n", scn->cam.focal_length);
 	if (!float_range_checker(scn->cam.focal_length, 0, 180, TRUE))
-	{
 		return (ft_fprintf(2, "Error\nin focal data"), FAIL);
-	}
 	return (SUCCESS);
 }
 

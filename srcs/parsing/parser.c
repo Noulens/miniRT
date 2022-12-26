@@ -53,7 +53,7 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 	}
 	else if (chr == 'X')
 	{
-		if (nba != 1 || nbl != 1 /*|| nbc != 1*/)
+		if (nba != 1 || nbl != 1 || nbc != 1)
 			return (ft_fprintf(2, RED "Error\ndata missing or in excess\n" RESET), 1);
 	}
 	return(SUCCESS);
