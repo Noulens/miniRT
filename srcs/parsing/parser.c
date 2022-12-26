@@ -14,8 +14,8 @@
 
 int	rt_name_checker(char *path)
 {
-	int	i;
-	int	map;
+	size_t	i;
+	int		map;
 
 	map = 1;
 	if (path == NULL)

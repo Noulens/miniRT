@@ -14,14 +14,16 @@
 # define MATH_FUNC_H
 # include "math.h"
 
-typedef struct s_vec3{
+typedef struct s_vec3
+{
 	float	x;
 	float	y;
 	float	z;
 }	t_vec3;
 
 
-typedef struct s_matrix4{
+typedef struct s_matrix4
+{
 	float	m[4][4];
 }	t_matrix4;
 

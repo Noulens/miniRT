@@ -99,6 +99,7 @@ int get_infos_l(char *line, t_scene *scn)
 		return (ft_fprintf(2, "Error in L data: too much data"), 1);
 	if (check_fformat(&i, &commas, line, scn))
 		return (1);
+	get_floats(line, scn);
 	j = i;
 	if (check_float_nb(&i, line))
 		return (FAIL);
@@ -106,10 +107,7 @@ int get_infos_l(char *line, t_scene *scn)
 	if (float_range_checker(scn->light.brightness, 0.0f, 1.0f, TRUE) == FALSE)
 		return (ft_fprintf(2, "Error in L data: value not in [0;1]"), 1);
 	if (check_rgb(line + i) == SUCCESS)
-	{
 		scn->light.color = atorgb(line + i);
-		printf("%u", UINT_MAX);
-	}
 	else
 		return (FAIL);
 	return (SUCCESS);

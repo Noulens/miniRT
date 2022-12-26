@@ -14,16 +14,15 @@
 
 int	main(int argc, char **argv)
 {
-	t_scene		scn;
+	t_scene	scn;
 
-	(void) argc;
-	(void) argv;
-	(void) scn;
+	(void)argc;
 	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
-	{
 		win_launcher();
-	}
 	else
+	{
+		ft_fprintf(2, RED"Error\n"RESET);
 		exit(EXIT_FAILURE);
+	}
 	return (0);
 }

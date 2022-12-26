@@ -42,8 +42,21 @@ int	count_element(char *line)
 
 int	get_floats(char *line, t_scene *scn)
 {
-	(void)scn;
-	(void)line;
+	int		i;
+	float	x;
+	float	y;
+	float	z;
+
+	i = 0;
+	x = ft_atof(line);
+	while (line[i] != ' ')
+		++i;
+	y = ft_atof(line + i);
+	while (line[i] != ' ')
+		++i;
+	z = ft_atof(line + i);
+	scn->light.pos = set_vec(x, y, z);
+	ft_printf("%f, %f, %f\n", scn->light.pos.x, scn->light.pos.y, scn->light.pos.z);
 	return (0);
 }
 
