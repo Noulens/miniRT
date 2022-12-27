@@ -97,7 +97,7 @@ int	check_fformat(int *i, int *commas, char *line)
 
 int	check_float_nb(int *i, char *line)
 {
-	if (ft_strchr(line, '.') == NULL)
+	if (ft_strchr(line + *i, '.') == NULL)
 		return (check_int_nb(i, line));
 	while (line[*i] == ' ')
 		++*i;
@@ -107,7 +107,7 @@ int	check_float_nb(int *i, char *line)
 			return (ft_fprintf(2, "Error\nin 1 data: check float\n"), 1);
 		++*i;
 	}
-	while (line[++*i] != ' ')
+	while (!ft_isspace(line[++*i]))
 	{
 		if (!ft_isdigit(line[*i]))
 			return (ft_fprintf(2, "Error\nin 2 data: check float\n"), 1);

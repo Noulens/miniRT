@@ -62,7 +62,7 @@ typedef struct s_scene
 	int			num_objects_in_scene;
 	t_light		light;
 	t_alight	alight;
-	t_stdobj	**objects;
+	t_stdobj	*objects;
 	t_cam		cam;
 	int			bg_color;
 }	t_scene;
@@ -80,6 +80,8 @@ int		check_int_part(int *i, int *commas, char *line);
 int		check_fformat(int *i, int *commas, char *line);
 int		check_float_nb(int *i, char *line);
 int		check_int_nb(int *i, char *line);
+int		check_rgb(char *str);
+int		atorgb(char *line);
 int		count_element(char *line);
 int		get_floats(char *line, t_vec3 *vector, char mode);
 int 	parse_pl(char *line, t_scene *scn);
