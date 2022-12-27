@@ -12,27 +12,30 @@
 
 #include "tools.h"
 
-t_stdobj	*objnew(void *content, t_objtp type)
+int objadd_front(t_stdobj **lst, void *item, t_objtp type)
 {
-	t_stdobj	*first;
+	t_stdobj	*new_obj;
+	t_stdobj	*tmp;
 
-	first = (t_stdobj *)malloc(sizeof(t_stdobj));
-	if (!first)
-		return (NULL);
-	first->obj = content;
-	first->objtp = type;
-	first->next = NULL;
-	return (first);
-}
-
-void	objadd_front(t_stdobj **lst, t_stdobj *new)
-{
-	if (lst)
+	new_obj = malloc(sizeof(t_stdobj));
+	if (!new_obj)
 	{
-		if (*lst)
-			new->next = *lst;
-		*lst = new;
+		ft_fprintf(2, "Error\ne no mem in parsing\n");
+		return (1);
 	}
+	new_obj->objtp = type;
+	new_obj->obj = item;
+	new_obj->next = NULL;
+	if (!(*lst))
+		*lst = new_obj;
+	else
+	{
+		tmp = *lst;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_obj;
+	}
+	return (0);
 }
 
 void	objclear(t_stdobj *lst)

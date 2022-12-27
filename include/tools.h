@@ -44,8 +44,7 @@ int 		get_b(int trgb);
 int 		int_range_checker(int val, int lower, int upper, int include);
 int 		float_range_checker(float val, float lower, float upper, int incl);
 int			rgb_range_checker(char *line);
-t_stdobj	*objnew(void *content, t_objtp type);
-void		objadd_front(t_stdobj **lst, t_stdobj *new);
+int			objadd_front(t_stdobj **lst, void *new, t_objtp type);
 void		objclear(t_stdobj *lst);
 
 #endif

@@ -33,8 +33,11 @@ int parse_pl(char *line, t_scene *scn)
 	if (check_rgb(line))
 		return (1);
 	plan->color = atorgb(line);
+	if (objadd_front(&scn->objects, plan, PL))
+		return (1);
+	//scn->objects->obj = (t_pl *)scn->objects->obj;
+	//printf("coord: %f, %f, %f\norientation %f, %f, %f", );
 	return (0);
-	objadd_front(&scn->objects, objnew(plan, PL));
 }
 
 int parse_cy(char *line, t_scene *scn)

@@ -17,7 +17,6 @@ int	main(int argc, char **argv)
 	t_scene	scn;
 
 	(void)argc;
-	scn.objects = (t_stdobj *)malloc(sizeof(t_stdobj));
 	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
 		win_launcher();
 	else
