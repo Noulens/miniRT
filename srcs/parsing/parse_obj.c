@@ -60,6 +60,8 @@ int parse_cy(char *line, t_scene *scn)
 		return (free(cylinder), ft_fprintf(2, "Error\ncylinder orientation\n"), FAIL);
 	get_floats(line, &cylinder->orientation, 'O');
 	line += i;
+	if (check_float_nb(&i, line))
+
 	if (check_rgb(line))
 		return (FAIL);
 	cylinder->color = atorgb(line);

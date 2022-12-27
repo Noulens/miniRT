@@ -94,7 +94,6 @@ int		check_decimal(int *i, char *line);
 int		check_int_part(int *i, int *commas, char *line);
 int		check_fformat(int *i, int *commas, char *line);
 int		check_float_nb(int *i, char *line);
-int		check_int_nb(int *i, char *line);
 int		check_rgb(char *str);
 int		atorgb(char *line);
 int		count_element(char *line);

@@ -95,12 +95,25 @@ int	check_fformat(int *i, int *commas, char *line)
 	return (0);
 }
 
-int	check_float_nb(int *i, char *line)
+static int	check_int_nb(int *i, char *line)
 {
-	if (ft_strchr(line + *i, '.') == NULL)
-		return (check_int_nb(i, line));
 	while (line[*i] == ' ')
 		++*i;
+	while (!ft_isspace(line[*i]))
+	{
+		if (!ft_isdigit(line[*i]))
+			return (ft_fprintf(2, "Error\nin data: check float\n"), 1);
+		++*i;
+	}
+	return (0);
+}
+
+int	check_float_nb(int *i, char *line)
+{
+	while (line[*i] == ' ')
+		++*i;
+	if (ft_strchr(line + *i, '.') == NULL)
+		return (check_int_nb(i, line));
 	while (line[*i] != '.')
 	{
 		if (!ft_isdigit(line[*i]) && line[*i] != ' ')
@@ -111,19 +124,6 @@ int	check_float_nb(int *i, char *line)
 	{
 		if (!ft_isdigit(line[*i]))
 			return (ft_fprintf(2, "Error\nin 2 data: check float\n"), 1);
-	}
-	return (0);
-}
-
-int check_int_nb(int *i, char *line)
-{
-	while (line[*i] == ' ')
-		++*i;
-	while (!ft_isspace(line[*i]))
-	{
-		if (!ft_isdigit(line[*i]))
-			return (ft_fprintf(2, "Error\nin data: check float\n"), 1);
-		++*i;
 	}
 	return (0);
 }
