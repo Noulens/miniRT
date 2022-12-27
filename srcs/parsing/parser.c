@@ -26,7 +26,7 @@ int	rt_name_checker(char *path)
 	if (!ft_strnstr(path + i - 3, ".rt", 3))
 		map = 0;
 	if (!map)
-		ft_fprintf(2, RED"Error\nUsage : ./miniRT <filename.rt>\n"RESET);
+		ft_fprintf(2, "Error\nUsage : ./miniRT <filename.rt>\n");
 	return (map);
 }
 
@@ -54,7 +54,7 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 	else if (chr == 'X')
 	{
 		if (nba != 1 || nbl != 1 || nbc != 1)
-			return (ft_fprintf(2, RED "Error\nACL not unique\n" RESET), 1);
+			return (ft_fprintf(2, "Error\nACL not unique\n"), 1);
 	}
 	return(SUCCESS);
 }
@@ -74,12 +74,15 @@ static int	get_infos(char *line, t_scene *scn)
 		return (parse_cy(line, scn));
 	else if (!ft_strncmp(line, "sp", 2))
 		return (parse_sp(line, scn));
-	else if (!ft_strncmp(line, "co", 2))
-		return (parse_co(line, scn));
-	else if (!ft_strncmp(line, "hy", 2))
-		return (parse_hy(line, scn));
+	else if (BONUS == TRUE)
+	{
+		if (!ft_strncmp(line, "co", 2))
+			return (parse_co(line, scn));
+		else if (!ft_strncmp(line, "hy", 2))
+			return (parse_hy(line, scn));
+	}
 	else
-		return (ft_fprintf(2, RED"Error\nunknown element in .rt\n"RESET), 1);
+		return (ft_fprintf(2, "Error\nunknown element in .rt\n"), FAIL);
 }
 
 int	parse(t_scene *scn, char *str)
@@ -91,7 +94,7 @@ int	parse(t_scene *scn, char *str)
 	ok = FAIL;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		return (ft_fprintf(2, "Error\nCould not open .rt file\n"), 1);
+		return (ft_fprintf(2, "Error\nCould not open .rt file\n"), FAIL);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -101,7 +104,7 @@ int	parse(t_scene *scn, char *str)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (get_space_attribute(NULL, NULL, 'X') == 1)
-		return (ft_fprintf(2, RED"Error\nACL format not respected\n"RESET), 1);
+	if (get_space_attribute(NULL, NULL, 'X') == FAIL)
+		return (ft_fprintf(2, "Error\nACL format not respected\n"), FAIL);
 	return (ok);
 }

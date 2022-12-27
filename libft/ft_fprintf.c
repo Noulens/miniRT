@@ -73,28 +73,3 @@ int	ft_fprintf(int fd, const char *format, ...)
 	va_end(arg);
 	return (j);
 }
-
-/*#include <stdio.h>
-
-int	main(void)
-{
-	int		i;
-	int		j;
-//	int		*p;
-//	char	*q;
-//	char 	r[] = "FFFF";
-
-	i = 0;
-	j = 0;
-//	p = &i;
-//	q = NULL;
-	i = ft_printf(" %s %s %s %s %s ", " - ", "", "4", "", "2 ");
-	ft_printf("\n%d\n", i);
-	j = printf(" %s %s %s %s %s ", " - ", "", "4", "", "2 ");
-	printf("\n%d\n", j);
-//		i = ft_printf(" NULL %s NULL ", NULL);
-//	ft_printf("\n%d\n", i);
-//	j = printf(" NULL %s NULL ", NULL);
-//	printf("\n%d\n", j);
-	return (0);
-}*/

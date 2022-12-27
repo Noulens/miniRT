@@ -18,6 +18,10 @@
 # include "math_func.h"
 # include "tools.h"
 
+#ifndef BONUS
+# define BONUS 0
+#endif
+
 typedef struct s_plan
 {
 	t_vec3	pos;

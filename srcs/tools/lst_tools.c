@@ -21,7 +21,7 @@ int objadd_front(t_stdobj **lst, void *item, t_objtp type)
 	if (!new_obj)
 	{
 		ft_fprintf(2, "Error\nerror in malloc LL obj\n");
-		return (1);
+		return (FAIL);
 	}
 	new_obj->objtp = type;
 	new_obj->obj = item;
@@ -35,7 +35,7 @@ int objadd_front(t_stdobj **lst, void *item, t_objtp type)
 			tmp = tmp->next;
 		tmp->next = new_obj;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 void	objclear(t_stdobj *lst)
