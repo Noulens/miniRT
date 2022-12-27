@@ -20,13 +20,32 @@
 # include <math.h>
 # include "libft.h"
 
-int ft_trgb(int t, int r, int g, int b);
-int get_t(int trgb);
-int get_r(int trgb);
-int get_g(int trgb);
-int get_b(int trgb);
-int int_range_checker(int val, int lower, int upper, int include);
-int float_range_checker(float val, float lower, float upper, int include);
-int	rgb_range_checker(char *line);
+typedef enum e_obj
+{
+	SP,
+	CY,
+	PL,
+	HY,
+	CO
+}	t_objtp;
+
+typedef struct s_stdobj
+{
+	void			*obj;
+	t_objtp			objtp;
+	struct s_stdobj	*next;
+}	t_stdobj;
+
+int 		ft_trgb(int t, int r, int g, int b);
+int 		get_t(int trgb);
+int 		get_r(int trgb);
+int 		get_g(int trgb);
+int 		get_b(int trgb);
+int 		int_range_checker(int val, int lower, int upper, int include);
+int 		float_range_checker(float val, float lower, float upper, int incl);
+int			rgb_range_checker(char *line);
+t_stdobj	*objnew(void *content, t_objtp type);
+void		objadd_front(t_stdobj **lst, t_stdobj *new);
+void		objclear(t_stdobj *lst);
 
 #endif

@@ -59,31 +59,25 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 	return(SUCCESS);
 }
 
-static int	get_obj_attribute(char *line, t_scene *scn)
-{
-	(void)scn;
-	(void)line;
-	return (0);
-}
-
 static int	get_infos(char *line, t_scene *scn)
 {
 	while (*line == ' ')
-	{
 		++line;
-	}
 	if (*line == '\0' || *line == '\n')
 		return (0);
 	else if (!ft_strncmp(line, "A", 1) || !ft_strncmp(line, "C", 1)
 		|| !ft_strncmp(line, "L", 1))
-	{
 		return (get_space_attribute(line, scn, *line));
-	}
-	else if (!ft_strncmp(line, "pl", 2) || !ft_strncmp(line, "cy", 2)
-		|| !ft_strncmp(line, "sp", 2))
-	{
-		return (get_obj_attribute(line, scn));
-	}
+	else if (!ft_strncmp(line, "pl", 2))
+		return (parse_pl(line, scn));
+	else if (!ft_strncmp(line, "cy", 2))
+		return (parse_cy(line, scn));
+	else if (!ft_strncmp(line, "sp", 2))
+		return (parse_sp(line, scn));
+	else if (!ft_strncmp(line, "co", 2))
+		return (parse_co(line, scn));
+	else if (!ft_strncmp(line, "hy", 2))
+		return (parse_hy(line, scn));
 	else
 		return (ft_fprintf(2, RED"Error\nunknown element in .rt file\n"RESET), 1);
 }

@@ -54,7 +54,7 @@ int int_range_checker(int val, int lower, int upper, int include)
 	return (FALSE);
 }
 
-int	float_range_checker(float val, float lower, float upper, int include)
+int	float_range_checker(float val, float lower, float upper, int incl)
 {
 	if (include == 0)
 	{

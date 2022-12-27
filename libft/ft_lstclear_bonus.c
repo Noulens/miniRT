@@ -23,8 +23,6 @@ void	ft_lstclear(t_list *lst)
 		tmp = lst->next;
 		if (lst->content)
 			free(lst->content);
-		if (lst->content2 != NULL)
-			ft_free_split((char **)lst->content2);
 		free(lst);
 		lst = tmp;
 	}

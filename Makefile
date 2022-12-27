@@ -42,7 +42,8 @@ SRCS		=	$(addprefix srcs/,									\
 					$(addprefix render/,		render.c			\
 												windows_rend.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
-												range_check.c)		\
+												range_check.c		\
+												lst_tools.c)		\
 				)
 
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)

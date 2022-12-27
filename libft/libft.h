@@ -34,7 +34,6 @@
 typedef struct s_list
 {
 	void			*content;
-	void			**content2;
 	struct s_list	*next;
 }	t_list;
 

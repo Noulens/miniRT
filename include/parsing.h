@@ -18,22 +18,6 @@
 # include "math_func.h"
 # include "tools.h"
 
-typedef enum e_obj
-{
-	SP,
-	CY,
-	PL
-}	t_objtp;
-
-typedef struct s_object // TODO : a refaire pour généraliser le type d'objet
-{
-	t_vec3	pos;
-	t_vec3	translate;
-	t_vec3	rotate;
-	int		color;
-	t_objtp	objtp;
-}	t_object;
-
 typedef struct s_cam
 {
 	t_vec3	pos;
@@ -69,7 +53,7 @@ typedef struct s_scene
 	int			num_objects_in_scene;
 	t_light		light;
 	t_alight	alight;
-	t_object	*objects;
+	t_stdobj	**objects;
 	t_cam		cam;
 	int			bg_color;
 }	t_scene;
@@ -89,5 +73,11 @@ int		check_float_nb(int *i, char *line);
 int		check_int_nb(int *i, char *line);
 int		count_element(char *line);
 int		get_floats(char *line, t_scene *scn, char mode);
+int 	parse_pl(char *line, t_scene *scn);
+int 	parse_cy(char *line, t_scene *scn);
+int 	parse_sp(char *line, t_scene *scn);
+int 	parse_hy(char *line, t_scene *scn);
+int 	parse_co(char *line, t_scene *scn);
+
 
 #endif
