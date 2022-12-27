@@ -18,6 +18,15 @@
 # include "math_func.h"
 # include "tools.h"
 
+typedef struct s_plan
+{
+	t_vec3	pos;
+	t_vec3	orientation;
+	t_vec3	translate;
+	t_vec3	rotate;
+	int 	color;
+}	t_pl;
+
 typedef struct s_cam
 {
 	t_vec3	pos;
@@ -68,11 +77,11 @@ void	inc_iter(int *i, int *commas);
 void	skip_spaces(int *i, char *line);
 int		check_decimal(int *i, char *line);
 int		check_int_part(int *i, int *commas, char *line);
-int		check_fformat(int *i, int *commas, char *line, t_scene *scn);
+int		check_fformat(int *i, int *commas, char *line);
 int		check_float_nb(int *i, char *line);
 int		check_int_nb(int *i, char *line);
 int		count_element(char *line);
-int		get_floats(char *line, t_scene *scn, char mode);
+int		get_floats(char *line, t_vec3 *vector, char mode);
 int 	parse_pl(char *line, t_scene *scn);
 int 	parse_cy(char *line, t_scene *scn);
 int 	parse_sp(char *line, t_scene *scn);

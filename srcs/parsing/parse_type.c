@@ -90,13 +90,13 @@ int get_infos_c(char *line, t_scene *scn)
 
 	if (count_element(line) != 3)
 		return (ft_fprintf(2, "Error\nin C data\n"), 1);
-	if (check_fformat(&i, &commas, line, scn))
+	if (check_fformat(&i, &commas, line))
 		return (1);
-	get_floats(line, scn, 'C');
+	get_floats(line, &scn->cam.pos, 'C');
 	j = i;
-	if (check_fformat(&i, &commas, line + j, scn))
+	if (check_fformat(&i, &commas, line + j))
 		return (1);
-	if (get_floats(line + j, scn, 'c'))
+	if (get_floats(line + j, &scn->cam.orientation, 'c'))
 		return (FAIL);
 	k = i + j;
 	i = k;
@@ -118,9 +118,9 @@ int get_infos_l(char *line, t_scene *scn)
 
 	if (count_element(line) != 3)
 		return (ft_fprintf(2, "Error\nin L data\n"), 1);
-	if (check_fformat(&i, &commas, line, scn))
+	if (check_fformat(&i, &commas, line))
 		return (1);
-	get_floats(line, scn, 'L');
+	get_floats(line, &scn->light.pos, 'L');
 	j = i;
 	if (check_float_nb(&i, line))
 		return (FAIL);

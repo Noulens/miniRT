@@ -40,7 +40,7 @@ int	count_element(char *line)
 	return (word_count);
 }
 
-int	get_floats(char *line, t_scene *scn, char mode)
+int	get_floats(char *line, t_vec3 *vector, char mode)
 {
 	int		i;
 	float	x;
@@ -55,22 +55,19 @@ int	get_floats(char *line, t_scene *scn, char mode)
 	while (line[i] != ',')
 		++i;
 	z = ft_atof(line + ++i);
-	if (mode == 'L')
-		scn->light.pos = set_vec(x, y, z);
-	else if (mode == 'C')
-		scn->cam.pos = set_vec(x, y, z);
-	else if (mode == 'c' && float_range_checker(x, -1.0f, 1.0f, TRUE)
-		&&float_range_checker(y, -1.0f, 1.0f, TRUE)
-		&& float_range_checker(z, -1.0f, 1.0f, TRUE))
-		scn->cam.orientation = set_vec(x, y, z);
-	else
-		return (1);
+	if (mode == 'O')
+	{
+		if (!float_range_checker(x, -1.0f, 1.0f, TRUE)
+			&& !float_range_checker(y, -1.0f, 1.0f, TRUE)
+			&& !float_range_checker(z, -1.0f, 1.0f, TRUE))
+			return (1);
+	}
+	*vector = set_vec(x, y, z);
 	return (0);
 }
 
-int	check_fformat(int *i, int *commas, char *line, t_scene *scn)
+int	check_fformat(int *i, int *commas, char *line)
 {
-	(void)scn;
 	init_iter(i, commas);
 	skip_spaces(i, line);
 	while (line[*i] != ' ')

@@ -14,7 +14,14 @@
 
 int parse_pl(char *line, t_scene *scn)
 {
-	;
+	int		i;
+	int		commas;
+	t_pl	*plan;
+
+	line++, line++;
+	plan = (t_pl *)malloc(sizeof(t_pl));
+	check_fformat(&i, &commas, line);
+	get_floats(line, &plan->pos, 'P');
 }
 
 int parse_cy(char *line, t_scene *scn)
