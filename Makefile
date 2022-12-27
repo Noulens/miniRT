@@ -31,7 +31,8 @@ SRCS		=	$(addprefix srcs/,									\
 					$(addprefix parsing/,		parser.c			\
 												parse_type.c		\
 												parser_utils.c		\
-												parser_utils2.c)	\
+												parser_utils2.c		\
+												parse_obj.c)		\
 					$(addprefix init/,			init.c)				\
 					$(addprefix destroy/,		des_mlx.c)			\
 					$(addprefix math/,			vector3_simple.c	\

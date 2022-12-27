@@ -54,7 +54,7 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 	else if (chr == 'X')
 	{
 		if (nba != 1 || nbl != 1 || nbc != 1)
-			return (ft_fprintf(2, RED "Error\ndata missing or in excess\n" RESET), 1);
+			return (ft_fprintf(2, RED "Error\nACL not unique\n" RESET), 1);
 	}
 	return(SUCCESS);
 }
@@ -79,7 +79,7 @@ static int	get_infos(char *line, t_scene *scn)
 	else if (!ft_strncmp(line, "hy", 2))
 		return (parse_hy(line, scn));
 	else
-		return (ft_fprintf(2, RED"Error\nunknown element in .rt file\n"RESET), 1);
+		return (ft_fprintf(2, RED"Error\nunknown element in .rt\n"RESET), 1);
 }
 
 int	parse(t_scene *scn, char *str)

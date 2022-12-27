@@ -100,18 +100,20 @@ int	check_fformat(int *i, int *commas, char *line, t_scene *scn)
 
 int	check_float_nb(int *i, char *line)
 {
+	if (ft_strchr(line, '.') == NULL)
+		return (check_int_nb(i, line));
 	while (line[*i] == ' ')
 		++*i;
 	while (line[*i] != '.')
 	{
 		if (!ft_isdigit(line[*i]) && line[*i] != ' ')
-			return (ft_fprintf(2, "Error\nin 1 data: check float"), 1);
+			return (ft_fprintf(2, "Error\nin 1 data: check float\n"), 1);
 		++*i;
 	}
 	while (line[++*i] != ' ')
 	{
 		if (!ft_isdigit(line[*i]))
-			return (ft_fprintf(2, "Error\nin 2 data: check float"), 1);
+			return (ft_fprintf(2, "Error\nin 2 data: check float\n"), 1);
 	}
 	return (0);
 }
@@ -123,7 +125,7 @@ int check_int_nb(int *i, char *line)
 	while (!ft_isspace(line[*i]))
 	{
 		if (!ft_isdigit(line[*i]))
-			return (ft_fprintf(2, "Error\nin data: check float"), 1);
+			return (ft_fprintf(2, "Error\nin data: check float\n"), 1);
 		++*i;
 	}
 	return (0);

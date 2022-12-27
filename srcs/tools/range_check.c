@@ -56,12 +56,12 @@ int int_range_checker(int val, int lower, int upper, int include)
 
 int	float_range_checker(float val, float lower, float upper, int incl)
 {
-	if (include == 0)
+	if (incl == 0)
 	{
 		if (val > lower && val < upper)
 			return (TRUE);
 	}
-	else if (include == 1)
+	else if (incl == 1)
 	{
 		if (val >= lower && val <= upper)
 		{
