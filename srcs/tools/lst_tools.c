@@ -20,7 +20,7 @@ int objadd_front(t_stdobj **lst, void *item, t_objtp type)
 	new_obj = malloc(sizeof(t_stdobj));
 	if (!new_obj)
 	{
-		ft_fprintf(2, "Error\ne no mem in parsing\n");
+		ft_fprintf(2, "Error\nerror in malloc LL obj\n");
 		return (1);
 	}
 	new_obj->objtp = type;

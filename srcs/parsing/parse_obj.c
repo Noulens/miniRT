@@ -33,17 +33,25 @@ int parse_pl(char *line, t_scene *scn)
 	if (check_rgb(line))
 		return (1);
 	plan->color = atorgb(line);
+	//printf("coord: %f, %f, %f\n", plan->pos.x, plan->pos.y, plan->pos.z);
+	//printf("orientation %f, %f, %f\n", plan->orientation.x, plan->orientation.y, plan->orientation.z);
+	//printf("color: %u\n", plan->color);
 	if (objadd_front(&scn->objects, plan, PL))
-		return (1);
-	//scn->objects->obj = (t_pl *)scn->objects->obj;
-	//printf("coord: %f, %f, %f\norientation %f, %f, %f", );
+		return (free(plan), 1);
 	return (0);
 }
 
 int parse_cy(char *line, t_scene *scn)
 {
-	(void)scn;
-	(void)line;
+	int 	i;
+	int 	commas;
+	t_cy	*cylindre;
+
+	line++, line++;
+	cylindre = (t_cy *)malloc(sizeof(t_cy));
+	if (!cylindre)
+		return (ft_fprintf(2, "Error\nmalloc error in parse cylindre\n"), 1);
+	;
 	return (0);
 }
 

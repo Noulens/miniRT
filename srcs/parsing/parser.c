@@ -97,7 +97,7 @@ int	parse(t_scene *scn, char *str)
 	{
 		ok = get_infos(line, scn);
 		if (ok != 0)
-			return(free(line), ok);
+			return(close(fd), free(line), ok);
 		free(line);
 		line = get_next_line(fd);
 	}
