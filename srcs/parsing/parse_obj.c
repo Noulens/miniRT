@@ -53,7 +53,7 @@ int parse_cy(char *line, t_scene *scn)
 	if (!cylinder)
 		return (ft_fprintf(2, "Error\nbad malloc in parse_cy\n"), FAIL);
 	if (check_fformat(&i, &commas, line))
-		return (ft_fprintf(2, "Error\nparse_cy: pos\n"), FAIL);
+		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: pos\n"), FAIL);
 	get_floats(line, &cylinder->pos, 'P');
 	line += i;
 	if (check_fformat(&i, &commas, line)
@@ -71,8 +71,31 @@ int parse_cy(char *line, t_scene *scn)
 
 int parse_sp(char *line, t_scene *scn)
 {
-	(void)scn;
-	(void)line;
+	int 	i;
+	int 	j;
+	int		commas;
+	t_sp	*sphere;
+
+	line += 2;
+	sphere = (t_sp *)malloc(sizeof(t_sp));
+	if (!sphere)
+		return (ft_fprintf(2, "Error\nbad malloc in parse_sp\n"), FAIL);
+	if (check_fformat(&i, &commas, line))
+		return (free(sphere), ft_fprintf(2, "Error\nparse_sp: pos\n"), FAIL);
+	get_floats(line, &sphere->pos, 'P');
+	line += i;
+	j = 0;
+	if (check_float_nb(&j, line))
+		return (free(sphere), ft_fprintf(2, "Error\nparse_sp: dia\n"), FAIL);
+	sphere->diameter = ft_atof(line);
+	line += j;
+	if (check_rgb(line))
+		return (free(sphere), ft_fprintf(2, "Error\nparse_sp: rgb\n"), FAIL);
+	sphere->color = atorgb(line);
+	if (objadd_front(&scn->objects, sphere, CY))
+		return (free(sphere), ft_fprintf(2, "Error\nparse_sp: add\n"),  FAIL);
+	//printf("pos: %f, %f, %f\ndia: %f\nrgb: %d, %d, %d", sphere->pos.x, sphere->pos.y, sphere->pos.z, sphere->diameter,
+	//	   get_r(sphere->color), get_g(sphere->color), get_b(sphere->color));
 	return (SUCCESS);
 }
 

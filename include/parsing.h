@@ -42,6 +42,14 @@ typedef struct s_cy
 	float 	diameter;
 }	t_cy;
 
+typedef struct s_sp
+{
+	t_vec3	pos;
+	t_vec3	translate;
+	int 	color;
+	float 	diameter;
+}	t_sp;
+
 typedef struct s_cam
 {
 	t_vec3	pos;

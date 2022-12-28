@@ -20,9 +20,9 @@ int parse_cy_2(char *line, t_cy *cylinder, int *j, t_scene *scn)
 		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: hei\n"), FAIL);
 	cylinder->height = ft_atof(line);
 	if (check_rgb(line + *j))
-		return (FAIL);
+		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: rgb\n"), FAIL);
 	cylinder->color = atorgb(line + *j);
 	if (objadd_front(&scn->objects, cylinder, CY))
-		return (free(cylinder), FAIL);
+		return (free(cylinder),ft_fprintf(2, "Error\nparse_cy: add\n"), FAIL);
 	return (SUCCESS);
 }
