@@ -26,10 +26,10 @@ static char	*ft_append(char *old, char *new)
 		len = ft_strlenb(new);
 	else
 		len = ft_strlenb(oldptr) + ft_strlenb(new);
-	ret = (char *)malloc(len * sizeof(char) + 1);
+	ret = (char *)malloc(len * sizeof(char) + 8);
 	if (!ret)
 		return (NULL);
-	ret[0] = 0;
+	ft_bzero(ret, len + 8);
 	ptr = ret;
 	while (oldptr && *oldptr)
 		*ptr++ = *oldptr++;
