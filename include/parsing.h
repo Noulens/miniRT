@@ -103,6 +103,7 @@ int 	parse_cy(char *line, t_scene *scn);
 int 	parse_sp(char *line, t_scene *scn);
 int 	parse_hy(char *line, t_scene *scn);
 int 	parse_co(char *line, t_scene *scn);
+int		parse_cy_2(char *line, t_cy *cylinder, int *j, t_scene *scn);
 
 
 #endif

@@ -89,7 +89,7 @@ int get_infos_c(char *line, t_scene *scn)
 	int	commas;
 
 	if (count_element(line) != 3)
-		return (ft_fprintf(2, "Error\nin C data\n"), FAIL);
+		return (ft_fprintf(2, "Error\nin C data, bad elements nb\n"), FAIL);
 	if (check_fformat(&i, &commas, line))
 		return (FAIL);
 	get_floats(line, &scn->cam.pos, 'C');
@@ -106,7 +106,7 @@ int get_infos_c(char *line, t_scene *scn)
 		return (FAIL);
 	scn->cam.focal_length = ft_atof(line + i);
 	if (!float_range_checker(scn->cam.focal_length, 0, 180, TRUE))
-		return (ft_fprintf(2, "Error\nin focal data\n"), FAIL);
+		return (ft_fprintf(2, "Error\nin C data: bad focal\n"), FAIL);
 	return (SUCCESS);
 }
 
@@ -117,7 +117,7 @@ int get_infos_l(char *line, t_scene *scn)
 	int	commas;
 
 	if (count_element(line) != 3)
-		return (ft_fprintf(2, "Error\nin L data\n"), FAIL);
+		return (ft_fprintf(2, "Error\nin L data: bad elements nb\n"), FAIL);
 	if (check_fformat(&i, &commas, line))
 		return (1);
 	get_floats(line, &scn->light.pos, 'L');

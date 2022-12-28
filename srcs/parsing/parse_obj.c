@@ -44,27 +44,28 @@ int parse_pl(char *line, t_scene *scn)
 int parse_cy(char *line, t_scene *scn)
 {
 	int 	i;
+	int 	j;
 	int 	commas;
 	t_cy	*cylinder;
 
-	(void)scn;
 	line += 2;
 	cylinder = (t_cy *)malloc(sizeof(t_cy));
 	if (!cylinder)
-		return (ft_fprintf(2, "Error\nmalloc error in parse cylinder\n"), FAIL);
+		return (ft_fprintf(2, "Error\nbad malloc in parse_cy\n"), FAIL);
 	if (check_fformat(&i, &commas, line))
-		return (ft_fprintf(2, "Error\ncylinder position\n"), FAIL);
+		return (ft_fprintf(2, "Error\nparse_cy: pos\n"), FAIL);
 	get_floats(line, &cylinder->pos, 'P');
 	line += i;
-	if (check_fformat(&i, &commas, line))
-		return (free(cylinder), ft_fprintf(2, "Error\ncylinder orientation\n"), FAIL);
-	get_floats(line, &cylinder->orientation, 'O');
+	if (check_fformat(&i, &commas, line)
+		|| get_floats(line, &cylinder->orientation, 'O'))
+		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: or.\n"), FAIL);
 	line += i;
-	if (check_float_nb(&i, line))
-
-	if (check_rgb(line))
+	j = 0;
+	if (check_float_nb(&j, line))
+		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: dia\n"), FAIL);
+	cylinder->diameter = ft_atof(line);
+	if (parse_cy_2(line, cylinder, &j, scn))
 		return (FAIL);
-	cylinder->color = atorgb(line);
 	return (SUCCESS);
 }
 

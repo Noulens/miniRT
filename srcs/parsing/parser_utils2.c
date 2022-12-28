@@ -58,12 +58,12 @@ int	get_floats(char *line, t_vec3 *vector, char mode)
 	if (mode == 'O')
 	{
 		if (!float_range_checker(x, -1.0f, 1.0f, TRUE)
-			&& !float_range_checker(y, -1.0f, 1.0f, TRUE)
-			&& !float_range_checker(z, -1.0f, 1.0f, TRUE))
-			return (1);
+			||!float_range_checker(y, -1.0f, 1.0f, TRUE)
+			|| !float_range_checker(z, -1.0f, 1.0f, TRUE))
+			return (FAIL);
 	}
 	*vector = set_vec(x, y, z);
-	return (0);
+	return (SUCCESS);
 }
 
 int	check_fformat(int *i, int *commas, char *line)
@@ -73,7 +73,7 @@ int	check_fformat(int *i, int *commas, char *line)
 	while (line[*i] != ' ')
 	{
 		if (check_int_part(i, commas, line))
-			return (1);
+			return (FAIL);
 		if (line[*i] == ',')
 		{
 			inc_iter(i, commas);
@@ -82,7 +82,7 @@ int	check_fformat(int *i, int *commas, char *line)
 		else if (line[*i] == '.')
 		{
 			if (check_decimal(i, line))
-				return (1);
+				return (FAIL);
 			if (line[*i] == ',')
 			{
 				inc_iter(i, commas);
@@ -92,7 +92,7 @@ int	check_fformat(int *i, int *commas, char *line)
 				++*commas;
 		}
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 static int	check_int_nb(int *i, char *line)
@@ -102,10 +102,10 @@ static int	check_int_nb(int *i, char *line)
 	while (!ft_isspace(line[*i]))
 	{
 		if (!ft_isdigit(line[*i]))
-			return (ft_fprintf(2, "Error\nin data: check float\n"), 1);
+			return (ft_fprintf(2, "Error\ncheck_int_nb\n"), FAIL);
 		++*i;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 int	check_float_nb(int *i, char *line)
@@ -117,13 +117,13 @@ int	check_float_nb(int *i, char *line)
 	while (line[*i] != '.')
 	{
 		if (!ft_isdigit(line[*i]) && line[*i] != ' ')
-			return (ft_fprintf(2, "Error\nin 1 data: check float\n"), 1);
+			return (ft_fprintf(2, "Error\nin 1: check_float_nb\n"), FAIL);
 		++*i;
 	}
 	while (!ft_isspace(line[++*i]))
 	{
 		if (!ft_isdigit(line[*i]))
-			return (ft_fprintf(2, "Error\nin 2 data: check float\n"), 1);
+			return (ft_fprintf(2, "Error\nin 2: check_float_nb\n"), FAIL);
 	}
-	return (0);
+	return (SUCCESS);
 }

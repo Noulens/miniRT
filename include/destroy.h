@@ -16,6 +16,8 @@
 # include "mlx.h"
 # include "libft.h"
 # include "colors.h"
+# include "parsing.h"
+# include "tools.h"
 
 void	des_mlx(void *mlx, void *img, void *win);
 

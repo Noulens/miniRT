@@ -19,3 +19,4 @@ void	des_mlx(void *mlx, void *img, void *win)
 	mlx_destroy_display(mlx);
 	free(mlx);
 }
+
