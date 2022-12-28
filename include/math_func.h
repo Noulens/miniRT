@@ -13,19 +13,7 @@
 #ifndef MATH_FUNC_H
 # define MATH_FUNC_H
 # include "math.h"
-
-typedef struct s_vec3
-{
-	float	x;
-	float	y;
-	float	z;
-}	t_vec3;
-
-
-typedef struct s_matrix4
-{
-	float	m[4][4];
-}	t_matrix4;
+# include "struct.h"
 
 t_vec3		vec_add(t_vec3 a, t_vec3 b);
 t_vec3		vec_sub(t_vec3 a, t_vec3 b);

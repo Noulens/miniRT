@@ -15,47 +15,48 @@
 
 int	ft_closebutton(void *param)
 {
-	t_img	*img;
+	t_scene	*scn;
 
-	img = (t_img *)param;
-	des_mlx(img->mlx, img->img, img->win);
+	scn = (t_scene *)param;
+	des_mlx(scn->ig->mlx, scn->ig->img, scn->ig->win);
+	objclear(scn->objects);
 	exit(0);
 }
 
 int	ft_translate_cam_test(void *param, int keycode)
 {
-	t_img	*img;
+	t_scene	*scene;
 	t_vec3	cam_translate;
 
-	img = (t_img *)param;
+	scene = (t_scene *)param;
 	cam_translate = set_vec(0, 0, 0);
 	if (keycode == KEY_A)
-		cam_translate.z+= 0.1;
+		cam_translate.z += 0.1f;
 	if (keycode == KEY_D)
-		cam_translate.z-= 0.1;
+		cam_translate.z -= 0.1f;
 
 	// this matrix_transformation function doesn't work well except for z axis translate. Feel free to rewrite or debug.
-	matrix_transformation(&(img->scene->cam.pos), vec_add(img->scene->cam.translate, cam_translate), img->scene->cam.rotate);
+	matrix_transformation(&(scene->cam.pos), vec_add(scene->cam.translate, cam_translate), scene->cam.rotate);
 	return (0);
 }
 
-void	clear_image(t_img *img)
+void	clear_image(t_scene *scene)
 {
-	ft_bzero(img->addr, img->scene->win_w * img->scene->win_h * 4);
+	ft_bzero(scene->ig->addr, scene->win_w * scene->win_h * 4);
 }
 
 int	ft_key(int keycode, void *param)
 {
-	t_img	*img;
+	t_scene	*scn;
 
-	img = (t_img *)param;
+	scn = (t_scene *)param;
 	if (keycode == KEY_ESC)
 		ft_closebutton(param);
 	if (keycode == KEY_A || keycode == KEY_D)
 		ft_translate_cam_test((void*)param, keycode);
 	// printf("keycode : %i\n", keycode);
-	clear_image(img);
-	render(img);
-    mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
+	clear_image(scn);
+	render(scn);
+    mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);
 	return (0);
 }

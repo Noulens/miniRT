@@ -30,10 +30,10 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 
 	pixel_raster.x = x + 0.5;
 	pixel_raster.y = y + 0.5;
-	pixel_ndc.x = pixel_raster.x / scene->win_w;
-	pixel_ndc.y = pixel_raster.y / scene->win_h;
-	pixel_screenspace.x = 2.0 * pixel_ndc.x - 1.0;
-	pixel_screenspace.y = 1.0 - (2.0 * pixel_ndc.y);
+	pixel_ndc.x = pixel_raster.x / (float)scene->win_w;
+	pixel_ndc.y = pixel_raster.y / (float)scene->win_h;
+	pixel_screenspace.x = 2.0f * pixel_ndc.x - 1.0f;
+	pixel_screenspace.y = 1.0f - (2.0f * pixel_ndc.y);
 	pixel_camera.x = pixel_screenspace.x * scene->image_ratio * \
 	scene->cam.fov_h_len;
 	pixel_camera.y = pixel_screenspace.y * scene->cam.fov_h_len;
@@ -71,7 +71,7 @@ int	intersect(t_ray ray, t_scene *scene)
 	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
 	////////varaibles to be replaced from parsing.///////
 	(void) scene;
-	sphere_radius = 0.2;
+	sphere_radius = 0.2f;
 	sphere_pos = set_vec(0, 0, -1);
 	////////////////////////////////////////////////////
 
@@ -82,7 +82,7 @@ int	intersect(t_ray ray, t_scene *scene)
 	d2 = vec_dot(l, l) - tca * tca;
 	if (d2 > sphere_radius)
 		return (0);
-	thc = sqrt(sphere_radius - d2);
+	thc = sqrtf(sphere_radius - d2);
 	t0 = tca - thc;
 	t1 = tca + thc;
 	if (t0 > t1)
@@ -96,18 +96,18 @@ int	intersect(t_ray ray, t_scene *scene)
 	return (1);
 }
 
-void	compute_pixel(t_img *img, int i, int j)
+void	compute_pixel(t_scene *scene, int i, int j)
 {
 	t_ray	ray;
 
-	ray = build_camera_ray(img->scene, i, j);
-	if (intersect(ray, img->scene))
+	ray = build_camera_ray(scene, i, j);
+	if (intersect(ray, scene))
 	{
 		// do complex shading here but for now basic (just constant color)
-		my_mlx_pixel_put(img, i, j, ft_trgb(255, 255, 0, 0));
+		my_mlx_pixel_put(scene->ig, i, j, ft_trgb(255, 255, 0, 0));
 	}
 	else
-		my_mlx_pixel_put(img, i, j, img->scene->bg_color);
+		my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
 	// when we have several objects, we need to iteracte throu all objects.
 	// int		k;
 	// k = -1;
@@ -127,19 +127,18 @@ void	compute_pixel(t_img *img, int i, int j)
 	// }
 }
 
-int	render(t_img *img)
+int	render(t_scene *scene)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
-	i = -1;
 	j = -1;
-	while (++j < img->scene->win_h)
+	while (++j < scene->win_h)
 	{
 		i = -1;
-		while (++i < img->scene->win_w)
+		while (++i < scene->win_w)
 		{
-			compute_pixel(img, i, j);
+			compute_pixel(scene, i, j);
 		}
 	}
 	return (0);

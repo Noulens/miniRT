@@ -19,22 +19,7 @@
 # define FALSE 0
 # include <math.h>
 # include "libft.h"
-
-typedef enum e_obj
-{
-	SP,
-	CY,
-	PL,
-	HY,
-	CO
-}	t_objtp;
-
-typedef struct s_stdobj
-{
-	void			*obj;
-	t_objtp			objtp;
-	struct s_stdobj	*next;
-}	t_stdobj;
+# include "struct.h"
 
 int 		ft_trgb(int t, int r, int g, int b);
 int 		get_t(int trgb);

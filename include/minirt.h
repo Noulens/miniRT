@@ -23,5 +23,6 @@
 # include "parsing.h"
 # include "render.h"
 # include "tools.h"
+# include "struct.h"
 
 #endif

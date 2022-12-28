@@ -18,6 +18,7 @@
 # include "colors.h"
 # include "parsing.h"
 # include "tools.h"
+# include "struct.h"
 
 void	des_mlx(void *mlx, void *img, void *win);
 

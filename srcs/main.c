@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 int	main(int argc, char **argv)
 {
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	scn.objects = NULL;
 	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
-		win_launcher();
+		win_launcher(&scn);
 	else
 	{
 		objclear(scn.objects);

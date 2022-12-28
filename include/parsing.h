@@ -17,78 +17,11 @@
 # include "colors.h"
 # include "math_func.h"
 # include "tools.h"
+# include "init.h"
 
 #ifndef BONUS
 # define BONUS 0
 #endif
-
-typedef struct s_plan
-{
-	t_vec3	pos;
-	t_vec3	orientation;
-	t_vec3	translate;
-	t_vec3	rotate;
-	int 	color;
-}	t_pl;
-
-typedef struct s_cy
-{
-	t_vec3	pos;
-	t_vec3	orientation;
-	t_vec3	translate;
-	t_vec3	rotate;
-	int 	color;
-	float 	height;
-	float 	diameter;
-}	t_cy;
-
-typedef struct s_sp
-{
-	t_vec3	pos;
-	t_vec3	translate;
-	int 	color;
-	float 	diameter;
-}	t_sp;
-
-typedef struct s_cam
-{
-	t_vec3	pos;
-	t_vec3	translate;
-	t_vec3	rotate;
-	t_vec3	orientation;
-	int		fov_w;
-	int		fov_h;
-	float	fov_h_len;
-	float	focal_length;
-}	t_cam;
-
-typedef struct s_light
-{
-	t_vec3	pos;
-	t_vec3	translate;
-	t_vec3	rotate;
-	int		color;
-	float	brightness;
-}	t_light;
-
-typedef struct s_alight
-{
-	float	al;
-	int		color;
-}	t_alight;
-
-typedef struct s_scene
-{
-	int			win_w;
-	int			win_h;
-	float		image_ratio;
-	int			num_objects_in_scene;
-	t_light		light;
-	t_alight	alight;
-	t_stdobj	*objects;
-	t_cam		cam;
-	int			bg_color;
-}	t_scene;
 
 int		rt_name_checker(char *path);
 int		parse(t_scene *scn, char *str);

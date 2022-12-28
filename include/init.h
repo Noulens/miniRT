@@ -20,25 +20,8 @@
 # include "math_func.h"
 # include "interaction.h"
 # include "parsing.h"
+# include "struct.h"
 
-typedef struct s_ray
-{
-	t_vec3	origin;
-	t_vec3	dir;
-}	t_ray;
-
-typedef struct s_data
-{
-	void	*img;
-	void	*mlx;
-	void	*win;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-	t_scene	*scene;
-}	t_img;
-
-t_scene *scene_init(t_scene *s);
+void	scene_init(t_scene *s);
 
 #endif

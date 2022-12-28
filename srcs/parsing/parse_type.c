@@ -104,8 +104,8 @@ int get_infos_c(char *line, t_scene *scn)
 		++line;
 	if (check_float_nb(&k, line))
 		return (FAIL);
-	scn->cam.focal_length = ft_atof(line + i);
-	if (!float_range_checker(scn->cam.focal_length, 0, 180, TRUE))
+	scn->cam.fov_w = ft_atof(line + i);
+	if (!float_range_checker(scn->cam.fov_w, 0, 180, TRUE))
 		return (ft_fprintf(2, "Error\nin C data: bad focal\n"), FAIL);
 	return (SUCCESS);
 }
