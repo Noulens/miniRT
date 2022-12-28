@@ -22,7 +22,7 @@ void	cam_init(t_scene *s)
 	//s->cam.fov_w = 70;
 	fov_w_half_len = tanf(to_radian(s->cam.fov_w / 2));
 	s->cam.fov_h_len = 2 * fov_w_half_len / s->image_ratio;
-	s->cam.fov_h = (int)to_degree(atanf(s->cam.fov_h_len / 2)) * 2;
+	s->cam.fov_h = to_degree(atanf(s->cam.fov_h_len / 2)) * 2;
 	s->cam.translate = set_vec(0, 0, 0);
 	s->cam.rotate = set_vec(0, 0, 0);
 	// we would need this to do translation. codes are written but never tested yet.

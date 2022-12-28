@@ -92,8 +92,8 @@ typedef struct s_cam
 	t_vec3	translate;
 	t_vec3	rotate;
 	t_vec3	orientation;
-	float		fov_w;
-	int		fov_h;
+	float	fov_w;
+	float	fov_h;
 	float	fov_h_len;
 	float	focal_length;
 }	t_cam;
