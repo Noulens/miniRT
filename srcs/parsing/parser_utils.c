@@ -24,12 +24,6 @@ void	inc_iter(int *i, int *commas)
 	++*commas;
 }
 
-void	skip_spaces(int *i, char *line)
-{
-	while (line[*i] == ' ')
-		++*i;
-}
-
 int	check_decimal(int *i, char *line)
 {
 	while (++*i, line[*i] != ',' && !ft_isspace(line[*i]))

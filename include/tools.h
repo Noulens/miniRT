@@ -26,7 +26,6 @@ int 		get_t(int trgb);
 int 		get_r(int trgb);
 int 		get_g(int trgb);
 int 		get_b(int trgb);
-int 		int_range_checker(int val, int lower, int upper, int include);
 int 		float_range_checker(float val, float lower, float upper, int incl);
 int			rgb_range_checker(char *line);
 int			objadd_front(t_stdobj **lst, void *new, t_objtp type);

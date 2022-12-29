@@ -89,8 +89,8 @@ int	get_infos_a(char *line, t_scene *scn)
 
 int get_infos_c(char *line, t_scene *scn)
 {
-	int	i;
-	int	commas;
+	int		i;
+	int		commas;
 	char	**ptr;
 
 	if (count_element(line) != 3)

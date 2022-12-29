@@ -39,7 +39,6 @@ int		get_infos_c(char *line, t_scene *scn);
 int		get_infos_l(char *line, t_scene *scn);
 void	init_iter(int *i, int *commas);
 void	inc_iter(int *i, int *commas);
-void	skip_spaces(int *i, char *line);
 int		check_decimal(int *i, char *line);
 int		check_int_part(int *i, int *commas, char *line);
 int		check_fformat(int *i, int *commas, char *line);

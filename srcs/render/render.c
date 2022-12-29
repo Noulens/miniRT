@@ -69,7 +69,7 @@ int	intersect(t_ray ray, t_scene *scene)
 	t_vec3		l;
 
 	t_stdobj	*tmp; // ptr to access objects
-	t_sp		*sphere;
+	t_sp		*sphere; // objects are casted to a pointer corresponding to their type
 
 	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
 	////////varaibles to be replaced from parsing.///////
@@ -80,11 +80,7 @@ int	intersect(t_ray ray, t_scene *scene)
 	// cast in type sphere pointer: *t_sp;
 	sphere = (t_sp *)tmp->obj;
 	sphere_radius = sphere->diameter / 2.0f;
-	//sphere_pos = set_vec(0, 0, -1);
-	//sphere_pos = sphere->pos;
-
-	//printf("pos: %f, %f, %f\ndia: %f\nrgb: %d, %d, %d", sphere->pos.x, sphere->pos.y, sphere->pos.z, sphere->diameter,
-	//	   get_r(sphere->color), get_g(sphere->color), get_b(sphere->color));
+	sphere_pos = sphere->pos;
 
 	////////////////////////////////////////////////////
 

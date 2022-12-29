@@ -38,22 +38,6 @@ int	rgb_range_checker(char *line)
 	return (0);
 }
 
-int int_range_checker(int val, int lower, int upper, int include)
-{
-	if (include == 0)
-	{
-		if (val > lower && val < upper)
-			return (TRUE);
-
-	}
-	else if (include == 1)
-	{
-		if (val >= lower && val <= upper)
-			return (TRUE);
-	}
-	return (FALSE);
-}
-
 int	float_range_checker(float val, float lower, float upper, int incl)
 {
 	if (incl == 0)
