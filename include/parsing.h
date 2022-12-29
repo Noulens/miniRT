@@ -23,6 +23,15 @@
 # define BONUS 0
 #endif
 
+# define PLAN_ORI "Error\nplan orientation\n"
+# define ERCY "Error\nparse_cy: position\n"
+# define ERC2 "Error\nparse_cy: orientation\n"
+# define ERC3 "Error\nparse_cy: diameter\n"
+# define ERSPH1 "Error\nparse_sp: pos\n"
+# define ERSPH2 "Error\nparse_sp: dia\n"
+# define ERSPH3 "Error\nparse_sp: rgb\n"
+# define ERSPH "Error\nparse_sp: add\n"
+
 int		rt_name_checker(char *path);
 int		parse(t_scene *scn, char *str);
 int		get_infos_a(char *line, t_scene *scn);
@@ -34,7 +43,7 @@ void	skip_spaces(int *i, char *line);
 int		check_decimal(int *i, char *line);
 int		check_int_part(int *i, int *commas, char *line);
 int		check_fformat(int *i, int *commas, char *line);
-int		check_float_nb(int *i, char *line);
+int		check_float_nb(char *line);
 int		check_rgb(char *str);
 int		atorgb(char *line);
 int		count_element(char *line);
@@ -44,7 +53,7 @@ int 	parse_cy(char *line, t_scene *scn);
 int 	parse_sp(char *line, t_scene *scn);
 int 	parse_hy(char *line, t_scene *scn);
 int 	parse_co(char *line, t_scene *scn);
-int		parse_cy_2(char *line, t_cy *cylinder, int *j, t_scene *scn);
+int		parse_cy_2(char **line, t_cy *cylinder, t_scene *scn);
 
 
 #endif

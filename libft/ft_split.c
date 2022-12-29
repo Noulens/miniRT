@@ -59,10 +59,11 @@ static char	*ft_strdupfill(const char *src, char c)
 	lght = 0;
 	while (*(src + lght) && *(src + lght) != c)
 		++lght;
-	p = (char *)malloc(lght + sizeof(char));
-	if (p == 0)
+	p = (char *)malloc(lght + sizeof(char *));
+	if (p == NULL)
 		return (NULL);
 	i = 0;
+	ft_bzero(p, lght + sizeof(char *));
 	while (i < lght)
 	{
 		*(p + i) = *(src + i);

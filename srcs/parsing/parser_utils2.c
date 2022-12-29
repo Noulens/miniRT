@@ -69,8 +69,7 @@ int	get_floats(char *line, t_vec3 *vector, char mode)
 int	check_fformat(int *i, int *commas, char *line)
 {
 	init_iter(i, commas);
-	skip_spaces(i, line);
-	while (line[*i] != ' ')
+	while (line[*i])
 	{
 		if (check_int_part(i, commas, line))
 			return (FAIL);
@@ -95,34 +94,33 @@ int	check_fformat(int *i, int *commas, char *line)
 	return (SUCCESS);
 }
 
-static int	check_int_nb(int *i, char *line)
+static int	check_int_nb(int i, char *line)
 {
-	while (line[*i] == ' ')
-		++*i;
-	while (!ft_isspace(line[*i]))
+	while (!ft_isspace(line[i]))
 	{
-		if (!ft_isdigit(line[*i]))
+		if (!ft_isdigit(line[i]))
 			return (ft_fprintf(2, "Error\ncheck_int_nb\n"), FAIL);
-		++*i;
+		++i;
 	}
 	return (SUCCESS);
 }
 
-int	check_float_nb(int *i, char *line)
+int	check_float_nb(char *line)
 {
-	while (line[*i] == ' ')
-		++*i;
-	if (ft_strchr(line + *i, '.') == NULL)
+	int i;
+
+	i = 0;
+	if (ft_strchr(line, '.') == NULL)
 		return (check_int_nb(i, line));
-	while (line[*i] != '.')
+	while (line[i] != '.')
 	{
-		if (!ft_isdigit(line[*i]) && line[*i] != ' ')
+		if (!ft_isdigit(line[i]))
 			return (ft_fprintf(2, "Error\nin 1: check_float_nb\n"), FAIL);
-		++*i;
+		++i;
 	}
-	while (!ft_isspace(line[++*i]))
+	while (!ft_isspace(line[++i]))
 	{
-		if (!ft_isdigit(line[*i]))
+		if (!ft_isdigit(line[i]))
 			return (ft_fprintf(2, "Error\nin 2: check_float_nb\n"), FAIL);
 	}
 	return (SUCCESS);

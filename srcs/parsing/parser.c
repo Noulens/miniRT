@@ -69,11 +69,11 @@ static int	get_infos(char *line, t_scene *scn)
 		|| !ft_strncmp(line, "L", 1))
 		return (get_space_attribute(line, scn, *line));
 	else if (!ft_strncmp(line, "pl", 2))
-		return (parse_pl(line, scn));
+		return (line += 2, parse_pl(line, scn));
 	else if (!ft_strncmp(line, "cy", 2))
-		return (parse_cy(line, scn));
+		return (line += 2, parse_cy(line, scn));
 	else if (!ft_strncmp(line, "sp", 2))
-		return (parse_sp(line, scn));
+		return (line += 2, parse_sp(line, scn));
 	else if (BONUS == TRUE)
 	{
 		if (!ft_strncmp(line, "co", 2))

@@ -62,74 +62,85 @@ int	atorgb(char *line)
 
 int	get_infos_a(char *line, t_scene *scn)
 {
-	int	i;
+	int		i;
+	char	**ptr;
 
 	i = 0;
 	if (count_element(line) != 2)
 		return (ft_fprintf(2, "Error\nin A data: too much data\n"), FAIL);
-	if (check_float_nb(&i, line))
-		return (1);
-	scn->alight.al = ft_atof(line);
+	ptr = ft_split(line, ' ');
+	if (!ptr)
+		return (ft_fprintf(2, "Error\nmalloc error"), FAIL);
+	if (check_float_nb(ptr[0]))
+		return (ft_free_split(ptr), FAIL);
+	scn->alight.al = ft_atof(ptr[0]);
 	if (float_range_checker(scn->alight.al, 0.0f, 1.0f, TRUE) == FALSE)
-		return (ft_fprintf(2, "Error\nin A data: value not in [0;1]\n"), FAIL);
-	if (check_rgb(line + i) == SUCCESS)
+		return (ft_free_split(ptr), ft_fprintf(2, "Error\nin A data\n"), FAIL);
+	if (check_rgb(ptr[1]) == SUCCESS)
 	{
 		scn->alight.color = atorgb(line + i);
 	}
 	else
-		return (FAIL);
-	return (SUCCESS);
+		return (ft_free_split(ptr), FAIL);
+	// TODO : remove:
+	printf("A:\nal: %f\nrgb: %d, %d, %d\n", scn->alight.al, get_r(scn->alight.color), get_g(scn->alight.color), get_b(scn->alight.color));
+	return (ft_free_split(ptr), SUCCESS);
 }
 
 int get_infos_c(char *line, t_scene *scn)
 {
 	int	i;
-	int j;
-	int k;
 	int	commas;
+	char	**ptr;
 
 	if (count_element(line) != 3)
 		return (ft_fprintf(2, "Error\nin C data, bad elements nb\n"), FAIL);
-	if (check_fformat(&i, &commas, line))
-		return (FAIL);
-	get_floats(line, &scn->cam.pos, 'C');
-	j = i;
-	if (check_fformat(&i, &commas, line + j))
-		return (1);
-	if (get_floats(line + j, &scn->cam.orientation, 'c'))
-		return (FAIL);
-	k = i + j;
-	i = k;
-	while (*(line + k) == ' ')
-		++line;
-	if (check_float_nb(&k, line))
-		return (FAIL);
-	scn->cam.fov_w = ft_atof(line + i);
+	ptr = ft_split(line, ' ');
+	if (!ptr)
+		return (ft_fprintf(2, "Error\n malloc error in C parse"), FAIL);
+	if (check_fformat(&i, &commas, ptr[0]))
+		return (ft_free_split(ptr), FAIL);
+	get_floats(ptr[0], &scn->cam.pos, 'C');
+	if (check_fformat(&i, &commas, ptr[1]))
+		return (ft_free_split(ptr), FAIL);
+	if (get_floats(ptr[1], &scn->cam.orientation, 'c'))
+		return (ft_free_split(ptr), FAIL);
+	if (check_float_nb(ptr[2]))
+		return (ft_free_split(ptr), FAIL);
+	scn->cam.fov_w = ft_atof(ptr[2]);
 	if (!float_range_checker(scn->cam.fov_w, 0, 180, TRUE))
-		return (ft_fprintf(2, "Error\nin C data: bad focal\n"), FAIL);
-	return (SUCCESS);
+		return (ft_free_split(ptr), ft_fprintf(2, "Error\nin C: fov\n"), FAIL);
+	// TODO : remove:
+	printf("C:\npos: %f, %f, %f\norient: %f, %f, %f\nfov: %f\n", scn->cam.pos.x, scn->cam.pos.y, scn->cam.pos.z, scn->cam.orientation.x, scn->cam.orientation.y, scn->cam.orientation.z,
+		   scn->cam.fov_w);
+	return (ft_free_split(ptr), SUCCESS);
 }
 
 int get_infos_l(char *line, t_scene *scn)
 {
-	int	i;
-	int	j;
-	int	commas;
+	int		i;
+	int		commas;
+	char	**ptr;
 
 	if (count_element(line) != 3)
 		return (ft_fprintf(2, "Error\nin L data: bad elements nb\n"), FAIL);
-	if (check_fformat(&i, &commas, line))
-		return (1);
-	get_floats(line, &scn->light.pos, 'L');
-	j = i;
-	if (check_float_nb(&i, line))
-		return (FAIL);
-	scn->light.brightness = ft_atof(line + j);
+	ptr = ft_split(line, ' ');
+	if (!ptr)
+		return (ft_fprintf(2, "Error\n malloc error in L parse"), FAIL);
+	if (check_fformat(&i, &commas, ptr[0]))
+		return (ft_free_split(ptr), FAIL);
+	get_floats(ptr[0], &scn->light.pos, 'L');
+	if (check_float_nb(ptr[1]))
+		return (ft_free_split(ptr), FAIL);
+	scn->light.brightness = ft_atof(ptr[1]);
 	if (float_range_checker(scn->light.brightness, 0.0f, 1.0f, TRUE) == FALSE)
-		return (ft_fprintf(2, "Error\nin L data: value not in [0;1]\n"), FAIL);
-	if (check_rgb(line + i) == SUCCESS)
-		scn->light.color = atorgb(line + i);
+		return (ft_free_split(ptr), ft_fprintf(2, "Error\nin L data\n"), FAIL);
+	if (check_rgb(ptr[2]) == SUCCESS)
+		scn->light.color = atorgb(ptr[2]);
 	else
-		return (FAIL);
-	return (SUCCESS);
+		return (ft_free_split(ptr), FAIL);
+	// TODO : remove:
+	printf("L:\npos: %f, %f, %f\nbrightness: %f\nrgb: %d, %d, %d\n", scn->light.pos.x, scn->light.pos.y, scn->light.pos.z, scn->light.brightness,
+		   get_r(scn->light.color), get_g(scn->light.color), get_b(scn->light.color));
+	return (ft_free_split(ptr), SUCCESS);
 }

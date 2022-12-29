@@ -12,16 +12,14 @@
 
 #include "parsing.h"
 
-int parse_cy_2(char *line, t_cy *cylinder, int *j, t_scene *scn)
+int parse_cy_2(char **ptr, t_cy *cylinder, t_scene *scn)
 {
-	line += *j;
-	*j = 0;
-	if (check_float_nb(j, line))
+	if (check_float_nb(ptr[3]))
 		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: hei\n"), FAIL);
-	cylinder->height = ft_atof(line);
-	if (check_rgb(line + *j))
+	cylinder->height = ft_atof(ptr[3]);
+	if (check_rgb(ptr[4]))
 		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: rgb\n"), FAIL);
-	cylinder->color = atorgb(line + *j);
+	cylinder->color = atorgb(ptr[4]);
 	if (objadd_front(&scn->objects, cylinder, CY))
 		return (free(cylinder),ft_fprintf(2, "Error\nparse_cy: add\n"), FAIL);
 	return (SUCCESS);

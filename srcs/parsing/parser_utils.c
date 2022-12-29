@@ -48,7 +48,7 @@ int	check_int_part(int *i, int *commas, char *line)
 	{
 		if (!ft_isdigit(line[*i]))
 		{
-			if (line[*i] == ' ' && *commas == 2)
+			if (*commas == 2)
 				break;
 			return (ft_fprintf(2, "Error\nin L data: brightness\n"), FAIL);
 		}
