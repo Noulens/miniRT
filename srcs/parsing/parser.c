@@ -51,7 +51,7 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 		++nbl;
 		return (get_infos_l(++line, scn));
 	}
-	else if (chr == 'X')
+	else if (chr == 0)
 	{
 		if (nba != 1 || nbl != 1 || nbc != 1)
 			return (ft_fprintf(2, "Error\nACL not unique\n"), 1);
@@ -104,7 +104,8 @@ int	parse(t_scene *scn, char *str)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (get_space_attribute(NULL, NULL, 'X') == FAIL)
+	close(fd);
+	if (get_space_attribute(NULL, NULL, 0) == FAIL)
 		return (ft_fprintf(2, "Error\nACL format not respected\n"), FAIL);
 	return (ok);
 }
