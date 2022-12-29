@@ -17,8 +17,6 @@ int	check_rgb(char *str)
 	int	i;
 
 	i = 0;
-	while (*str == ' ')
-		++str;
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] != ',' || i > 3)
@@ -34,7 +32,9 @@ int	check_rgb(char *str)
 		i++;
 	if (i > 11)
 		return (ft_fprintf(2, "Error\nrgb not valid\n"), FAIL);
-	while (str[++i] != '\0')
+	if (str[i])
+		++i;
+	while (str[i++] != '\0')
 		if (!ft_isspace(str[i]))
 			return (ft_fprintf(2, "Error\nrgb not valid\n"), FAIL);
 	return (rgb_range_checker(str));

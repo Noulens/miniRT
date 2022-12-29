@@ -20,8 +20,6 @@ int	rgb_range_checker(char *line)
 	int b;
 
 	i = 0;
-	while (line[i] == ' ')
-		++i;
 	r = ft_atoi(line + i);
 	if (r > 255 || r < 0)
 		return (ft_fprintf(2, "Error in rgb data: r not in range"), 1);
