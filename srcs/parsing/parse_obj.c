@@ -28,9 +28,9 @@ int parse_pl(char *line, t_scene *scn)
 	if (check_fformat(&i, &commas, ptr[0]))
 		return (ft_free_split(ptr), ft_fprintf(2, "Error\nplan pos\n"), FAIL);
 	get_floats(ptr[0], &plan->pos, 'P');
-	if (check_fformat(&i, &commas, ptr[1]))
+	if (check_fformat(&i, &commas, ptr[1])
+		|| get_floats(ptr[1], &plan->orientation, 'O'))
 		return (ft_free_split(ptr), free(plan), ft_fprintf(2, PLAN_ORI), FAIL);
-	get_floats(ptr[1], &plan->orientation, 'O');
 	if (check_rgb(ptr[2]))
 		return (ft_free_split(ptr), FAIL);
 	plan->color = atorgb(ptr[2]);

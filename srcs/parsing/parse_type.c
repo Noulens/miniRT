@@ -103,8 +103,8 @@ int get_infos_c(char *line, t_scene *scn)
 	get_floats(ptr[0], &scn->cam.pos, 'C');
 	if (check_fformat(&i, &commas, ptr[1]))
 		return (ft_free_split(ptr), FAIL);
-	if (get_floats(ptr[1], &scn->cam.orientation, 'c'))
-		return (ft_free_split(ptr), FAIL);
+	if (get_floats(ptr[1], &scn->cam.orientation, 'O'))
+		return (ft_fprintf(2, "Error\nin C: ori."), ft_free_split(ptr), FAIL);
 	if (check_float_nb(ptr[2]))
 		return (ft_free_split(ptr), FAIL);
 	scn->cam.fov_w = ft_atof(ptr[2]);
