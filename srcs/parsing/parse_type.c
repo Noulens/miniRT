@@ -77,9 +77,7 @@ int	get_infos_a(char *line, t_scene *scn)
 	if (float_range_checker(scn->alight.al, 0.0f, 1.0f, TRUE) == FALSE)
 		return (ft_free_split(ptr), ft_fprintf(2, "Error\nin A data\n"), FAIL);
 	if (check_rgb(ptr[1]) == SUCCESS)
-	{
 		scn->alight.color = atorgb(line + i);
-	}
 	else
 		return (ft_free_split(ptr), FAIL);
 	// TODO : remove:

@@ -54,3 +54,11 @@ void	objclear(t_stdobj *lst)
 	}
 	lst = NULL;
 }
+
+int	objlstsize(t_stdobj *lst)
+{
+	if (lst)
+		return (objlstsize(lst->next) + 1);
+	else
+		return (0);
+}

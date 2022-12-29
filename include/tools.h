@@ -30,5 +30,6 @@ int 		float_range_checker(float val, float lower, float upper, int incl);
 int			rgb_range_checker(char *line);
 int			objadd_front(t_stdobj **lst, void *new, t_objtp type);
 void		objclear(t_stdobj *lst);
+int			objlstsize(t_stdobj *lst);
 
 #endif

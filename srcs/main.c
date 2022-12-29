@@ -16,12 +16,9 @@ int	main(int argc, char **argv)
 {
 	t_scene	scn;
 
-	(void)argc;
 	scn.objects = NULL;
 	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
-	{
 		win_launcher(&scn);
-	}
 	else
 	{
 		objclear(scn.objects);
