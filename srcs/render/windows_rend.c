@@ -19,7 +19,10 @@ void win_launcher(t_scene *scene)
 	scene->ig = &img;
     img.mlx = mlx_init();
     if (!img.mlx)
-        exit(EXIT_FAILURE);
+	{
+		objclear(scene->objects);
+		exit(EXIT_FAILURE);
+	}
     scene_init(scene);
     img.win = mlx_new_window(img.mlx, scene->win_w, scene->win_h, "miniRT");
     img.img = mlx_new_image(img.mlx, scene->win_w, scene->win_h);

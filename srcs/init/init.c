@@ -32,11 +32,12 @@ void	cam_init(t_scene *s)
 
 void	scene_init(t_scene *s)
 {
-	s->win_w = 192;
-	s->win_h = 108;
+	s->win_w = 1360;
+	s->win_h = 768;
 	s->image_ratio = (float)s->win_w / (float)s->win_h;
 	// I'm not sure if we need to calculate this. would it be useful in the future?
-	// s->cam.focal_length = (s->win_w / 2) / tan(to_radian((s->cam.fov / 2)));
+	s->cam.focal_length = ((float)s->win_w / 2)
+			/ tanf(to_radian((s->cam.fov_w / 2)));
 	s->bg_color = ft_trgb(255, 0, 0, 0);
 	cam_init(s);
 }

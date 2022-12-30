@@ -28,14 +28,14 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	t_vec3	pixel_screenspace;
 	t_vec3	pixel_camera;
 
-	pixel_raster.x = x + 0.5;
-	pixel_raster.y = y + 0.5;
+	pixel_raster.x = (float)x + 0.5f;
+	pixel_raster.y = (float)y + 0.5f;
 	pixel_ndc.x = pixel_raster.x / (float)scene->win_w;
 	pixel_ndc.y = pixel_raster.y / (float)scene->win_h;
 	pixel_screenspace.x = 2.0f * pixel_ndc.x - 1.0f;
 	pixel_screenspace.y = 1.0f - (2.0f * pixel_ndc.y);
 	pixel_camera.x = pixel_screenspace.x * scene->image_ratio * \
-	scene->cam.fov_h_len;
+			scene->cam.fov_h_len;
 	pixel_camera.y = pixel_screenspace.y * scene->cam.fov_h_len;
 	pixel_camera.z = -1;
 	ray.origin = scene->cam.pos;
