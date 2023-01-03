@@ -61,7 +61,6 @@ void	matrix_vec_mult(t_matrix4 new, t_vec3 *vector)
 t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r)
 {
 	t_matrix4	transform;
- 
 	// calculation order to be tested.
 	// UPDATE : it doesn't work. Feel free to rewrite.
 	init_matrix(&transform);

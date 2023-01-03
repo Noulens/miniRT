@@ -19,7 +19,6 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 t_ray	build_camera_ray(t_scene *scene, int x, int y);
 int		interset(t_ray ray, t_scene *scene);
 int		render(t_scene *scn);
-void    win_launcher(t_scene *scn);
+void	win_launcher(t_scene *scn);
 
 #endif
-

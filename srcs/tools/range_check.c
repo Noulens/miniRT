@@ -14,10 +14,10 @@
 
 int	rgb_range_checker(char *line)
 {
-	int i;
-	int r;
-	int g;
-	int b;
+	int	i;
+	int	r;
+	int	g;
+	int	b;
 
 	i = 0;
 	r = ft_atoi(line + i);

@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "tools.h"
+#include "struct.h"
 
-int objadd_front(t_stdobj **lst, void *item, t_objtp type)
+int	objadd_front(t_stdobj **lst, void *item, t_objtp type)
 {
 	t_stdobj	*new_obj;
 	t_stdobj	*tmp;

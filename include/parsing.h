@@ -19,9 +19,9 @@
 # include "tools.h"
 # include "init.h"
 
-#ifndef BONUS
-# define BONUS 0
-#endif
+# ifndef BONUS
+#  define BONUS 0
+# endif
 
 # define PLAN_ORI "Error\nplan orientation\n"
 # define ERCY "Error\nparse_cy: position\n"
@@ -47,12 +47,11 @@ int		check_rgb(char *str);
 int		atorgb(char *line);
 int		count_element(char *line);
 int		get_floats(char *line, t_vec3 *vector, char mode);
-int 	parse_pl(char *line, t_scene *scn);
-int 	parse_cy(char *line, t_scene *scn);
-int 	parse_sp(char *line, t_scene *scn);
-int 	parse_hy(char *line, t_scene *scn);
-int 	parse_co(char *line, t_scene *scn);
+int		parse_pl(char *line, t_scene *scn);
+int		parse_cy(char *line, t_scene *scn);
+int		parse_sp(char *line, t_scene *scn);
+int		parse_hy(char *line, t_scene *scn);
+int		parse_co(char *line, t_scene *scn);
 int		parse_cy_2(char **line, t_cy *cylinder, t_scene *scn);
-
 
 #endif

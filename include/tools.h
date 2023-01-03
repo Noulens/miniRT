@@ -21,15 +21,15 @@
 # include "libft.h"
 # include "struct.h"
 
-int 		ft_trgb(int t, int r, int g, int b);
-int 		get_t(int trgb);
-int 		get_r(int trgb);
-int 		get_g(int trgb);
-int 		get_b(int trgb);
-int 		float_range_checker(float val, float lower, float upper, int incl);
-int			rgb_range_checker(char *line);
-int			objadd_front(t_stdobj **lst, void *new, t_objtp type);
-void		objclear(t_stdobj *lst);
-int			objlstsize(t_stdobj *lst);
+int		ft_trgb(int t, int r, int g, int b);
+int		get_t(int trgb);
+int		get_r(int trgb);
+int		get_g(int trgb);
+int		get_b(int trgb);
+int		float_range_checker(float val, float lower, float upper, int incl);
+int		rgb_range_checker(char *line);
+int		objadd_front(t_stdobj **lst, void *new, t_objtp type);
+void	objclear(t_stdobj *lst);
+int		objlstsize(t_stdobj *lst);
 
 #endif

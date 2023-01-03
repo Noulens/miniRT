@@ -34,7 +34,6 @@ int	ft_translate_cam_test(void *param, int keycode)
 		cam_translate.z += 0.1f;
 	if (keycode == KEY_D)
 		cam_translate.z -= 0.1f;
-
 	// this matrix_transformation function doesn't work well except for z axis translate. Feel free to rewrite or debug.
 	matrix_transformation(&(scene->cam.pos), vec_add(scene->cam.translate, cam_translate), scene->cam.rotate);
 	return (0);

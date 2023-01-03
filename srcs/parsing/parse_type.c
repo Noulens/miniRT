@@ -80,12 +80,10 @@ int	get_infos_a(char *line, t_scene *scn)
 		scn->alight.color = atorgb(line + i);
 	else
 		return (ft_free_split(ptr), FAIL);
-	// TODO : remove:
-	printf("A:\nal: %f\nrgb: %d, %d, %d\n", scn->alight.al, get_r(scn->alight.color), get_g(scn->alight.color), get_b(scn->alight.color));
 	return (ft_free_split(ptr), SUCCESS);
 }
 
-int get_infos_c(char *line, t_scene *scn)
+int	get_infos_c(char *line, t_scene *scn)
 {
 	int		i;
 	int		commas;
@@ -108,13 +106,10 @@ int get_infos_c(char *line, t_scene *scn)
 	scn->cam.fov_w = ft_atof(ptr[2]);
 	if (!float_range_checker(scn->cam.fov_w, 0, 180, TRUE))
 		return (ft_free_split(ptr), ft_fprintf(2, "Error\nin C: fov\n"), FAIL);
-	// TODO : remove:
-	printf("C:\npos: %f, %f, %f\norient: %f, %f, %f\nfov: %f\n", scn->cam.pos.x, scn->cam.pos.y, scn->cam.pos.z, scn->cam.orientation.x, scn->cam.orientation.y, scn->cam.orientation.z,
-		   scn->cam.fov_w);
 	return (ft_free_split(ptr), SUCCESS);
 }
 
-int get_infos_l(char *line, t_scene *scn)
+int	get_infos_l(char *line, t_scene *scn)
 {
 	int		i;
 	int		commas;
@@ -137,8 +132,5 @@ int get_infos_l(char *line, t_scene *scn)
 		scn->light.color = atorgb(ptr[2]);
 	else
 		return (ft_free_split(ptr), FAIL);
-	// TODO : remove:
-	printf("L:\npos: %f, %f, %f\nbrightness: %f\nrgb: %d, %d, %d\n", scn->light.pos.x, scn->light.pos.y, scn->light.pos.z, scn->light.brightness,
-		   get_r(scn->light.color), get_g(scn->light.color), get_b(scn->light.color));
 	return (ft_free_split(ptr), SUCCESS);
 }

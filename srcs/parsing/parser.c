@@ -56,7 +56,7 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 		if (nba != 1 || nbl != 1 || nbc != 1)
 			return (ft_fprintf(2, "Error\nACL not unique\n"), 1);
 	}
-	return(SUCCESS);
+	return (SUCCESS);
 }
 
 static int	get_infos(char *line, t_scene *scn)
@@ -100,7 +100,7 @@ int	parse(t_scene *scn, char *str)
 	{
 		ok = get_infos(line, scn);
 		if (ok != 0)
-			return(close(fd), free(line), ok);
+			return (close(fd), free(line), ok);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -108,7 +108,5 @@ int	parse(t_scene *scn, char *str)
 	if (get_space_attribute(NULL, NULL, 0) == FAIL)
 		return (ft_fprintf(2, "Error\nACL format not respected\n"), FAIL);
 	scn->num_objects_in_scene = objlstsize(scn->objects);
-	// TODO : remove:
-	printf(YELLOW"\nnb of objects: %d\n"RESET, scn->num_objects_in_scene);
 	return (ok);
 }

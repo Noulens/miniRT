@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-int parse_pl(char *line, t_scene *scn)
+int	parse_pl(char *line, t_scene *scn)
 {
 	int		i;
 	int		commas;
@@ -34,20 +34,17 @@ int parse_pl(char *line, t_scene *scn)
 	if (check_rgb(ptr[2]))
 		return (ft_free_split(ptr), FAIL);
 	plan->color = atorgb(ptr[2]);
-	printf("PL:\ncoord: %f, %f, %f\n", plan->pos.x, plan->pos.y, plan->pos.z);
-	printf("orientation %f, %f, %f\n", plan->orientation.x, plan->orientation.y, plan->orientation.z);
-	printf("color: %d, %d, %d\n", get_r(plan->color), get_g(plan->color), get_b(plan->color));
 	if (objadd_front(&scn->objects, plan, PL))
 		return (ft_free_split(ptr), free(plan), FAIL);
 	return (ft_free_split(ptr), SUCCESS);
 }
 
-int parse_cy(char *line, t_scene *scn)
+int	parse_cy(char *line, t_scene *scn)
 {
-	int 	i;
-	int 	commas;
+	int		i;
+	int		commas;
 	t_cy	*cylinder;
-	char 	**ptr;
+	char	**ptr;
 
 	if (count_element(line) != 5)
 		return (ft_fprintf(2, "Error\nin CY data: bad elements nb\n"), FAIL);
@@ -68,15 +65,12 @@ int parse_cy(char *line, t_scene *scn)
 	cylinder->diameter = ft_atof(ptr[2]);
 	if (parse_cy_2(ptr, cylinder, scn))
 		return (ft_free_split(ptr), FAIL);
-	// TODO : remove :
-	printf("CY:\npos: %f, %f, %f\norientation: %f, %f, %f\ndia: %f\nheight: %f\nrgb: %d, %d, %d\n", cylinder->pos.x, cylinder->pos.y, cylinder->pos.z, cylinder->orientation.x, cylinder->orientation.y, cylinder->orientation.z, cylinder->diameter, cylinder->height,
-		   get_r(cylinder->color), get_g(cylinder->color), get_b(cylinder->color));
 	return (ft_free_split(ptr), SUCCESS);
 }
 
-int parse_sp(char *line, t_scene *scn)
+int	parse_sp(char *line, t_scene *scn)
 {
-	int 	i;
+	int		i;
 	int		commas;
 	t_sp	*sphere;
 	char	**ptr;
@@ -99,21 +93,18 @@ int parse_sp(char *line, t_scene *scn)
 		return (ft_free_split(ptr), free(sphere), ft_fprintf(2, ERSPH3), FAIL);
 	sphere->color = atorgb(ptr[2]);
 	if (objadd_front(&scn->objects, sphere, SP))
-		return (ft_free_split(ptr), free(sphere), ft_fprintf(2, ERSPH),  FAIL);
-	// TODO : remove :
-	printf("SP:\npos: %f, %f, %f\ndia: %f\nrgb: %d, %d, %d", sphere->pos.x, sphere->pos.y, sphere->pos.z, sphere->diameter,
-		   get_r(sphere->color), get_g(sphere->color), get_b(sphere->color));
+		return (ft_free_split(ptr), free(sphere), ft_fprintf(2, ERSPH), FAIL);
 	return (ft_free_split(ptr), SUCCESS);
 }
 
-int parse_hy(char *line, t_scene *scn)
+int	parse_hy(char *line, t_scene *scn)
 {
 	(void)scn;
 	(void)line;
 	return (SUCCESS);
 }
 
-int parse_co(char *line, t_scene *scn)
+int	parse_co(char *line, t_scene *scn)
 {
 	(void)scn;
 	(void)line;

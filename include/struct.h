@@ -64,7 +64,7 @@ typedef struct s_plan
 	t_vec3	orientation;
 	t_vec3	translate;
 	t_vec3	rotate;
-	int 	color;
+	int		color;
 }	t_pl;
 
 typedef struct s_cy
@@ -73,17 +73,17 @@ typedef struct s_cy
 	t_vec3	orientation;
 	t_vec3	translate;
 	t_vec3	rotate;
-	int 	color;
-	float 	height;
-	float 	diameter;
+	int		color;
+	float	height;
+	float	diameter;
 }	t_cy;
 
 typedef struct s_sp
 {
 	t_vec3	pos;
 	t_vec3	translate;
-	int 	color;
-	float 	diameter;
+	int		color;
+	float	diameter;
 }	t_sp;
 
 typedef struct s_cam

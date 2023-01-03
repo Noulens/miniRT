@@ -14,9 +14,9 @@
 
 int	count_element(char *line)
 {
-	int word_flag;
-	int i;
-	int word_count;
+	int	word_flag;
+	int	i;
+	int	word_count;
 
 	i = 0;
 	word_flag = 0;
@@ -76,7 +76,7 @@ int	check_fformat(int *i, int *commas, char *line)
 		if (line[*i] == ',')
 		{
 			inc_iter(i, commas);
-			continue;
+			continue ;
 		}
 		else if (line[*i] == '.')
 		{
@@ -85,7 +85,7 @@ int	check_fformat(int *i, int *commas, char *line)
 			if (line[*i] == ',')
 			{
 				inc_iter(i, commas);
-				continue;
+				continue ;
 			}
 			else
 				++*commas;
@@ -107,7 +107,7 @@ static int	check_int_nb(int i, char *line)
 
 int	check_float_nb(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ft_strchr(line, '.') == NULL)
