@@ -31,6 +31,8 @@
 # define ERSPH2 "Error\nparse_sp: dia\n"
 # define ERSPH3 "Error\nparse_sp: rgb\n"
 # define ERSPH "Error\nparse_sp: add\n"
+# define FFC "Error\nin C data: coordinates format\n"
+# define FFL "Error\nin L data: coordinates format\n"
 
 int		rt_name_checker(char *path);
 int		parse(t_scene *scn, char *str);

@@ -12,9 +12,21 @@
 
 #include "libft.h"
 
+size_t	ft_ptrlen(const char **ptr)
+{
+	size_t	i;
+
+	i = 0;
+	if (ptr == NULL)
+		return (i);
+	while (*(ptr + i))
+		++i;
+	return (i);
+}
+
 size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (s == NULL)

@@ -95,10 +95,10 @@ int	get_infos_c(char *line, t_scene *scn)
 	if (!ptr)
 		return (ft_fprintf(2, "Error\n malloc error in C parse\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
-		return (ft_free_split(ptr), FAIL);
+		return (ft_free_split(ptr), ft_fprintf(2, FFC), FAIL);
 	get_floats(ptr[0], &scn->cam.pos, 'C');
 	if (check_fformat(&i, &commas, ptr[1]))
-		return (ft_free_split(ptr), FAIL);
+		return (ft_free_split(ptr), ft_fprintf(2, FFC), FAIL);
 	if (get_floats(ptr[1], &scn->cam.orientation, 'O'))
 		return (ft_fprintf(2, "Error\nin C: ori."), ft_free_split(ptr), FAIL);
 	if (check_float_nb(ptr[2]))
@@ -121,7 +121,7 @@ int	get_infos_l(char *line, t_scene *scn)
 	if (!ptr)
 		return (ft_fprintf(2, "Error\n malloc error in L parse\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
-		return (ft_free_split(ptr), FAIL);
+		return (ft_free_split(ptr), ft_fprintf(2, FFL), FAIL);
 	get_floats(ptr[0], &scn->light.pos, 'L');
 	if (check_float_nb(ptr[1]))
 		return (ft_free_split(ptr), FAIL);

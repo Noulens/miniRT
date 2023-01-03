@@ -29,7 +29,7 @@ int	check_decimal(int *i, char *line)
 	while (++*i, line[*i] != ',' && !ft_isspace(line[*i]))
 	{
 		if (!ft_isdigit(line[*i]))
-			return (ft_fprintf(2, "Error\nin L data: brightness\n"), FAIL);
+			return (ft_fprintf(2, "Error\nnot a good coord format\n"), FAIL);
 	}
 	return (SUCCESS);
 }
@@ -44,7 +44,7 @@ int	check_int_part(int *i, int *commas, char *line)
 		{
 			if (*commas == 2)
 				break ;
-			return (ft_fprintf(2, "Error\nin L data: brightness\n"), FAIL);
+			return (ft_fprintf(2, "Error\nnot a good coord format\n"), FAIL);
 		}
 		++*i;
 	}

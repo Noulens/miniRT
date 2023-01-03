@@ -108,6 +108,7 @@ long		ft_atol(const char *nptr);
 long long	ft_capped_atoll(const char *nptr, int *status);
 int			ft_atoi_base(const char *str, int base);
 void		ft_free_split(char **tofree);
+size_t		ft_ptrlen(const char **ptr);
 int			ft_isspace(char c);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_cmpchr(const char *s1, const char *s2, char c);

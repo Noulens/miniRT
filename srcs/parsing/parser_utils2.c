@@ -42,28 +42,28 @@ int	count_element(char *line)
 
 int	get_floats(char *line, t_vec3 *vector, char mode)
 {
-	int		i;
+	char 	**ptr;
 	float	x;
 	float	y;
 	float	z;
 
-	i = 0;
-	x = ft_atof(line);
-	while (line[i] != ',')
-		++i;
-	y = ft_atof(line + ++i);
-	while (line[i] != ',')
-		++i;
-	z = ft_atof(line + ++i);
+	ptr = ft_split(line, ',');
+	if (!ptr)
+		return (ft_fprintf(2, "Error\nbad malloc get_floats\n"));
+	if (ft_ptrlen((const char **)ptr) != 3)
+		return (ft_free_split(ptr), ft_fprintf(2, "Error\nbad coord\n"));
+	x = ft_atof(ptr[0]);
+	y = ft_atof(ptr[1]);
+	z = ft_atof(ptr[2]);
 	if (mode == 'O')
 	{
 		if (!float_range_checker(x, -1.0f, 1.0f, TRUE)
-			||!float_range_checker(y, -1.0f, 1.0f, TRUE)
+			|| !float_range_checker(y, -1.0f, 1.0f, TRUE)
 			|| !float_range_checker(z, -1.0f, 1.0f, TRUE))
-			return (FAIL);
+			return (ft_free_split(ptr), FAIL);
 	}
 	*vector = set_vec(x, y, z);
-	return (SUCCESS);
+	return (ft_free_split(ptr), SUCCESS);
 }
 
 int	check_fformat(int *i, int *commas, char *line)
@@ -87,10 +87,12 @@ int	check_fformat(int *i, int *commas, char *line)
 				inc_iter(i, commas);
 				continue ;
 			}
-			else
+			else if (line[*i] == ',')
 				++*commas;
 		}
 	}
+	if (*commas != 2)
+		return (FAIL);
 	return (SUCCESS);
 }
 
