@@ -36,7 +36,7 @@ void	print_objects_infos(t_scene *scene)
 		if (tmp->objtp == SP)
 		{
 			sphere = (t_sp *)tmp->obj;
-			printf("SP:\npos: %f, %f, %f\ndia: %f\nrgb: %d, %d, %d",
+			printf("SP:\npos: %f, %f, %f\ndia: %f\nrgb: %d, %d, %d\n",
 				sphere->pos.x, sphere->pos.y, sphere->pos.z,
 				sphere->diameter,
 				get_r(sphere->color), get_g(sphere->color),
