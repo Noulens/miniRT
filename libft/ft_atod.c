@@ -12,24 +12,24 @@
 
 #include "libft.h"
 
-double  ft_atod(const char *str)
+double	ft_atod(const char *str)
 {
-    double  nbr;
-    double  exponent;
-    int     i;
+	double	nbr;
+	double	exponent;
+	int		i;
 
-    nbr = (double)ft_atoi(str);
-    i = 0;
-    while (str[i] && str[i] != '.')
-        i++;
-    exponent = 0.1;
-    if (str[i])
-        i++;
-    while (ft_isdigit(str[i]))
-    {
-        nbr += (str[i] - '0') * exponent;
-        exponent *= 0.1;
-        i++;
-    }
-    return (nbr);
+	nbr = (double)ft_atoi(str);
+	i = 0;
+	while (str[i] && str[i] != '.')
+		i++;
+	exponent = 0.1;
+	if (str[i])
+		i++;
+	while (ft_isdigit(str[i]))
+	{
+		nbr += (str[i] - '0') * exponent;
+		exponent *= 0.1;
+		i++;
+	}
+	return (nbr);
 }
