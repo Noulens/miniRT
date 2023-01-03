@@ -109,6 +109,6 @@ int	parse(t_scene *scn, char *str)
 		return (ft_fprintf(2, "Error\nACL format not respected\n"), FAIL);
 	scn->num_objects_in_scene = objlstsize(scn->objects);
 	// TODO : remove:
-	ft_printf(YELLOW"\nnb of objects: %d\n"RESET, scn->num_objects_in_scene);
+	printf(YELLOW"\nnb of objects: %d\n"RESET, scn->num_objects_in_scene);
 	return (ok);
 }

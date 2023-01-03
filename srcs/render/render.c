@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
 	char	*offset;
 
-	offset = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	offset = data->addr + (y * data->line_length + x * (data->bpp >> 3));
 	*(unsigned int *)offset = color;
 }
 
@@ -108,12 +108,24 @@ int	intersect(t_ray ray, t_scene *scene)
 void	compute_pixel(t_scene *scene, int i, int j)
 {
 	t_ray	ray;
+	//test variables to get color of sphere fro; parsing
+	t_stdobj	*tmp; // ptr to access objects
+	t_sp		*sphere; // objects are casted to a pointer corresponding to their type
+	int 		color;
 
+	// get sphere data from object list:
+	tmp = scene->objects;
+	while (tmp->objtp != SP)
+		tmp = tmp->next;
+	// cast in type sphere pointer: *t_sp;
+	sphere = (t_sp *)tmp->obj;
+	color = sphere->color;
+	//
 	ray = build_camera_ray(scene, i, j);
 	if (intersect(ray, scene))
 	{
 		// do complex shading here but for now basic (just constant color)
-		my_mlx_pixel_put(scene->ig, i, j, ft_trgb(255, 255, 0, 0));
+		my_mlx_pixel_put(scene->ig, i, j, color);
 	}
 	else
 		my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);

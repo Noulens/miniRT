@@ -36,7 +36,7 @@ int parse_pl(char *line, t_scene *scn)
 	plan->color = atorgb(ptr[2]);
 	printf("PL:\ncoord: %f, %f, %f\n", plan->pos.x, plan->pos.y, plan->pos.z);
 	printf("orientation %f, %f, %f\n", plan->orientation.x, plan->orientation.y, plan->orientation.z);
-	printf("color: %u\n", plan->color);
+	printf("color: %d, %d, %d\n", get_r(plan->color), get_g(plan->color), get_b(plan->color));
 	if (objadd_front(&scn->objects, plan, PL))
 		return (ft_free_split(ptr), free(plan), FAIL);
 	return (ft_free_split(ptr), SUCCESS);

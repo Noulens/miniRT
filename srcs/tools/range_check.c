@@ -22,17 +22,17 @@ int	rgb_range_checker(char *line)
 	i = 0;
 	r = ft_atoi(line + i);
 	if (r > 255 || r < 0)
-		return (ft_fprintf(2, "Error in rgb data: r not in range"), 1);
+		return (ft_fprintf(2, "Error\nin rgb data: r not in range\n"), 1);
 	while (line[i] != ',')
 		++i;
 	g = ft_atoi(line + ++i);
 	if (g > 255 || g < 0)
-		return (ft_fprintf(2, "Error in rgb data: g not in range"), 1);
+		return (ft_fprintf(2, "Error\nin rgb data: g not in range\n"), 1);
 	while (line[i] != ',')
 		++i;
 	b = ft_atoi(line + ++i);
 	if (b > 255 || b < 0)
-		return (ft_fprintf(2, "Error in b data: b not in range"), 1);
+		return (ft_fprintf(2, "Error\nin b data: b not in range\n"), 1);
 	return (0);
 }
 

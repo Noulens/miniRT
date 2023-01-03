@@ -70,7 +70,7 @@ int	get_infos_a(char *line, t_scene *scn)
 		return (ft_fprintf(2, "Error\nin A data: too much data\n"), FAIL);
 	ptr = ft_split(line, ' ');
 	if (!ptr)
-		return (ft_fprintf(2, "Error\nmalloc error"), FAIL);
+		return (ft_fprintf(2, "Error\nmalloc error\n"), FAIL);
 	if (check_float_nb(ptr[0]))
 		return (ft_free_split(ptr), FAIL);
 	scn->alight.al = ft_atof(ptr[0]);
@@ -95,7 +95,7 @@ int get_infos_c(char *line, t_scene *scn)
 		return (ft_fprintf(2, "Error\nin C data, bad elements nb\n"), FAIL);
 	ptr = ft_split(line, ' ');
 	if (!ptr)
-		return (ft_fprintf(2, "Error\n malloc error in C parse"), FAIL);
+		return (ft_fprintf(2, "Error\n malloc error in C parse\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
 		return (ft_free_split(ptr), FAIL);
 	get_floats(ptr[0], &scn->cam.pos, 'C');
@@ -124,7 +124,7 @@ int get_infos_l(char *line, t_scene *scn)
 		return (ft_fprintf(2, "Error\nin L data: bad elements nb\n"), FAIL);
 	ptr = ft_split(line, ' ');
 	if (!ptr)
-		return (ft_fprintf(2, "Error\n malloc error in L parse"), FAIL);
+		return (ft_fprintf(2, "Error\n malloc error in L parse\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
 		return (ft_free_split(ptr), FAIL);
 	get_floats(ptr[0], &scn->light.pos, 'L');
