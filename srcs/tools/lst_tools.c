@@ -17,16 +17,15 @@ int	objadd_front(t_stdobj **lst, void *item, t_objtp type)
 {
 	t_stdobj	*new_obj;
 	t_stdobj	*tmp;
+	static int	id;
 
 	new_obj = malloc(sizeof(t_stdobj));
 	if (!new_obj)
-	{
-		ft_fprintf(2, "Error\nerror in malloc LL obj\n");
-		return (FAIL);
-	}
+		return (ft_fprintf(2, "Error\nerror in malloc LL obj\n"), FAIL);
 	new_obj->objtp = type;
 	new_obj->obj = item;
 	new_obj->next = NULL;
+	new_obj->objid = ++id;
 	if (!(*lst))
 		*lst = new_obj;
 	else

@@ -40,7 +40,8 @@ SRCS		=	$(addprefix srcs/,									\
 												vector3.c			\
 												matrix4.c			\
 												math_utils.c)		\
-					$(addprefix interaction/,	interaction.c)		\
+					$(addprefix interaction/,	interaction.c		\
+												rotation.c)			\
 					$(addprefix render/,		render.c			\
 												windows_rend.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
@@ -51,6 +52,7 @@ SRCS		=	$(addprefix srcs/,									\
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
 CFLAGS		=	-Wall -Wextra -Werror -g -O3
+
 LDFLAGS		=	$(LIB_PATH)libft.a -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 CC			=	cc
@@ -58,7 +60,6 @@ CC			=	cc
 INCFLAGS	=	$(addprefix -I , $(INCLDIR))
 
 RM			=	/bin/rm -rf
-UNAME		:=	$(shell uname -s)
 
 # FG COLORS
 DEFAULT		=	\033[0m

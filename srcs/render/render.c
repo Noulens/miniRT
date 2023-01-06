@@ -102,6 +102,7 @@ int	intersect(t_ray ray, t_scene *scene)
 		if (t0 < 0)
 			return (0);
 	}
+	scene->target = tmp->objid;
 	return (1);
 }
 

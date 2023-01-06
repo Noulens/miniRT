@@ -55,6 +55,7 @@ typedef struct s_stdobj
 {
 	void			*obj;
 	t_objtp			objtp;
+	int 			objid;
 	struct s_stdobj	*next;
 }	t_stdobj;
 
@@ -125,6 +126,7 @@ typedef struct s_scene
 	t_cam		cam;
 	int			bg_color;
 	t_img		*ig;
+	int			target;
 }	t_scene;
 
 #endif

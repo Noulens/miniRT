@@ -32,5 +32,6 @@ void	win_launcher(t_scene *scene)
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	mlx_hook(img.win, 17, 1L << 17, ft_closebutton, scene);
 	mlx_hook(img.win, 2, 1L << 0, ft_key, scene);
+	mlx_mouse_hook(img.win, on_click, scene);
 	mlx_loop(img.mlx);
 }

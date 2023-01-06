@@ -42,7 +42,7 @@ int	count_element(char *line)
 
 int	get_floats(char *line, t_vec3 *vector, char mode)
 {
-	char 	**ptr;
+	char	**ptr;
 	float	x;
 	float	y;
 	float	z;
@@ -91,9 +91,7 @@ int	check_fformat(int *i, int *commas, char *line)
 				++*commas;
 		}
 	}
-	if (*commas != 2)
-		return (FAIL);
-	return (SUCCESS);
+	return (*commas != 2);
 }
 
 static int	check_int_nb(int i, char *line)
