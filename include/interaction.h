@@ -27,6 +27,7 @@
 
 # include "init.h"
 # include "destroy.h"
+# include "render.h"
 
 int	ft_closebutton(void *param);
 int	ft_key(int key, void *img);

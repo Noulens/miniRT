@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "interaction.h"
-#include "render.h"
 
 int	ft_closebutton(void *param)
 {
@@ -19,9 +18,8 @@ int	ft_closebutton(void *param)
 
 	scn = (t_scene *)param;
 	des_mlx(scn->ig->mlx, scn->ig->img, scn->ig->win);
-	objclear(scn->objects);
-	free(scn->objtab);
-	exit(0);
+	des_minirt(scn);
+	exit(EXIT_SUCCESS);
 }
 
 int	ft_translate_cam_test(void *param, int keycode)
@@ -67,22 +65,22 @@ int	ft_key(int key, void *param)
 
 int	on_click(int code, int x, int y, void *param)
 {
-	t_scene	*scn;
+	t_scene	*sn;
 	t_ray	ray;
 	int 	k;
 
 	k = 0;
-	scn = (t_scene *)param;
-	ray = build_camera_ray(scn, x, y);
+	sn = (t_scene *)param;
+	ray = build_camera_ray(sn, x, y);
 	if (code == 1)
 	{
 		while (k < 2)
 		{
-			if ((*scn->func_ptr[scn->objtab[k]->objtp])(ray, scn->objtab[k], k))
+			if ((*sn->func_ptr[sn->objtab[k]->objtp])(ray, sn->objtab[k], k))
 			{
-				scn->target = scn->objtab[k]->objid;
+				sn->target = sn->objtab[k]->objid;
 				ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
-						scn->target, x, y);
+						sn->target, x, y);
 				return (1);
 			}
 			k++;

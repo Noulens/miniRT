@@ -29,7 +29,7 @@ void	win_launcher(t_scene *scene)
 	img.mlx = mlx_init();
 	if (!img.mlx)
 	{
-		objclear(scene->objects);
+		des_minirt(scene);
 		exit(EXIT_FAILURE);
 	}
 	scene_init(scene);

@@ -21,5 +21,6 @@
 # include "struct.h"
 
 void	des_mlx(void *mlx, void *img, void *win);
+void	des_minirt(t_scene *scn);
 
 #endif

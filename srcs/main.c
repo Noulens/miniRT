@@ -74,6 +74,7 @@ int	main(int argc, char **argv)
 
 	scn.objects = NULL;
 	scn.target = -1;
+	scn.objtab = NULL;
 	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
 	{
 		// TODO: remove this printf before submit:
@@ -82,7 +83,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		objclear(scn.objects);
+		des_minirt(&scn);
 		exit(EXIT_FAILURE);
 	}
 	return (0);
