@@ -20,6 +20,7 @@ int	ft_closebutton(void *param)
 	scn = (t_scene *)param;
 	des_mlx(scn->ig->mlx, scn->ig->img, scn->ig->win);
 	objclear(scn->objects);
+	free(scn->objtab);
 	exit(0);
 }
 

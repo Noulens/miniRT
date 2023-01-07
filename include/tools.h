@@ -31,5 +31,6 @@ int		rgb_range_checker(char *line);
 int		objadd_front(t_stdobj **lst, void *new, t_objtp type);
 void	objclear(t_stdobj *lst);
 int		objlstsize(t_stdobj *lst);
+int		list_to_tab(t_scene *scn);
 
 #endif

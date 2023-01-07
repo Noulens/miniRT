@@ -115,9 +115,7 @@ void	compute_pixel(t_scene *scene, int i, int j)
 	int 		color;
 
 	// get sphere data from object list:
-	tmp = scene->objects;
-	while (tmp->objtp != SP)
-		tmp = tmp->next;
+	tmp = scene->objtab[0];
 	// cast in type sphere pointer: *t_sp;
 	sphere = (t_sp *)tmp->obj;
 	color = sphere->color;

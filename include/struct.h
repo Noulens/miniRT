@@ -123,6 +123,7 @@ typedef struct s_scene
 	t_light		light;
 	t_alight	alight;
 	t_stdobj	*objects;
+	t_stdobj	**objtab;
 	t_cam		cam;
 	int			bg_color;
 	t_img		*ig;

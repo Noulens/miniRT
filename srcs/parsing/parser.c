@@ -110,5 +110,5 @@ int	parse(t_scene *scn, char *str)
 	if (get_space_attribute(NULL, NULL, 0) == FAIL)
 		return (ft_fprintf(2, "Error\nACL format not respected\n"), FAIL);
 	scn->num_objects_in_scene = objlstsize(scn->objects);
-	return (ok);
+	return (list_to_tab(scn));
 }
