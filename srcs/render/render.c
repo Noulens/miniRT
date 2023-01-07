@@ -74,9 +74,7 @@ int	intersect(t_ray ray, t_scene *scene)
 	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
 	////////varaibles to be replaced from parsing.///////
 	// get sphere data from object list:
-	tmp = scene->objects;
-	while (tmp->objtp != SP)
-		tmp = tmp->next;
+	tmp = scene->objtab[0];
 	// cast in type sphere pointer: *t_sp;
 	sphere = (t_sp *)tmp->obj;
 	sphere_radius = sphere->diameter / 2.0f;
