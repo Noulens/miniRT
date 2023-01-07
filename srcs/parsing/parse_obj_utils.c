@@ -20,7 +20,7 @@ int	parse_cy_2(char **ptr, t_cy *cylinder, t_scene *scn)
 	if (check_rgb(ptr[4]))
 		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: rgb\n"), FAIL);
 	cylinder->color = atorgb(ptr[4]);
-	if (objadd_front(&scn->objects, cylinder, CY))
+	if (objadd_front(&scn->objects, cylinder, CY, cylinder->color))
 		return (free(cylinder), ft_fprintf(2, "Error\nparse_cy: add\n"), FAIL);
 	return (SUCCESS);
 }

@@ -57,7 +57,7 @@ void	ft_swap(float *a, float *b)
 	*b = tmp;
 }
 
-int	intersect(t_ray ray, t_scene *scene)
+int	intersect(t_ray ray, t_scene *scene, int k)
 {
 	float		t0;
 	float		t1;
@@ -74,7 +74,7 @@ int	intersect(t_ray ray, t_scene *scene)
 	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
 	////////varaibles to be replaced from parsing.///////
 	// get sphere data from object list:
-	tmp = scene->objtab[0];
+	tmp = scene->objtab[k];
 	// cast in type sphere pointer: *t_sp;
 	sphere = (t_sp *)tmp->obj;
 	sphere_radius = sphere->diameter / 2.0f;
@@ -108,41 +108,43 @@ void	compute_pixel(t_scene *scene, int i, int j)
 {
 	t_ray	ray;
 	//test variables to get color of sphere fro; parsing
-	t_stdobj	*tmp; // ptr to access objects
-	t_sp		*sphere; // objects are casted to a pointer corresponding to their type
-	int 		color;
+	//t_stdobj	*tmp; // ptr to access objects
+	//t_sp		*sphere; // objects are casted to a pointer corresponding to their type
+	//int 		color;
 
 	// get sphere data from object list:
-	tmp = scene->objtab[0];
+	//tmp = scene->objtab[0];
 	// cast in type sphere pointer: *t_sp;
-	sphere = (t_sp *)tmp->obj;
-	color = sphere->color;
+	//sphere = (t_sp *)tmp->obj;
+	//color = sphere->color;
 	//
-	ray = build_camera_ray(scene, i, j);
-	if (intersect(ray, scene))
-	{
+	//ray = build_camera_ray(scene, i, j);
+	//if (intersect(ray, scene))
+	//{
 		// do complex shading here but for now basic (just constant color)
-		my_mlx_pixel_put(scene->ig, i, j, color);
-	}
-	else
-		my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
+	//	my_mlx_pixel_put(scene->ig, i, j, color);
+	//}
+	//else
+	//	my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
 	// when we have several objects, we need to iteracte throu all objects.
-	// int		k;
-	// k = -1;
-	// while (++k < scene->num_objects_in_scene)
-	// {
-		// ray = build_camera_ray(i, j);
-		// if (intersect(ray, scene))
-		// {
+	int		k;
+	k = -1;
+	while (++k < 2)
+	{
+		ray = build_camera_ray(scene, i, j);
+		if (intersect(ray, scene, k))
+		{
 			// do complex shading here but for now basic (just constant color)
+			my_mlx_pixel_put(scene->ig, i, j, scene->objtab[k]->metacolor);
 			// framebuffer[j * scene->win_w + i] = scene->objects[k].color;
-		// }
-		// else
-		// {
-			// or don't do anything and leave it black
+		}
+		else
+		{
+			// or don't do anything and leave it black unless there is a color already
 			// framebuffer[j * scene->win_w + i] = scene->bg_color;
-		// }
-	// }
+			//my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
+		}
+	}
 }
 
 int	render(t_scene *scene)

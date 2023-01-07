@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "tools.h"
-#include "struct.h"
 
-int	objadd_front(t_stdobj **lst, void *item, t_objtp type)
+int	objadd_front(t_stdobj **lst, void *item, t_objtp type, int color)
 {
 	t_stdobj	*new_obj;
 	t_stdobj	*tmp;
@@ -26,6 +25,7 @@ int	objadd_front(t_stdobj **lst, void *item, t_objtp type)
 	new_obj->obj = item;
 	new_obj->next = NULL;
 	new_obj->objid = ++id;
+	new_obj->metacolor = color;
 	if (!(*lst))
 		*lst = new_obj;
 	else

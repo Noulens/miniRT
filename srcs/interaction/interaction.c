@@ -69,15 +69,22 @@ int	on_click(int code, int x, int y, void *param)
 {
 	t_scene	*scn;
 	t_ray	ray;
+	int 	k;
 
+	k = 0;
 	scn = (t_scene *)param;
 	ray = build_camera_ray(scn, x, y);
 	if (code == 1)
 	{
-		if (intersect(ray, scn))
+		while (k < 2)
 		{
-			ft_printf(RESET"click detected on object nb %d:\nx = %d\ny = %d\n",
-				scn->target, x, y);
+			if (intersect(ray, scn, k))
+			{
+				ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
+						scn->target, x, y);
+				return (1);
+			}
+			k++;
 		}
 	}
 	return (0);

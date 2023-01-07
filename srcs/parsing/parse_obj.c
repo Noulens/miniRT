@@ -34,7 +34,7 @@ int	parse_pl(char *line, t_scene *scn)
 	if (check_rgb(ptr[2]))
 		return (ft_free_split(ptr), FAIL);
 	plan->color = atorgb(ptr[2]);
-	if (objadd_front(&scn->objects, plan, PL))
+	if (objadd_front(&scn->objects, plan, PL, plan->color))
 		return (ft_free_split(ptr), free(plan), FAIL);
 	return (ft_free_split(ptr), SUCCESS);
 }
@@ -92,7 +92,7 @@ int	parse_sp(char *line, t_scene *scn)
 	if (check_rgb(ptr[2]))
 		return (ft_free_split(ptr), free(sphere), ft_fprintf(2, ERSPH3), FAIL);
 	sphere->color = atorgb(ptr[2]);
-	if (objadd_front(&scn->objects, sphere, SP))
+	if (objadd_front(&scn->objects, sphere, SP, sphere->color))
 		return (ft_free_split(ptr), free(sphere), ft_fprintf(2, ERSPH), FAIL);
 	return (ft_free_split(ptr), SUCCESS);
 }
