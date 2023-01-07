@@ -17,8 +17,8 @@
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 t_ray	build_camera_ray(t_scene *scene, int x, int y);
-int		intersect(t_ray ray, t_scene *scene, int k);
-int		render(t_scene *scn);
+int		intersectsp(t_ray ray, t_stdobj *tmp, int k);
+int		render(t_scene *scn, t_func *inter);
 void	win_launcher(t_scene *scn);
 
 #endif

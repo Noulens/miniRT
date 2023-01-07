@@ -57,7 +57,7 @@ void	ft_swap(float *a, float *b)
 	*b = tmp;
 }
 
-int	intersect(t_ray ray, t_scene *scene, int k)
+int	intersectsp(t_ray ray, t_stdobj *tmp, int k)
 {
 	float		t0;
 	float		t1;
@@ -68,13 +68,10 @@ int	intersect(t_ray ray, t_scene *scene, int k)
 	t_vec3		sphere_pos;
 	t_vec3		l;
 
-	t_stdobj	*tmp; // ptr to access objects
 	t_sp		*sphere; // objects are casted to a pointer corresponding to their type
-
+	(void)k;
 	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
 	////////varaibles to be replaced from parsing.///////
-	// get sphere data from object list:
-	tmp = scene->objtab[k];
 	// cast in type sphere pointer: *t_sp;
 	sphere = (t_sp *)tmp->obj;
 	sphere_radius = sphere->diameter / 2.0f;
@@ -100,11 +97,10 @@ int	intersect(t_ray ray, t_scene *scene, int k)
 		if (t0 < 0)
 			return (0);
 	}
-	scene->target = tmp->objid;
 	return (1);
 }
 
-void	compute_pixel(t_scene *scene, int i, int j)
+void	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 {
 	t_ray	ray;
 	//test variables to get color of sphere fro; parsing
@@ -132,7 +128,7 @@ void	compute_pixel(t_scene *scene, int i, int j)
 	while (++k < 2)
 	{
 		ray = build_camera_ray(scene, i, j);
-		if (intersect(ray, scene, k))
+		if ((*inter[scene->objtab[k]->objtp])(ray, scene->objtab[k], k))
 		{
 			// do complex shading here but for now basic (just constant color)
 			my_mlx_pixel_put(scene->ig, i, j, scene->objtab[k]->metacolor);
@@ -147,7 +143,7 @@ void	compute_pixel(t_scene *scene, int i, int j)
 	}
 }
 
-int	render(t_scene *scene)
+int	render(t_scene *scene, t_func *inter)
 {
 	int	i;
 	int	j;
@@ -158,7 +154,7 @@ int	render(t_scene *scene)
 		i = -1;
 		while (++i < scene->win_w)
 		{
-			compute_pixel(scene, i, j);
+			compute_pixel(scene, i, j, inter);
 		}
 	}
 	return (0);

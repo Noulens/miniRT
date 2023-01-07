@@ -115,6 +115,8 @@ typedef struct s_alight
 	int		color;
 }	t_alight;
 
+typedef int	(*t_func[5])(t_ray ms, t_stdobj *inter, int k);
+
 typedef struct s_scene
 {
 	int			win_w;
@@ -129,6 +131,7 @@ typedef struct s_scene
 	int			bg_color;
 	t_img		*ig;
 	int			target;
+	t_func		*func_ptr;
 }	t_scene;
 
 #endif

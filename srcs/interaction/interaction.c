@@ -60,7 +60,7 @@ int	ft_key(int key, void *param)
 	if (key == KEY_A || key == KEY_D || key == KEY_S || key == KEY_W)
 		ft_translate_cam_test((void*)param, key);
 	clear_image(scn);
-	render(scn);
+	render(scn, scn->func_ptr);
     mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);
 	return (0);
 }
@@ -78,7 +78,7 @@ int	on_click(int code, int x, int y, void *param)
 	{
 		while (k < 2)
 		{
-			if (intersect(ray, scn, k))
+			if ((*scn->func_ptr[scn->objtab[k]->objtp])(ray, scn->objtab[k], k))
 			{
 				scn->target = scn->objtab[k]->objid;
 				ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
