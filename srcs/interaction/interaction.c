@@ -80,6 +80,7 @@ int	on_click(int code, int x, int y, void *param)
 		{
 			if (intersect(ray, scn, k))
 			{
+				scn->target = scn->objtab[k]->objid;
 				ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
 						scn->target, x, y);
 				return (1);
