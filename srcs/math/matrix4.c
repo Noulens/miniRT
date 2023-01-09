@@ -64,21 +64,21 @@ t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r)
 	// calculation order to be tested.
 	// UPDATE : it doesn't work. Feel free to rewrite.
 	init_matrix(&transform);
-	transform.m[0][0] = cos(to_radian(r.y)) * cos(to_radian(r.z));
-	transform.m[0][1] = sin(to_radian(r.x)) * sin(to_radian(r.y)) * \
-	cos(to_radian(r.z)) - cos(to_radian(r.x)) * sin(to_radian(r.z));
-	transform.m[0][2] = cos(to_radian(r.x)) * sin(to_radian(r.y)) * \
-	cos(to_radian(r.z)) + sin(to_radian(r.x)) * sin((r.z));
+	transform.m[0][0] = cosf(to_radian(r.y)) * cosf(to_radian(r.z));
+	transform.m[0][1] = sinf(to_radian(r.x)) * sinf(to_radian(r.y)) * \
+	cosf(to_radian(r.z)) - cosf(to_radian(r.x)) * sinf(to_radian(r.z));
+	transform.m[0][2] = cosf(to_radian(r.x)) * sinf(to_radian(r.y)) * \
+	cosf(to_radian(r.z)) + sinf(to_radian(r.x)) * sinf((r.z));
 	transform.m[0][3] = t.x;
-	transform.m[1][0] = cos(to_radian(r.y)) * sin(to_radian(r.z));
-	transform.m[1][1] = sin(to_radian(r.x)) * sin(to_radian(r.y)) * \
-	sin(to_radian(r.z)) + cos(to_radian(r.x)) * cos(to_radian(r.z));
-	transform.m[1][2] = cos(to_radian(r.x)) * sin(to_radian(r.y)) * \
-	sin(to_radian(r.z)) - sin(to_radian(r.x)) * cos(to_radian(r.z));
+	transform.m[1][0] = cosf(to_radian(r.y)) * sinf(to_radian(r.z));
+	transform.m[1][1] = sinf(to_radian(r.x)) * sinf(to_radian(r.y)) * \
+	sinf(to_radian(r.z)) + cosf(to_radian(r.x)) * cosf(to_radian(r.z));
+	transform.m[1][2] = cosf(to_radian(r.x)) * sinf(to_radian(r.y)) * \
+	sinf(to_radian(r.z)) - sinf(to_radian(r.x)) * cosf(to_radian(r.z));
 	transform.m[1][3] = t.y;
-	transform.m[2][0] = -sin(to_radian(r.y));
-	transform.m[2][1] = sin(to_radian(r.x)) * cos(to_radian(r.y));
-	transform.m[2][2] = cos(to_radian(r.x)) * cos(to_radian(r.y));
+	transform.m[2][0] = -sinf(to_radian(r.y));
+	transform.m[2][1] = sinf(to_radian(r.x)) * cosf(to_radian(r.y));
+	transform.m[2][2] = cosf(to_radian(r.x)) * cosf(to_radian(r.y));
 	transform.m[2][3] = t.z;
 	matrix_vec_mult(transform, src);
 	return (transform);

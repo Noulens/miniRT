@@ -41,6 +41,7 @@ void	ft_rotation_x(void *obj)
 		sp->pos.y = dy * cosf(+0.09f) + dz * sinf(+0.09f);
 		sp->pos.z = -dy * sinf(+0.09f) + dz * cosf(+0.09f);
 	}
+	printf("%d\n", scn->target);
 }
 
 void	ft_rotation_y(void *obj)
@@ -63,7 +64,7 @@ void	ft_rotation_y(void *obj)
 	k = -1;
 	while (++k < 2)
 	{
-		sp = (t_sp *) scn->objtab[k]->obj;
+		sp = (t_sp *)scn->objtab[k]->obj;
 		dx = sp->pos.x;
 		dz = sp->pos.z;
 		sp->pos.x = dx * cosf(+0.09f) + dz * sinf(+0.09f);
@@ -91,7 +92,7 @@ void	ft_rotation_z(void *obj)
 	k = -1;
 	while (++k < 2)
 	{
-		sp = (t_sp *) scn->objtab[k]->obj;
+		sp = (t_sp *)scn->objtab[k]->obj;
 		dx = sp->pos.x;
 		dy = sp->pos.y;
 		sp->pos.x = dx * cosf(+0.09f) - dy * sinf(+0.09f);
