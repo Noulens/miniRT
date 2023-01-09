@@ -11,49 +11,49 @@
 /* ************************************************************************** */
 
 #include "interaction.h"
-/*
+
+//printf("%f, %f\n", scn->cam.pos.y, scn->cam.pos.z);
+//ft_printf("+ pressed\n");
+
 void	ft_rotation_x(void *obj)
 {
-	int	dy;
-	int	dz;
+	float	dy;
+	float	dz;
+	t_scene	*scn;
+	t_sp	*sp;
 
-	dy = points->y0;
-	dz = points->z0;
-	points->y0 = dy * cos(points->a0) + dz * sin(points->a0);
-	points->z0 = -dy * sin(points->a0) + dz * cos(points->a0);
-	dy = points->y1;
-	dz = points->z1;
-	points->y1 = dy * cos(points->a0) + dz * sin(points->a0);
-	points->z1 = -dy * sin(points->a0) + dz * cos(points->a0);
+	scn = (t_scene *)obj;
+	dy = scn->cam.pos.y;
+	dz = scn->cam.pos.z;
+	scn->cam.pos.y = dy * cosf(+0.09f) + dz * sinf(+0.09f);
+	scn->cam.pos.z = -dy * sinf(+0.09f) + dz * cosf(+0.09f);
+	sp = (t_sp *)scn->objtab[0];
+	dy = sp->pos.y;
+	dz = sp->pos.z;
 }
 
-void	ft_rotation_y(t_point *points)
+void	ft_rotation_y(void *obj)
 {
-	int	dx;
-	int	dz;
+	float	dx;
+	float	dz;
+	t_scene	*scn;
 
-	dx = points->x0;
-	dz = points->z0;
-	points->x0 = dx * cos(points->a1) + dz * sin(points->a1);
-	points->z0 = -dx * sin(points->a1) + dz * cos(points->a1);
-	dx = points->x1;
-	dz = points->z1;
-	points->x1 = dx * cos(points->a1) + dz * sin(points->a1);
-	points->z1 = -dx * sin(points->a1) + dz * cos(points->a1);
+	scn = (t_scene *)obj;
+	dx = scn->cam.pos.x;
+	dz = scn->cam.pos.z;
+	scn->cam.pos.x = dx * cosf(+0.09f) + dz * sinf(+0.09f);
+	scn->cam.pos.z = -dx * sinf(+0.09f) + dz * cosf(+0.09f);
 }
 
-void	ft_rotation_z(t_point *points)
+void	ft_rotation_z(void *obj)
 {
-	int	dx;
-	int	dy;
+	float	dx;
+	float	dy;
+	t_scene	*scn;
 
-	dx = points->x0;
-	dy = points->y0;
-	points->x0 = dx * cos(points->a2) - dy * sin(points->a2);
-	points->y0 = dx * sin(points->a2) + dy * cos(points->a2);
-	dx = points->x1;
-	dy = points->y1;
-	points->x1 = dx * cos(points->a2) - dy * sin(points->a2);
-	points->y1 = dx * sin(points->a2) + dy * cos(points->a2);
+	scn = (t_scene *)obj;
+	dx = scn->cam.pos.x;
+	dy = scn->cam.pos.y;
+	scn->cam.pos.x = dx * cosf(+0.09f) - dy * sinf(+0.09f);
+	scn->cam.pos.y= dx * sinf(+0.09f) + dy * cosf(+0.09f);
 }
-*/

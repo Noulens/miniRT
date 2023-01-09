@@ -57,6 +57,12 @@ int	ft_key(int key, void *param)
 		ft_closebutton(param);
 	if (key == KEY_A || key == KEY_D || key == KEY_S || key == KEY_W)
 		ft_translate_cam_test((void*)param, key);
+	if (key == KEY_PLUS)
+		ft_rotation_x((void *)param);
+	if (key == KEY_MINUS)
+		ft_rotation_y((void *)param);
+	if (key == KEY_UP)
+		ft_rotation_z((void *)param);
 	clear_image(scn);
 	render(scn, scn->func_ptr);
     mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);

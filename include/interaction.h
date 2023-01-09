@@ -29,8 +29,11 @@
 # include "destroy.h"
 # include "render.h"
 
-int	ft_closebutton(void *param);
-int	ft_key(int key, void *img);
-int	on_click(int code, int x, int y, void *param);
+int		ft_closebutton(void *param);
+int		ft_key(int key, void *img);
+int		on_click(int code, int x, int y, void *param);
+void	ft_rotation_x(void *obj);
+void	ft_rotation_y(void *obj);
+void	ft_rotation_z(void *obj);
 
 #endif
