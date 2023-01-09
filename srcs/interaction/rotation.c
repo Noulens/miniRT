@@ -20,6 +20,8 @@ void	ft_rotation_x(void *obj)
 	float	dy;
 	float	dz;
 	t_scene	*scn;
+	t_sp	*sp;
+	int 	k;
 
 	scn = (t_scene *)obj;
 	dy = scn->cam.pos.y;
@@ -30,6 +32,15 @@ void	ft_rotation_x(void *obj)
 	dz = scn->cam.orientation.z;
 	scn->cam.orientation.y = dy * cosf(+0.09f) + dz * sinf(+0.09f);
 	scn->cam.orientation.z = -dy * sinf(+0.09f) + dz * cosf(+0.09f);
+	k = -1;
+	while (++k < 2)
+	{
+		sp = (t_sp *)scn->objtab[k]->obj;
+		dy = sp->pos.y;
+		dz = sp->pos.z;
+		sp->pos.y = dy * cosf(+0.09f) + dz * sinf(+0.09f);
+		sp->pos.z = -dy * sinf(+0.09f) + dz * cosf(+0.09f);
+	}
 }
 
 void	ft_rotation_y(void *obj)
@@ -37,6 +48,8 @@ void	ft_rotation_y(void *obj)
 	float	dx;
 	float	dz;
 	t_scene	*scn;
+	t_sp	*sp;
+	int 	k;
 
 	scn = (t_scene *)obj;
 	dx = scn->cam.pos.x;
@@ -47,6 +60,15 @@ void	ft_rotation_y(void *obj)
 	dz = scn->cam.orientation.z;
 	scn->cam.orientation.x = dx * cosf(+0.09f) + dz * sinf(+0.09f);
 	scn->cam.orientation.z = -dx * sinf(+0.09f) + dz * cosf(+0.09f);
+	k = -1;
+	while (++k < 2)
+	{
+		sp = (t_sp *) scn->objtab[k]->obj;
+		dx = sp->pos.x;
+		dz = sp->pos.z;
+		sp->pos.x = dx * cosf(+0.09f) + dz * sinf(+0.09f);
+		sp->pos.z = -dx * sinf(+0.09f) + dz * cosf(+0.09f);
+	}
 }
 
 void	ft_rotation_z(void *obj)
@@ -54,6 +76,8 @@ void	ft_rotation_z(void *obj)
 	float	dx;
 	float	dy;
 	t_scene	*scn;
+	t_sp	*sp;
+	int 	k;
 
 	scn = (t_scene *)obj;
 	dx = scn->cam.pos.x;
@@ -64,4 +88,13 @@ void	ft_rotation_z(void *obj)
 	dx = scn->cam.orientation.x;
 	scn->cam.orientation.x = dx * cosf(+0.09f) - dy * sinf(+0.09f);
 	scn->cam.orientation.y= dx * sinf(+0.09f) + dy * cosf(+0.09f);
+	k = -1;
+	while (++k < 2)
+	{
+		sp = (t_sp *) scn->objtab[k]->obj;
+		dx = sp->pos.x;
+		dy = sp->pos.y;
+		sp->pos.x = dx * cosf(+0.09f) - dy * sinf(+0.09f);
+		sp->pos.y = dx * sinf(+0.09f) + dy * cosf(+0.09f);
+	}
 }
