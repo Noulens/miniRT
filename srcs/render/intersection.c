@@ -78,3 +78,31 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	}
 	return 0;
 }
+/*
+int intersect_cylinder(t_ray ray, t_stdobj *cy_std, float *hit_distance)
+{
+	double a;
+	double b;
+	double c;
+	double delta;
+	double root;
+	t_cy	*cylinder;
+
+	cylinder = (t_cy *)cy_std;
+	a = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
+	b = 2 * ray.dir.x * (ray.origin.x - cylinder->pos.x) +
+		2 * ray->dir->z * (ray->ori->z - cylinder->base->z);
+	c = (ray->ori->x - cylinder->base->x) * (ray->ori->x - cylinder->base->x) +
+		(ray->ori->z - cylinder->base->z) * (ray->ori->z - cylinder->base->z) -
+		cylinder->radius * cylinder->radius;
+	delta = b * b - (4 * a * c);
+	if (delta > ACC)
+	{
+		root = (-1 * b - sqrt(delta)) / (2 * a) - ACC;
+		if (root <= ACC)
+			root = (-1 * b + sqrt(delta)) / (2 *a) - ACC;
+		return (root);
+	}
+	return (-1);
+}
+*/

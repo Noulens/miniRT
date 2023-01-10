@@ -29,8 +29,9 @@ t_matrix4	init_matrix(t_matrix4 *new)
 	return (*new);
 }
 
-void	matrix_print(t_matrix4 n)
+void	matrix_print(t_matrix4 n, int dir_flag)
 {
+	(void)dir_flag;
 	printf("--------matrix---------\n");
 	printf("%f %f %f %f\n", n.m[0][0], \
 	n.m[0][1], n.m[0][2], n.m[0][3]);
@@ -82,4 +83,40 @@ t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r)
 	transform.m[2][3] = t.z;
 	matrix_vec_mult(transform, src);
 	return (transform);
+}
+
+void	set_identity(t_matrix4 *matrix)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i == j)
+				matrix->m[i][j] = 1.0f;
+			else
+				matrix->m[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	set_transform(t_vec3 *trans, t_vec3 *rot, t_vec3 *sca)
+{
+
+}
+
+t_ray	trsfrm_ray(t_ray *ray, int dir_flag)
+{
+
+}
+
+t_vec3	trsfrm_vec(t_vec3 *vec, int dir_flag)
+{
+
 }

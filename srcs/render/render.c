@@ -60,7 +60,7 @@ int	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 	k = -1;
 	closest_obj = -1;
 	closest_distance = INFINITY;
-	while (++k < scene->num_objects_in_scene)
+	while (++k < 2)
 	{
 		ray = build_camera_ray(scene, i, j);
 		if ((*inter)[scene->objtab[k]->objtp](ray, scene->objtab[k], &hit_dist))

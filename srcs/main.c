@@ -72,9 +72,6 @@ int	main(int argc, char **argv)
 {
 	t_scene	scn;
 
-	scn.objects = NULL;
-	scn.target = -1;
-	scn.objtab = NULL;
 	if (argc == 2 && rt_name_checker(argv[1]) && !parse(&scn, argv[1]))
 	{
 		// TODO: remove this printf before submit:

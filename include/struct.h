@@ -132,6 +132,8 @@ typedef struct s_scene
 	t_img		*ig;
 	int			target;
 	t_func		*func_ptr;
+	t_matrix4	fwtfm;
+	t_matrix4	bcktfm;
 }	t_scene;
 
 #endif

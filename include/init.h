@@ -21,7 +21,9 @@
 # include "interaction.h"
 # include "parsing.h"
 # include "struct.h"
+# include "math_func.h"
 
 void	scene_init(t_scene *s);
+void	scenevarinit(t_scene *s);
 
 #endif

@@ -23,7 +23,7 @@ float	vec_length(t_vec3 a)
 	float	b;
 
 	b = (a.x * a.x) + (a.y * a.y) + (a.z * a.z);
-	return (sqrt(b));
+	return (sqrtf(b));
 }
 
 t_vec3	vec_normalize(t_vec3 vec)
@@ -32,7 +32,7 @@ t_vec3	vec_normalize(t_vec3 vec)
 
 	len = vec_length(vec);
 	if (len == 0)
-		return (printf("Error : vec length is 0\n"), set_vec(0, 0, 0));
+		return (ft_printf("Error : vec length is 0\n"), set_vec(0, 0, 0));
 	return (set_vec(vec.x * 1 / len, vec.y * 1 / len, vec.z * 1 / len));
 }
 
@@ -41,4 +41,10 @@ t_vec3	vec_cross(t_vec3 a, t_vec3 b)
 	return (set_vec(a.y * b.z - a.z * b.y, \
 					a.z * b.x - a.x * b.z, \
 					a.x * b.y - a.y * b.x));
+}
+
+void	print_vec(t_vec3 *a)
+{
+	//TODO : remove this printf:
+	printf("x: %f, y: %f, z: %f\n", a->x, a->y, a->z);
 }

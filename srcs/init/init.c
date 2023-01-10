@@ -41,3 +41,12 @@ void	scene_init(t_scene *s)
 	s->bg_color = ft_trgb(255, 0, 0, 0);
 	cam_init(s);
 }
+
+void	scenevarinit(t_scene *s)
+{
+	s->objects = NULL;
+	s->target = -1;
+	s->objtab = NULL;
+	set_identity(&s->fwtfm);
+	set_identity(&s->bcktfm);
+}
