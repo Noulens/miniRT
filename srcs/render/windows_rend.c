@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:32:44 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/23 17:15:58 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/10 04:29:46 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	init_intersect_fun(t_func *inter)
 {
-	(*inter[0]) = intersectsp;
+	(*inter[0]) = intersect_sphere;
+	(*inter)[2] = intersect_plane;
 }
 
 

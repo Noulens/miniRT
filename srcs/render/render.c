@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/23 17:18:32 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/10 05:18:52 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_swap(float *a, float *b)
 	*b = tmp;
 }
 
-int	intersectsp(t_ray ray, t_stdobj *tmp, int k)
+int	intersect_sphere(t_ray ray, t_stdobj *tmp, int k)
 {
 	float		t0;
 	float		t1;
@@ -67,17 +67,12 @@ int	intersectsp(t_ray ray, t_stdobj *tmp, int k)
 	float		sphere_radius;
 	t_vec3		sphere_pos;
 	t_vec3		l;
+	t_sp		*sphere;
 
-	t_sp		*sphere; // objects are casted to a pointer corresponding to their type
 	(void)k;
-	//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
-	////////varaibles to be replaced from parsing.///////
-	// cast in type sphere pointer: *t_sp;
 	sphere = (t_sp *)tmp->obj;
 	sphere_radius = sphere->diameter / 2.0f;
 	sphere_pos = sphere->pos;
-
-	////////////////////////////////////////////////////
 
 	l = vec_sub(sphere_pos, ray.origin);
 	tca = vec_dot(l, ray.dir);
@@ -97,38 +92,43 @@ int	intersectsp(t_ray ray, t_stdobj *tmp, int k)
 		if (t0 < 0)
 			return (0);
 	}
-	return (1);
+	// return (1);
+	return (t0);
+}
+
+int	intersect_plane(t_ray ray, t_stdobj *tmp, int k)
+{
+	t_pl	*plane;
+	t_vec3	plane_n;
+	t_vec3	intersect_pos;
+	float	denom;
+	float	distance_between_cam_intersection_in_plane;
+
+	plane = (t_pl *)tmp->obj;
+	plane_n = plane->orientation;
+	(void) k;
+
+	denom = vec_dot(plane_n, ray.dir);
+    if (denom != 0) 
+	{
+		intersect_pos = vec_sub(plane->pos, ray.origin);
+		distance_between_cam_intersection_in_plane = vec_dot(intersect_pos, plane_n) / denom;
+        return (distance_between_cam_intersection_in_plane >= 0);
+    }
+
+    return 0;
 }
 
 void	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 {
 	t_ray	ray;
-	//test variables to get color of sphere fro; parsing
-	//t_stdobj	*tmp; // ptr to access objects
-	//t_sp		*sphere; // objects are casted to a pointer corresponding to their type
-	//int 		color;
-
-	// get sphere data from object list:
-	//tmp = scene->objtab[0];
-	// cast in type sphere pointer: *t_sp;
-	//sphere = (t_sp *)tmp->obj;
-	//color = sphere->color;
-	//
-	//ray = build_camera_ray(scene, i, j);
-	//if (intersect(ray, scene))
-	//{
-		// do complex shading here but for now basic (just constant color)
-	//	my_mlx_pixel_put(scene->ig, i, j, color);
-	//}
-	//else
-	//	my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
-	// when we have several objects, we need to iteracte throu all objects.
 	int		k;
+
 	k = -1;
-	while (++k < 2)
+	while (++k < scene->num_objects_in_scene)
 	{
 		ray = build_camera_ray(scene, i, j);
-		if ((*inter[scene->objtab[k]->objtp])(ray, scene->objtab[k], k))
+		if ((*inter)[scene->objtab[k]->objtp](ray, scene->objtab[k], k))
 		{
 			// do complex shading here but for now basic (just constant color)
 			my_mlx_pixel_put(scene->ig, i, j, scene->objtab[k]->metacolor);
@@ -138,7 +138,7 @@ void	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 		{
 			// or don't do anything and leave it black unless there is a color already
 			// framebuffer[j * scene->win_w + i] = scene->bg_color;
-			//my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
+			// my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
 		}
 	}
 }
