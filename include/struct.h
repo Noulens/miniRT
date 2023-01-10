@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/28 17:47:23 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/10 05:28:57 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct s_alight
 	int		color;
 }	t_alight;
 
-typedef int	(*t_func[5])(t_ray ms, t_stdobj *inter, int k);
+typedef int	(*t_func[5])(t_ray ms, t_stdobj *inter, float *hit_distance);
 
 typedef struct s_scene
 {

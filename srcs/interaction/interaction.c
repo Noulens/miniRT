@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/23 16:53:16 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/10 06:16:31 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	clear_image(t_scene *scene)
 	ft_bzero(scene->ig->addr, scene->win_w * scene->win_h * 4);
 }
 
-//printf("key : %i\n", key);
 int	ft_key(int key, void *param)
 {
 	t_scene	*scn;
@@ -72,25 +71,36 @@ int	ft_key(int key, void *param)
 int	on_click(int code, int x, int y, void *param)
 {
 	t_scene	*sn;
-	t_ray	ray;
+	// t_ray	ray;
 	int 	k;
 
 	k = 0;
 	sn = (t_scene *)param;
-	ray = build_camera_ray(sn, x, y);
 	if (code == 1)
 	{
-		while (k < 2)
+		k = compute_pixel(sn, x, y, sn->func_ptr);
+		if (k != -1)
 		{
-			if ((*sn->func_ptr[sn->objtab[k]->objtp])(ray, sn->objtab[k], k))
-			{
-				sn->target = sn->objtab[k]->objid;
-				ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
-						sn->target, x, y);
-				return (1);
-			}
-			k++;
+			sn->target = k + 1;
+			ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n", sn->target, x, y);
 		}
+		else
+			ft_printf("Background\n");
 	}
+	// ray = build_camera_ray(sn, x, y);
+	// if (code == 1)
+	// {
+	// 	while (k < 2)
+	// 	{
+	// 		if ((*sn->func_ptr[sn->objtab[k]->objtp])(ray, sn->objtab[k], &hit_dist))
+	// 		{
+	// 			sn->target = sn->objtab[k]->objid;
+	// 			ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
+	// 					sn->target, x, y);
+	// 			return (1);
+	// 		}
+	// 		k++;
+	// 	}
+	// }
 	return (0);
 }

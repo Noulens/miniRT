@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/10 05:18:52 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/10 06:09:15 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,99 +48,34 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	return (ray);
 }
 
-void	ft_swap(float *a, float *b)
-{
-	float	tmp;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
-int	intersect_sphere(t_ray ray, t_stdobj *tmp, int k)
-{
-	float		t0;
-	float		t1;
-	float		tca;
-	float		thc;
-	float		d2;
-	float		sphere_radius;
-	t_vec3		sphere_pos;
-	t_vec3		l;
-	t_sp		*sphere;
-
-	(void)k;
-	sphere = (t_sp *)tmp->obj;
-	sphere_radius = sphere->diameter / 2.0f;
-	sphere_pos = sphere->pos;
-
-	l = vec_sub(sphere_pos, ray.origin);
-	tca = vec_dot(l, ray.dir);
-	if (tca < 0)
-		return (0);
-	d2 = vec_dot(l, l) - tca * tca;
-	if (d2 > sphere_radius)
-		return (0);
-	thc = sqrtf(sphere_radius - d2);
-	t0 = tca - thc;
-	t1 = tca + thc;
-	if (t0 > t1)
-		ft_swap(&t0, &t1);
-	if (t0 < 0)
-	{
-		t0 = t1;
-		if (t0 < 0)
-			return (0);
-	}
-	// return (1);
-	return (t0);
-}
-
-int	intersect_plane(t_ray ray, t_stdobj *tmp, int k)
-{
-	t_pl	*plane;
-	t_vec3	plane_n;
-	t_vec3	intersect_pos;
-	float	denom;
-	float	distance_between_cam_intersection_in_plane;
-
-	plane = (t_pl *)tmp->obj;
-	plane_n = plane->orientation;
-	(void) k;
-
-	denom = vec_dot(plane_n, ray.dir);
-    if (denom != 0) 
-	{
-		intersect_pos = vec_sub(plane->pos, ray.origin);
-		distance_between_cam_intersection_in_plane = vec_dot(intersect_pos, plane_n) / denom;
-        return (distance_between_cam_intersection_in_plane >= 0);
-    }
-
-    return 0;
-}
-
-void	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
+int	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 {
 	t_ray	ray;
 	int		k;
+	int		closest_obj;
+	float	closest_distance;
+	float	hit_dist;
 
 	k = -1;
+	closest_obj = -1;
+	closest_distance = INFINITY;
 	while (++k < scene->num_objects_in_scene)
 	{
 		ray = build_camera_ray(scene, i, j);
-		if ((*inter)[scene->objtab[k]->objtp](ray, scene->objtab[k], k))
+		if ((*inter)[scene->objtab[k]->objtp](ray, scene->objtab[k], &hit_dist))
 		{
+			if (closest_distance > hit_dist)
+			{
+				closest_distance = hit_dist;
+				closest_obj = k;
+			}
 			// do complex shading here but for now basic (just constant color)
-			my_mlx_pixel_put(scene->ig, i, j, scene->objtab[k]->metacolor);
-			// framebuffer[j * scene->win_w + i] = scene->objects[k].color;
-		}
-		else
-		{
-			// or don't do anything and leave it black unless there is a color already
-			// framebuffer[j * scene->win_w + i] = scene->bg_color;
-			// my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
 		}
 	}
+	if (closest_obj != -1)
+		my_mlx_pixel_put(scene->ig, i, j, scene->objtab[closest_obj]->metacolor);
+	return (closest_obj);
 }
 
 int	render(t_scene *scene, t_func *inter)

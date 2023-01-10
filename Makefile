@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+         #
+#    By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2022/12/22 19:47:43 by waxxy            ###   ########.fr        #
+#    Updated: 2023/01/10 06:04:33 by hyunah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRCS		=	$(addprefix srcs/,									\
 					$(addprefix interaction/,	interaction.c		\
 												rotation.c)			\
 					$(addprefix render/,		render.c			\
-												windows_rend.c)		\
+												windows_rend.c		\
+												intersection.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
 												range_check.c		\
 												lst_tools.c)		\
