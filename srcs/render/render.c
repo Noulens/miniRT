@@ -58,9 +58,10 @@ int	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 	float	hit_dist;
 
 	k = -1;
+	hit_dist = 0;
 	closest_obj = -1;
 	closest_distance = INFINITY;
-	while (++k < 2)
+	while (++k < scene->num_objects_in_scene)
 	{
 		ray = build_camera_ray(scene, i, j);
 		if ((*inter)[scene->objtab[k]->objtp](ray, scene->objtab[k], &hit_dist))
@@ -74,7 +75,7 @@ int	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 		}
 	}
 	if (closest_obj != -1)
-		my_mlx_pixel_put(scene->ig, i, j, scene->objtab[closest_obj]->metacolor);
+			my_mlx_pixel_put(scene->ig, i, j, scene->objtab[closest_obj]->metacolor);
 	return (closest_obj);
 }
 

@@ -30,15 +30,25 @@ int	ft_translate_cam_test(void *param, int keycode)
 	scene = (t_scene *)param;
 	cam_translate = set_vec(0, 0, 0);
 	if (keycode == KEY_D)
-		cam_translate.x += 1.f;
+		scene->cam.rotate.x -= 0.5f;
 	if (keycode == KEY_A)
-		cam_translate.x -= 1.f;
+		scene->cam.rotate.x += 0.5f;
 	if (keycode == KEY_W)
-		cam_translate.z += 1.f;
+	{
+		scene->cam.translate.z += 0.5f;
+		printf("translate +: %f\n", scene->cam.translate.z);
+	}
 	if (keycode == KEY_S)
-		cam_translate.z -= 1.f;
+	{
+		scene->cam.translate.z -= 0.5f;
+		printf("translate -: %f\n", scene->cam.translate.z);
+	}
 	// this matrix_transformation function doesn't work well except for z axis translate. Feel free to rewrite or debug.
-	matrix_transformation(&(scene->cam.pos), vec_add(scene->cam.translate, cam_translate), scene->cam.rotate);
+	//	matrix_transformation(&(scene->cam.pos), vec_add(scene->cam.translate, cam_translate), scene->cam.rotate);
+	set_transform(&scene->cam.translate, &scene->cam.rotate, scene);
+	matrix_print(scene->fwtfm, 1);
+	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
+	printf("x: %f, z: %f\n", scene->cam.pos.x, scene->cam.pos.z);
 	return (0);
 }
 

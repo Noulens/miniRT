@@ -39,26 +39,22 @@ void	matrix_print(t_matrix4 n, int dir_flag)
 	n.m[1][1], n.m[1][2], n.m[1][3]);
 	printf("%f %f %f %f\n", n.m[2][0], \
 	n.m[2][1], n.m[2][2], n.m[2][3]);
+	printf("%f %f %f %f\n", n.m[3][0], \
+	n.m[3][1], n.m[3][2], n.m[3][3]);
 	printf("----------------------\n");
 }
 
-void	matrix_vec_mult(t_matrix4 new, t_vec3 *vector)
+void	matrix_vec_mult(t_matrix4 new, t_vec3 *vect)
 {
-	t_vec3	v;
-	float	forth;
+	t_vec3	tmp;
 
-	(void) forth;
-	v = *vector;
-	vector->x = v.x * new.m[0][0] + v.y * new.m[0][1] \
-	+ v.z * new.m[0][2] + new.m[0][3];
-	vector->y = v.x * new.m[1][0] + v.y * new.m[1][1] \
-	+ v.z * new.m[1][2] + new.m[1][3];
-	vector->z = v.x * new.m[2][0] + v.y * new.m[2][1] \
-	+ v.z * new.m[2][2] + new.m[2][3];
-	forth = v.x * new.m[3][0] + v.y * new.m[3][1] \
-	+ v.z * new.m[3][2] + new.m[3][3];
+	tmp = set_vec(vect->x, vect->y, vect->z);
+	vect->x = new.m[0][0] * tmp.x + new.m[0][1] * tmp.y + new.m[0][2] * tmp.z + new.m[0][3] * tmp.t;
+	vect->y = new.m[1][0] * tmp.x + new.m[1][1] * tmp.y	+ new.m[1][2] * tmp.z + new.m[1][3] * tmp.t;
+	vect->z = new.m[2][0] * tmp.x + new.m[2][1] * tmp.y + new.m[2][2] * tmp.z + new.m[2][3] * tmp.t;
 }
 
+/*
 t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r)
 {
 	t_matrix4	transform;
@@ -84,39 +80,26 @@ t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r)
 	matrix_vec_mult(transform, src);
 	return (transform);
 }
+*/
 
-void	set_identity(t_matrix4 *matrix)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			if (i == j)
-				matrix->m[i][j] = 1.0f;
-			else
-				matrix->m[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
-}
-
-void	set_transform(t_vec3 *trans, t_vec3 *rot, t_vec3 *sca)
-{
-
-}
-
+/*
 t_ray	trsfrm_ray(t_ray *ray, int dir_flag)
 {
+	t_ray	transformed_ray;
 
+	(void)ray;
+	(void)dir_flag;
+	transformed_ray = *ray;
+	return (transformed_ray);
 }
 
 t_vec3	trsfrm_vec(t_vec3 *vec, int dir_flag)
 {
+	t_vec3	transformed_vec;
 
+	(void)vec;
+	(void)dir_flag;
+	transformed_vec = set_vec(1, 1, 1);
+	return (transformed_vec);
 }
+ */

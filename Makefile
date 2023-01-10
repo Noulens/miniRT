@@ -39,6 +39,7 @@ SRCS		=	$(addprefix srcs/,									\
 					$(addprefix math/,			vector3_simple.c	\
 												vector3.c			\
 												matrix4.c			\
+												matrix4_2.c			\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c		\
 												rotation.c)			\
@@ -136,7 +137,7 @@ re:				fclean
 				@$(MAKE) -s all
 
 lc:				all
-				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT ./scenes/basic.rt
+				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT ./scenes/shading.rt
 
 norm:
 			norminette ./srcs ./libft ./include

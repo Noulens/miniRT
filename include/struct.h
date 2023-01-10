@@ -18,6 +18,7 @@ typedef struct s_vec3
 	float	x;
 	float	y;
 	float	z;
+	float	t;
 }	t_vec3;
 
 typedef struct s_ray
@@ -50,6 +51,14 @@ typedef enum e_obj
 	HY,
 	CO
 }	t_objtp;
+
+typedef enum e_mat
+{
+	T,
+	RX,
+	RY,
+	RZ,
+}	t_mat;
 
 typedef struct s_stdobj
 {

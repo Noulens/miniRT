@@ -19,6 +19,7 @@ t_vec3	set_vec(float x, float y, float z)
 	new.x = x;
 	new.y = y;
 	new.z = z;
+	new.t = 1;
 	return (new);
 }
 

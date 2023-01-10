@@ -33,9 +33,10 @@ void		matrix_vec_mult(t_matrix4 new, t_vec3 *vector);
 float		to_degree(float radian);
 float		to_radian(float degree);
 t_matrix4	init_matrix(t_matrix4 *new);
-void		set_transform(t_vec3 *trans, t_vec3 *rot, t_vec3 *sca);
+void		set_transform(t_vec3 *trans, t_vec3 *rot, t_scene *s);
 t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r);
 void		print_vec(t_vec3 *a);
 void		set_identity(t_matrix4 *matrix);
+t_matrix4	mul_mat(t_matrix4 mat1, t_matrix4 mat2);
 
 #endif
