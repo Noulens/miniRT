@@ -64,8 +64,8 @@ typedef struct s_stdobj
 {
 	void			*obj;
 	t_objtp			objtp;
-	int 			objid;
-	int 			metacolor;
+	int				objid;
+	int				metacolor;
 	struct s_stdobj	*next;
 }	t_stdobj;
 
