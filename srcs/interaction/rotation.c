@@ -14,7 +14,7 @@
 
 //printf("%f, %f\n", scn->cam.pos.y, scn->cam.pos.z);
 //ft_printf("+ pressed\n");
-
+/*
 void	ft_rotation_x(void *obj)
 {
 	float	dy;
@@ -99,3 +99,4 @@ void	ft_rotation_z(void *obj)
 		sp->pos.y = dx * sinf(+0.09f) + dy * cosf(+0.09f);
 	}
 }
+*/

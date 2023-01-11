@@ -22,5 +22,6 @@ int		intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance);
 int		render(t_scene *scn, t_func *inter);
 void	win_launcher(t_scene *scn);
 int		compute_pixel(t_scene *scene, int i, int j, t_func *inter);
+void	clear_image(t_scene *scene);
 
 #endif

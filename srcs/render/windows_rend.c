@@ -12,6 +12,11 @@
 
 #include "render.h"
 
+void	clear_image(t_scene *scene)
+{
+	ft_bzero(scene->ig->addr, scene->win_w * scene->win_h * 4);
+}
+
 static void	init_intersect_fun(t_func *inter)
 {
 	(*inter[0]) = intersect_sphere;

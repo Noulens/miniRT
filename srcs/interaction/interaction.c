@@ -22,35 +22,49 @@ int	ft_closebutton(void *param)
 	exit(EXIT_SUCCESS);
 }
 
-int	ft_translate_cam_test(void *param, int keycode)
+void	do_transform(int keycode, t_scene *scene)
+{
+	if (keycode == KEY_D)
+		scene->cam.translate.x = -0.5f;
+	if (keycode == KEY_A)
+		scene->cam.translate.x = 0.5f;
+	if (keycode == KEY_W)
+		scene->cam.translate.z = 0.5f;
+	if (keycode == KEY_S)
+		scene->cam.translate.z = -0.5f;
+	if (keycode == KEY_SPACE)
+		scene->cam.translate.y = 0.5f;
+	if (keycode == KEY_CTRL)
+		scene->cam.translate.y = -0.5f;
+	if (keycode == KEY_UP)
+		scene->cam.rotate.y = 1.9f;
+	if (keycode == KEY_DOWN)
+		scene->cam.rotate.y = -1.9f;
+	if (keycode == KEY_PLUS)
+		scene->cam.rotate.z = 1.9f;
+	if (keycode == KEY_MINUS)
+		scene->cam.rotate.z = -1.9f;
+	if (keycode == KEY_LEFT)
+		scene->cam.rotate.x = 1.9f;
+	if (keycode == KEY_RIGHT)
+		scene->cam.rotate.x = -1.9f;
+}
+
+// TODO: remove this printf:
+int	move_cam(void *param, int keycode)
 {
 	t_scene	*scene;
 
 	scene = (t_scene *)param;
-	if (keycode == KEY_D)
-		scene->cam.rotate.x = -0.5f;
-	if (keycode == KEY_A)
-		scene->cam.rotate.x = 0.5f;
-	if (keycode == KEY_W)
-	{
-		scene->cam.translate.z = 0.5f;
-		printf("translate +: %f\n", scene->cam.translate.z);
-	}
-	if (keycode == KEY_S)
-	{
-		scene->cam.translate.z = -0.5f;
-		printf("translate -: %f\n", scene->cam.translate.z);
-	}
+	scene->cam.translate = set_vec(0, 0, 0);
+	scene->cam.rotate = set_vec(0, 0, 0);
+	do_transform(keycode, scene);
 	set_transform(&scene->cam.translate, &scene->cam.rotate, scene);
 	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
-	printf("x: %f, z: %f\n", scene->cam.pos.x, scene->cam.pos.z);
+	printf("x: %f, y: %f, z: %f\n", scene->cam.pos.x,
+		scene->cam.pos.y, scene->cam.pos.z);
 	return (0);
-}
-
-void	clear_image(t_scene *scene)
-{
-	ft_bzero(scene->ig->addr, scene->win_w * scene->win_h * 4);
 }
 
 int	ft_key(int key, void *param)
@@ -58,16 +72,14 @@ int	ft_key(int key, void *param)
 	t_scene	*scn;
 
 	scn = (t_scene *)param;
+	printf("%d\n", key);
 	if (key == KEY_ESC)
 		ft_closebutton(param);
-	if (key == KEY_A || key == KEY_D || key == KEY_S || key == KEY_W)
-		ft_translate_cam_test((void *)param, key);
-	if (key == KEY_PLUS)
-		ft_rotation_x((void *)param);
-	if (key == KEY_MINUS)
-		ft_rotation_y((void *)param);
-	if (key == KEY_UP)
-		ft_rotation_z((void *)param);
+	if (key == KEY_A || key == KEY_D || key == KEY_S || key == KEY_W
+		|| key == KEY_SPACE || key == KEY_CTRL || key == KEY_PLUS
+		|| key == KEY_MINUS || key == KEY_UP || key == KEY_DOWN
+		|| key == KEY_LEFT || key == KEY_RIGHT)
+		move_cam((void *)param, key);
 	clear_image(scn);
 	render(scn, scn->func_ptr);
 	mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);

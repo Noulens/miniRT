@@ -85,9 +85,7 @@ t_matrix4	mul_mat(t_matrix4 mat1, t_matrix4 mat2)
 		{
 			k = -1;
 			while (++k < 4)
-			{
 				res = res + mat1.m[c][k] * mat2.m[k][d];
-			}
 			ret.m[c][d] = res;
 			res = 0;
 		}
