@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix4_2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/11 12:18:35 by tnoulens          #+#    #+#             */
+/*   Updated: 2023/01/11 12:18:39 by tnoulens         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "math_func.h"
 
 void	set_identity(t_matrix4 *matrix)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < 4)
@@ -61,9 +72,9 @@ void	set_transform(t_vec3 *trans, t_vec3 *rot, t_scene *s)
 t_matrix4	mul_mat(t_matrix4 mat1, t_matrix4 mat2)
 {
 	float		res;
-	int 		c;
-	int 		d;
-	int 		k;
+	int			c;
+	int			d;
+	int			k;
 	t_matrix4	ret;
 
 	c = -1;

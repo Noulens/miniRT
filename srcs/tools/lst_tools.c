@@ -65,11 +65,11 @@ int	objlstsize(t_stdobj *lst)
 
 int	list_to_tab(t_scene *scn)
 {
-	t_stdobj 	*tmp;
+	t_stdobj	*tmp;
 	size_t		idx;
 
 	idx = scn->num_objects_in_scene;
-	scn->objtab = (t_stdobj **)ft_calloc(sizeof(t_stdobj	*), idx + 1);
+	scn->objtab = (t_stdobj **)ft_calloc(sizeof(t_stdobj *), idx + 1);
 	if (!scn->objtab)
 		return (ft_fprintf(2, "Error\nlist_to_tab bad malloc"), FAIL);
 	tmp = scn->objects;

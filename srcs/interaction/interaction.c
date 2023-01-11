@@ -25,26 +25,22 @@ int	ft_closebutton(void *param)
 int	ft_translate_cam_test(void *param, int keycode)
 {
 	t_scene	*scene;
-	t_vec3	cam_translate;
 
 	scene = (t_scene *)param;
-	cam_translate = set_vec(0, 0, 0);
 	if (keycode == KEY_D)
-		scene->cam.rotate.x -= 0.5f;
+		scene->cam.rotate.x = -0.5f;
 	if (keycode == KEY_A)
-		scene->cam.rotate.x += 0.5f;
+		scene->cam.rotate.x = 0.5f;
 	if (keycode == KEY_W)
 	{
-		scene->cam.translate.z += 0.5f;
+		scene->cam.translate.z = 0.5f;
 		printf("translate +: %f\n", scene->cam.translate.z);
 	}
 	if (keycode == KEY_S)
 	{
-		scene->cam.translate.z -= 0.5f;
+		scene->cam.translate.z = -0.5f;
 		printf("translate -: %f\n", scene->cam.translate.z);
 	}
-	// this matrix_transformation function doesn't work well except for z axis translate. Feel free to rewrite or debug.
-	//	matrix_transformation(&(scene->cam.pos), vec_add(scene->cam.translate, cam_translate), scene->cam.rotate);
 	set_transform(&scene->cam.translate, &scene->cam.rotate, scene);
 	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
@@ -65,7 +61,7 @@ int	ft_key(int key, void *param)
 	if (key == KEY_ESC)
 		ft_closebutton(param);
 	if (key == KEY_A || key == KEY_D || key == KEY_S || key == KEY_W)
-		ft_translate_cam_test((void*)param, key);
+		ft_translate_cam_test((void *)param, key);
 	if (key == KEY_PLUS)
 		ft_rotation_x((void *)param);
 	if (key == KEY_MINUS)
@@ -74,17 +70,15 @@ int	ft_key(int key, void *param)
 		ft_rotation_z((void *)param);
 	clear_image(scn);
 	render(scn, scn->func_ptr);
-    mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);
+	mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);
 	return (0);
 }
 
 int	on_click(int code, int x, int y, void *param)
 {
 	t_scene	*sn;
-	// t_ray	ray;
-	int 	k;
+	int		k;
 
-	k = 0;
 	sn = (t_scene *)param;
 	if (code == 1)
 	{
@@ -92,25 +86,31 @@ int	on_click(int code, int x, int y, void *param)
 		if (k != -1)
 		{
 			sn->target = k + 1;
-			ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n", sn->target, x, y);
+			ft_printf("This is object nb %d\nx=%d\ny=%d\n", sn->target, x, y);
 		}
 		else
-			ft_printf("Background\n");
+			ft_printf("This is the background\n");
 	}
-	// ray = build_camera_ray(sn, x, y);
-	// if (code == 1)
-	// {
-	// 	while (k < 2)
-	// 	{
-	// 		if ((*sn->func_ptr[sn->objtab[k]->objtp])(ray, sn->objtab[k], &hit_dist))
-	// 		{
-	// 			sn->target = sn->objtab[k]->objid;
-	// 			ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
-	// 					sn->target, x, y);
-	// 			return (1);
-	// 		}
-	// 		k++;
-	// 	}
-	// }
 	return (0);
 }
+
+// this code can be used in on_click:
+
+// t_ray	ray;
+//
+// ray = build_camera_ray(sn, x, y);
+// if (code == 1)
+// {
+// 	while (k < 2)
+// 	{
+// 		if ((*sn->func_ptr[sn->objtab[k]->objtp])(ray,
+// 				sn->objtab[k], &hit_dist))
+// 		{
+// 			sn->target = sn->objtab[k]->objid;
+// 			ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
+// 					sn->target, x, y);
+// 			return (1);
+// 		}
+// 		k++;
+// 	}
+// }

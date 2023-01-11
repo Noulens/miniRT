@@ -18,7 +18,6 @@ static void	init_intersect_fun(t_func *inter)
 	(*inter)[2] = intersect_plane;
 }
 
-
 void	win_launcher(t_scene *scene)
 {
 	t_img	img;

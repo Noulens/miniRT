@@ -49,9 +49,12 @@ void	matrix_vec_mult(t_matrix4 new, t_vec3 *vect)
 	t_vec3	tmp;
 
 	tmp = set_vec(vect->x, vect->y, vect->z);
-	vect->x = new.m[0][0] * tmp.x + new.m[0][1] * tmp.y + new.m[0][2] * tmp.z + new.m[0][3] * tmp.t;
-	vect->y = new.m[1][0] * tmp.x + new.m[1][1] * tmp.y	+ new.m[1][2] * tmp.z + new.m[1][3] * tmp.t;
-	vect->z = new.m[2][0] * tmp.x + new.m[2][1] * tmp.y + new.m[2][2] * tmp.z + new.m[2][3] * tmp.t;
+	vect->x = new.m[0][0] * tmp.x + new.m[0][1] * tmp.y + new.m[0][2] * tmp.z
+		+ new.m[0][3] * tmp.t;
+	vect->y = new.m[1][0] * tmp.x + new.m[1][1] * tmp.y + new.m[1][2] * tmp.z
+		+ new.m[1][3] * tmp.t;
+	vect->z = new.m[2][0] * tmp.x + new.m[2][1] * tmp.y + new.m[2][2] * tmp.z
+		+ new.m[2][3] * tmp.t;
 }
 
 /*
