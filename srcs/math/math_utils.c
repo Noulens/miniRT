@@ -21,3 +21,8 @@ float	to_degree(float radian)
 {
 	return (radian * 180 / M_PI);
 }
+
+float	base_cylinder(float radius)
+{
+	return (M_PI * radius * radius);
+}

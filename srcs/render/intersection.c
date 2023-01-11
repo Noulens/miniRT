@@ -72,28 +72,72 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 /*
 int intersect_cylinder(t_ray ray, t_stdobj *cy_std, float *hit_distance)
 {
-	double a;
-	double b;
-	double c;
-	double delta;
-	double root;
+	float	a;
+	float	b;
+	float	c;
+	float	delta;
+	float	root;
 	t_cy	*cylinder;
 
 	cylinder = (t_cy *)cy_std;
 	a = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
 	b = 2 * ray.dir.x * (ray.origin.x - cylinder->pos.x) +
-		2 * ray->dir->z * (ray->ori->z - cylinder->base->z);
-	c = (ray->ori->x - cylinder->base->x) * (ray->ori->x - cylinder->base->x) +
-		(ray->ori->z - cylinder->base->z) * (ray->ori->z - cylinder->base->z) -
-		cylinder->radius * cylinder->radius;
+		2 * ray.dir.z * (ray.origin.z - cylinder->pos.z);
+	c = (ray.origin.x -  cylinder->pos.x) * (ray.origin.x - cylinder->pos.x) +
+		(ray.origin.z - cylinder->pos.z) * (ray.origin.z - cylinder->pos.z) -
+			(cylinder->diameter / 2) * (cylinder->diameter / 2);
 	delta = b * b - (4 * a * c);
-	if (delta > ACC)
+	if (delta > 0)
 	{
-		root = (-1 * b - sqrt(delta)) / (2 * a) - ACC;
-		if (root <= ACC)
-			root = (-1 * b + sqrt(delta)) / (2 *a) - ACC;
-		return (root);
+		root = (-b - sqrtf(delta)) / (2 * a);
+		if (root <= 0)
+			root = (-b + sqrtf(delta)) / (2 *a);
+		*hit_distance = root;
+		return (1);
 	}
-	return (-1);
+	return (0);
 }
 */
+static void	check_for_solutions_cylinder(float *dist)
+{
+	if (dist[0] > dist[1])
+		ft_swap(&dist[0], &dist[1]);
+	if (dist[0] < 0 && dist[1] > 0)
+		dist[2] = dist[1];
+	else if (dist[0] > 0 && dist[1] > 0)
+		dist[2] = dist[0];
+	else
+	{
+		dist[0] = 0;
+		dist[1] = 0;
+		dist[2] = INFINITY;
+	}
+}
+
+int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
+{
+	float	a;
+	float	b;
+	float	c;
+	float	delta;
+	float	root[3];
+	t_cy	*cylinder;
+
+	cylinder = (t_cy *)obj;
+	a = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
+	b = 2 * ray.dir.x * (ray.origin.x - cylinder->pos.x) +
+		2 * ray.dir.z * (ray.origin.z - cylinder->pos.z);
+	c = (ray.origin.x -  cylinder->pos.x) * (ray.origin.x - cylinder->pos.x) +
+		(ray.origin.z - cylinder->pos.z) * (ray.origin.z - cylinder->pos.z) -
+		(cylinder->diameter / 2) * (cylinder->diameter / 2);
+	delta = (b * b) - (4 * a * c);
+	if (delta > 0)
+	{
+		root[0] = (((-1 * b - sqrtf(delta))) / (2 * a));
+		root[1] = (((-1 * b + sqrtf(delta))) / (2 * a));
+		check_for_solutions_cylinder(root);
+		*dist = root[2];
+		return (1);
+	}
+	return (0);
+}

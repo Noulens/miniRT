@@ -38,5 +38,6 @@ t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r);
 void		print_vec(t_vec3 *a);
 void		set_identity(t_matrix4 *matrix);
 t_matrix4	mul_mat(t_matrix4 mat1, t_matrix4 mat2);
+float		base_cylinder(float radius);
 
 #endif

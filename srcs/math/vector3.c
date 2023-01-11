@@ -46,5 +46,5 @@ t_vec3	vec_cross(t_vec3 a, t_vec3 b)
 //TODO : remove this printf:
 void	print_vec(t_vec3 *a)
 {
-	printf("x: %f, y: %f, z: %f\n", a->x, a->y, a->z);
+	printf("x = %f, y = %f, z = %f\n", a->x, a->y, a->z);
 }

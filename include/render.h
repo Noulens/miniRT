@@ -19,6 +19,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 t_ray	build_camera_ray(t_scene *scene, int x, int y);
 int		intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance);
 int		intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance);
+int		intersect_cylinder(t_ray ray, t_stdobj *cy_std, float *hit_distance);
 int		render(t_scene *scn, t_func *inter);
 void	win_launcher(t_scene *scn);
 int		compute_pixel(t_scene *scene, int i, int j, t_func *inter);
