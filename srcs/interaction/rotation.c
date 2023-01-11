@@ -12,6 +12,22 @@
 
 #include "interaction.h"
 
+void	do_orientation(int key, t_vec3 *orientation)
+{
+	if (key == 48)
+		orientation->y -= 0.1f;
+	if (key == 57)
+		orientation->y += 0.1f;
+	if (key == 56)
+		orientation->x -= 0.1f;
+	if (key == 55)
+		orientation->x += 0.1f;
+	if (key == 45)
+		orientation->z -= 0.1f;
+	if (key == 61)
+		orientation->z += 0.1f;
+}
+
 //printf("%f, %f\n", scn->cam.pos.y, scn->cam.pos.z);
 //ft_printf("+ pressed\n");
 /*

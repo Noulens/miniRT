@@ -59,6 +59,7 @@ int	move_cam(void *param, int keycode)
 	scene->cam.translate = set_vec(0, 0, 0);
 	scene->cam.rotate = set_vec(0, 0, 0);
 	do_transform(keycode, scene);
+	do_orientation(keycode, &scene->cam.orientation);
 	set_transform(&scene->cam.translate, &scene->cam.rotate, scene);
 	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
@@ -75,10 +76,14 @@ int	ft_key(int key, void *param)
 	printf("%d\n", key);
 	if (key == KEY_ESC)
 		ft_closebutton(param);
-	if (key == KEY_A || key == KEY_D || key == KEY_S || key == KEY_W
-		|| key == KEY_SPACE || key == KEY_CTRL || key == KEY_PLUS
-		|| key == KEY_MINUS || key == KEY_UP || key == KEY_DOWN
-		|| key == KEY_LEFT || key == KEY_RIGHT)
+	if (key == KEY_C)
+		scn->target = -1;
+	if (scn->target == -1 && (key == KEY_A || key == KEY_D || key == KEY_S
+			|| key == KEY_W || key == KEY_SPACE || key == KEY_CTRL
+			|| key == KEY_PLUS || key == KEY_MINUS || key == KEY_UP
+			|| key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
+			|| key == 61 || key == 48 || key == 57 || key == 56 || key == 55
+			|| key == 45))
 		move_cam((void *)param, key);
 	if (key == 45 || key == 61 || key == 65429 || key == 65430
 		|| key == 65431 || key == 65432 || key == 65433 || key == 65434

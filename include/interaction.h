@@ -26,6 +26,7 @@
 # define KEY_MINUS 65453
 # define KEY_SPACE 32
 # define KEY_CTRL 65507
+# define KEY_C 99
 
 # include "init.h"
 # include "destroy.h"
@@ -38,5 +39,6 @@ void	ft_rotation_x(void *obj);
 void	ft_rotation_y(void *obj);
 void	ft_rotation_z(void *obj);
 int		modify_objects(void *param, int key);
+void	do_orientation(int key, t_vec3 *orientation);
 
 #endif
