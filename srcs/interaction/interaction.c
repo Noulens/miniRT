@@ -50,7 +50,7 @@ void	do_transform(int keycode, t_scene *scene)
 		scene->cam.rotate.x = -1.9f;
 }
 
-// TODO: remove this printf:
+// TODO: remove this printf and matrix_print:
 int	move_cam(void *param, int keycode)
 {
 	t_scene	*scene;
@@ -67,6 +67,7 @@ int	move_cam(void *param, int keycode)
 	return (0);
 }
 
+// TODO: remove this printf
 int	ft_key(int key, void *param)
 {
 	t_scene	*scn;
