@@ -62,7 +62,7 @@ void	set_transform(t_vec3 *trans, t_vec3 *rot, t_scene *s)
 	int			i;
 
 	i = -1;
-	while (++i < 5)
+	while (++i < 4)
 		set_identity(&t[i]);
 	set_transmat(trans, t);
 	set_rotmat(rot, t);

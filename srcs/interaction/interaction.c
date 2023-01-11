@@ -80,6 +80,10 @@ int	ft_key(int key, void *param)
 		|| key == KEY_MINUS || key == KEY_UP || key == KEY_DOWN
 		|| key == KEY_LEFT || key == KEY_RIGHT)
 		move_cam((void *)param, key);
+	if (key == 45 || key == 61 || key == 65429 || key == 65430
+		|| key == 65431 || key == 65432 || key == 65433 || key == 65434
+		|| key == 48 || key == 57 || key == 56 || key == 55)
+		modify_objects((void *)param, key);
 	clear_image(scn);
 	render(scn, scn->func_ptr);
 	mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);

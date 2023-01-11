@@ -42,6 +42,7 @@ SRCS		=	$(addprefix srcs/,									\
 												matrix4_2.c			\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c		\
+												interaction_2.c		\
 												rotation.c)			\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
