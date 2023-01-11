@@ -12,15 +12,6 @@
 
 #include "render.h"
 
-void	ft_swap(float *a, float *b)
-{
-	float	tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
 int	intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance)
 {
 	float		t0;

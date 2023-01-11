@@ -32,5 +32,6 @@ int		objadd_front(t_stdobj **lst, void *new, t_objtp type, int color);
 void	objclear(t_stdobj *lst);
 int		objlstsize(t_stdobj *lst);
 int		list_to_tab(t_scene *scn);
+void	ft_swap(float *a, float *b);
 
 #endif
