@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:48:59 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/22 08:51:49 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/11 13:04:31 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 t_vec3		vec_add(t_vec3 a, t_vec3 b);
 t_vec3		vec_sub(t_vec3 a, t_vec3 b);
 t_vec3		vec_mult(t_vec3 a, float scale);
+t_vec3		vec_scale(t_vec3 a, float b);
 t_vec3		set_vec(float x, float y, float z);
 float		vec_length(t_vec3 a);
 float		vec_dot(t_vec3 a, t_vec3 b);

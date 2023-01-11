@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/10 05:28:57 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/11 15:10:58 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ typedef enum e_obj
 	CO
 }	t_objtp;
 
+typedef struct s_surfaceinfo
+{
+	t_vec3	hit_point;
+	t_vec3	view_dir;
+	t_vec3	hit_normal;
+	float	hit_dist;
+}	t_surfaceinfo;
+
 typedef struct s_stdobj
 {
 	void			*obj;
@@ -82,10 +90,10 @@ typedef struct s_cy
 
 typedef struct s_sp
 {
-	t_vec3	pos;
-	t_vec3	translate;
-	int		color;
-	float	diameter;
+	t_vec3			pos;
+	t_vec3			translate;
+	int				color;
+	float			diameter;
 }	t_sp;
 
 typedef struct s_cam
