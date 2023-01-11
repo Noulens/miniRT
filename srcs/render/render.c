@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/11 17:19:44 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/11 18:43:47 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ int	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 		else
 			my_mlx_pixel_put(scene->ig, i, j, scene->objtab[closest_obj]->metacolor);
 	}
+	else
+		my_mlx_pixel_put(scene->ig, i, j, scene->bg_color);
 	return (closest_obj);
 }
 
