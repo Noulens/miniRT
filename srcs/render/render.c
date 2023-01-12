@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/12 07:43:01 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/12 07:49:21 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,12 @@ int	compute_pixel(t_scene *scene, int i, int j, t_func *inter)
 	hit_dist = 0;
 	closest_obj = -1;
 	closest_distance = INFINITY;
+	// printf("%i %i\n", i, j);
 	while (++k < scene->num_objects_in_scene)
 	{
+		// printf("k : %i, num : %i\n", k, scene->num_objects_in_scene);
 		ray = build_camera_ray(scene, i, j);
+		// printf("%i\n", scene->objtab[k]->objtp);
 		if ((*inter)[scene->objtab[k]->objtp](ray, scene->objtab[k], &hit_dist))
 		{
 			if (closest_distance > hit_dist)

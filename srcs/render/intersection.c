@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/11 17:15:33 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/12 07:49:59 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 	float	root[3];
 	t_cy	*cylinder;
 
-	cylinder = (t_cy *)obj;
+	cylinder = (t_cy *)obj->obj;
 	a = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
 	b = 2 * ray.dir.x * (ray.origin.x - cylinder->pos.x) +
 		2 * ray.dir.z * (ray.origin.z - cylinder->pos.z);
