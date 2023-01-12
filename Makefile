@@ -6,7 +6,7 @@
 #    By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2023/01/10 06:04:33 by hyunah           ###   ########.fr        #
+#    Updated: 2023/01/12 08:00:25 by hyunah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS		=	$(addprefix srcs/,									\
 												rotation.c)			\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
+												shader.c		\
 												intersection.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
 												range_check.c		\

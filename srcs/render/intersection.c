@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/12 07:49:59 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/12 07:52:23 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	sphere = (t_sp *)tmp->obj;
 	sphere_radius = sphere->diameter / 2.0f;
 	sphere_pos = sphere->pos;
-	// printf("2center : %f, %f, %f\n", sphere->pos.x, sphere->pos.y,  sphere->pos.z);
 	l = vec_sub(sphere_pos, ray.origin);
 	tca = vec_dot(l, ray.dir);
 	if (tca < 0)
@@ -99,6 +98,7 @@ int intersect_cylinder(t_ray ray, t_stdobj *cy_std, float *hit_distance)
 	return (0);
 }
 */
+
 static void	check_for_solutions_cylinder(float *dist)
 {
 	if (dist[0] > dist[1])
