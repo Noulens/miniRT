@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:07:10 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/12 15:23:51 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/12 16:38:57 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			win_launcher(t_scene *scn);
 int				compute_pixel(t_scene *scene, int i, int j, t_func *inter);
 void			clear_image(t_scene *scene);
 t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray);
-int				lambert(t_scene *s, t_surfaceinfo info, int obj, t_func *i);
+int				lambert(t_scene *s, t_surfaceinfo *info, int obj, t_func *i);
 int				find_closest_obj(t_scene *s, t_ray ray, t_func *i, float *d);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/12 15:46:39 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/12 17:08:44 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 	return (info);
 }
 
-int	shadow_visibility(t_scene *scene, t_func *inter, t_surfaceinfo info)
+int	shadow_visibility(t_scene *scene, t_func *inter, t_surfaceinfo *info)
 {
 	float	hit_dist;
 	int		vis;
 	t_ray	hit;
 
-	hit.origin = vec_add(info.hit_point, vec_scale(info.hit_normal, 0.01f));
+	hit.origin = vec_add(info->hit_point, vec_scale(info->hit_normal, 0.01f));
 	hit.dir = vec_scale(set_vec(0.3, -1, -0.5), -1); // light direction
 	vis = find_closest_obj(scene, hit, inter, &hit_dist);
 	if (vis == -1)
@@ -65,7 +65,7 @@ int	shadow_visibility(t_scene *scene, t_func *inter, t_surfaceinfo info)
 		return (0);
 }
 
-int	lambert(t_scene *scene, t_surfaceinfo info, int c_obj, t_func *inter)
+int	lambert(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 {
 	float	f_ratio;
 	int		vis;
@@ -79,7 +79,7 @@ int	lambert(t_scene *scene, t_surfaceinfo info, int c_obj, t_func *inter)
 	l_int = 1;
 	// light_color = ft_trgb(255, 0, 0, 0);
 	light_dir = vec_scale(set_vec(0.3, -1, -0.5), -1); // light directio
-	f_ratio = ft_max(0.0f, vec_dot(info.hit_normal, vec_normalize(light_dir)));
+	f_ratio = ft_max(0.0f, vec_dot(info->hit_normal, vec_normalize(light_dir)));
 	vis = shadow_visibility(scene, inter, info);
 	r = get_r(scene->objtab[c_obj]->metacolor) * f_ratio * l_int * vis;
 	if (r > 255)

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/12 16:34:19 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/12 17:06:16 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,28 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	return (ray);
 }
 
-int	find_closest_obj(t_scene *scene, t_ray ray, t_func *inter, float *hit_dist)
+int	find_closest_obj(t_scene *scene, t_ray ray, t_func *inter, float *closest)
 {
 	int		k;
 	int		closest_obj;
 	float	closest_distance;
+	float	hit_dist;
 
 	k = -1;
 	closest_obj = -1;
 	closest_distance = INFINITY;
 	while (++k < scene->num_objects_in_scene)
 	{
-		if ((*inter)[scene->objtab[k]->objtp](ray, scene->objtab[k], hit_dist))
+		if ((*inter)[scene->objtab[k]->objtp](ray, scene->objtab[k], &hit_dist))
 		{
-			if (closest_distance > *hit_dist)
+			if (closest_distance > hit_dist)
 			{
-				closest_distance = *hit_dist;
+				closest_distance = hit_dist;
 				closest_obj = k;
 			}
 		}
 	}
+	*closest = closest_distance;
 	return (closest_obj);
 }
 
@@ -84,7 +86,7 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 		if (s->objtab[closest_obj]->objtp == 0 \
 		|| s->objtab[closest_obj]->objtp == 2)
 		{
-			hit_color = lambert(s, info, closest_obj, inter);
+			hit_color = lambert(s, &info, closest_obj, inter);
 			my_mlx_pixel_put(s->ig, i, j, hit_color);
 		}
 		else
