@@ -88,7 +88,7 @@ int	modify_objects(void *param, int key)
 
 	scn = (t_scene *)param;
 	if (scn->target == -1)
-		return (ft_printf("No object selected\n"), 0);
+		return (ft_printf("No object selected, camera is active\n"), 0);
 	if (scn->objtab[scn->target - 1]->objtp == SP)
 		adjust_sphere(scn->objtab[scn->target - 1]->obj, key);
 	else if (scn->objtab[scn->target - 1]->objtp == CY)
