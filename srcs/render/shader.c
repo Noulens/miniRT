@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/12 15:26:06 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/12 15:46:39 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,37 +50,44 @@ t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 	return (info);
 }
 
-int	lambert(t_scene *scene, t_surfaceinfo info, int closest_obj, t_func *inter)
+int	shadow_visibility(t_scene *scene, t_func *inter, t_surfaceinfo info)
 {
-	float	facing_ratio;
 	float	hit_dist;
+	int		vis;
 	t_ray	hit;
+
+	hit.origin = vec_add(info.hit_point, vec_scale(info.hit_normal, 0.01f));
+	hit.dir = vec_scale(set_vec(0.3, -1, -0.5), -1); // light direction
+	vis = find_closest_obj(scene, hit, inter, &hit_dist);
+	if (vis == -1)
+		return (1);
+	else
+		return (0);
+}
+
+int	lambert(t_scene *scene, t_surfaceinfo info, int c_obj, t_func *inter)
+{
+	float	f_ratio;
 	int		vis;
 	int		r;
 	int		g;
 	int		b;
-	float	light_intensity;
+	float	l_int;
 	t_vec3	light_dir;
 
-	light_dir = vec_scale(set_vec(0.3, -1, -0.5), -1);
-	// TODO: replace by variable.
-	light_intensity = 1;
+	/* TODO: replace by variable.*/
+	l_int = 1;
 	// light_color = ft_trgb(255, 0, 0, 0);
-	facing_ratio = ft_max(0.0f, vec_dot(info.hit_normal, vec_normalize(light_dir)));
-	hit.origin = vec_add(info.hit_point, vec_scale(info.hit_normal, 0.01f));
-	hit.dir = light_dir;
-	vis = find_closest_obj(scene, hit, inter, &hit_dist);
-	if (vis == -1)
-		vis = 1;
-	else
-		vis = 0;
-	r = get_r(scene->objtab[closest_obj]->metacolor) * facing_ratio * light_intensity *vis;
+	light_dir = vec_scale(set_vec(0.3, -1, -0.5), -1); // light directio
+	f_ratio = ft_max(0.0f, vec_dot(info.hit_normal, vec_normalize(light_dir)));
+	vis = shadow_visibility(scene, inter, info);
+	r = get_r(scene->objtab[c_obj]->metacolor) * f_ratio * l_int * vis;
 	if (r > 255)
 		r = 255;
-	g = get_g(scene->objtab[closest_obj]->metacolor) * facing_ratio * light_intensity *vis;
+	g = get_g(scene->objtab[c_obj]->metacolor) * f_ratio * l_int * vis;
 	if (g > 255)
 		g = 255;
-	b = get_b(scene->objtab[closest_obj]->metacolor) * facing_ratio * light_intensity *vis;
+	b = get_b(scene->objtab[c_obj]->metacolor) * f_ratio * l_int * vis;
 	if (b > 255)
 		b = 255;
 	return (ft_trgb(255, r, g, b));
