@@ -6,35 +6,17 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/12 07:52:23 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 09:37:55 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-int	intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance)
+int	intersect_sphere2(float tca, float thc, float *hit_distance)
 {
 	float		t0;
 	float		t1;
-	float		tca;
-	float		thc;
-	float		d2;
-	float		sphere_radius;
-	t_vec3		sphere_pos;
-	t_vec3		l;
-	t_sp		*sphere;
 
-	sphere = (t_sp *)tmp->obj;
-	sphere_radius = sphere->diameter / 2.0f;
-	sphere_pos = sphere->pos;
-	l = vec_sub(sphere_pos, ray.origin);
-	tca = vec_dot(l, ray.dir);
-	if (tca < 0)
-		return (0);
-	d2 = vec_dot(l, l) - tca * tca;
-	if (d2 > sphere_radius)
-		return (0);
-	thc = sqrtf(sphere_radius - d2);
 	t0 = tca - thc;
 	t1 = tca + thc;
 	if (t0 > t1)
@@ -47,6 +29,27 @@ int	intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	}
 	*hit_distance = t0;
 	return (1);
+}
+
+int	intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance)
+{
+	float		tca;
+	float		thc;
+	float		d2;
+	t_vec3		l;
+	t_sp		*sphere;
+
+	sphere = (t_sp *)tmp->obj;
+	sphere->radius = sphere->diameter / 2.0f;
+	l = vec_sub(sphere->pos, ray.origin);
+	tca = vec_dot(l, ray.dir);
+	if (tca < 0)
+		return (0);
+	d2 = vec_dot(l, l) - tca * tca;
+	if (d2 > sphere->radius)
+		return (0);
+	thc = sqrtf(sphere->radius - d2);
+	return (intersect_sphere2(tca, thc, hit_distance));
 }
 
 int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)

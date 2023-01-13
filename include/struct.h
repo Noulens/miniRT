@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/12 07:43:26 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 09:26:34 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_sp
 	t_vec3			translate;
 	int				color;
 	float			diameter;
+	float			radius;
 }	t_sp;
 
 typedef struct s_cam
