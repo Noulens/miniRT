@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:38:33 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 15:02:33 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/13 13:53:34 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ float	to_degree(float radian)
 float	base_cylinder(float radius)
 {
 	return (M_PI * radius * radius);
+}
+
+float	ft_remap(float v, float fs, float fe, float ts, float te)
+{
+	return ((v * (te - ts) / (fe - fs)));
 }
