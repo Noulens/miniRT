@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/12 17:06:16 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 13:49:00 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 		if (s->objtab[closest_obj]->objtp == 0 \
 		|| s->objtab[closest_obj]->objtp == 2)
 		{
-			hit_color = lambert(s, &info, closest_obj, inter);
+			hit_color = shading(s, &info, closest_obj, inter);
 			my_mlx_pixel_put(s->ig, i, j, hit_color);
 		}
 		else

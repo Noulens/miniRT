@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/13 11:12:11 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 13:48:52 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,35 +57,28 @@ int	shadow_visibility(t_scene *scene, t_func *inter, t_surfaceinfo *info)
 		return (0);
 }
 
-int	lambert(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
+int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 {
 	float	f_ratio;
 	int		vis;
-	int		r;
-	int		g;
-	int		b;
-	// t_vec3	result;
-	// t_vec3	color;
-	// int	colorint;
-	// (void) info;
-	// (void) scene;
-	// (void) c_obj;
-	// (void) inter;
-	// color = vec_color(get_r(scene->alight.color), get_g(scene->alight.color), get_b(scene->alight.color));
-	// print_vec(&color);
-	// colorint = scene->alight.color;
-	// printf("%i %i %i\n", get_r(colorint), get_g(colorint), get_b(colorint));
-	// result = vec_scale(vec_color(scene->alight.color), scene->alight.al);
+	t_vec3	ambient;
+	t_vec3	result;
+	t_vec3	obj_color;
+	t_vec3	diffuse;
+
+	ambient = vec_scale(vec_color(scene->alight.color), scene->alight.al);
+	obj_color = vec_color(scene->objtab[c_obj]->metacolor);
 	f_ratio = ft_max(0.0f, vec_dot(info->hit_normal, vec_normalize(vec_scale(scene->light.pos, -1))));
 	vis = shadow_visibility(scene, inter, info);
-	r = get_r(scene->objtab[c_obj]->metacolor) * f_ratio * scene->light.brightness * vis;
-	if (r > 255)
-		r = 255;
-	g = get_g(scene->objtab[c_obj]->metacolor) * f_ratio * scene->light.brightness * vis;
-	if (g > 255)
-		g = 255;
-	b = get_b(scene->objtab[c_obj]->metacolor) * f_ratio * scene->light.brightness * vis;
-	if (b > 255)
-		b = 255;
-	return (ft_trgb(255, r, g, b));
+	if (!vis)
+		f_ratio = 0;
+	diffuse = vec_scale(vec_color(scene->light.color), f_ratio);
+	result = vec_mult(vec_add(ambient, diffuse), obj_color);
+	if (result.x > 1)
+		result.x = 1;
+	if (result.y > 1)
+		result.y = 1;
+	if (result.z > 1)
+		result.z = 1;
+	return (int_color(result));
 }
