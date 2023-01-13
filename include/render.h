@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:07:10 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/12 16:38:57 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 10:34:32 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void			clear_image(t_scene *scene);
 t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray);
 int				lambert(t_scene *s, t_surfaceinfo *info, int obj, t_func *i);
 int				find_closest_obj(t_scene *s, t_ray ray, t_func *i, float *d);
+t_vec3			vec_color(int color);
 
 #endif
