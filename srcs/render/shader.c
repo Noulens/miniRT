@@ -6,39 +6,38 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/13 13:48:52 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 14:42:28 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-void	get_surfaceinfo_sphere(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
+void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 {
 	t_sp		*sphere;
 
 	sphere = (t_sp *)obj->obj;
-	info->hit_point = vec_add(ray.origin, vec_scale(ray.dir, info->hit_dist));
 	info->hit_normal = vec_normalize(vec_sub(info->hit_point, sphere->pos));
 	return ;
 }
 
-void	get_surfaceinfo_plane(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
+void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 {
 	t_pl		*plane;
 
 	plane = (t_pl *)obj->obj;
 	info->hit_normal = vec_normalize(plane->orientation);
-	info->hit_point = vec_add(ray.origin, vec_scale(ray.dir, info->hit_dist));
 	return ;
 }
 
 t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 {
 	info->view_dir = vec_normalize(vec_scale(ray.dir, -1));
+	info->hit_point = vec_add(ray.origin, vec_scale(ray.dir, info->hit_dist));
 	if (obj->objtp == 0)
-		get_surfaceinfo_sphere(info, obj, ray);
+		hit_normal_sphere(info, obj);
 	if (obj->objtp == 2)
-		get_surfaceinfo_plane(info, obj, ray);
+		hit_normal_plane(info, obj);
 	return (info);
 }
 
@@ -57,15 +56,34 @@ int	shadow_visibility(t_scene *scene, t_func *inter, t_surfaceinfo *info)
 		return (0);
 }
 
+t_vec3	reflect(t_vec3 inv_lightdir, t_vec3 hit_normal)
+{
+	t_vec3	tmp;
+	float	f;
+
+	f = vec_dot(inv_lightdir, hit_normal);
+	tmp = vec_scale(vec_scale(hit_normal, f), 2);
+	tmp = vec_sub(inv_lightdir, tmp);
+	return (tmp);
+}
+
+
 int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 {
 	float	f_ratio;
+	float	spec;
+	float	spec_intensity;
 	int		vis;
+	t_vec3	specular;
+	t_vec3	reflect_dir;
 	t_vec3	ambient;
 	t_vec3	result;
 	t_vec3	obj_color;
 	t_vec3	diffuse;
 
+	//light color doesn't work
+	//rgb overflow
+	spec_intensity = 0.2f;
 	ambient = vec_scale(vec_color(scene->alight.color), scene->alight.al);
 	obj_color = vec_color(scene->objtab[c_obj]->metacolor);
 	f_ratio = ft_max(0.0f, vec_dot(info->hit_normal, vec_normalize(vec_scale(scene->light.pos, -1))));
@@ -73,7 +91,10 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	if (!vis)
 		f_ratio = 0;
 	diffuse = vec_scale(vec_color(scene->light.color), f_ratio);
-	result = vec_mult(vec_add(ambient, diffuse), obj_color);
+	reflect_dir = reflect(scene->light.pos, info->hit_normal);
+	spec = pow(ft_max(0.0f, vec_dot(info->view_dir, reflect_dir)), 16);
+	specular = vec_scale(set_vec(1.0f, 1.0f, 1.0f), spec_intensity * spec);
+	result = vec_mult(vec_add(vec_add(ambient, diffuse), specular), obj_color);
 	if (result.x > 1)
 		result.x = 1;
 	if (result.y > 1)
