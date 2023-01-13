@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:48:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/13 13:53:44 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 15:17:51 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void		set_identity(t_matrix4 *matrix);
 t_matrix4	mul_mat(t_matrix4 mat1, t_matrix4 mat2);
 float		base_cylinder(float radius);
 float		ft_max(float a, float b);
-float		ft_remap(float v, float fs, float fe, float ts, float te);
+float		ft_remap(float v, float fe, float te);
 
 #endif

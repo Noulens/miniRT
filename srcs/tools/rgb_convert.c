@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:55:54 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/13 13:55:59 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 15:17:38 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_vec3	vec_color(int color)
 	float	g;
 	float	b;
 
-	r = ft_remap(get_r(color), 0, 255, 0, 1);
-	g = ft_remap(get_g(color), 0, 255, 0, 1);
-	b = ft_remap(get_b(color), 0, 255, 0, 1);
+	r = ft_remap(get_r(color), 255, 1);
+	g = ft_remap(get_g(color), 255, 1);
+	b = ft_remap(get_b(color), 255, 1);
 	return (set_vec(r, g, b));
 }
 
@@ -31,8 +31,8 @@ int	int_color(t_vec3 color)
 	int	g;
 	int	b;
 
-	r = (int)ft_remap(color.x, 0, 1, 0, 255);
-	g = (int)ft_remap(color.y, 0, 1, 0, 255);
-	b = (int)ft_remap(color.z, 0, 1, 0, 255);
+	r = (int)ft_remap(color.x, 1, 255);
+	g = (int)ft_remap(color.y, 1, 255);
+	b = (int)ft_remap(color.z, 1, 255);
 	return (ft_trgb(255, r, g, b));
 }

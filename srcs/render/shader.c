@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/13 14:42:28 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/13 15:18:46 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_vec3	reflect(t_vec3 inv_lightdir, t_vec3 hit_normal)
 	return (tmp);
 }
 
-
 int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 {
 	float	f_ratio;
@@ -75,6 +74,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	float	spec_intensity;
 	int		vis;
 	t_vec3	specular;
+	t_vec3	spec_color;
 	t_vec3	reflect_dir;
 	t_vec3	ambient;
 	t_vec3	result;
@@ -84,6 +84,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	//light color doesn't work
 	//rgb overflow
 	spec_intensity = 0.2f;
+	spec_color = set_vec(1.0f, 1.0f, 1.0f);
 	ambient = vec_scale(vec_color(scene->alight.color), scene->alight.al);
 	obj_color = vec_color(scene->objtab[c_obj]->metacolor);
 	f_ratio = ft_max(0.0f, vec_dot(info->hit_normal, vec_normalize(vec_scale(scene->light.pos, -1))));
@@ -93,7 +94,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	diffuse = vec_scale(vec_color(scene->light.color), f_ratio);
 	reflect_dir = reflect(scene->light.pos, info->hit_normal);
 	spec = pow(ft_max(0.0f, vec_dot(info->view_dir, reflect_dir)), 16);
-	specular = vec_scale(set_vec(1.0f, 1.0f, 1.0f), spec_intensity * spec);
+	specular = vec_scale(spec_color, spec_intensity * spec);
 	result = vec_mult(vec_add(vec_add(ambient, diffuse), specular), obj_color);
 	if (result.x > 1)
 		result.x = 1;
