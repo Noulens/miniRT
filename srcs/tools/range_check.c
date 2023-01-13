@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   range_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:32:29 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/23 12:25:51 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/13 10:03:37 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,11 @@ void	ft_swap(float *a, float *b)
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
+}
+
+float	ft_max(float a, float b)
+{
+	if (a <= b)
+		return (b);
+	return (a);
 }
