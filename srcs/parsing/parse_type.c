@@ -62,10 +62,8 @@ int	atorgb(char *line)
 
 int	get_infos_a(char *line, t_scene *scn)
 {
-	int		i;
 	char	**ptr;
 
-	i = 0;
 	if (count_element(line) != 2)
 		return (ft_fprintf(2, "Error\nin A data: too much data\n"), FAIL);
 	ptr = ft_split(line, ' ');
@@ -77,7 +75,7 @@ int	get_infos_a(char *line, t_scene *scn)
 	if (float_range_checker(scn->alight.al, 0.0f, 1.0f, TRUE) == FALSE)
 		return (ft_free_split(ptr), ft_fprintf(2, "Error\nin A data\n"), FAIL);
 	if (check_rgb(ptr[1]) == SUCCESS)
-		scn->alight.color = atorgb(line + i);
+		scn->alight.color = atorgb(ptr[1]);
 	else
 		return (ft_free_split(ptr), FAIL);
 	return (ft_free_split(ptr), SUCCESS);
