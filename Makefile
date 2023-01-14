@@ -54,9 +54,41 @@ SRCS		=	$(addprefix srcs/,									\
 												lst_tools.c)		\
 				)
 
+SRCS_B		=	$(addprefix srcs/,									\
+												main.c				\
+					$(addprefix parsing/,		parser.c			\
+												parse_type.c		\
+												parser_utils.c		\
+												parser_utils2.c		\
+												parse_obj.c			\
+												parse_obj_utils.c)	\
+					$(addprefix init/,			init.c)				\
+					$(addprefix destroy/,		des_mlx.c)			\
+					$(addprefix math/,			vector3_simple.c	\
+												vector3.c			\
+												matrix4.c			\
+												matrix4_2.c			\
+												math_utils.c)		\
+					$(addprefix interaction/,	interaction.c		\
+												interaction_2.c		\
+												rotation.c)			\
+					$(addprefix render/,		render.c			\
+												windows_rend.c		\
+												shader.c		\
+												intersection.c)		\
+					$(addprefix tools/,			rgb_utils.c			\
+												rgb_convert.c		\
+												range_check.c		\
+												lst_tools.c)		\
+				)
+
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
+OBJ_B		=	$(SRCS_B:%.c=$(BUILDIR)/%.o)
+
 CFLAGS		=	-Wall -Wextra -Werror -g -O3
+
+CFLAGS_B	=	-Wall -Wextra -Werror -g -O3 -D BONUS=1
 
 LDFLAGS		=	$(LIB_PATH)libft.a -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
@@ -107,6 +139,8 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 
 all:			subsystem $(NAME)
 
+bonus:			subsystem $(NAME_BONUS)
+
 subsystem: # Make the libft first then the minilibx
 				@make -C $(LIB_PATH) all
 				@make -C $(MLX_PATH) all
@@ -116,6 +150,11 @@ $(BUILDIR)/%.o:	%.c
 				@ printf "$(YELLOW)Compiling $@ and generating .o files...$(DEFAULT)\n"
 				@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 				@ printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
+
+$(NAME_BONUS):	$(OBJ_B)
+				@ printf "$(YELLOW)Linking source files and generating $@ binary...\n$(DEFAULT)"
+				@$(CC) $(CFLAGS_B) $(INCFLAGS) -o $@ $^ $(LDFLAGS)
+				@ printf "$(DELPREV)$(GREEN)Binary generated$(DEFAULT)\n"
 
 
 $(NAME):		$(OBJ)
