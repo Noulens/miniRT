@@ -23,5 +23,6 @@ void	des_mlx(void *mlx, void *img, void *win)
 void	des_minirt(t_scene *scn)
 {
 	objclear(scn->objects);
-	free(scn->objtab);
+	if (scn->objtab)
+		free(scn->objtab);
 }
