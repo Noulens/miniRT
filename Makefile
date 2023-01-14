@@ -190,5 +190,8 @@ rebonus:		fclean
 lc:				all
 				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT ./scenes/shading.rt
 
+lcb:			bonus
+				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT_bonus ./scenes/shading.rt
+
 norm:
 			norminette ./srcs ./libft ./include
