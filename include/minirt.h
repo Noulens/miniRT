@@ -25,4 +25,6 @@
 # include "tools.h"
 # include "struct.h"
 
+void	tester(void);
+
 #endif

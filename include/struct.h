@@ -13,6 +13,10 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
+# ifndef BONUS
+#  define BONUS 0
+# endif
+
 typedef struct s_vec3
 {
 	float	x;

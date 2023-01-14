@@ -75,6 +75,8 @@ int	main(int argc, char **argv)
 	if (scenevarinit(&scn), argc == 2 && rt_name_checker(argv[1])
 		&& !parse(&scn, argv[1]))
 	{
+		if (BONUS == 1)
+			tester();
 		win_launcher(&scn);
 	}
 	else

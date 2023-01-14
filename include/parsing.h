@@ -19,10 +19,6 @@
 # include "tools.h"
 # include "init.h"
 
-# ifndef BONUS
-#  define BONUS 0
-# endif
-
 # define PLAN_ORI "Error\nplan orientation\n"
 # define ERCY "Error\nparse_cy: position\n"
 # define ERC2 "Error\nparse_cy: orientation\n"

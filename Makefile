@@ -1,16 +1,6 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/29 18:31:22 by tnoulens          #+#    #+#              #
-#    Updated: 2023/01/13 13:56:11 by hyunah           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME		=	miniRT
+
+NAME_B		=	miniRT_bonus
 
 VPATH		=	srcs
 
@@ -23,6 +13,8 @@ LIB_PATH	= 	libft/
 MLX_PATH	=	mlx_linux/
 
 BUILDIR		=	build
+
+BUILDIR_B	=	build_b
 
 SRCS_DIR	=	$(sort $(dir $(wildcard ./srcs/*/)))
 
@@ -56,6 +48,7 @@ SRCS		=	$(addprefix srcs/,									\
 
 SRCS_B		=	$(addprefix srcs/,									\
 												main.c				\
+												test.c				\
 					$(addprefix parsing/,		parser.c			\
 												parse_type.c		\
 												parser_utils.c		\
@@ -82,13 +75,12 @@ SRCS_B		=	$(addprefix srcs/,									\
 												lst_tools.c)		\
 				)
 
+
 OBJ			=	$(SRCS:%.c=$(BUILDIR)/%.o)
 
-OBJ_B		=	$(SRCS_B:%.c=$(BUILDIR)/%.o)
+OBJ_B		=	$(SRCS_B:%.c=$(BUILDIR_B)/%.o)
 
 CFLAGS		=	-Wall -Wextra -Werror -g -O3
-
-CFLAGS_B	=	-Wall -Wextra -Werror -g -O3 -D BONUS=1
 
 LDFLAGS		=	$(LIB_PATH)libft.a -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
@@ -133,50 +125,67 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 #Rules#
 #######
 
+ifeq (bonus, $(filter bonus,$(MAKECMDGOALS)))
+	DEFINE	=	-D BONUS=1
+else ifeq (rebonus, $(filter rebonus,$(MAKECMDGOALS)))
+	DEFINE	=	-D BONUS=1
+else
+	DEFINE	=	-D BONUS=0
+endif
+
 .PHONY:	all bonus clean fclean re
 
-.SILENT:
+##.SILENT:
 
 all:			subsystem $(NAME)
 
-bonus:			subsystem $(NAME_BONUS)
+bonus:			subsystem $(NAME_B)
 
 subsystem: # Make the libft first then the minilibx
 				@make -C $(LIB_PATH) all
 				@make -C $(MLX_PATH) all
 
+
 $(BUILDIR)/%.o:	%.c
 				@mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
 				@ printf "$(YELLOW)Compiling $@ and generating .o files...$(DEFAULT)\n"
-				@$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
+				@$(CC) $(CFLAGS) $(DEFINE) $(INCFLAGS) -c $< -o $@
 				@ printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
 
-$(NAME_BONUS):	$(OBJ_B)
-				@ printf "$(YELLOW)Linking source files and generating $@ binary...\n$(DEFAULT)"
-				@$(CC) $(CFLAGS_B) $(INCFLAGS) -o $@ $^ $(LDFLAGS)
-				@ printf "$(DELPREV)$(GREEN)Binary generated$(DEFAULT)\n"
+$(BUILDIR_B)/%.o:	%.c
+				@mkdir -p build_b/ $(addprefix build_b/, $(SRCS_DIR))
+				@ printf "$(YELLOW)Compiling $@ and generating .o files...$(DEFAULT)\n"
+				@$(CC) $(CFLAGS) $(DEFINE) $(INCFLAGS) -c $< -o $@
+				@ printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
 
+$(NAME_B):		$(OBJ_B)
+				@ printf "$(YELLOW)Linking source files and generating $@ binary...\n$(DEFAULT)"
+				$(CC) $(CFLAGS) $(DEFINE) $(INCFLAGS) -o $@ $^ $(LDFLAGS)
+				@ printf "$(DELPREV)$(GREEN)Binary generated$(DEFAULT)\n"
 
 $(NAME):		$(OBJ)
 				@ printf "$(YELLOW)Linking source files and generating $@ binary...\n$(DEFAULT)"
-				@$(CC) $(CFLAGS) $(INCFLAGS) -o $@ $^ $(LDFLAGS)
+				$(CC) $(CFLAGS) $(DEFINE) $(INCFLAGS) -o $@ $^ $(LDFLAGS)
 				@ printf "$(DELPREV)$(GREEN)Binary generated$(DEFAULT)\n"
 
 clean:
 				@printf "$(YELLOW)Deleting object files...$(DEFAULT)\n"
-				@$(RM) $(OBJ)
+				@$(RM) $(OBJ) $(OBJ_B)
 				@make -C $(LIB_PATH) clean
 				@make -C $(MLX_PATH) clean
 				@printf "$(DELPREV)Build files deleted\n"
 
 fclean:			clean
 				@printf "$(YELLOW)Deleting build directory...$(DEFAULT)\n"
-				@$(RM) $(BUILDIR) $(NAME)
+				@$(RM) $(BUILDIR) $(NAME) $(BUILDIR_B) $(NAME_B)
 				@make -C $(LIB_PATH) fclean
 				@printf "$(DELPREV)Build directory and binary deleted\n"
 
 re:				fclean
 				@$(MAKE) -s all
+
+rebonus:		fclean
+				$(MAKE) -s bonus
 
 lc:				all
 				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./miniRT ./scenes/shading.rt
