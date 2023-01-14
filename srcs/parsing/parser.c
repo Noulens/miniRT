@@ -26,7 +26,7 @@ int	rt_name_checker(char *path)
 	if (!ft_strnstr(path + i - 3, ".rt", 3))
 		map = 0;
 	if (!map)
-		ft_fprintf(2, "Error\nUsage : ./miniRT <filename.rt>\n");
+		ft_fprintf(2, "Error\nin filename\n");
 	return (map);
 }
 

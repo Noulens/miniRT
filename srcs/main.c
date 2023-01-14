@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+/*
 void	print_objects_infos(t_scene *scene)
 {
 	t_stdobj	*tmp;
@@ -66,7 +66,7 @@ void	print_objects_infos(t_scene *scene)
 		tmp = tmp->next;
 	}
 	printf(YELLOW"\nnb of objects: %d\n"RESET, scene->num_objects_in_scene);
-}
+}*/
 
 int	main(int argc, char **argv)
 {
@@ -75,11 +75,11 @@ int	main(int argc, char **argv)
 	if (scenevarinit(&scn), argc == 2 && rt_name_checker(argv[1])
 		&& !parse(&scn, argv[1]))
 	{
-		print_objects_infos(&scn);
 		win_launcher(&scn);
 	}
 	else
 	{
+		ft_fprintf(2, "Error\nUsage : ./miniRT <filename.rt>\n");
 		des_minirt(&scn);
 		return (1);
 	}
