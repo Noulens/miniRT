@@ -98,7 +98,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	if (vis)
 		specular = vec_scale(spec_color, spec_intensity * spec);
 	else
-		specular = vec_scale(spec_color, 0);
+		specular = vec_scale(spec_color, f_ratio);
 	result = vec_mult(vec_add(vec_add(ambient, diffuse), specular), obj_color);
 	if (result.x > 1)
 		result.x = 1;
