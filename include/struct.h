@@ -52,7 +52,6 @@ typedef enum e_obj
 	SP,
 	CY,
 	PL,
-	HY,
 	CO
 }	t_objtp;
 

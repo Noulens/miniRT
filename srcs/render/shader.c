@@ -93,8 +93,12 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 		f_ratio = 0;
 	diffuse = vec_scale(vec_color(scene->light.color), f_ratio);
 	reflect_dir = reflect(scene->light.pos, info->hit_normal);
-	spec = pow(ft_max(0.0f, vec_dot(info->view_dir, reflect_dir)), 16);
-	specular = vec_scale(spec_color, spec_intensity * spec);
+	spec = powf(ft_max(0.0f, vec_dot(info->view_dir, reflect_dir)), 16);
+	// I added this condition to remove specular reflection in unrealistic places
+	if (vis)
+		specular = vec_scale(spec_color, spec_intensity * spec);
+	else
+		specular = vec_scale(spec_color, 0);
 	result = vec_mult(vec_add(vec_add(ambient, diffuse), specular), obj_color);
 	if (result.x > 1)
 		result.x = 1;
