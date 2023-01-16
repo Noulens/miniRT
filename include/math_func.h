@@ -42,5 +42,6 @@ t_matrix4	mul_mat(t_matrix4 mat1, t_matrix4 mat2);
 float		base_cylinder(float radius);
 float		ft_max(float a, float b);
 float		ft_remap(float v, float fe, float te);
+t_matrix4	inverse(t_matrix4 t);
 
 #endif

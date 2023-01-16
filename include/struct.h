@@ -17,6 +17,37 @@
 #  define BONUS 0
 # endif
 
+typedef struct s_invert
+{
+	int			i;
+	int			j;
+	int			k;
+	int			l;
+	int			m;
+	int			n;
+	int			o;
+	int			p;
+	int			q;
+	int			r;
+	int			pivot;
+	float		pivotsize;
+	float		tmp;
+	float		f;
+	float		divisor;
+	float		constant;
+}	t_inv;
+
+typedef enum e_quad
+{
+	A,
+	B,
+	C,
+	DELTA,
+	ROOT1,
+	ROOT2,
+	RES
+}	t_quadratic;
+
 typedef struct s_vec3
 {
 	float	x;

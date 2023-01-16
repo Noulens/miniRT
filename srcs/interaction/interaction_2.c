@@ -44,6 +44,18 @@ static void	adjust_cylinder(t_stdobj *obj, int key)
 		cy->diameter -= 0.5f;
 	if (key == 61)
 		cy->diameter += 0.5f;
+	if (key == 65431)
+		cy->pos.y += 0.5f;
+	if (key == 65433)
+		cy->pos.y -= 0.5f;
+	if (key == 65430)
+		cy->pos.x -= 0.5f;
+	if (key == 65432)
+		cy->pos.x += 0.5f;
+	if (key == 65429)
+		cy->pos.z += 0.5f;
+	if (key == 65434)
+		cy->pos.z -= 0.5f;
 }
 
 static void	key_plan(int key, t_pl*pl)

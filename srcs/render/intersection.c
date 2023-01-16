@@ -104,43 +104,44 @@ int intersect_cylinder(t_ray ray, t_stdobj *cy_std, float *hit_distance)
 
 static void	check_for_solutions_cylinder(float *dist)
 {
-	if (dist[0] > dist[1])
-		ft_swap(&dist[0], &dist[1]);
-	if (dist[0] < 0 && dist[1] > 0)
-		dist[2] = dist[1];
-	else if (dist[0] > 0 && dist[1] > 0)
-		dist[2] = dist[0];
+	if (dist[ROOT1] > dist[ROOT2])
+		ft_swap(&dist[ROOT1], &dist[ROOT2]);
+	if (dist[ROOT1] < 0 && dist[ROOT2] > 0)
+		dist[RES] = dist[ROOT2];
+	else if (dist[ROOT1] > 0 && dist[ROOT2] > 0)
+		dist[RES] = dist[ROOT1];
 	else
 	{
-		dist[0] = 0;
-		dist[1] = 0;
-		dist[2] = INFINITY;
+		dist[ROOT1] = 0;
+		dist[ROOT2] = 0;
+		dist[RES] = INFINITY;
 	}
 }
 
 int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 {
-	float	a;
-	float	b;
-	float	c;
-	float	delta;
-	float	root[3];
-	t_cy	*cylinder;
+	float	qd[7];
+	t_cy	*cyl;
 
-	cylinder = (t_cy *)obj->obj;
-	a = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
-	b = 2 * ray.dir.x * (ray.origin.x - cylinder->pos.x) +
-		2 * ray.dir.z * (ray.origin.z - cylinder->pos.z);
-	c = (ray.origin.x -  cylinder->pos.x) * (ray.origin.x - cylinder->pos.x) +
-		(ray.origin.z - cylinder->pos.z) * (ray.origin.z - cylinder->pos.z) -
-		(cylinder->diameter / 2) * (cylinder->diameter / 2);
-	delta = (b * b) - (4 * a * c);
-	if (delta > 0)
+	cyl = (t_cy *)obj->obj;
+	qd[A] = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
+	qd[B] = 2 * ray.dir.x * (ray.origin.x - cyl->pos.x)
+		+ 2 * ray.dir.z * (ray.origin.z - cyl->pos.z);
+	qd[C] = (ray.origin.x - cyl->pos.x) * (ray.origin.x - cyl->pos.x)
+		+ (ray.origin.z - cyl->pos.z) * (ray.origin.z - cyl->pos.z)
+		- (cyl->diameter / 2) * (cyl->diameter / 2);
+	qd[DELTA] = (qd[B] * qd[B]) - (4 * qd[A] * qd[C]);
+	if (qd[DELTA] > 0)
 	{
-		root[0] = (((-1 * b - sqrtf(delta))) / (2 * a));
-		root[1] = (((-1 * b + sqrtf(delta))) / (2 * a));
-		check_for_solutions_cylinder(root);
-		*dist = root[2];
+		qd[ROOT1] = (((-1 * qd[B] - sqrtf(qd[DELTA]))) / (2 * qd[A]));
+		qd[ROOT2] = (((-1 * qd[B] + sqrtf(qd[DELTA]))) / (2 * qd[A]));
+		check_for_solutions_cylinder(qd);
+		*dist = qd[RES];
+		return (1);
+	}
+	else if (qd[DELTA] == 0)
+	{
+		qd[RES] = (((-1 * qd[B])) / (2 * qd[A]));
 		return (1);
 	}
 	return (0);

@@ -13,22 +13,6 @@
 #include "math_func.h"
 #include <stdio.h>
 
-t_matrix4	init_matrix(t_matrix4 *new)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	j = -1;
-	while (++i < 4)
-	{
-		j = -1;
-		while (++j < 4)
-			new->m[i][j] = 0;
-	}
-	return (*new);
-}
-
 void	matrix_print(t_matrix4 n, int dir_flag)
 {
 	(void)dir_flag;

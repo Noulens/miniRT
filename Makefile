@@ -32,6 +32,7 @@ SRCS		=	$(addprefix srcs/,									\
 												vector3.c			\
 												matrix4.c			\
 												matrix4_2.c			\
+												inverse_matrix.c	\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c		\
 												interaction_2.c		\
@@ -48,7 +49,6 @@ SRCS		=	$(addprefix srcs/,									\
 
 SRCS_B		=	$(addprefix srcs/,									\
 												main.c				\
-												test.c				\
 					$(addprefix parsing/,		parser.c			\
 												parse_type.c		\
 												parser_utils.c		\
@@ -61,6 +61,7 @@ SRCS_B		=	$(addprefix srcs/,									\
 												vector3.c			\
 												matrix4.c			\
 												matrix4_2.c			\
+												inverse_matrix.c	\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c		\
 												interaction_2.c		\
