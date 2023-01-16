@@ -12,86 +12,51 @@
 
 #include "interaction.h"
 
-static void	adjust_sphere(t_stdobj *obj, int key)
+//TODO: remove the print
+void	adjust_sphere(void *param, int keycode, t_scene *scene)
 {
 	t_sp	*sp;
 
-	sp = (t_sp *)obj;
-	if (key == 45)
-		sp->diameter -= 0.5f;
-	if (key == 61)
-		sp->diameter += 0.5f;
-	if (key == 65431)
-		sp->pos.y += 0.5f;
-	if (key == 65433)
-		sp->pos.y -= 0.5f;
-	if (key == 65430)
-		sp->pos.x -= 0.5f;
-	if (key == 65432)
-		sp->pos.x += 0.5f;
-	if (key == 65429)
-		sp->pos.z += 0.5f;
-	if (key == 65434)
-		sp->pos.z -= 0.5f;
+	sp = (t_sp *)param;
+	sp->translate = set_vec(0, 0, 0);
+	sp->rotate = set_vec(0, 0, 0);
+	do_transform_s(sp, keycode);
+	set_transform(&sp->translate, &sp->rotate, scene);
+	matrix_print(scene->fwtfm, 1);
+	matrix_vec_mult(scene->fwtfm, &sp->pos);
+	print_vec(&sp->pos);
 }
 
-static void	adjust_cylinder(t_stdobj *obj, int key)
+//TODO: remove the print
+static void	adjust_cylinder(t_stdobj *obj, int key, t_scene *scene)
 {
 	t_cy	*cy;
 
 	cy = (t_cy *)obj;
-	if (key == 45)
-		cy->diameter -= 0.5f;
-	if (key == 61)
-		cy->diameter += 0.5f;
-	if (key == 65431)
-		cy->pos.y += 0.5f;
-	if (key == 65433)
-		cy->pos.y -= 0.5f;
-	if (key == 65430)
-		cy->pos.x -= 0.5f;
-	if (key == 65432)
-		cy->pos.x += 0.5f;
-	if (key == 65429)
-		cy->pos.z += 0.5f;
-	if (key == 65434)
-		cy->pos.z -= 0.5f;
+	cy->translate = set_vec(0, 0, 0);
+	cy->rotate = set_vec(0, 0, 0);
+	do_transform_c(cy, key);
+	do_orientation(key, &cy->orientation);
+	set_transform(&cy->translate, &cy->rotate, scene);
+	matrix_print(scene->fwtfm, 1);
+	matrix_vec_mult(scene->fwtfm, &cy->pos);
+	print_vec(&cy->pos);
 }
 
-static void	key_plan(int key, t_pl*pl)
-{
-	if (key == 48)
-		pl->orientation.y -= 0.1f;
-	if (key == 57)
-		pl->orientation.y += 0.1f;
-	if (key == 56)
-		pl->orientation.x -= 0.1f;
-	if (key == 55)
-		pl->orientation.x += 0.1f;
-	if (key == 45)
-		pl->orientation.z -= 0.1f;
-	if (key == 61)
-		pl->orientation.z += 0.1f;
-	if (key == 65431)
-		pl->pos.y += 0.5f;
-	if (key == 65433)
-		pl->pos.y -= 0.5f;
-	if (key == 65430)
-		pl->pos.x -= 0.5f;
-	if (key == 65432)
-		pl->pos.x += 0.5f;
-	if (key == 65429)
-		pl->pos.z += 0.5f;
-	if (key == 65434)
-		pl->pos.z -= 0.5f;
-}
-
-static void	adjust_plan(t_stdobj *obj, int key)
+//TODO: remove the print
+static void	adjust_plan(t_stdobj *obj, int key, t_scene *scene)
 {
 	t_pl	*pl;
 
 	pl = (t_pl *)obj;
-	key_plan(key, pl);
+	pl->translate = set_vec(0, 0, 0);
+	pl->rotate = set_vec(0, 0, 0);
+	do_transform_p(pl, key);
+	do_orientation(key, &pl->orientation);
+	set_transform(&pl->translate, &pl->rotate, scene);
+	matrix_print(scene->fwtfm, 1);
+	matrix_vec_mult(scene->fwtfm, &pl->pos);
+	print_vec(&pl->pos);
 }
 
 int	modify_objects(void *param, int key)
@@ -102,10 +67,10 @@ int	modify_objects(void *param, int key)
 	if (scn->target == -1)
 		return (ft_printf("No object selected, camera is active\n"), 0);
 	if (scn->objtab[scn->target - 1]->objtp == SP)
-		adjust_sphere(scn->objtab[scn->target - 1]->obj, key);
+		adjust_sphere(scn->objtab[scn->target - 1]->obj, key, scn);
 	else if (scn->objtab[scn->target - 1]->objtp == CY)
-		adjust_cylinder(scn->objtab[scn->target - 1]->obj, key);
+		adjust_cylinder(scn->objtab[scn->target - 1]->obj, key, scn);
 	else if (scn->objtab[scn->target - 1]->objtp == PL)
-		adjust_plan(scn->objtab[scn->target - 1]->obj, key);
+		adjust_plan(scn->objtab[scn->target - 1]->obj, key, scn);
 	return (0);
 }

@@ -135,6 +135,7 @@ typedef struct s_sp
 {
 	t_vec3			pos;
 	t_vec3			translate;
+	t_vec3			rotate;
 	int				color;
 	float			diameter;
 	float			radius;

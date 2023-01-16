@@ -16,16 +16,37 @@ void	do_orientation(int key, t_vec3 *orientation)
 {
 	if (key == 48)
 		orientation->y -= 0.1f;
-	if (key == 57)
+	else if (key == 57)
 		orientation->y += 0.1f;
-	if (key == 56)
+	else if (key == 56)
 		orientation->x -= 0.1f;
-	if (key == 55)
+	else if (key == 55)
 		orientation->x += 0.1f;
-	if (key == 45)
+	else if (key == 45)
 		orientation->z -= 0.1f;
-	if (key == 61)
+	else if (key == 61)
 		orientation->z += 0.1f;
+}
+
+int	is_keycam(int key)
+{
+	return (key == KEY_A || key == KEY_D || key == KEY_S
+		|| key == KEY_W || key == KEY_SPACE || key == KEY_CTRL
+		|| key == KEY_PLUS || key == KEY_MINUS || key == KEY_UP
+		|| key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
+		|| key == 61 || key == 48 || key == 57 || key == 56 || key == 55
+		|| key == 45 || key == 111 || key == 112);
+}
+
+int	is_objkey(int key)
+{
+	return (key == KEY_A || key == KEY_D || key == KEY_S
+		|| key == KEY_W || key == KEY_SPACE || key == KEY_CTRL
+		|| key == KEY_PLUS || key == KEY_MINUS || key == KEY_UP
+		|| key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
+		|| key == 57 || key == 55 || key == 45 || key == 61 || key == 65429
+		|| key == 65430 || key == 65431 || key == 65432 || key == 65433
+		|| key == 65434 || key == 48 || key == 56 || key == 111 || key == 112);
 }
 
 //printf("%f, %f\n", scn->cam.pos.y, scn->cam.pos.z);

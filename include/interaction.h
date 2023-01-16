@@ -40,5 +40,10 @@ void	ft_rotation_y(void *obj);
 void	ft_rotation_z(void *obj);
 int		modify_objects(void *param, int key);
 void	do_orientation(int key, t_vec3 *orientation);
+void	do_transform_s(t_sp *sp, int key);
+void	do_transform_c(t_cy *cy, int key);
+void	do_transform_p(t_pl *pl, int key);
+int		is_keycam(int key);
+int		is_objkey(int key);
 
 #endif

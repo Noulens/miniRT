@@ -104,6 +104,9 @@ t_inv	step2(t_matrix4 *t, t_inv *inv)
 	return (*inv);
 }
 
+/* this function returns the inverse of the matrix in parameter, only works
+ * for 4*4 matrices that were initialized to the identity matrix. */
+
 t_matrix4	inverse(t_matrix4 t)
 {
 	t_matrix4	s;

@@ -36,10 +36,11 @@ SRCS		=	$(addprefix srcs/,									\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c		\
 												interaction_2.c		\
-												rotation.c)			\
+												interaction_3.c		\
+												interaction_4.c)	\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
-												shader.c		\
+												shader.c			\
 												intersection.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
 												rgb_convert.c		\
@@ -65,10 +66,11 @@ SRCS_B		=	$(addprefix srcs/,									\
 												math_utils.c)		\
 					$(addprefix interaction/,	interaction.c		\
 												interaction_2.c		\
-												rotation.c)			\
+												interaction_3.c		\
+												interaction_4.c)	\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
-												shader.c		\
+												shader.c			\
 												intersection.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
 												rgb_convert.c		\

@@ -26,27 +26,27 @@ void	do_transform(int keycode, t_scene *scene)
 {
 	if (keycode == KEY_D)
 		scene->cam.translate.x = -0.5f;
-	if (keycode == KEY_A)
+	else if (keycode == KEY_A)
 		scene->cam.translate.x = 0.5f;
-	if (keycode == KEY_W)
+	else if (keycode == KEY_W)
 		scene->cam.translate.z = 0.5f;
-	if (keycode == KEY_S)
+	else if (keycode == KEY_S)
 		scene->cam.translate.z = -0.5f;
-	if (keycode == KEY_SPACE)
+	else if (keycode == KEY_SPACE)
 		scene->cam.translate.y = 0.5f;
-	if (keycode == KEY_CTRL)
+	else if (keycode == KEY_CTRL)
 		scene->cam.translate.y = -0.5f;
-	if (keycode == KEY_UP)
+	else if (keycode == KEY_UP)
 		scene->cam.rotate.y = 1.9f;
-	if (keycode == KEY_DOWN)
+	else if (keycode == KEY_DOWN)
 		scene->cam.rotate.y = -1.9f;
-	if (keycode == KEY_PLUS)
+	else if (keycode == KEY_PLUS)
 		scene->cam.rotate.z = 1.9f;
-	if (keycode == KEY_MINUS)
+	else if (keycode == KEY_MINUS)
 		scene->cam.rotate.z = -1.9f;
-	if (keycode == KEY_LEFT)
+	else if (keycode == KEY_LEFT)
 		scene->cam.rotate.x = 1.9f;
-	if (keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 		scene->cam.rotate.x = -1.9f;
 }
 
@@ -76,18 +76,11 @@ int	ft_key(int key, void *param)
 	printf("%d\n", key);
 	if (key == KEY_ESC)
 		ft_closebutton(param);
-	if (key == KEY_C)
+	else if (key == KEY_C)
 		scn->target = -1;
-	if (scn->target == -1 && (key == KEY_A || key == KEY_D || key == KEY_S
-			|| key == KEY_W || key == KEY_SPACE || key == KEY_CTRL
-			|| key == KEY_PLUS || key == KEY_MINUS || key == KEY_UP
-			|| key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
-			|| key == 61 || key == 48 || key == 57 || key == 56 || key == 55
-			|| key == 45))
+	else if (scn->target == -1 && is_keycam(key))
 		move_cam((void *)param, key);
-	if (key == 45 || key == 61 || key == 65429 || key == 65430
-		|| key == 65431 || key == 65432 || key == 65433 || key == 65434
-		|| key == 48 || key == 57 || key == 56 || key == 55)
+	else if (is_objkey(key))
 		modify_objects((void *)param, key);
 	clear_image(scn);
 	render(scn, scn->func_ptr);
