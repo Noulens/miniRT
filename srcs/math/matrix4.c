@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 07:23:37 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/23 16:43:49 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/18 01:18:52 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ void	matrix_vec_mult(t_matrix4 new, t_vec3 *vect)
 		+ new.m[1][3] * tmp.t;
 	vect->z = new.m[2][0] * tmp.x + new.m[2][1] * tmp.y + new.m[2][2] * tmp.z
 		+ new.m[2][3] * tmp.t;
+}
+
+t_matrix4	matrix_transformation(t_vec3 *src, t_vec3 t, t_vec3 r);
+{
+	t_matrix4	m;
+
+	
 }

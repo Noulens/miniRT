@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/13 13:49:00 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/18 01:10:14 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 			scene->cam.fov_h_len;
 	pixel_camera.y = pixel_screenspace.y * scene->cam.fov_h_len;
 	pixel_camera.z = -1;
+	pixel_camera = vec_add(pixel_camera, scene->cam.pos);
+	t_vec3 r;
+	if (x == 0 && y == 0){
+	printf("cam orientation:");
+	print_vec(&scene->cam.orientation);
+	}
+	r = vec_sub(scene->cam.orientation, set_vec(0, 0, -1));
+	r = vec_normalize(scene->cam.orientation);
+	if (x == 0 && y == 0){
+	printf("vec:");
+		print_vec(&r);
+	}
+	// pixel_camera = set_matrix
 	ray.origin = scene->cam.pos;
 	ray.dir = vec_sub(pixel_camera, ray.origin);
 	ray.dir = vec_normalize(ray.dir);
