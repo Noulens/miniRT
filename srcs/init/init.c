@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/12 07:42:35 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/18 20:54:27 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	cam_init(t_scene *s)
 	fov_w_half_len = tanf(to_radian(s->cam.fov_w / 2));
 	s->cam.fov_h_len = 2 * fov_w_half_len / s->image_ratio;
 	s->cam.fov_h = to_degree(atanf(s->cam.fov_h_len / 2)) * 2;
-	s->cam.translate = set_vec(0, 0, 0);
 	s->cam.rotate = set_vec(0, 0, 0);
 }
 

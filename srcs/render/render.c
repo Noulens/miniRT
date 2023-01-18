@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/18 15:42:29 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/18 20:42:10 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_matrix4	set_transform2(t_vec3 *trans, t_vec3 *rot)
 	t[T].m[0][3] = trans->x;
 	t[T].m[1][3] = trans->y;
 	t[T].m[2][3] = trans->z;
-
 	t[RZ].m[0][0] = cosf(to_radian(rot->z));
 	t[RZ].m[0][1] = -sinf(to_radian(rot->z));
 	t[RZ].m[1][0] = sinf(to_radian(rot->z));
@@ -45,8 +44,22 @@ t_matrix4	set_transform2(t_vec3 *trans, t_vec3 *rot)
 	t[RX].m[1][2] = -sinf(to_radian(rot->x));
 	t[RX].m[2][1] = sinf(to_radian(rot->x));
 	t[RX].m[2][2] = cosf(to_radian(rot->x));
-	// matrix_print(t[RY], 1);
 	return (mul_mat(mul_mat(mul_mat(t[T], t[RX]), t[RY]), t[RZ]));
+}
+
+void	orient_camera(t_scene *scene, t_ray *ray, t_vec3 *pixel_camera)
+{
+	t_vec3	rot;
+	t_vec3	origin;
+
+	rot.x = to_degree(asin(scene->cam.orientation.y));
+	rot.y = -1 * to_degree(asin(scene->cam.orientation.x));
+	rot.z = 0;
+	if (scene->cam.orientation.z == 1)
+		rot.y = 180;
+	origin = ray->origin;
+	matrix_vec_mult(set_transform2(&scene->cam.pos, &rot), &origin);
+	matrix_vec_mult(set_transform2(&scene->cam.pos, &rot), pixel_camera);
 }
 
 t_ray	build_camera_ray(t_scene *scene, int x, int y)
@@ -63,28 +76,16 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	pixel_ndc.y = pixel_raster.y / (float)scene->win_h;
 	pixel_screenspace.x = 2.0f * pixel_ndc.x - 1.0f;
 	pixel_screenspace.y = 1.0f - (2.0f * pixel_ndc.y);
-
 	ray.origin = set_vec(0, 0, 0);
 	pixel_camera.x = pixel_screenspace.x * scene->image_ratio * \
 			scene->cam.fov_h_len;
 	pixel_camera.y = pixel_screenspace.y * scene->cam.fov_h_len;
 	pixel_camera.z = -1;
-	// pixel_camera = set_vec(1, 0, 0);
-
-	t_vec3	rot;
-	t_vec3	trans;
-
-	trans = set_vec(1, 10, 1);
-	rot = set_vec(-90, 0, 0);
-	matrix_vec_mult(set_transform2(&trans, &rot), &ray.origin);
-	matrix_vec_mult(set_transform2(&trans, &rot), &pixel_camera);
-
-	// pixel_camera.x = pixel_screenspace.x * scene->image_ratio * 
-	// 		scene->cam.fov_h_len;
-	// pixel_camera.y = pixel_screenspace.y * scene->cam.fov_h_len;
-	// pixel_camera.z = -1;
-	// pixel_camera = vec_add(pixel_camera, scene->cam.pos);
-	// ray.origin = scene->cam.pos;
+	orient_camera(scene, &ray, &pixel_camera);
+	matrix_vec_mult(set_transform2(&scene->cam.pos, &scene->cam.rotate), \
+	&ray.origin);
+	matrix_vec_mult(set_transform2(&scene->cam.pos, &scene->cam.rotate), \
+	&pixel_camera);
 	ray.dir = vec_sub(pixel_camera, ray.origin);
 	ray.dir = vec_normalize(ray.dir);
 	return (ray);
@@ -159,36 +160,3 @@ int	render(t_scene *scene, t_func *inter)
 	}
 	return (0);
 }
-/*
-	if (x == 0 && y == 0){
-	printf("pixel camera vec when 0,0:");
-	print_vec(&pixel_camera);
-	}
-	pixel_camera = vec_add(pixel_camera, scene->cam.pos);
-	if (x == 0 && y == 0){
-	printf("camera pos when 0,0:");
-	print_vec(&scene->cam.pos);
-	}
-	t_vec3 r;
-	r = vec_add(scene->cam.orientation, set_vec(0, 0, -1));
-	if (x == 0 && y == 0){
-	printf("cam.orientation : ");
-	print_vec(&scene->cam.orientation);
-	printf("r : ");
-	print_vec(&r);
-	}
-	// t_vec3 t;
-	// if (x == 0 && y == 0){
-	// printf("cam orientation:");
-	// print_vec(&scene->cam.orientation);
-	// }
-	// r = vec_sub(scene->cam.orientation, set_vec(0, 0, -1));
-	// r = vec_normalize(scene->cam.orientation);
-	// if (x == 0 && y == 0){
-	// printf("vec:");
-	// 	print_vec(&r);
-	// // }
-	// t = set_vec(0, 0, 0);
-	// r = set_vec(0, 0, 0);
-	// matrix_vec_mult(set_transform2(&t, &r), &pixel_camera);
-*/

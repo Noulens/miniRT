@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/13 09:26:34 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/18 20:53:11 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ typedef struct s_sp
 typedef struct s_cam
 {
 	t_vec3	pos;
-	t_vec3	translate;
 	t_vec3	rotate;
 	t_vec3	orientation;
 	float	fov_w;
