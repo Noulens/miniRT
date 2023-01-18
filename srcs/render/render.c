@@ -6,11 +6,12 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/18 01:10:14 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/18 01:29:06 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
+#include "math_func.h"
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
@@ -50,6 +51,8 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	printf("vec:");
 		print_vec(&r);
 	}
+	t_matrix4 t;
+	init_matrix(&t);
 	// pixel_camera = set_matrix
 	ray.origin = scene->cam.pos;
 	ray.dir = vec_sub(pixel_camera, ray.origin);
