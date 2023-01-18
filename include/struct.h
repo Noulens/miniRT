@@ -141,6 +141,17 @@ typedef struct s_sp
 	float			radius;
 }	t_sp;
 
+typedef struct s_co
+{
+	t_vec3	pos;
+	t_vec3	orientation;
+	t_vec3	translate;
+	t_vec3	rotate;
+	int		color;
+	float	height;
+	float	diameter;
+}	t_co;
+
 typedef struct s_cam
 {
 	t_vec3	pos;
@@ -167,7 +178,7 @@ typedef struct s_alight
 	int		color;
 }	t_alight;
 
-typedef int	(*t_func[5])(t_ray ms, t_stdobj *inter, float *hit_distance);
+typedef int	(*t_func[4])(t_ray ms, t_stdobj *inter, float *hit_distance);
 
 typedef struct s_scene
 {

@@ -55,7 +55,8 @@ SRCS_B		=	$(addprefix srcs/,									\
 												parser_utils.c		\
 												parser_utils2.c		\
 												parse_obj.c			\
-												parse_obj_utils.c)	\
+												parse_obj_utils.c	\
+												cone_bonus.c)		\
 					$(addprefix init/,			init.c)				\
 					$(addprefix destroy/,		des_mlx.c)			\
 					$(addprefix math/,			vector3_simple.c	\

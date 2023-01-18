@@ -36,7 +36,7 @@ void	scene_init(t_scene *s)
 void	scenevarinit(t_scene *s)
 {
 	s->objects = NULL;
-	s->target = -1;
+	s->target = 1;
 	s->objtab = NULL;
 	set_identity(&s->fwtfm);
 	set_identity(&s->bcktfm);
