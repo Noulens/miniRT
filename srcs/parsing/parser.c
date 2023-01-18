@@ -77,9 +77,7 @@ static int	get_infos(char *line, t_scene *scn)
 	else if (BONUS == TRUE)
 	{
 		if (!ft_strncmp(line, "co", 2))
-			return (parse_co(line, scn));
-		else if (!ft_strncmp(line, "hy", 2))
-			return (parse_hy(line, scn));
+			return (line += 2, parse_co(line, scn));
 		else
 			return (ft_fprintf(2, "Error\nunknown element in .rt\n"), FAIL);
 	}

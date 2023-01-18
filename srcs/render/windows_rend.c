@@ -19,9 +19,11 @@ void	clear_image(t_scene *scene)
 
 static void	init_intersect_fun(t_func *inter)
 {
-	(*inter[0]) = intersect_sphere;
-	(*inter)[2] = intersect_plane;
+	(*inter)[0] = intersect_sphere;
 	(*inter)[1] = intersect_cylinder;
+	(*inter)[2] = intersect_plane;
+	if (BONUS == TRUE)
+		(*inter)[3] = intersect_cylinder;
 }
 
 void	win_launcher(t_scene *scene)

@@ -23,6 +23,9 @@
 # define ERCY "Error\nparse_cy: position\n"
 # define ERC2 "Error\nparse_cy: orientation\n"
 # define ERC3 "Error\nparse_cy: diameter\n"
+# define ERCO "Error\nparse_co: position\n"
+# define ERO2 "Error\nparse_co: orientation\n"
+# define ERO3 "Error\nparse_co: diameter\n"
 # define ERSPH1 "Error\nparse_sp: pos\n"
 # define ERSPH2 "Error\nparse_sp: dia\n"
 # define ERSPH3 "Error\nparse_sp: rgb\n"
@@ -48,8 +51,8 @@ int		get_floats(char *line, t_vec3 *vector, char mode);
 int		parse_pl(char *line, t_scene *scn);
 int		parse_cy(char *line, t_scene *scn);
 int		parse_sp(char *line, t_scene *scn);
-int		parse_hy(char *line, t_scene *scn);
 int		parse_co(char *line, t_scene *scn);
 int		parse_cy_2(char **line, t_cy *cylinder, t_scene *scn);
+int		parse_co_2(char **ptr, t_co *cone, t_scene *scn);
 
 #endif

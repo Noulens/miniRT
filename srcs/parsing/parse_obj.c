@@ -96,17 +96,3 @@ int	parse_sp(char *line, t_scene *scn)
 		return (ft_free_split(ptr), free(sphere), ft_fprintf(2, ERSPH), FAIL);
 	return (ft_free_split(ptr), SUCCESS);
 }
-
-int	parse_hy(char *line, t_scene *scn)
-{
-	(void)scn;
-	(void)line;
-	return (SUCCESS);
-}
-
-int	parse_co(char *line, t_scene *scn)
-{
-	(void)scn;
-	(void)line;
-	return (SUCCESS);
-}
