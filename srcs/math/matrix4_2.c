@@ -67,7 +67,7 @@ void	set_transform(t_vec3 *trans, t_vec3 *rot, t_scene *s)
 	set_transmat(trans, t);
 	set_rotmat(rot, t);
 	s->fwtfm = mul_mat(mul_mat(mul_mat(t[T], t[RX]), t[RY]), t[RZ]);
-	s->bcktfm = inverse(s->fwtfm);
+//	s->bcktfm = inverse(s->fwtfm);
 }
 
 t_matrix4	mul_mat(t_matrix4 mat1, t_matrix4 mat2)

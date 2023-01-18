@@ -73,15 +73,15 @@ static void	check_for_solutions_cone(float *dist)
 int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
 {
 	float	qd[7];
-	t_co	*cyl;
+	t_co	*co;
 
-	cyl = (t_co *)obj->obj;
-	qd[A] = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
-	qd[B] = 2 * ray.dir.x * (ray.origin.x - cyl->pos.x)
-		+ 2 * ray.dir.z * (ray.origin.z - cyl->pos.z);
-	qd[C] = (ray.origin.x - cyl->pos.x) * (ray.origin.x - cyl->pos.x)
-		+ (ray.origin.z - cyl->pos.z) * (ray.origin.z - cyl->pos.z)
-		- (cyl->diameter / 2) * (cyl->diameter / 2);
+	co = (t_co *)obj->obj;
+	qd[A] = ray.dir.x * ray.dir.x + ray.dir.y * ray.dir.y - (ray.dir.z * ray.dir.z);
+	qd[B] = 2 * ray.dir.x * (ray.origin.x - co->pos.x)
+		+ 2 * ray.dir.y * (ray.origin.y - co->pos.y) - 2 * ray.dir.z * (ray.origin.z - co->pos.z);
+	qd[C] = (ray.origin.x - co->pos.x) * (ray.origin.x - co->pos.x)
+		+ (ray.origin.y - co->pos.y) * (ray.origin.y - co->pos.y)
+		- (ray.origin.z - co->pos.z) * (ray.origin.z - co->pos.z);
 	qd[DELTA] = (qd[B] * qd[B]) - (4 * qd[A] * qd[C]);
 	if (qd[DELTA] > 0)
 	{

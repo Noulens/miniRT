@@ -102,46 +102,78 @@ int intersect_cylinder(t_ray ray, t_stdobj *cy_std, float *hit_distance)
 }
 */
 
-static void	check_for_solutions_cylinder(float *dist)
-{
-	if (dist[ROOT1] > dist[ROOT2])
-		ft_swap(&dist[ROOT1], &dist[ROOT2]);
-	if (dist[ROOT1] < 0 && dist[ROOT2] > 0)
-		dist[RES] = dist[ROOT2];
-	else if (dist[ROOT1] > 0 && dist[ROOT2] > 0)
-		dist[RES] = dist[ROOT1];
-	else
-	{
-		dist[ROOT1] = 0;
-		dist[ROOT2] = 0;
-		dist[RES] = INFINITY;
-	}
-}
+//static void	check_for_solutions_cylinder(float *dist)
+//{
+//	if (dist[ROOT1] > dist[ROOT2])
+//		ft_swap(&dist[ROOT1], &dist[ROOT2]);
+//	if (dist[ROOT1] < 0 && dist[ROOT2] > 0)
+//		dist[RES] = dist[ROOT2];
+//	else if (dist[ROOT1] > 0 && dist[ROOT2] > 0)
+//		dist[RES] = dist[ROOT1];
+//	else
+//	{
+//		dist[ROOT1] = 0;
+//		dist[ROOT2] = 0;
+//		dist[RES] = INFINITY;
+//	}
+//}
+//
+//int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
+//{
+//	float	qd[7];
+//	t_cy	*cyl;
+//
+//	cyl = (t_cy *)obj->obj;
+//	qd[A] = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
+//	qd[B] = 2 * ray.dir.x * (ray.origin.x - cyl->pos.x)
+//		+ 2 * ray.dir.z * (ray.origin.z - cyl->pos.z);
+//	qd[C] = (ray.origin.x - cyl->pos.x) * (ray.origin.x - cyl->pos.x)
+//		+ (ray.origin.z - cyl->pos.z) * (ray.origin.z - cyl->pos.z)
+//		- (cyl->diameter / 2) * (cyl->diameter / 2);
+//	qd[DELTA] = (qd[B] * qd[B]) - (4 * qd[A] * qd[C]);
+//	if (qd[DELTA] > 0)
+//	{
+//		qd[ROOT1] = (((-1 * qd[B] - sqrtf(qd[DELTA]))) / (2 * qd[A]));
+//		qd[ROOT2] = (((-1 * qd[B] + sqrtf(qd[DELTA]))) / (2 * qd[A]));
+//		check_for_solutions_cylinder(qd);
+//		*dist = qd[RES];
+//		return (1);
+//	}
+//	return (0);
+//}
 
 int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 {
-	float	qd[7];
 	t_cy	*cyl;
+	t_vec3	A;
+	t_vec3	B;
 
 	cyl = (t_cy *)obj->obj;
-	qd[A] = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
-	qd[B] = 2 * ray.dir.x * (ray.origin.x - cyl->pos.x)
-		+ 2 * ray.dir.z * (ray.origin.z - cyl->pos.z);
-	qd[C] = (ray.origin.x - cyl->pos.x) * (ray.origin.x - cyl->pos.x)
-		+ (ray.origin.z - cyl->pos.z) * (ray.origin.z - cyl->pos.z)
-		- (cyl->diameter / 2) * (cyl->diameter / 2);
-	qd[DELTA] = (qd[B] * qd[B]) - (4 * qd[A] * qd[C]);
-	if (qd[DELTA] > 0)
+
+	float ra = cyl->diameter / 2;
+	A = set_vec(cyl->pos.x, cyl->pos.y, cyl->pos.z + cyl->height / 2);
+	B = set_vec(cyl->pos.x, cyl->pos.y, cyl->pos.z - cyl->height / 2);
+	t_vec3 AB = vec_sub(B, A);
+	t_vec3 AO = vec_sub(ray.origin, A);
+	t_vec3 AOxAB = vec_cross(AO,AB);
+	t_vec3 VxAB = vec_cross(ray.dir, AB);
+	float ab2 = vec_dot(AB, AB);
+	float a = vec_dot(VxAB,VxAB);
+	float b = 2 * vec_dot(VxAB, AOxAB);
+	float c = vec_dot(AOxAB, AOxAB) - (ra * ra * ab2);
+	float d = b * b - 4 * a * c;
+	if (d < 0.0f)
+		return (0);
+	float time = (-b - sqrtf(d)) / (2 * a);
+	if (time < 0.0f)
+		return (0);
+	t_vec3 intersection = vec_add(ray.origin, vec_scale(ray.dir, time));
+	t_vec3 projection = vec_add(A, vec_scale(AB, vec_dot(AB, vec_scale(vec_sub(intersection, A), 1 / ab2))));
+	if ((vec_length(vec_sub(projection, A)) + vec_length(vec_sub(B, projection)) < vec_length(AB))
+		|| (vec_length(vec_sub(projection, A)) + vec_length(vec_sub(B, projection)) > vec_length(AB)))
 	{
-		qd[ROOT1] = (((-1 * qd[B] - sqrtf(qd[DELTA]))) / (2 * qd[A]));
-		qd[ROOT2] = (((-1 * qd[B] + sqrtf(qd[DELTA]))) / (2 * qd[A]));
-		check_for_solutions_cylinder(qd);
-		*dist = qd[RES];
-		return (1);
-	}
-	else if (qd[DELTA] == 0)
-	{
-		qd[RES] = (((-1 * qd[B])) / (2 * qd[A]));
+		*dist = time;
+//		(void)dist;
 		return (1);
 	}
 	return (0);
