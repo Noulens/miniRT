@@ -45,5 +45,6 @@ void	do_transform_c(t_cy *cy, int key);
 void	do_transform_p(t_pl *pl, int key);
 int		is_keycam(int key);
 int		is_objkey(int key);
+void	adjust_cone(t_stdobj *obj, int key, t_scene *scene);
 
 #endif

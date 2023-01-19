@@ -23,7 +23,7 @@ static void	init_intersect_fun(t_func *inter)
 	(*inter)[1] = intersect_cylinder;
 	(*inter)[2] = intersect_plane;
 	if (BONUS == TRUE)
-		(*inter)[3] = intersect_cylinder;
+		(*inter)[3] = intersect_cone;
 }
 
 void	win_launcher(t_scene *scene)

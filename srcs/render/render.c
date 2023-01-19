@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "render.h"
-#include "math_func.h"
 
 void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 {
@@ -72,8 +71,8 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 
 int	render(t_scene *scene, t_func *inter)
 {
-	int	i;
-	int	j;
+	register int	i;
+	register int	j;
 
 	j = -1;
 	while (++j < scene->win_h)

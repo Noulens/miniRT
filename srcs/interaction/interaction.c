@@ -25,29 +25,29 @@ int	ft_closebutton(void *param)
 void	do_transform(int keycode, t_scene *scene)
 {
 	if (keycode == KEY_D)
-		scene->cam.translate.x += -0.1f;
+		scene->cam.translate.x += 0.5f;
 	else if (keycode == KEY_A)
-		scene->cam.translate.x += 0.1f;
+		scene->cam.translate.x -= 0.5f;
 	else if (keycode == KEY_W)
-		scene->cam.translate.z += 0.1f;
+		scene->cam.translate.z += 0.5f;
 	else if (keycode == KEY_S)
-		scene->cam.translate.z += -0.1f;
+		scene->cam.translate.z -= 0.5f;
 	else if (keycode == KEY_SPACE)
-		scene->cam.translate.y += 0.1f;
+		scene->cam.translate.y += 0.5f;
 	else if (keycode == KEY_CTRL)
-		scene->cam.translate.y += -0.1f;
+		scene->cam.translate.y -= 0.5f;
 	else if (keycode == KEY_UP)
 		scene->cam.rotate.y += 1.9f;
 	else if (keycode == KEY_DOWN)
-		scene->cam.rotate.y += -1.9f;
+		scene->cam.rotate.y -= 1.9f;
 	else if (keycode == KEY_PLUS)
 		scene->cam.rotate.z += 1.9f;
 	else if (keycode == KEY_MINUS)
-		scene->cam.rotate.z += -1.9f;
+		scene->cam.rotate.z -= 1.9f;
 	else if (keycode == KEY_LEFT)
 		scene->cam.rotate.x += 1.9f;
 	else if (keycode == KEY_RIGHT)
-		scene->cam.rotate.x += -1.9f;
+		scene->cam.rotate.x -= 1.9f;
 }
 
 // TODO: remove this print_vec and matrix_print:
@@ -57,9 +57,9 @@ int	move_cam(void *param, int keycode)
 
 	scene = (t_scene *)param;
 	scene->cam.translate = set_vec(0, 0, 0);
-	// scene->cam.rotate = set_vec(0, 0, 0);
+//	scene->cam.rotate = set_vec(0, 0, 0);
 	do_transform(keycode, scene);
-	do_orientation(keycode, &scene->cam.orientation);
+//	do_orientation(keycode, &scene->cam.orientation);
 	set_transform(&scene->cam.translate, &scene->cam.rotate, scene);
 	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);

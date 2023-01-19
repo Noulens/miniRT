@@ -42,7 +42,8 @@ SRCS		=	$(addprefix srcs/,									\
 												windows_rend.c		\
 												build_ray.c			\
 												shader.c			\
-												intersection.c)		\
+												intersection.c		\
+												inter_cyl_2.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
 												rgb_convert.c		\
 												range_check.c		\
@@ -69,12 +70,14 @@ SRCS_B		=	$(addprefix srcs/,									\
 					$(addprefix interaction/,	interaction.c		\
 												interaction_2.c		\
 												interaction_3.c		\
-												interaction_4.c)	\
+												interaction_4.c		\
+												adjust_cone_bonus.c)\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
-												build_ray.c		\
+												build_ray.c			\
 												shader.c			\
-												intersection.c)		\
+												intersection.c		\
+												inter_cyl_2.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
 												rgb_convert.c		\
 												range_check.c		\

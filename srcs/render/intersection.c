@@ -72,36 +72,7 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	}
 	return (0);
 }
-/*
-int intersect_cylinder(t_ray ray, t_stdobj *cy_std, float *hit_distance)
-{
-	float	a;
-	float	b;
-	float	c;
-	float	delta;
-	float	root;
-	t_cy	*cylinder;
-
-	cylinder = (t_cy *)cy_std;
-	a = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
-	b = 2 * ray.dir.x * (ray.origin.x - cylinder->pos.x) +
-		2 * ray.dir.z * (ray.origin.z - cylinder->pos.z);
-	c = (ray.origin.x -  cylinder->pos.x) * (ray.origin.x - cylinder->pos.x) +
-		(ray.origin.z - cylinder->pos.z) * (ray.origin.z - cylinder->pos.z) -
-			(cylinder->diameter / 2) * (cylinder->diameter / 2);
-	delta = b * b - (4 * a * c);
-	if (delta > 0)
-	{
-		root = (-b - sqrtf(delta)) / (2 * a);
-		if (root <= 0)
-			root = (-b + sqrtf(delta)) / (2 *a);
-		*hit_distance = root;
-		return (1);
-	}
-	return (0);
-}
-*/
-
+// THIS CODE ONLY WORKS FOR INFINITE CYLINDERS
 //static void	check_for_solutions_cylinder(float *dist)
 //{
 //	if (dist[ROOT1] > dist[ROOT2])
@@ -142,39 +113,79 @@ int intersect_cylinder(t_ray ray, t_stdobj *cy_std, float *hit_distance)
 //	return (0);
 //}
 
+/*	quad 0  = radius
+ * 	quad 1 = 2ab
+ * 	quad 2 = a
+ * 	quad 3 = b
+ * 	quad 4 = c
+ * 	quad 5 = delta
+ * 	quad 6 = hit_distance
+ *
+ * 	v0 = A
+ * 	v1 = B
+ * 	v2 = AB
+ * 	v3 = AO
+ * 	v4 = AOxAB
+ * 	v5 = VxAB
+ * 	v6 = intersection
+ * 	v7 = projection
+ */
+
+static void	init_quadra_cy(t_ray *ray, const t_cy *cyl, t_vec3 *v, float *quad)
+{
+	quad[0] = cyl->diameter / 2;
+	v[0] = set_vec(cyl->pos.x, cyl->pos.y, cyl->pos.z + cyl->height / 2);
+	v[1] = set_vec(cyl->pos.x, cyl->pos.y, cyl->pos.z - cyl->height / 2);
+	v[2] = vec_sub(v[1], v[0]);
+	v[3] = vec_sub((*ray).origin, v[0]);
+	v[4] = vec_cross(v[3], v[2]);
+	v[5] = vec_cross((*ray).dir, v[2]);
+	quad[1] = vec_dot(v[2], v[2]);
+	quad[2] = vec_dot(v[5], v[5]);
+	quad[3] = 2 * vec_dot(v[5], v[4]);
+	quad[4] = vec_dot(v[4], v[4]) - (quad[0] * quad[0] * quad[1]);
+	quad[5] = quad[3] * quad[3] - 4 * quad[2] * quad[4];
+}
+
 int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 {
-	t_cy	*cyl;
-	t_vec3	A;
-	t_vec3	B;
+	t_cy		*cyl;
+	t_inter_cy	ic;
+	t_pl		cap[2];
+	t_stdobj	capper[2];
+	int			k;
 
 	cyl = (t_cy *)obj->obj;
-
-	float ra = cyl->diameter / 2;
-	A = set_vec(cyl->pos.x, cyl->pos.y, cyl->pos.z + cyl->height / 2);
-	B = set_vec(cyl->pos.x, cyl->pos.y, cyl->pos.z - cyl->height / 2);
-	t_vec3 AB = vec_sub(B, A);
-	t_vec3 AO = vec_sub(ray.origin, A);
-	t_vec3 AOxAB = vec_cross(AO,AB);
-	t_vec3 VxAB = vec_cross(ray.dir, AB);
-	float ab2 = vec_dot(AB, AB);
-	float a = vec_dot(VxAB,VxAB);
-	float b = 2 * vec_dot(VxAB, AOxAB);
-	float c = vec_dot(AOxAB, AOxAB) - (ra * ra * ab2);
-	float d = b * b - 4 * a * c;
-	if (d < 0.0f)
+	init_quadra_cy(&ray, cyl, ic.v, ic.quad);
+	if (ic.quad[5] < 0.00001f)
 		return (0);
-	float time = (-b - sqrtf(d)) / (2 * a);
-	if (time < 0.0f)
-		return (0);
-	t_vec3 intersection = vec_add(ray.origin, vec_scale(ray.dir, time));
-	t_vec3 projection = vec_add(A, vec_scale(AB, vec_dot(AB, vec_scale(vec_sub(intersection, A), 1 / ab2))));
-	if ((vec_length(vec_sub(projection, A)) + vec_length(vec_sub(B, projection)) < vec_length(AB))
-		|| (vec_length(vec_sub(projection, A)) + vec_length(vec_sub(B, projection)) > vec_length(AB)))
+	ic.quad[6] = (-ic.quad[3] - sqrtf(ic.quad[5])) / (2 * ic.quad[2]);
+	if (ic.quad[6] < 0.00001f)
 	{
-		*dist = time;
-//		(void)dist;
-		return (1);
+		init_disk(cyl, ic.v, cap, capper);
+		k = -1;
+		while (++k < 2)
+			if (intersect_plane(ray, &capper[k], dist))
+				if (getdouble(&ray, dist, cap[k]) <= ic.quad[0] * ic.quad[0])
+				{
+					return (1);
+				}
+		return (0);
 	}
-	return (0);
+	get_inter_proj(&ray, ic.v, ic.quad);
+	if ((vec_length(vec_sub(ic.v[7], ic.v[0]))
+			+ vec_length(vec_sub(ic.v[1], ic.v[7])) > vec_length(ic.v[2])))
+	{
+		init_disk(cyl, ic.v, cap, capper);
+		k = -1;
+		while (++k < 2)
+			if (intersect_plane(ray, &capper[k], dist))
+				if (getdouble(&ray, dist, cap[k]) <= ic.quad[0] * ic.quad[0])
+				{
+					return (1);
+				}
+		return (0);
+	}
+	*dist = ic.quad[6];
+	return (1);
 }

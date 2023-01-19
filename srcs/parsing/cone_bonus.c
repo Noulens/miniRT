@@ -76,9 +76,11 @@ int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
 	t_co	*co;
 
 	co = (t_co *)obj->obj;
-	qd[A] = ray.dir.x * ray.dir.x + ray.dir.y * ray.dir.y - (ray.dir.z * ray.dir.z);
+	qd[A] = ray.dir.x * ray.dir.x + ray.dir.y * ray.dir.y
+		- (ray.dir.z * ray.dir.z);
 	qd[B] = 2 * ray.dir.x * (ray.origin.x - co->pos.x)
-		+ 2 * ray.dir.y * (ray.origin.y - co->pos.y) - 2 * ray.dir.z * (ray.origin.z - co->pos.z);
+		+ 2 * ray.dir.y * (ray.origin.y - co->pos.y) - 2
+		* ray.dir.z * (ray.origin.z - co->pos.z);
 	qd[C] = (ray.origin.x - co->pos.x) * (ray.origin.x - co->pos.x)
 		+ (ray.origin.y - co->pos.y) * (ray.origin.y - co->pos.y)
 		- (ray.origin.z - co->pos.z) * (ray.origin.z - co->pos.z);
@@ -89,11 +91,6 @@ int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
 		qd[ROOT2] = (((-1 * qd[B] + sqrtf(qd[DELTA]))) / (2 * qd[A]));
 		check_for_solutions_cone(qd);
 		*dist = qd[RES];
-		return (1);
-	}
-	else if (qd[DELTA] == 0)
-	{
-		qd[RES] = (((-1 * qd[B])) / (2 * qd[A]));
 		return (1);
 	}
 	return (0);
