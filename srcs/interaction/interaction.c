@@ -25,17 +25,17 @@ int	ft_closebutton(void *param)
 void	do_transform(int keycode, t_scene *scene)
 {
 	if (keycode == KEY_D)
-		scene->cam.translate.x += -0.1f;
+		scene->cam.translate.x += -0.5f;
 	else if (keycode == KEY_A)
-		scene->cam.translate.x += 0.1f;
+		scene->cam.translate.x += 0.5f;
 	else if (keycode == KEY_W)
-		scene->cam.translate.z += 0.1f;
+		scene->cam.translate.z += 0.5f;
 	else if (keycode == KEY_S)
-		scene->cam.translate.z += -0.1f;
+		scene->cam.translate.z += -0.5f;
 	else if (keycode == KEY_SPACE)
-		scene->cam.translate.y += 0.1f;
+		scene->cam.translate.y += 0.5f;
 	else if (keycode == KEY_CTRL)
-		scene->cam.translate.y += -0.1f;
+		scene->cam.translate.y += -0.5f;
 	else if (keycode == KEY_UP)
 		scene->cam.rotate.y += 1.9f;
 	else if (keycode == KEY_DOWN)

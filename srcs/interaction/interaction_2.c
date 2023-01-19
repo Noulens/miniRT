@@ -72,5 +72,7 @@ int	modify_objects(void *param, int key)
 		adjust_cylinder(scn->objtab[scn->target - 1]->obj, key, scn);
 	else if (scn->objtab[scn->target - 1]->objtp == PL)
 		adjust_plan(scn->objtab[scn->target - 1]->obj, key, scn);
+	else if (BONUS == 1 && scn->objtab[scn->target - 1]->objtp == CO)
+		adjust_cone(scn->objtab[scn->target - 1]->obj, key, scn);
 	return (0);
 }

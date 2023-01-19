@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "render.h"
-#include "math_func.h"
 
 void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 {

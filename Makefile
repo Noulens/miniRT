@@ -69,7 +69,8 @@ SRCS_B		=	$(addprefix srcs/,									\
 					$(addprefix interaction/,	interaction.c		\
 												interaction_2.c		\
 												interaction_3.c		\
-												interaction_4.c)	\
+												interaction_4.c		\
+												adjust_cone_bonus.c)\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
 												build_ray.c		\
