@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/19 09:39:54 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/19 18:06:57 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ typedef struct s_light
 	t_vec3	rotate;
 	int		color;
 	float	brightness;
+	float	exposure;
 }	t_light;
 
 typedef struct s_alight
