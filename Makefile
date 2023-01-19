@@ -40,6 +40,7 @@ SRCS		=	$(addprefix srcs/,									\
 												interaction_4.c)	\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
+												build_ray.c			\
 												shader.c			\
 												intersection.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
@@ -71,6 +72,7 @@ SRCS_B		=	$(addprefix srcs/,									\
 												interaction_4.c)	\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
+												build_ray.c		\
 												shader.c			\
 												intersection.c)		\
 					$(addprefix tools/,			rgb_utils.c			\

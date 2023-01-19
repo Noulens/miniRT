@@ -6,40 +6,11 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/17 16:32:40 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/19 09:26:42 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-
-void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
-{
-	t_sp		*sphere;
-
-	sphere = (t_sp *)obj->obj;
-	info->hit_normal = vec_normalize(vec_sub(info->hit_point, sphere->pos));
-	return ;
-}
-
-void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
-{
-	t_pl		*plane;
-
-	plane = (t_pl *)obj->obj;
-	info->hit_normal = vec_normalize(plane->orientation);
-	return ;
-}
-
-t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
-{
-	info->view_dir = vec_normalize(vec_scale(ray.dir, -1));
-	info->hit_point = vec_add(ray.origin, vec_scale(ray.dir, info->hit_dist));
-	if (obj->objtp == 0)
-		hit_normal_sphere(info, obj);
-	if (obj->objtp == 2)
-		hit_normal_plane(info, obj);
-	return (info);
-}
 
 int	shadow_visibility(t_scene *scene, t_func *inter, t_surfaceinfo *info)
 {
