@@ -113,13 +113,13 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 //	return (0);
 //}
 
-/*	quad 0  = ra
- * 	quad 1 = ab2
+/*	quad 0  = radius
+ * 	quad 1 = 2ab
  * 	quad 2 = a
  * 	quad 3 = b
  * 	quad 4 = c
- * 	quad 5 = d
- * 	quad 6 = time
+ * 	quad 5 = delta
+ * 	quad 6 = hit_distance
  *
  * 	v0 = A
  * 	v1 = B
@@ -149,23 +149,29 @@ static void	init_quadra_cy(t_ray *ray, const t_cy *cyl, t_vec3 *v, float *quad)
 
 int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 {
-	t_cy	*cyl;
-	t_vec3	v[8];
-	float	quad[7];
+	t_cy		*cyl;
+	t_inter_cy	ic;
+	t_pl		cap[2];
+	t_stdobj	capper[2];
+	int			k;
 
+	k = -1;
 	cyl = (t_cy *)obj->obj;
-	init_quadra_cy(&ray, cyl, v, quad);
-	if (quad[5] < 0.0001f)
+	init_quadra_cy(&ray, cyl, ic.v, ic.quad);
+	init_disk(cyl, ic.v, cap, capper);
+	while (++k < 2)
+		if (intersect_plane(ray, &capper[k], dist))
+			if (getdouble(&ray, dist, cap[k]) <= ic.quad[0] * ic.quad[0])
+				return (1);
+	if (ic.quad[5] < 0.00001f)
 		return (0);
-	quad[6] = (-quad[3] - sqrtf(quad[5])) / (2 * quad[2]);
-	if (quad[6] < 0.0001f)
+	ic.quad[6] = (-ic.quad[3] - sqrtf(ic.quad[5])) / (2 * ic.quad[2]);
+	if (ic.quad[6] < 0.00001f)
 		return (0);
-	v[6] = vec_add(ray.origin, vec_scale(ray.dir, quad[6]));
-	v[7] = vec_add(v[0], vec_scale(v[2],
-				vec_dot(v[2], vec_scale(vec_sub(v[6], v[0]), 1 / quad[1]))));
-	if ((vec_length(vec_sub(v[7], v[0]))
-			+ vec_length(vec_sub(v[1], v[7])) > vec_length(v[2])))
+	get_inter_proj(&ray, ic.v, ic.quad);
+	if ((vec_length(vec_sub(ic.v[7], ic.v[0]))
+			+ vec_length(vec_sub(ic.v[1], ic.v[7])) > vec_length(ic.v[2])))
 		return (0);
-	*dist = quad[6];
+	*dist = ic.quad[6];
 	return (1);
 }

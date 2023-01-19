@@ -31,5 +31,8 @@ t_vec3			vec_color(int color);
 t_ray			build_camera_ray(t_scene *scene, int x, int y);
 t_ray			build_camera_ray(t_scene *scene, int x, int y);
 t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray);
+void			init_disk(t_cy *cyl, t_vec3 *v, t_pl *cap, t_stdobj *capper);
+float			getdouble(t_ray *ray, const float *dist, const t_pl cap);
+void			get_inter_proj(t_ray *ray, t_vec3 *v, const float *quad);
 
 #endif
