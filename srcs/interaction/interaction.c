@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/18 20:51:51 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/19 09:42:39 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ int	ft_closebutton(void *param)
 void	do_transform(int keycode, t_scene *scene)
 {
 	if (keycode == KEY_D)
-		scene->cam.pos.x += -0.1f;
+		scene->cam.translate.x += -0.1f;
 	else if (keycode == KEY_A)
-		scene->cam.pos.x += 0.1f;
+		scene->cam.translate.x += 0.1f;
 	else if (keycode == KEY_W)
-		scene->cam.pos.z += 0.1f;
+		scene->cam.translate.z += 0.1f;
 	else if (keycode == KEY_S)
-		scene->cam.pos.z += -0.1f;
+		scene->cam.translate.z += -0.1f;
 	else if (keycode == KEY_SPACE)
-		scene->cam.pos.y += 0.1f;
+		scene->cam.translate.y += 0.1f;
 	else if (keycode == KEY_CTRL)
-		scene->cam.pos.y += -0.1f;
+		scene->cam.translate.y += -0.1f;
 	else if (keycode == KEY_UP)
 		scene->cam.rotate.y += 1.9f;
 	else if (keycode == KEY_DOWN)
@@ -56,14 +56,14 @@ int	move_cam(void *param, int keycode)
 	t_scene	*scene;
 
 	scene = (t_scene *)param;
-	// scene->cam.translate = set_vec(0, 0, 0);
+	scene->cam.translate = set_vec(0, 0, 0);
 	// scene->cam.rotate = set_vec(0, 0, 0);
 	do_transform(keycode, scene);
-	// do_orientation(keycode, &scene->cam.orientation);
-	// set_transform(&scene->cam.translate, &scene->cam.rotate, scene);
-	// matrix_print(scene->fwtfm, 1);
-	// matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
-	// print_vec(&scene->cam.pos);
+	do_orientation(keycode, &scene->cam.orientation);
+	set_transform(&scene->cam.translate, &scene->cam.rotate, scene);
+	matrix_print(scene->fwtfm, 1);
+	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
+	print_vec(&scene->cam.pos);
 	return (0);
 }
 
