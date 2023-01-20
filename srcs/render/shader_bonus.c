@@ -6,43 +6,11 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/20 08:59:13 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/20 14:41:06 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-
-int	shadow_visibility(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldir)
-{
-	float	hit_dist;
-	int		vis;
-	t_ray	hit;
-
-	hit.origin = vec_add(i->hit_point, vec_scale(i->hit_normal, 0.01f));
-	hit.dir = vec_normalize(vec_scale(ldir, -1));
-	vis = find_closest_obj(s, hit, inter, &hit_dist);
-	if (vis == -1)
-		return (1);
-	else
-		return (0);
-}
-
-void	get_pointlight_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f)
-{
-	t_vec3	light_dir;
-	float	r2;
-
-	light_dir = vec_sub(i->hit_point, s->light.pos);
-	r2 = vec_length(light_dir);
-	*dir = vec_normalize(light_dir);
-	*f = s->light.brightness / (4 * M_PI * r2);
-	/*
-	printf("s->light.brightness: %f\n", s->light.brightness);
-	printf("( 4 * M_PI * r2): %f\n", ( 4 * M_PI * r2));
-	printf("intensity: %f\n", *f);
-	printf("\n");
-	*/
-}
 
 t_vec3	reflect(t_vec3 inv_lightdir, t_vec3 hit_normal)
 {
@@ -55,16 +23,18 @@ t_vec3	reflect(t_vec3 inv_lightdir, t_vec3 hit_normal)
 	return (tmp);
 }
 
-t_vec3	calcule_specular(t_vec3 light_dir, t_surfaceinfo *info, int vis, float light_intensity)
+t_vec3	calcule_specular(t_vec3 lr, t_surfaceinfo *info, int vis, float li)
 {
 	float	spec;
 	t_vec3	r;
 	t_vec3	result;
-	int	spec_lightcolor;
+	int		spec_lightcolor;
+	int		exponent;
 
-	r = reflect(light_dir, info->hit_normal);
+	exponent = 32;
 	spec_lightcolor = ft_trgb(255, 255, 255, 255);
-	spec = vis * light_intensity * powf(ft_max(0.0f, vec_dot(r, info->view_dir)), 32);
+	r = reflect(lr, info->hit_normal);
+	spec = vis * li * powf(ft_max(0.0f, vec_dot(r, info->view_dir)), exponent);
 	result = vec_scale(vec_color(spec_lightcolor), spec);
 	if (result.x > 1)
 		result.x = 1;
@@ -75,31 +45,75 @@ t_vec3	calcule_specular(t_vec3 light_dir, t_surfaceinfo *info, int vis, float li
 	return (result);
 }
 
+float	calcule_sphere_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
+{
+	float	pattern;
+	int		scale_U;
+	int		scale_V;
+
+	scale_U = 10;
+	scale_V = 10;
+	pattern = cos(info->hit_uv.y * 2 * M_PI * scale_V) * sin(info->hit_uv.x * 2 * M_PI * scale_U) * 0.5;
+	pattern += 0.5;
+	if (pattern >= 0.5f)
+		pattern = 1;
+	if (pattern < 0.5f)
+	{
+		pattern = 1;
+		*obj_color = vec_scale(vec_color(ft_trgb(255, 255, 255, 255)), 1 / M_PI);
+	}
+	return (pattern);
+}
+
+float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
+{
+	float	pattern;
+	int		scale_U;
+	int		scale_V;
+	scale_U = 1000;
+	scale_V = 1000;
+
+	(void) obj_color;
+	// printf("hit_point x: %f, sin : %f\n", info->hit_point.x * scale_U, sin(to_radian(info->hit_point.x * scale_U)));
+	// pattern = cos(info->hit_uv.y * 2 * M_PI * scale_V) * sin(info->hit_uv.x * 2 * M_PI * scale_U) * 0.5;
+	pattern = cos(to_radian(info->hit_point.z * scale_V)) * sin(to_radian(info->hit_point.x * scale_U));
+	pattern += 0.5;
+	if (pattern >= 0.5f)
+		pattern = 1;
+	if (pattern < 0.5f)
+	{
+		pattern = 0;
+		// *obj_color = vec_scale(vec_color(ft_trgb(255, 255, 255, 255)), 1 / M_PI);
+	}
+	return (pattern);
+}
+
 int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 {
-	float	light_intensity;
-	float	face_ratio;
-	int		vis;
-	t_vec3	obj_color;
-	t_vec3	diffuse;
-	t_vec3	result;
-	t_vec3	light_dir;
-	t_vec3	ambient;
-	t_vec3	specular;
+	t_material	mat;
+	float		light_intensity;
+	float		pattern;
+	int			vis;
+	t_vec3		obj_color;
+	t_vec3		light_dir;
 
-	scene->light.exposure = 50;
 	light_intensity = scene->light.brightness;
 	obj_color = vec_scale(vec_color(scene->objtab[c_obj]->metacolor), 1 / M_PI);
 	get_pointlight_info(scene, info, &light_dir, &light_intensity);
 	light_intensity *= scene->light.exposure;
 	vis = shadow_visibility(scene, inter, info, light_dir);
-	face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, vec_scale(light_dir, -1)));
-	ambient = vec_scale(vec_color(scene->alight.color), scene->alight.al);
-	diffuse = vec_scale(vec_color(scene->light.color), light_intensity);
-	diffuse = vec_scale(vec_scale(diffuse, vis), face_ratio);
-	specular = calcule_specular(light_dir, info, vis, light_intensity);
-	// result = vec_add(diffuse, vec_mult(obj_color, ambient));
-	result = vec_mult(vec_add(vec_add(diffuse, ambient), specular), obj_color);
-	// vec_mult(obj_color, diffuse)
-	return (int_color(result));
+	mat.face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, \
+	vec_scale(light_dir, -1)));
+	pattern = 1;
+	if (scene->objtab[c_obj]->objtp == 0)
+		pattern = calcule_sphere_pattern(info, &obj_color);
+	if (scene->objtab[c_obj]->objtp == 2)
+		pattern = calcule_plan_pattern(info, &obj_color);
+	mat.ambient = vec_scale(vec_color(scene->alight.color), scene->alight.al);
+	mat.diffuse = vec_scale(vec_scale(vec_color(scene->light.color), \
+					vis * light_intensity * pattern), mat.face_ratio);
+	mat.specular = calcule_specular(light_dir, info, vis, light_intensity);
+	mat.result = vec_mult(vec_add(vec_add(mat.diffuse, mat.ambient), \
+	mat.specular), obj_color);
+	return (int_color(mat.result));
 }

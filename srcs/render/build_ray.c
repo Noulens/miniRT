@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 09:24:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/19 09:25:33 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/20 17:29:25 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ void	orient_camera(t_scene *scene, t_ray *ray, t_vec3 *pixel_camera)
 {
 	t_vec3	rot;
 	t_vec3	origin;
+	t_vec3	norm;
 
-	rot.x = to_degree(asin(scene->cam.orientation.y));
-	rot.y = -1 * to_degree(asin(scene->cam.orientation.x));
+	norm = vec_normalize(scene->cam.orientation);
+	rot.x = to_degree(asin(norm.y));
+	rot.y = -1 * to_degree(asin(norm.x));
 	rot.z = 0;
 	if (scene->cam.orientation.z == 1)
 		rot.y = 180;
