@@ -32,6 +32,7 @@
 # define ERSPH "Error\nparse_sp: add\n"
 # define FFC "Error\nin C data: coordinates format\n"
 # define FFL "Error\nin L data: coordinates format\n"
+# define ER_NORM "Error\nin orientation: for normalization: length is 0\n"
 
 int		rt_name_checker(char *path);
 int		parse(t_scene *scn, char *str);
