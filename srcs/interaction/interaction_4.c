@@ -12,20 +12,31 @@
 
 #include "interaction.h"
 
+static void	check(int key, t_vec3 *ori, float d)
+{
+	if (key == 48 && !cannot_norm(ori->y - d, ori->x, ori->z))
+		ori->y -= d;
+	else if (key == 57 && !cannot_norm(ori->y + d, ori->x, ori->z))
+		ori->y += d;
+	else if (key == 56 && !cannot_norm(ori->x - d, ori->y, ori->z))
+		ori->x -= d;
+	else if (key == 55 && !cannot_norm(ori->x + d, ori->y, ori->z))
+		ori->x += d;
+	else if (key == 45 && !cannot_norm(ori->z - d, ori->y, ori->x))
+		ori->z -= d;
+	else if (key == 61 && !cannot_norm(ori->z + d, ori->y, ori->x))
+		ori->z += d;
+	else
+		return ;
+	*ori = vec_normalize(*ori);
+}
+
 void	do_orientation(int key, t_vec3 *orientation)
 {
-	if (key == 48)
-		printf("orientation: %f\n", orientation->y -= 0.1f);
-	else if (key == 57)
-		printf("orientation: %f\n", orientation->y += 0.1f);
-	else if (key == 56)
-		printf("orientation: %f\n", orientation->x -= 0.1f);
-	else if (key == 55)
-		printf("orientation: %f\n", orientation->x += 0.1f);
-	else if (key == 45)
-		printf("orientation: %f\n", orientation->z -= 0.1f);
-	else if (key == 61)
-		printf("orientation: %f\n", orientation->z += 0.1f);
+	float d;
+
+	d = 0.1f;
+	check(key, orientation, d);
 }
 
 int	is_keycam(int key)

@@ -42,3 +42,13 @@ t_vec3	vec_scale(t_vec3 a, float b)
 {
 	return (set_vec(a.x * b, a.y * b, a.z * b));
 }
+
+int	cannot_norm(float x, float y, float z)
+{
+	if (!x && !y && !z)
+	{
+		ft_fprintf(2, "Error\nnull vector\n");
+		return (TRUE);
+	}
+	return (FALSE);
+}

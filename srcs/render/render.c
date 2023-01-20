@@ -76,8 +76,8 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 
 int	render(t_scene *scene, t_func *inter)
 {
-	register int	i;
-	register int	j;
+	int	i;
+	int	j;
 
 	j = -1;
 	while (++j < scene->win_h)
