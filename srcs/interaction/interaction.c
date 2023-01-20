@@ -103,7 +103,7 @@ int	on_click(int code, int x, int y, void *param)
 			ft_printf("This is object nb %d\nx=%d\ny=%d\n", sn->target, x, y);
 		}
 		else
-			ft_printf("This is the background\n");
+			ft_printf("This is the background\nx=%d\ny=%d\n, x, y");
 	}
 	return (0);
 }
