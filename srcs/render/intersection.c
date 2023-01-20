@@ -72,46 +72,6 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	}
 	return (0);
 }
-// THIS CODE ONLY WORKS FOR INFINITE CYLINDERS
-//static void	check_for_solutions_cylinder(float *dist)
-//{
-//	if (dist[ROOT1] > dist[ROOT2])
-//		ft_swap(&dist[ROOT1], &dist[ROOT2]);
-//	if (dist[ROOT1] < 0 && dist[ROOT2] > 0)
-//		dist[RES] = dist[ROOT2];
-//	else if (dist[ROOT1] > 0 && dist[ROOT2] > 0)
-//		dist[RES] = dist[ROOT1];
-//	else
-//	{
-//		dist[ROOT1] = 0;
-//		dist[ROOT2] = 0;
-//		dist[RES] = INFINITY;
-//	}
-//}
-//
-//int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
-//{
-//	float	qd[7];
-//	t_cy	*cyl;
-//
-//	cyl = (t_cy *)obj->obj;
-//	qd[A] = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
-//	qd[B] = 2 * ray.dir.x * (ray.origin.x - cyl->pos.x)
-//		+ 2 * ray.dir.z * (ray.origin.z - cyl->pos.z);
-//	qd[C] = (ray.origin.x - cyl->pos.x) * (ray.origin.x - cyl->pos.x)
-//		+ (ray.origin.z - cyl->pos.z) * (ray.origin.z - cyl->pos.z)
-//		- (cyl->diameter / 2) * (cyl->diameter / 2);
-//	qd[DELTA] = (qd[B] * qd[B]) - (4 * qd[A] * qd[C]);
-//	if (qd[DELTA] > 0)
-//	{
-//		qd[ROOT1] = (((-1 * qd[B] - sqrtf(qd[DELTA]))) / (2 * qd[A]));
-//		qd[ROOT2] = (((-1 * qd[B] + sqrtf(qd[DELTA]))) / (2 * qd[A]));
-//		check_for_solutions_cylinder(qd);
-//		*dist = qd[RES];
-//		return (1);
-//	}
-//	return (0);
-//}
 
 /*	quad 0  = radius
  * 	quad 1 = 2ab
@@ -119,11 +79,11 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
  * 	quad 3 = b
  * 	quad 4 = c
  * 	quad 5 = delta
- * 	quad 6 = hit_distance
+ * 	quad 6 = time -> this is the return value that is the solution, hit distance
  *
- * 	v0 = A
- * 	v1 = B
- * 	v2 = AB
+ * 	v0 = A -> coordinate of extremities of cone adjusted with the orientation
+ * 	v1 = B -> coordinate of extremities of cone adjusted with the orientation
+ * 	v2 = AB -> segment from extremity A to B in the direction of cylinder
  * 	v3 = AO
  * 	v4 = AOxAB
  * 	v5 = VxAB
@@ -133,9 +93,14 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 
 static void	init_quadra_cy(t_ray *ray, const t_cy *cyl, t_vec3 *v, float *quad)
 {
+	float	t;
+	t_vec3	norm;
+
+	t = cyl->height / 2.0f;
 	quad[0] = cyl->diameter / 2;
-	v[0] = set_vec(cyl->pos.x, cyl->pos.y, cyl->pos.z + cyl->height / 2);
-	v[1] = set_vec(cyl->pos.x, cyl->pos.y, cyl->pos.z - cyl->height / 2);
+	norm = vec_normalize(vec_scale(cyl->orientation, t));
+	v[0] = vec_add(cyl->pos, vec_scale(norm, t));
+	v[1] = vec_sub(cyl->pos, vec_scale(norm, t));
 	v[2] = vec_sub(v[1], v[0]);
 	v[3] = vec_sub((*ray).origin, v[0]);
 	v[4] = vec_cross(v[3], v[2]);
@@ -189,3 +154,44 @@ int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 	*dist = ic.quad[6];
 	return (1);
 }
+
+// THIS CODE ONLY WORKS FOR INFINITE CYLINDERS
+//static void	check_for_solutions_cylinder(float *dist)
+//{
+//	if (dist[ROOT1] > dist[ROOT2])
+//		ft_swap(&dist[ROOT1], &dist[ROOT2]);
+//	if (dist[ROOT1] < 0 && dist[ROOT2] > 0)
+//		dist[RES] = dist[ROOT2];
+//	else if (dist[ROOT1] > 0 && dist[ROOT2] > 0)
+//		dist[RES] = dist[ROOT1];
+//	else
+//	{
+//		dist[ROOT1] = 0;
+//		dist[ROOT2] = 0;
+//		dist[RES] = INFINITY;
+//	}
+//}
+//
+//int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
+//{
+//	float	qd[7];
+//	t_cy	*cyl;
+//
+//	cyl = (t_cy *)obj->obj;
+//	qd[A] = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
+//	qd[B] = 2 * ray.dir.x * (ray.origin.x - cyl->pos.x)
+//		+ 2 * ray.dir.z * (ray.origin.z - cyl->pos.z);
+//	qd[C] = (ray.origin.x - cyl->pos.x) * (ray.origin.x - cyl->pos.x)
+//		+ (ray.origin.z - cyl->pos.z) * (ray.origin.z - cyl->pos.z)
+//		- (cyl->diameter / 2) * (cyl->diameter / 2);
+//	qd[DELTA] = (qd[B] * qd[B]) - (4 * qd[A] * qd[C]);
+//	if (qd[DELTA] > 0)
+//	{
+//		qd[ROOT1] = (((-1 * qd[B] - sqrtf(qd[DELTA]))) / (2 * qd[A]));
+//		qd[ROOT2] = (((-1 * qd[B] + sqrtf(qd[DELTA]))) / (2 * qd[A]));
+//		check_for_solutions_cylinder(qd);
+//		*dist = qd[RES];
+//		return (1);
+//	}
+//	return (0);
+//}

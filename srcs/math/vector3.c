@@ -32,7 +32,7 @@ t_vec3	vec_normalize(t_vec3 vec)
 
 	len = vec_length(vec);
 	if (len == 0)
-		return (ft_printf("Error : vec length is 0\n"), set_vec(0, 0, 0));
+		return (ft_printf("Error\nvec length is 0\n"), set_vec(0, 0, 0));
 	return (set_vec(vec.x * 1 / len, vec.y * 1 / len, vec.z * 1 / len));
 }
 

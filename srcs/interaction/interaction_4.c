@@ -15,17 +15,17 @@
 void	do_orientation(int key, t_vec3 *orientation)
 {
 	if (key == 48)
-		orientation->y -= 0.1f;
+		printf("orientation: %f\n", orientation->y -= 0.1f);
 	else if (key == 57)
-		orientation->y += 0.1f;
+		printf("orientation: %f\n", orientation->y += 0.1f);
 	else if (key == 56)
-		orientation->x -= 0.1f;
+		printf("orientation: %f\n", orientation->x -= 0.1f);
 	else if (key == 55)
-		orientation->x += 0.1f;
+		printf("orientation: %f\n", orientation->x += 0.1f);
 	else if (key == 45)
-		orientation->z -= 0.1f;
+		printf("orientation: %f\n", orientation->z -= 0.1f);
 	else if (key == 61)
-		orientation->z += 0.1f;
+		printf("orientation: %f\n", orientation->z += 0.1f);
 }
 
 int	is_keycam(int key)
