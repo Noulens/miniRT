@@ -41,6 +41,7 @@ SRCS		=	$(addprefix srcs/,									\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
 												build_ray.c			\
+												shader_common.c		\
 												shader.c			\
 												intersection.c		\
 												inter_cyl_2.c)		\
@@ -75,7 +76,8 @@ SRCS_B		=	$(addprefix srcs/,									\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
 												build_ray.c			\
-												shader_bonus.c			\
+												shader_common.c		\
+												shader_bonus.c		\
 												intersection.c		\
 												inter_cyl_2.c)		\
 					$(addprefix tools/,			rgb_utils.c			\

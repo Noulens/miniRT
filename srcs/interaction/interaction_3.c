@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:46:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/16 17:47:00 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:49:41 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,17 @@ void	rotate_cylinder(t_cy *cy, int key)
 void	rotate_plan(t_pl *pl, int key)
 {
 	if (key == KEY_UP)
-		pl->rotate.y = 1.9f;
+		pl->rotate.y += 1.9f;
 	else if (key == KEY_DOWN)
-		pl->rotate.y = -1.9f;
+		pl->rotate.y += -1.9f;
 	else if (key == KEY_PLUS)
-		pl->rotate.z = 1.9f;
+		pl->rotate.z += 1.9f;
 	else if (key == KEY_MINUS)
-		pl->rotate.z = -1.9f;
+		pl->rotate.z += -1.9f;
 	else if (key == KEY_LEFT)
-		pl->rotate.x = 1.9f;
+		pl->rotate.x += 1.9f;
 	else if (key == KEY_RIGHT)
-		pl->rotate.x = -1.9f;
+		pl->rotate.x += -1.9f;
 }
 
 void	do_transform_c(t_cy *cy, int key)

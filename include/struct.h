@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/19 18:06:57 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/20 11:05:29 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,18 @@ typedef struct s_surfaceinfo
 	t_vec3	hit_point;
 	t_vec3	view_dir;
 	t_vec3	hit_normal;
+	t_vec3	hit_uv;
 	float	hit_dist;
 }	t_surfaceinfo;
+
+typedef struct s_material
+{
+	t_vec3	ambient;
+	t_vec3	diffuse;
+	t_vec3	specular;
+	t_vec3	result;
+	float	face_ratio;
+}	t_material;
 
 typedef struct s_stdobj
 {
