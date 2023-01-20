@@ -59,11 +59,11 @@ int	move_cam(void *param, int keycode)
 	scene->cam.translate = set_vec(0, 0, 0);
 //	scene->cam.rotate = set_vec(0, 0, 0);
 	do_transform(keycode, scene);
-//	do_orientation(keycode, &scene->cam.orientation);
+	do_orientation(keycode, &scene->cam.orientation);
 	set_transform(&scene->cam.translate, &scene->cam.rotate, scene);
-	matrix_print(scene->fwtfm, 1);
+//	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
-	print_vec(&scene->cam.pos);
+//	print_vec(&scene->cam.pos);
 	return (0);
 }
 

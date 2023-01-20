@@ -91,16 +91,14 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
  * 	v7 = projection
  */
 
-static void	init_quadra_cy(t_ray *ray, const t_cy *cyl, t_vec3 *v, float *quad)
+static void	init_quadra_cy(t_ray *ray, t_cy *cyl, t_vec3 *v, float *quad)
 {
 	float	t;
-	t_vec3	norm;
 
 	t = cyl->height / 2.0f;
 	quad[0] = cyl->diameter / 2;
-	norm = vec_normalize(vec_scale(cyl->orientation, t));
-	v[0] = vec_add(cyl->pos, vec_scale(norm, t));
-	v[1] = vec_sub(cyl->pos, vec_scale(norm, t));
+	v[0] = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
+	v[1] = vec_sub(cyl->pos, vec_scale(cyl->orientation, t));
 	v[2] = vec_sub(v[1], v[0]);
 	v[3] = vec_sub((*ray).origin, v[0]);
 	v[4] = vec_cross(v[3], v[2]);
@@ -121,6 +119,20 @@ int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 	int			k;
 
 	cyl = (t_cy *)obj->obj;
+	if (cyl->height == 0)
+	{
+		init_quadra_cy(&ray, cyl, ic.v, ic.quad);
+		init_disk(cyl, ic.v, cap, capper);
+		if (intersect_plane(ray, &capper[0], dist))
+		{
+			if (getdouble(&ray, dist, cap[0]) <= ic.quad[0] * ic.quad[0])
+			{
+				return (1);
+			}
+			else
+				return (0);
+		}
+	}
 	init_quadra_cy(&ray, cyl, ic.v, ic.quad);
 	if (ic.quad[5] < 0.00001f)
 		return (0);

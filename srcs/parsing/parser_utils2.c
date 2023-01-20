@@ -63,6 +63,8 @@ int	get_floats(char *line, t_vec3 *vector, char mode)
 			|| !float_range_checker(y, -1.0f, 1.0f, TRUE)
 			|| !float_range_checker(z, -1.0f, 1.0f, TRUE))
 			return (ft_free_split(ptr), FAIL);
+		*vector = vec_normalize(set_vec(x, y, z));
+		return (ft_free_split(ptr), SUCCESS);
 	}
 	*vector = set_vec(x, y, z);
 	return (ft_free_split(ptr), SUCCESS);
