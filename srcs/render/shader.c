@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/19 18:09:01 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/19 21:43:38 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	t_vec3	light_dir;
 	t_vec3	ambient;
 
-	scene->light.exposure = 30;
+	scene->light.exposure = 50;
 	light_intensity = scene->light.brightness;
 	obj_color = vec_scale(vec_color(scene->objtab[c_obj]->metacolor), 1 / M_PI);
 	get_pointlight_info(scene, info, &light_dir, &light_intensity);

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/19 18:10:02 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/20 07:12:56 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,27 @@ void	get_pointlight_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f)
 	*/
 }
 
+t_vec3	calcule_specular()
+{
+	t_vec3	spec;
+	t_vec3	r;
+
+	r = reflect 
+	return (spec);
+}
+
 int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 {
 	float	light_intensity;
 	int		vis;
 	t_vec3	obj_color;
 	t_vec3	diffuse;
+	t_vec3	result;
 	t_vec3	light_dir;
 	t_vec3	ambient;
+	t_vec3	specular;
 
-	scene->light.exposure = 30;
+	scene->light.exposure = 50;
 	light_intensity = scene->light.brightness;
 	obj_color = vec_scale(vec_color(scene->objtab[c_obj]->metacolor), 1 / M_PI);
 	get_pointlight_info(scene, info, &light_dir, &light_intensity);
@@ -63,6 +74,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	diffuse = vec_scale(vec_color(scene->light.color), light_intensity);
 	diffuse = vec_scale(vec_scale(vec_mult(obj_color, diffuse), vis), \
 	ft_max(0.0f, vec_dot(info->hit_normal, vec_scale(light_dir, -1))));
-	diffuse = vec_add(diffuse, vec_mult(obj_color, ambient));
-	return (int_color(diffuse));
+	specular = calcule_specular();
+	result = vec_add(diffuse, vec_mult(obj_color, ambient));
+	return (int_color(result));
 }
