@@ -52,7 +52,8 @@ void	orient_camera(t_scene *scene, t_ray *ray, t_vec3 *pixel_camera)
 	t_vec3	rot;
 	t_vec3	origin;
 //	t_vec3	norm;
-//  orientation is already normalized from parsing, you can use it directly
+//  orientation is already normalized from parsing, you can use it directly.
+//  every transformation calls do_orientation that renormalize the orientation vector and checks for null vector
 //	norm = vec_normalize(scene->cam.orientation);
 	rot.x = to_degree(asinf(scene->cam.orientation.y));
 	rot.y = -1 * to_degree(asinf(scene->cam.orientation.x));
