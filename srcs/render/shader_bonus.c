@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 14:35:19 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 14:37:38 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	light_intensity = scene->lamp->brightness;
 	obj_color = vec_color(scene->objtab[c_obj]->metacolor);
 	get_pointlight_info(scene, info, &light_dir, &light_intensity);
-	light_intensity *= scene->light.exposure;
+	light_intensity *= scene->lamp->exposure;
 	vis = shadow_visibility(scene, inter, info, light_dir);
 	mat.face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, \
 	vec_scale(light_dir, -1)));

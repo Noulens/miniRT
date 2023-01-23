@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 14:33:46 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 14:37:58 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	vis = shadow_visibility(scene, inter, info, light_dir);
 	mat.face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, \
 	vec_scale(light_dir, -1)));
-	light_intensity *= scene->light.exposure;
+	light_intensity *= scene->lamp->exposure;
 	mat.ambient = vec_scale(vec_mult(obj_color, vec_color(scene->alight.color)), scene->alight.al);
 	mat.diffuse = vec_scale(vec_mult(obj_color, vec_color(scene->lamp->color)), vis * mat.face_ratio * light_intensity);
 	mat.result = vec_scale(vec_add(mat.ambient, mat.diffuse), 0.5);
