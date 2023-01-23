@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 16:28:55 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 17:19:30 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	move_cam(void *param, int keycode)
 
 	vec_null = set_vec(0,0,0);
 	scene = (t_scene *)param;
-	scene->cam.translate = set_vec(0, 0, 0);
+	// scene->cam.translate = set_vec(0, 0, 0);
 	do_transform(keycode, scene);
 	do_orientation(keycode, &scene->cam.orientation);
 	set_transform(&scene->cam.translate, &vec_null, scene);
