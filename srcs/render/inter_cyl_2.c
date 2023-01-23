@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inter_cyl_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 17:09:56 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/19 17:09:58 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:37:51 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,29 @@ void	get_inter_proj(t_ray *ray, t_vec3 *v, const float *quad)
 	v[6] = vec_add((*ray).origin, vec_scale((*ray).dir, quad[6]));
 	v[7] = vec_add(v[0], vec_scale(v[2],
 				vec_dot(v[2], vec_scale(vec_sub(v[6], v[0]), 1 / quad[1]))));
+}
+
+int	isacap(t_cy *cyl, t_inter_cy *ic, t_pl *cap, t_stdobj *capper)
+{
+	int	k;
+	int	lim;
+
+	init_disk(cyl, ic->v, cap, capper);
+	if (cyl->height == 0)
+		lim = 1;
+	else
+		lim = 2;
+	k = -1;
+	while (++k < lim)
+	{
+		if (intersect_plane(*ic->raycap, &capper[k], ic->dist))
+		{
+			if (getdouble(ic->raycap, ic->dist, cap[k])
+				<= ic->quad[0] * ic->quad[0])
+			{
+				return (1);
+			}
+		}
+	}
+	return (0);
 }

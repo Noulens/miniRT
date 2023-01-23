@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 14:39:12 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:23:49 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,19 @@ typedef struct s_vec3
 	float	t;
 }	t_vec3;
 
-typedef struct s_inter_cy
-{
-	t_vec3	v[8];
-	float	quad[7];
-}	t_inter_cy;
-
 typedef struct s_ray
 {
 	t_vec3	origin;
 	t_vec3	dir;
 }	t_ray;
+
+typedef struct s_inter_cy
+{
+	t_vec3	v[8];
+	float	quad[7];
+	t_ray	*raycap;
+	float	*dist;
+}	t_inter_cy;
 
 typedef struct s_data
 {

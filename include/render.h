@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:07:10 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/20 10:42:00 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 15:37:32 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ float			getdouble(t_ray *ray, const float *dist, const t_pl cap);
 void			get_inter_proj(t_ray *ray, t_vec3 *v, const float *quad);
 void			get_pointlight_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f);
 int				shadow_visibility(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldir);
+int				isacap(t_cy *cyl, t_inter_cy *ic, t_pl *cap, t_stdobj *capper);
 
 #endif
