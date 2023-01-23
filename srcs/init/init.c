@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/23 14:37:20 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:20:42 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void	cam_init(t_scene *s)
 
 void	scene_init(t_scene *s)
 {
-	s->win_w = 1360;
-	s->win_h = 768;
+	s->win_w = 500;
+	s->win_h = 300;
 	s->image_ratio = (float)s->win_w / (float)s->win_h;
 	s->cam.focal_length = ((float)s->win_w / 2)
 		/ tanf(to_radian((s->cam.fov_w / 2)));
 	s->bg_color = ft_trgb(255, 0, 0, 0);
 	s->lamp->exposure = 50;
+	s->k = 0;
 	cam_init(s);
 }
 
