@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   des_mlx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 20:18:20 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/15 20:18:23 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:27:40 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	des_mlx(void *mlx, void *img, void *win)
 void	des_minirt(t_scene *scn)
 {
 	objclear(scn->objects);
+	lpdes_l(scn->lamp);
 	if (scn->objtab)
 		free(scn->objtab);
+	if (scn->lamptab)
+		free(scn->lamptab);
 }

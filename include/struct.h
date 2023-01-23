@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/20 11:05:29 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 14:39:12 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,12 +182,14 @@ typedef struct s_cam
 
 typedef struct s_light
 {
-	t_vec3	pos;
-	t_vec3	translate;
-	t_vec3	rotate;
-	int		color;
-	float	brightness;
-	float	exposure;
+	t_vec3			pos;
+	t_vec3			translate;
+	t_vec3			rotate;
+	int				color;
+	float			brightness;
+	float			exposure;
+	int				idl;
+	struct s_light	*next;
 }	t_light;
 
 typedef struct s_alight
@@ -204,17 +206,19 @@ typedef struct s_scene
 	int			win_h;
 	float		image_ratio;
 	int			num_objects_in_scene;
+	int			num_lamps;
 	t_light		light;
 	t_alight	alight;
 	t_stdobj	*objects;
 	t_stdobj	**objtab;
+	t_light		*lamp;
+	t_light		**lamptab;
 	t_cam		cam;
 	int			bg_color;
 	t_img		*ig;
 	int			target;
 	t_func		*func_ptr;
 	t_matrix4	fwtfm;
-	t_matrix4	bcktfm;
 }	t_scene;
 
 #endif

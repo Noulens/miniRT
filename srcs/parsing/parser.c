@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:58:53 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/22 22:35:39 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/23 14:41:18 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ int	rt_name_checker(char *path)
 	return (map);
 }
 
+static int	check_numbers_of_type(int nba, int nbc, int nbl)
+{
+	if (BONUS == 0)
+	{
+		if (nba != 1 || nbl != 1 || nbc != 1)
+			return (ft_fprintf(2, "Error\nACL not unique\n"), 1);
+	}
+	else
+	{
+		if (nba != 1 || nbl < 1 || nbc != 1)
+			return (ft_fprintf(2, "Error\nACL not good\n"), 1);
+	}
+	return (SUCCESS);
+}
+
 static int	get_space_attribute(char *line, t_scene *scn, char chr)
 {
 	static int	nba;
@@ -51,10 +66,9 @@ static int	get_space_attribute(char *line, t_scene *scn, char chr)
 		++nbl;
 		return (get_infos_l(++line, scn));
 	}
-	else if (chr == 0)
+	else if (chr == 0 && check_numbers_of_type(nba, nbc, nbl))
 	{
-		if (nba != 1 || nbl != 1 || nbc != 1)
-			return (ft_fprintf(2, "Error\nACL not unique\n"), 1);
+		return (FAIL);
 	}
 	return (SUCCESS);
 }
@@ -108,5 +122,6 @@ int	parse(t_scene *scn, char *str)
 	if (get_space_attribute(NULL, NULL, 0) == FAIL)
 		return (ft_fprintf(2, "Error\nACL format not respected\n"), FAIL);
 	scn->num_objects_in_scene = objlstsize(scn->objects);
-	return (list_to_tab(scn));
+	scn->num_lamps = objlstsize_l(scn->lamp);
+	return (list_to_tab(scn) && list_to_tab_l(scn));
 }

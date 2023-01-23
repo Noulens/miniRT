@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/21 07:57:13 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 13:49:54 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	scenevarinit(t_scene *s)
 	s->objects = NULL;
 	s->target = -1;
 	s->objtab = NULL;
+	s->lamp = NULL;
+	s->lamptab = NULL;
 	set_identity(&s->fwtfm);
-	set_identity(&s->bcktfm);
 }

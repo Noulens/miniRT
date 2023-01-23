@@ -48,7 +48,8 @@ SRCS		=	$(addprefix srcs/,									\
 					$(addprefix tools/,			rgb_utils.c			\
 												rgb_convert.c		\
 												range_check.c		\
-												lst_tools.c)		\
+												lst_tools.c			\
+												lst_tools_lights.c)	\
 				)
 
 SRCS_B		=	$(addprefix srcs/,									\
@@ -83,7 +84,8 @@ SRCS_B		=	$(addprefix srcs/,									\
 					$(addprefix tools/,			rgb_utils.c			\
 												rgb_convert.c		\
 												range_check.c		\
-												lst_tools.c)		\
+												lst_tools.c			\
+												lst_tools_lights.c)	\
 				)
 
 

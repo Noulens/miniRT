@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:12:13 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/24 10:38:40 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/23 14:41:35 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,32 @@ int	get_infos_c(char *line, t_scene *scn)
 	return (ft_free_split(ptr), SUCCESS);
 }
 
+// int	get_infos_l(char *line, t_scene *scn)
+// {
+// 	int		i;
+// 	int		commas;
+// 	char	**ptr;
+
+// 	if (count_element(line) != 3)
+// 		return (ft_fprintf(2, "Error\nin L data: bad elements nb\n"), FAIL);
+// 	ptr = ft_split(line, ' ');
+// 	if (!ptr)
+// 		return (ft_fprintf(2, "Error\n malloc error in L parse\n"), FAIL);
+// 	if (check_fformat(&i, &commas, ptr[0]))
+// 		return (ft_free_split(ptr), ft_fprintf(2, FFL), FAIL);
+// 	get_floats(ptr[0], &scn->light.pos, 'L');
+// 	if (check_float_nb(ptr[1]))
+// 		return (ft_free_split(ptr), FAIL);
+// 	scn->light.brightness = ft_atof(ptr[1]);
+// 	if (float_range_checker(scn->light.brightness, 0.0f, 1.0f, TRUE) == FALSE)
+// 		return (ft_free_split(ptr), ft_fprintf(2, "Error\nin L data\n"), FAIL);
+// 	if (check_rgb(ptr[2]) == SUCCESS)
+// 		scn->light.color = atorgb(ptr[2]);
+// 	else
+// 		return (ft_free_split(ptr), FAIL);
+// 	return (ft_free_split(ptr), SUCCESS);
+// }
+
 int	get_infos_l(char *line, t_scene *scn)
 {
 	int		i;
@@ -115,20 +141,23 @@ int	get_infos_l(char *line, t_scene *scn)
 
 	if (count_element(line) != 3)
 		return (ft_fprintf(2, "Error\nin L data: bad elements nb\n"), FAIL);
+	if (objadd_front_l(&scn->lamp))
+		return (ft_fprintf(2, "Error\nbadmem\n"), FAIL);
 	ptr = ft_split(line, ' ');
 	if (!ptr)
-		return (ft_fprintf(2, "Error\n malloc error in L parse\n"), FAIL);
+		return (lpdes_l(scn->lamp), ft_fprintf(2, "Error\nbadmem\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
-		return (ft_free_split(ptr), ft_fprintf(2, FFL), FAIL);
-	get_floats(ptr[0], &scn->light.pos, 'L');
+		return (lpdes_l(scn->lamp), ft_free_split(ptr), ft_fprintf(2, FFL), 1);
+	get_floats(ptr[0], &scn->lamp->pos, 'L');
 	if (check_float_nb(ptr[1]))
-		return (ft_free_split(ptr), FAIL);
-	scn->light.brightness = ft_atof(ptr[1]);
-	if (float_range_checker(scn->light.brightness, 0.0f, 1.0f, TRUE) == FALSE)
-		return (ft_free_split(ptr), ft_fprintf(2, "Error\nin L data\n"), FAIL);
+		return (lpdes_l(scn->lamp), ft_free_split(ptr), FAIL);
+	scn->lamp->brightness = ft_atof(ptr[1]);
+	if (float_range_checker(scn->lamp->brightness, 0.0f, 1.0f, TRUE) == FALSE)
+		return (lpdes_l(scn->lamp), ft_free_split(ptr),
+			ft_fprintf(2, "Error\nin L data\n"), FAIL);
 	if (check_rgb(ptr[2]) == SUCCESS)
-		scn->light.color = atorgb(ptr[2]);
+		scn->lamp->color = atorgb(ptr[2]);
 	else
-		return (ft_free_split(ptr), FAIL);
+		return (lpdes_l(scn->lamp), ft_free_split(ptr), FAIL);
 	return (ft_free_split(ptr), SUCCESS);
 }
