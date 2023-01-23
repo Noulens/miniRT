@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:38:24 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 09:52:02 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 14:15:10 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	shadow_visibility(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldir)
 	hit.origin = vec_add(i->hit_point, vec_scale(i->hit_normal, 0.01f));
 	hit.dir = vec_normalize(vec_scale(ldir, -1));
 	vis = find_closest_obj(s, hit, inter, &hit_dist);
+	if (hit_dist > vec_length(vec_sub(i->hit_point, s->light.pos)))
+		return (1);
 	if (vis == -1)
 		return (1);
 	else

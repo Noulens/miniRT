@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/20 11:05:29 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 11:46:39 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,8 @@ typedef struct s_scene
 {
 	int			win_w;
 	int			win_h;
+	int			x;
+	int			y;
 	float		image_ratio;
 	int			num_objects_in_scene;
 	t_light		light;
