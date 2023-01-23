@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 09:24:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 14:15:15 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 16:22:57 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,29 @@ t_matrix4	set_transform2(t_vec3 *trans, t_vec3 *rot)
 	return (mul_mat(mul_mat(mul_mat(t[T], t[RX]), t[RY]), t[RZ]));
 }
 
-void	orient_camera(t_scene *scene, t_ray *ray, t_vec3 *pixel_camera)
+t_ray	orient_camera(t_scene *scene, t_vec3 *pixel_camera)
 {
+	t_ray	oriented_ray;
 	t_vec3	rot;
 	t_vec3	origin;
-//	t_vec3	norm;
-//  orientation is already normalized from parsing, you can use it directly.
-//  every transformation calls do_orientation that renormalize the orientation vector and checks for null vector
-//	norm = vec_normalize(scene->cam.orientation);
+
 	rot.x = to_degree(asinf(scene->cam.orientation.y));
 	rot.y = -1 * to_degree(asinf(scene->cam.orientation.x));
 	rot.z = 0;
 	if (scene->cam.orientation.z == 1)
 		rot.y = 180;
-	origin = ray->origin;
+	origin = set_vec(0,0,0);
 	matrix_vec_mult(set_transform2(&scene->cam.pos, &rot), &origin);
 	matrix_vec_mult(set_transform2(&scene->cam.pos, &rot), pixel_camera);
+	oriented_ray.origin = origin;
+	oriented_ray.dir = vec_sub(*pixel_camera, origin);
+	oriented_ray.dir = vec_normalize(oriented_ray.dir);
+	return (oriented_ray);
 }
 
 t_ray	build_camera_ray(t_scene *scene, int x, int y)
 {
-	t_ray	ray;
+	t_ray	oriented_ray;
 	t_vec3	pixel_raster;
 	t_vec3	pixel_ndc;
 	t_vec3	pixel_screenspace;
@@ -79,19 +81,15 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	pixel_ndc.y = pixel_raster.y / (float)scene->win_h;
 	pixel_screenspace.x = 2.0f * pixel_ndc.x - 1.0f;
 	pixel_screenspace.y = 1.0f - (2.0f * pixel_ndc.y);
-	ray.origin = set_vec(0, 0, 0);
 	pixel_camera.x = pixel_screenspace.x * scene->image_ratio * \
 			scene->cam.fov_h_len;
 	pixel_camera.y = pixel_screenspace.y * scene->cam.fov_h_len;
 	pixel_camera.z = -1;
-	orient_camera(scene, &ray, &pixel_camera);
-	matrix_vec_mult(set_transform2(&scene->cam.pos, &scene->cam.rotate), \
-	&ray.origin);
-	matrix_vec_mult(set_transform2(&scene->cam.pos, &scene->cam.rotate), \
-	&pixel_camera);
-	ray.dir = vec_sub(pixel_camera, ray.origin);
-	ray.dir = vec_normalize(ray.dir);
-	return (ray);
+	oriented_ray = orient_camera(scene, &pixel_camera);
+	matrix_vec_mult(set_transform2(&scene->cam.pos, &scene->cam.rotate), &pixel_camera);
+	oriented_ray.dir = vec_sub(pixel_camera, oriented_ray.origin);
+	oriented_ray.dir = vec_normalize(oriented_ray.dir);
+	return (oriented_ray);
 }
 
 int	find_closest_obj(t_scene *scene, t_ray ray, t_func *inter, float *closest)
