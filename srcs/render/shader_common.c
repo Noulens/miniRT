@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:38:24 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 14:58:18 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 16:58:37 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	shadow_visibility(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldir)
 	hit.origin = vec_add(i->hit_point, vec_scale(i->hit_normal, 0.01f));
 	hit.dir = vec_normalize(vec_scale(ldir, -1));
 	vis = find_closest_obj(s, hit, inter, &hit_dist);
-	if (hit_dist > vec_length(vec_sub(i->hit_point, s->lamp->pos)))
+	if (hit_dist > vec_length(vec_sub(i->hit_point, s->lamptab[s->k]->pos)))
 		return (1);
 	if (vis == -1)
 		return (1);
@@ -34,10 +34,10 @@ void	get_pointlight_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f, in
 	t_vec3	light_dir;
 	float	r2;
 
-	light_dir = vec_sub(i->hit_point, s->lamp[k].pos);
+	light_dir = vec_sub(i->hit_point, s->lamptab[k]->pos);
 	r2 = vec_length(light_dir);
 	*dir = vec_normalize(light_dir);
-	*f = s->lamp[k].brightness / (4 * M_PI * r2);
+	*f = s->lamptab[k]->brightness / (4 * M_PI * r2);
 	// printf("s->light.brightness: %f\n", s->light.brightness);
 	// printf("( 4 * M_PI * r2): %f\n", ( 4 * M_PI * r2));
 	// printf("intensity: %f\n", *f);

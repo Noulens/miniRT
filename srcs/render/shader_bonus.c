@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 15:43:32 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 16:58:14 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	mat.result = set_vec(0, 0, 0);
 	while (++i < scene->num_lamps)
 	{
-		printf("%f\n", scene->lamptab[i]->brightness);
-		light_intensity = scene->lamp[i].brightness;
+		s->k = i;
+		light_intensity = scene->lamptab[i]->brightness;
 		obj_color = vec_color(scene->objtab[c_obj]->metacolor);
 		get_pointlight_info(scene, info, &light_dir, &light_intensity, i);
 		light_intensity *= scene->lamp->exposure;
@@ -116,7 +116,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 		if (scene->objtab[c_obj]->objtp == 2)
 			pattern = calcule_plan_pattern(info, &obj_color);
 		mat.ambient = vec_scale(vec_color(scene->alight.color), scene->alight.al);
-		mat.diffuse = vec_scale(vec_scale(vec_color(scene->lamp[i].color), \
+		mat.diffuse = vec_scale(vec_scale(vec_color(scene->lamptab[i]->color), \
 						vis * light_intensity * pattern), mat.face_ratio);
 		mat.specular = calcule_specular(light_dir, info, vis, light_intensity);
 		mat.result = vec_add(vec_mult(vec_scale(vec_add(vec_add(mat.diffuse, mat.ambient), mat.specular), 1/3.0), obj_color), mat.result);
