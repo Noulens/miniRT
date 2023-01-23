@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:12:13 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 15:40:14 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:13:29 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	get_infos_c(char *line, t_scene *scn)
 		return (ft_fprintf(2, "Error\n malloc error in C parse\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
 		return (ft_free_split(ptr), ft_fprintf(2, FFC), FAIL);
-	get_floats(ptr[0], &scn->cam.pos, 'C');
+	get_floats(ptr[0], &scn->cam.translate, 'C');
 	if (check_fformat(&i, &commas, ptr[1]))
 		return (ft_free_split(ptr), ft_fprintf(2, FFC), FAIL);
 	if (get_floats(ptr[1], &scn->cam.orientation, 'O'))
