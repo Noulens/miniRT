@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 17:52:50 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:08:18 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ int	intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	t_sp		*sphere;
 
 	sphere = (t_sp *)tmp->obj;
-	sphere->radius = sphere->diameter / 4.0f;
+	sphere->radius = sphere->diameter / 2.0f;
 	l = vec_sub(sphere->pos, ray.origin);
 	tca = vec_dot(l, ray.dir);
 	if (tca < 0)
 		return (0);
 	d2 = vec_dot(l, l) - tca * tca;
-	if (d2 > sphere->radius)
+	if (d2 > powf(sphere->radius, 2))
 		return (0);
-	thc = sqrtf(sphere->radius - d2);
+	thc = sqrtf(powf(sphere->radius, 2)- d2);
 	return (intersect_sphere2(tca, thc, hit_distance));
 }
 
