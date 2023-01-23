@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/13 09:37:55 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 15:37:46 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,93 +118,20 @@ int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 	t_stdobj	capper[2];
 
 	cyl = (t_cy *)obj->obj;
-	if (cyl->height == 0)
-	{
-		init_quadra_cy(&ray, cyl, ic.v, ic.quad);
-		init_disk(cyl, ic.v, cap, capper);
-		if (intersect_plane(ray, &capper[0], dist))
-		{
-			if (getdouble(&ray, dist, cap[0]) <= ic.quad[0] * ic.quad[0])
-			{
-				return (1);
-			}
-			else
-				return (0);
-		}
-	}
+	ic.dist = dist;
+	ic.raycap = &ray;
 	init_quadra_cy(&ray, cyl, ic.v, ic.quad);
+	if (cyl->height == 0)
+		return (isacap(cyl, &ic, cap, capper));
 	if (ic.quad[5] < 10e-6)
 		return (0);
 	ic.quad[6] = (-ic.quad[3] - sqrtf(ic.quad[5])) / (2 * ic.quad[2]);
 	if (ic.quad[6] < 10e-6)
-	{
-		int			k;
-		init_disk(cyl, ic.v, cap, capper);
-		k = -1;
-		while (++k < 2)
-			if (intersect_plane(ray, &capper[k], dist))
-				if (getdouble(&ray, dist, cap[k]) <= ic.quad[0] * ic.quad[0])
-				{
-					return (1);
-				}
-		return (0);
-	}
+		return (isacap(cyl, &ic, cap, capper));
 	get_inter_proj(&ray, ic.v, ic.quad);
 	if ((vec_length(vec_sub(ic.v[7], ic.v[0])) > vec_length(ic.v[2]))
 		|| (vec_length(vec_sub(ic.v[1], ic.v[7])) > vec_length(ic.v[2])))
-	{
-		int			k;
-		init_disk(cyl, ic.v, cap, capper);
-		k = -1;
-		while (++k < 2)
-			if (intersect_plane(ray, &capper[k], dist))
-				if (getdouble(&ray, dist, cap[k]) <= ic.quad[0] * ic.quad[0])
-				{
-					return (1);
-				}
-		return (0);
-	}
+		return (isacap(cyl, &ic, cap, capper));
 	*dist = ic.quad[6];
 	return (1);
 }
-
-// THIS CODE ONLY WORKS FOR INFINITE CYLINDERS
-//static void	check_for_solutions_cylinder(float *dist)
-//{
-//	if (dist[ROOT1] > dist[ROOT2])
-//		ft_swap(&dist[ROOT1], &dist[ROOT2]);
-//	if (dist[ROOT1] < 0 && dist[ROOT2] > 0)
-//		dist[RES] = dist[ROOT2];
-//	else if (dist[ROOT1] > 0 && dist[ROOT2] > 0)
-//		dist[RES] = dist[ROOT1];
-//	else
-//	{
-//		dist[ROOT1] = 0;
-//		dist[ROOT2] = 0;
-//		dist[RES] = INFINITY;
-//	}
-//}
-//
-//int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
-//{
-//	float	qd[7];
-//	t_cy	*cyl;
-//
-//	cyl = (t_cy *)obj->obj;
-//	qd[A] = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
-//	qd[B] = 2 * ray.dir.x * (ray.origin.x - cyl->pos.x)
-//		+ 2 * ray.dir.z * (ray.origin.z - cyl->pos.z);
-//	qd[C] = (ray.origin.x - cyl->pos.x) * (ray.origin.x - cyl->pos.x)
-//		+ (ray.origin.z - cyl->pos.z) * (ray.origin.z - cyl->pos.z)
-//		- (cyl->diameter / 2) * (cyl->diameter / 2);
-//	qd[DELTA] = (qd[B] * qd[B]) - (4 * qd[A] * qd[C]);
-//	if (qd[DELTA] > 0)
-//	{
-//		qd[ROOT1] = (((-1 * qd[B] - sqrtf(qd[DELTA]))) / (2 * qd[A]));
-//		qd[ROOT2] = (((-1 * qd[B] + sqrtf(qd[DELTA]))) / (2 * qd[A]));
-//		check_for_solutions_cylinder(qd);
-//		*dist = qd[RES];
-//		return (1);
-//	}
-//	return (0);
-//}

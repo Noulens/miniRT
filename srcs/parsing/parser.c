@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 10:58:53 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 14:41:18 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:22:39 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,7 @@ int	parse(t_scene *scn, char *str)
 		return (ft_fprintf(2, "Error\nACL format not respected\n"), FAIL);
 	scn->num_objects_in_scene = objlstsize(scn->objects);
 	scn->num_lamps = objlstsize_l(scn->lamp);
-	return (list_to_tab(scn) && list_to_tab_l(scn));
+	if (list_to_tab_l(scn) || list_to_tab(scn))
+		return (FAIL);
+	return (SUCCESS);
 }

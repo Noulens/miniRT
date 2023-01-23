@@ -3,6 +3,7 @@
 		"parsing.h": "c",
 		"init.h": "c",
 		"struct.h": "c",
-		"tools.h": "c"
+		"tools.h": "c",
+		"render.h": "c"
 	}
 }

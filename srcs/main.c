@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 17:12:29 by tnoulens          #+#    #+#             */
-/*   Updated: 2022/12/24 10:33:00 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/23 17:18:19 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	print_objects_infos(t_scene *scene)
 	t_cy		*cylinder;
 	t_pl		*plan;
 
+
 	printf("A:\nal: %f\nrgb: %d, %d, %d\n", scene->alight.al,
 		get_r(scene->alight.color), get_g(scene->alight.color),
 		get_b(scene->alight.color));
@@ -26,10 +27,24 @@ void	print_objects_infos(t_scene *scene)
 		scene->cam.pos.x, scene->cam.pos.y, scene->cam.pos.z,
 		scene->cam.orientation.x, scene->cam.orientation.y,
 		scene->cam.orientation.z, scene->cam.fov_w);
-	printf("L:\npos: %f, %f, %f\nbrightness: %f\nrgb: %d, %d, %d\n",
-		scene->light.pos.x, scene->light.pos.y, scene->light.pos.z,
-		scene->light.brightness, get_r(scene->light.color),
-		get_g(scene->light.color), get_b(scene->light.color));
+	int k = -1;
+	// t_light		*tmp2;
+	// tmp2 = scene->lamp;	
+	// while (tmp2)
+	// {
+	// 	printf("L:\npos: %f, %f, %f\nbrightness: %f\nrgb: %d, %d, %d\n",
+	// 		tmp2->pos.x, tmp2->pos.y, tmp2->pos.z,
+	// 		tmp2->brightness, get_r(tmp2->color),
+	// 		get_g(tmp2->color), get_b(tmp2->color));
+	// 	tmp2 = tmp2->next;
+	// }
+	while (++k < scene->num_lamps)
+	{
+		printf("L:\npos: %f, %f, %f\nbrightness: %f\nrgb: %d, %d, %d\n",
+			scene->lamptab[k]->pos.x, scene->lamptab[k]->pos.y, scene->lamptab[k]->pos.z,
+			scene->lamptab[k]->brightness, get_r(scene->lamptab[k]->color),
+			get_g(scene->lamptab[k]->color), get_b(scene->lamptab[k]->color));
+	}
 	tmp = scene->objects;
 	while (tmp)
 	{
