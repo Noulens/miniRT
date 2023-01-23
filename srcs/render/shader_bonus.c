@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 16:58:14 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 17:12:02 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	mat.result = set_vec(0, 0, 0);
 	while (++i < scene->num_lamps)
 	{
-		s->k = i;
+		scene->k = i;
 		light_intensity = scene->lamptab[i]->brightness;
 		obj_color = vec_color(scene->objtab[c_obj]->metacolor);
 		get_pointlight_info(scene, info, &light_dir, &light_intensity, i);
