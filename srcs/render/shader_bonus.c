@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/20 14:41:06 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 11:15:35 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ float	calcule_sphere_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 	if (pattern < 0.5f)
 	{
 		pattern = 1;
-		*obj_color = vec_scale(vec_color(ft_trgb(255, 255, 255, 255)), 1 / M_PI);
+		*obj_color = vec_color(ft_trgb(255, 255, 255, 255));
 	}
 	return (pattern);
 }
@@ -98,10 +98,11 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	t_vec3		light_dir;
 
 	light_intensity = scene->light.brightness;
-	obj_color = vec_scale(vec_color(scene->objtab[c_obj]->metacolor), 1 / M_PI);
+	obj_color = vec_color(scene->objtab[c_obj]->metacolor);
 	get_pointlight_info(scene, info, &light_dir, &light_intensity);
 	light_intensity *= scene->light.exposure;
 	vis = shadow_visibility(scene, inter, info, light_dir);
+	vis = 1;
 	mat.face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, \
 	vec_scale(light_dir, -1)));
 	pattern = 1;
@@ -113,7 +114,12 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	mat.diffuse = vec_scale(vec_scale(vec_color(scene->light.color), \
 					vis * light_intensity * pattern), mat.face_ratio);
 	mat.specular = calcule_specular(light_dir, info, vis, light_intensity);
-	mat.result = vec_mult(vec_add(vec_add(mat.diffuse, mat.ambient), \
-	mat.specular), obj_color);
+	mat.result = vec_mult(vec_scale(vec_add(vec_add(mat.diffuse, mat.ambient), mat.specular), 1/3.0), obj_color);
+	if (mat.result.x > 1)
+		mat.result.x = 1;
+	if (mat.result.y > 1)
+		mat.result.y = 1;
+	if (mat.result.z > 1)
+		mat.result.z = 1;
 	return (int_color(mat.result));
 }

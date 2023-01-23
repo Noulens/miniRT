@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shader_help.c                                      :+:      :+:    :+:   */
+/*   shader_common.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:38:24 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/20 10:38:57 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 09:52:02 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	get_pointlight_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f)
 	r2 = vec_length(light_dir);
 	*dir = vec_normalize(light_dir);
 	*f = s->light.brightness / (4 * M_PI * r2);
-	/*
-	printf("s->light.brightness: %f\n", s->light.brightness);
-	printf("( 4 * M_PI * r2): %f\n", ( 4 * M_PI * r2));
-	printf("intensity: %f\n", *f);
-	printf("\n");
-	*/
+	// printf("s->light.brightness: %f\n", s->light.brightness);
+	// printf("( 4 * M_PI * r2): %f\n", ( 4 * M_PI * r2));
+	// printf("intensity: %f\n", *f);
+	// printf("\n");
 }
