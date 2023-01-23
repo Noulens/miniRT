@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3_simple.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 07:16:47 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/13 15:15:05 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 14:23:09 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,4 @@ t_vec3	vec_mult(t_vec3 a, t_vec3 b)
 t_vec3	vec_scale(t_vec3 a, float b)
 {
 	return (set_vec(a.x * b, a.y * b, a.z * b));
-}
-
-int	cannot_norm(float x, float y, float z)
-{
-	if (!x && !y && !z)
-	{
-		ft_fprintf(2, "Error\nnull vector\n");
-		return (TRUE);
-	}
-	return (FALSE);
 }

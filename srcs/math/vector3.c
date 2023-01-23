@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 05:58:45 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/21 15:03:26 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/23 14:23:21 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ t_vec3	vec_cross(t_vec3 a, t_vec3 b)
 	return (set_vec(a.y * b.z - a.z * b.y, \
 					a.z * b.x - a.x * b.z, \
 					a.x * b.y - a.y * b.x));
+}
+
+int	cannot_norm(float x, float y, float z)
+{
+	if (!x && !y && !z)
+	{
+		ft_fprintf(2, "Error\nnull vector\n");
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 //TODO : remove this printf:

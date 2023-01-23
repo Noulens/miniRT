@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:44:04 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/13 10:33:18 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 14:27:30 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,9 @@ void	objclear(t_stdobj *lst);
 int		objlstsize(t_stdobj *lst);
 int		list_to_tab(t_scene *scn);
 void	ft_swap(float *a, float *b);
+int		objadd_front_l(t_light **lst);
+void	lpdes_l(t_light *lst);
+int		objlstsize_l(t_light *lst);
+int		list_to_tab_l(t_scene *scn);
 
 #endif

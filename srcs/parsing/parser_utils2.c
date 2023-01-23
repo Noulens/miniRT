@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 19:44:38 by waxxy             #+#    #+#             */
-/*   Updated: 2022/12/23 12:30:09 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/23 14:29:31 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int	get_floats(char *line, t_vec3 *vector, char mode)
 	z = ft_atof(ptr[2]);
 	if (mode == 'O')
 	{
-		if (!x && !y && !z)
-			return (ft_free_split(ptr), ft_fprintf(2, ER_NORM), FAIL);
-		if (!float_range_checker(x, -1.0f, 1.0f, TRUE)
+		if ((!x && !y && !z) || !float_range_checker(x, -1.0f, 1.0f, TRUE)
 			|| !float_range_checker(y, -1.0f, 1.0f, TRUE)
 			|| !float_range_checker(z, -1.0f, 1.0f, TRUE))
 			return (ft_free_split(ptr), FAIL);

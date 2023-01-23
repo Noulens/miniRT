@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/23 10:47:17 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 14:21:08 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	scenevarinit(t_scene *s)
 	s->objects = NULL;
 	s->target = -1;
 	s->objtab = NULL;
+	s->lamp = NULL;
+	s->lamptab = NULL;
 	set_identity(&s->fwtfm);
-	set_identity(&s->bcktfm);
 }

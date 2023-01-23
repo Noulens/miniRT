@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotation.c                                         :+:      :+:    :+:   */
+/*   interaction_4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:28:05 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/06 18:28:09 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:24:13 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	check(int key, t_vec3 *ori, float d)
 
 void	do_orientation(int key, t_vec3 *orientation)
 {
-	float d;
+	float	d;
 
 	d = 0.1f;
 	check(key, orientation, d);
