@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:20:25 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/23 14:27:24 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:15:46 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	list_to_tab_l(t_scene *scn)
 	size_t	idx;
 
 	idx = scn->num_lamps;
-	scn->lamptab = (t_light **)ft_calloc(sizeof(t_light *), idx + 100);
+	scn->lamptab = (t_light **)ft_calloc(sizeof(t_light *), idx + 8);
 	if (!scn->lamptab)
 		return (ft_fprintf(2, "Error\nlist_to_tab_l bad malloc"), FAIL);
 	tmp = scn->lamp;
