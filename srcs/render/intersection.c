@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 15:37:46 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:54:40 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,16 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
  * 	quad 3 = b
  * 	quad 4 = c
  * 	quad 5 = delta
- * 	quad 6 = time -> this is the return value that is the solution, hit distance
+ * 	quad 6 = time -> this is the return value that is hit distance solution
  *
- * 	v0 = A -> coordinate of extremities of cone adjusted with the orientation
- * 	v1 = B -> coordinate of extremities of cone adjusted with the orientation
+ * 	v0 = A -> coordinate of extremities of cyl adjusted with the orientation
+ * 	v1 = B -> coordinate of extremities of cyl adjusted with the orientation
  * 	v2 = AB -> segment from extremity A to B in the direction of cylinder
  * 	v3 = AO
  * 	v4 = AOxAB
  * 	v5 = VxAB
- * 	v6 = intersection
- * 	v7 = projection
+ * 	v6 = intersection, point of intersection
+ * 	v7 = projection, intersection point projected on cyl plane
  */
 
 static void	init_quadra_cy(t_ray *ray, t_cy *cyl, t_vec3 *v, float *quad)
@@ -96,7 +96,7 @@ static void	init_quadra_cy(t_ray *ray, t_cy *cyl, t_vec3 *v, float *quad)
 	float	t;
 
 	t = cyl->height / 2.0f;
-	quad[0] = cyl->diameter / 2;
+	quad[0] = cyl->diameter / 2.0f;
 	v[0] = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 	v[1] = vec_sub(cyl->pos, vec_scale(cyl->orientation, t));
 	v[2] = vec_sub(v[1], v[0]);

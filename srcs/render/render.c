@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 11:47:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:03:37 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@ void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 
 	sphere = (t_sp *)obj->obj;
 	info->hit_normal = vec_normalize(vec_sub(info->hit_point, sphere->pos));
+	info->hit_uv.x = (1 + atan2(info->hit_normal.z, info->hit_normal.x) / M_PI) * 0.5;
+	info->hit_uv.y = acosf(info->hit_normal.y) / M_PI;
+	info->hit_uv.z = 0;
+	// print_vec(&info->hit_uv);
+	return ;
+}
+
+void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
+{
+	t_cy	*cyl;
+
+	cyl = (t_cy *)obj->obj;
+	info->hit_normal = vec_normalize(vec_sub(info->hit_point, cyl->pos));
 	info->hit_uv.x = (1 + atan2(info->hit_normal.z, info->hit_normal.x) / M_PI) * 0.5;
 	info->hit_uv.y = acosf(info->hit_normal.y) / M_PI;
 	info->hit_uv.z = 0;
@@ -39,10 +52,12 @@ t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 {
 	info->view_dir = vec_normalize(vec_scale(ray.dir, -1));
 	info->hit_point = vec_add(ray.origin, vec_scale(ray.dir, info->hit_dist));
-	if (obj->objtp == 0)
+	if (obj->objtp == SP)
 		hit_normal_sphere(info, obj);
-	if (obj->objtp == 2)
+	else if (obj->objtp == PL)
 		hit_normal_plane(info, obj);
+	else if (obj->objtp == CY)
+		hit_normal_cyl(info, obj);
 	return (info);
 }
 
@@ -62,8 +77,8 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	if (closest_obj != -1)
 	{
 		get_surfaceinfo(&info, s->objtab[closest_obj], ray);
-		if (s->objtab[closest_obj]->objtp == 0 \
-		|| s->objtab[closest_obj]->objtp == 2)
+		if (s->objtab[closest_obj]->objtp == SP \
+		|| s->objtab[closest_obj]->objtp == PL || s->objtab[closest_obj]->objtp == CY)
 		{
 			hit_color = shading(s, &info, closest_obj, inter);
 			my_mlx_pixel_put(s->ig, i, j, hit_color);
