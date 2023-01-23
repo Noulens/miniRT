@@ -6,7 +6,7 @@
 /*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 15:23:49 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:41:11 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,8 @@ typedef struct s_scene
 {
 	int			win_w;
 	int			win_h;
+	int			x;
+	int			y;
 	float		image_ratio;
 	int			num_objects_in_scene;
 	int			num_lamps;

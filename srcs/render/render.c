@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/20 14:54:11 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 11:47:09 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 
 	info.hit_dist = 0;
 	closest_obj = -1;
+	s->x = i;
+	s->y = j;
 	ray = build_camera_ray(s, i, j);
 	closest_obj = find_closest_obj(s, ray, inter, &info.hit_dist);
 	if (closest_obj != -1)
