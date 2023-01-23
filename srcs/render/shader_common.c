@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:38:24 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 18:28:23 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:37:54 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	get_pointl_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f)
 	light_dir = vec_sub(i->hit_point, s->lamptab[s->k]->pos);
 	r2 = vec_length(light_dir);
 	*dir = vec_normalize(light_dir);
-	*f = s->lamptab[k]->brightness / (4 * M_PI * r2);
+	*f = s->lamptab[s->k]->brightness / (4 * M_PI * r2);
 }
