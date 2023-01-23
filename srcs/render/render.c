@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 11:47:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:30:11 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 
 	sphere = (t_sp *)obj->obj;
 	info->hit_normal = vec_normalize(vec_sub(info->hit_point, sphere->pos));
-	info->hit_uv.x = (1 + atan2(info->hit_normal.z, info->hit_normal.x) / M_PI) * 0.5;
+	info->hit_uv.x = (1 + atan2(info->hit_normal.z, \
+	info->hit_normal.x) / M_PI) * 0.5;
 	info->hit_uv.y = acosf(info->hit_normal.y) / M_PI;
 	info->hit_uv.z = 0;
-	// print_vec(&info->hit_uv);
 	return ;
 }
 
@@ -31,7 +31,6 @@ void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 
 	plane = (t_pl *)obj->obj;
 	info->hit_normal = vec_normalize(plane->orientation);
-	// info->hit_uv.x = 
 	return ;
 }
 
@@ -53,7 +52,6 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	int				hit_color;
 	t_surfaceinfo	info;
 
-	info.hit_dist = 0;
 	closest_obj = -1;
 	s->x = i;
 	s->y = j;
