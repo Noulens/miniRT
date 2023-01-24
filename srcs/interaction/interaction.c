@@ -63,17 +63,16 @@ int	move_cam(void *param, int keycode)
 	set_transform(&scene->cam.translate, &vec_null, scene);
 	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
-	ft_print_vect(scene->cam.pos.x, scene->cam.pos.y, scene->cam.pos.z, 1);
+	print_vec(&scene->cam.pos);
 	return (0);
 }
 
-// TODO: remove this printf
 int	ft_key(int key, void *param)
 {
 	t_scene	*scn;
 
 	scn = (t_scene *)param;
-	printf("%d\n", key);
+	ft_printf("%d\n", key);
 	if (key == KEY_ESC)
 		ft_closebutton(param);
 	else if (key == KEY_C)

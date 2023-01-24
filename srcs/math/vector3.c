@@ -53,8 +53,13 @@ int	cannot_norm(float x, float y, float z)
 	return (FALSE);
 }
 
-//TODO : remove this printf:
 void	print_vec(t_vec3 *a)
 {
-	printf("x = %f, y = %f, z = %f\n", a->x, a->y, a->z);
+	ft_printf("x = ");
+	ft_putfloat_fd(a->x, 2, 1);
+	ft_printf(" y = ");
+	ft_putfloat_fd(a->y, 2, 1);
+	ft_printf(" z = ");
+	ft_putfloat_fd(a->z, 2, 1);
+	ft_putchar_fd('\n', 1);
 }

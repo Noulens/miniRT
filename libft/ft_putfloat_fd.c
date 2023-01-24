@@ -12,14 +12,37 @@
 
 #include "libft.h"
 
-static void	ft_putfloat_fd(int n, int fd)
+static void	put_zero(int prec, int fd)
 {
-	int	i;
-	int	tab[12];
+	int i;
 
-	if (n == -2147483648)
-		write(fd, "-2147483648", 11);
-	else if (n != 0)
+	i = 0;
+	if (prec == 0)
+	{
+		write(fd, "0", 1);
+		return ;
+	}
+	write(fd, "0.", 2);
+	while (i++ < prec)
+		write(fd, "0", 1);
+}
+
+static int	ft_nblen(int len, unsigned long nb)
+{
+	while (nb > 0)
+	{
+		++len;
+		nb /= 10;
+	}
+	return (len);
+}
+
+static void	ft_putter(long n, int prec, int fd)
+{
+	int		i;
+	char	tab[52];
+
+	if (n != 0)
 	{
 		i = 0;
 		if (n < 0)
@@ -27,10 +50,12 @@ static void	ft_putfloat_fd(int n, int fd)
 			write(fd, "-", 1);
 			n *= -1;
 		}
+		if (ft_nblen(0, n) == prec)
+			write(fd, "0", 1);
 		while (n > 0)
 		{
 			tab[i++] = n % 10 + 48;
-			if (i == 2)
+			if (i == prec)
 				tab[i++] = '.';
 			n /= 10;
 		}
@@ -38,36 +63,33 @@ static void	ft_putfloat_fd(int n, int fd)
 			write(1, &tab[i], 1);
 	}
 	else
-		write(fd, "0", 1);
+		put_zero(prec, fd);
 }
 
-
-
-void	ft_print_vect(float x, float y, float z, int fd)
+static int	ft_recursive_power(int n, int power)
 {
-	float	tab[3];
-	int 	i;
-	int 	n;
+	if (power < 0)
+		return (0);
+	if ((power == 0 && n == 0) || power == 0)
+		return (1);
+	return (ft_recursive_power(n, power - 1) * n);
+}
 
-	x *= 100;
-	y *= 100;
-	z *= 100;
-	if (x > 2147483647.0f || y > 2147483647.0f || z > 2147483647.0f
-		|| x < -2147483648.0f || y < -2147483648.0f || z < -2147483648.0f)
+void	ft_putfloat_fd(float x, int precision, int fd)
+{
+	long	n;
+	int 	pow;
+
+	pow = ft_recursive_power(10, precision);
+	x *= pow;
+	if (x > 2147483647.0f * pow || x < -2147483648.0f * pow)
 		return (write(2, "overflow\n", 9), (void)0);
 	else
 	{
-		i = -1;
-		tab[0] = x;
-		tab[1] = y;
-		tab[2] = z;
-		while (++i < 3)
-		{
-			n = (int)tab[i];
-			ft_putfloat_fd(n, fd);
-			if (i < 2)
-				write(fd, " ", 1);
-		}
+		n = (long)x;
+		if (ft_nblen(0, n) > 50)
+			return (write(2, "overflow\n", 9), (void)0);
+		ft_putter(n, precision, fd);
 	}
 }
 /*
@@ -76,6 +98,6 @@ void	ft_print_vect(float x, float y, float z, int fd)
 
 int	main(void)
 {
-	ft_print_vect(0, -45.236, 789.2587, 1);
+	ft_putfloat_fd(2147483647.0f, 2, 1);
 	return (0);
 }*/
