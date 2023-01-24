@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 18:33:42 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/24 15:28:56 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,45 @@ int	move_cam(void *param, int keycode)
 	return (0);
 }
 
+int	find_light(t_scene *s, int keycode)
+{
+	int	num[9] = {NUMPAD_1, NUMPAD_2, NUMPAD_3, NUMPAD_4, NUMPAD_5, NUMPAD_6, NUMPAD_7, NUMPAD_8, NUMPAD_9};
+	int	i;
+
+	i = -1;
+	while (++i < s->num_lamps)
+	{
+		printf("i is %i, max lumiere est %i\n", i, s->num_lamps);
+		if (num[i] == keycode)
+			return (ft_printf("numpad %i clicked\n", i + 1), i);
+	}
+	return (-1);
+}
+
+int	move_light(void *param, int keycode)
+{
+	t_scene	*s;
+	t_vec3	vec_null;
+	t_light	*l;
+	int		i;
+
+	(void) l;
+	(void) vec_null;
+	s = (t_scene *)param;
+	i = find_light(s, keycode);
+	s->k = i;
+	if (i == -1)
+		return (ft_printf("No light available\n"), 0);
+	l = s->lamptab[i];
+	vec_null = set_vec(0, 0, 0);
+	// l->translate = set_vec(0, 0, 0);
+	// set_transform(&l->translate, &vec_null, s);
+	// matrix_print(s->fwtfm, 1);
+	// matrix_vec_mult(s->fwtfm, &l->pos);
+	// print_vec(&l->pos);
+	return (i);
+}
+
 // TODO: remove this printf
 int	ft_key(int key, void *param)
 {
@@ -80,6 +119,10 @@ int	ft_key(int key, void *param)
 		scn->target = -1;
 	else if (scn->target == -1 && is_keycam(key))
 		move_cam((void *)param, key);
+	else if (key == KEY_L)
+		scn->target = -2;
+	else if (scn->target == -2 && is_lightkey(key))
+		move_light((void *)param, key);
 	else if (is_objkey(key))
 		modify_objects((void *)param, key);
 	clear_image(scn);

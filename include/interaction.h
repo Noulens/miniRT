@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2022/12/23 16:49:59 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:14:14 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@
 # define KEY_SPACE 32
 # define KEY_CTRL 65507
 # define KEY_C 99
+# define KEY_L 108
+# define NUMPAD_1 65436
+# define NUMPAD_2 65433
+# define NUMPAD_3 65435
+# define NUMPAD_4 65430
+# define NUMPAD_5 65437 
+# define NUMPAD_6 65432
+# define NUMPAD_7 65429
+# define NUMPAD_8 65431
+# define NUMPAD_9 65434
 
 # include "init.h"
 # include "destroy.h"
@@ -46,5 +56,6 @@ void	do_transform_p(t_pl *pl, int key);
 int		is_keycam(int key);
 int		is_objkey(int key);
 void	adjust_cone(t_stdobj *obj, int key, t_scene *scene);
+int		is_lightkey(int key);
 
 #endif

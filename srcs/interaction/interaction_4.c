@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction_4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:28:05 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/23 14:24:13 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/24 11:29:20 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int	is_keycam(int key)
 		|| key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
 		|| key == 61 || key == 48 || key == 57 || key == 56 || key == 55
 		|| key == 45 || key == 111 || key == 112);
+}
+
+int	is_lightkey(int key)
+{
+	return (key == KEY_L || key == NUMPAD_1 || key == NUMPAD_2 || key == NUMPAD_3 || key == NUMPAD_4 || key == NUMPAD_5 || key == NUMPAD_6 || key == NUMPAD_7 || key == NUMPAD_8 || key == NUMPAD_9);
 }
 
 int	is_objkey(int key)

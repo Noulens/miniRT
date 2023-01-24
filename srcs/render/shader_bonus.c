@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 18:30:50 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/24 15:25:26 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,16 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 			pattern = calcule_sphere_pattern(info, &obj_color);
 		if (scene->objtab[c_obj]->objtp == 2)
 			pattern = calcule_plan_pattern(info, &obj_color);
-		mat.ambient = vec_scale(vec_color(scene->alight.color), \
-		scene->alight.al);
 		mat.diffuse = vec_scale(vec_scale(vec_color(scene->lamptab[i]->color), \
 						vis * light_intensity * pattern), mat.face_ratio);
 		mat.specular = calcule_specular(light_dir, info, vis, light_intensity);
-		mat.result = vec_add(vec_mult(vec_scale(vec_add(vec_add(mat.diffuse, \
-		mat.ambient), mat.specular), 1 / 3.0), obj_color), mat.result);
+		mat.result = vec_add(vec_mult(vec_scale(vec_add(mat.diffuse, mat.specular), 1 / 2.0), obj_color), mat.result);
 	}
+	mat.ambient = vec_scale(vec_color(scene->alight.color), \
+	scene->alight.al);
+	mat.result = vec_add(mat.result, mat.ambient);
+	if (scene->x == 324 && scene->y == 144)
+		print_vec(&mat.result);
 	if (mat.result.x > 1)
 		mat.result.x = 1;
 	if (mat.result.y > 1)
