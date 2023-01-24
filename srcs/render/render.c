@@ -22,7 +22,6 @@ void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 	info->hit_normal.x) / M_PI) * 0.5;
 	info->hit_uv.y = acosf(info->hit_normal.y) / M_PI;
 	info->hit_uv.z = 0;
-	return ;
 }
 
 void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
@@ -31,7 +30,29 @@ void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 
 	plane = (t_pl *)obj->obj;
 	info->hit_normal = vec_normalize(plane->orientation);
-	return ;
+}
+
+void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
+{
+	t_cy	*cyl;
+	float	t;
+	t_vec3	pt;
+	t_vec3	top;
+	t_vec3	bom;
+
+	cyl = (t_cy *)obj->obj;
+	top = vec_add(cyl->pos, vec_scale(cyl->orientation, cyl->height / 2.0f));
+	bom = vec_sub(cyl->pos, vec_scale(cyl->orientation, cyl->height / 2.0f));
+	if (vec_length(vec_sub(info->hit_point, top)) < cyl->diameter / 2)
+		info->hit_normal = cyl->orientation;
+	else if (vec_length(vec_sub(info->hit_point, bom)) < cyl->diameter / 2)
+		info->hit_normal = vec_scale(cyl->orientation, -1.0f);
+	else
+	{
+		t = vec_dot(vec_sub(info->hit_point, cyl->pos), cyl->orientation);
+		pt = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
+		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
+	}
 }
 
 t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
@@ -42,6 +63,8 @@ t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 		hit_normal_sphere(info, obj);
 	if (obj->objtp == 2)
 		hit_normal_plane(info, obj);
+	if (obj->objtp == 1)
+		hit_normal_cyl(info, obj);
 	return (info);
 }
 
@@ -61,7 +84,7 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	{
 		get_surfaceinfo(&info, s->objtab[closest_obj], ray);
 		if (s->objtab[closest_obj]->objtp == 0 \
-		|| s->objtab[closest_obj]->objtp == 2)
+		|| s->objtab[closest_obj]->objtp == 2 || s->objtab[closest_obj]->objtp == 1)
 		{
 			hit_color = shading(s, &info, closest_obj, inter);
 			my_mlx_pixel_put(s->ig, i, j, hit_color);
