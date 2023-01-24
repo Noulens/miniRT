@@ -40,7 +40,7 @@ static int	ft_nblen(int len, unsigned long nb)
 static void	ft_putter(long n, int prec, int fd)
 {
 	int		i;
-	char	tab[52];
+	char	tab[14];
 
 	if (n != 0)
 	{
@@ -87,12 +87,12 @@ void	ft_putfloat_fd(float x, int precision, int fd)
 	else
 	{
 		n = (long)x;
-		if (ft_nblen(0, n) > 50)
+		if (ft_nblen(0, n) > 12)
 			return (write(2, "overflow\n", 9), (void)0);
 		ft_putter(n, precision, fd);
 	}
 }
-/*
+
 #include <unistd.h>
 
 
@@ -100,4 +100,4 @@ int	main(void)
 {
 	ft_putfloat_fd(2147483647.0f, 2, 1);
 	return (0);
-}*/
+}

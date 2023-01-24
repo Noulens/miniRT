@@ -50,7 +50,6 @@ void	do_transform(int keycode, t_scene *scene)
 		scene->cam.rotate.x -= 1.9f;
 }
 
-// TODO: remove this print_vec and matrix_print:
 int	move_cam(void *param, int keycode)
 {
 	t_scene	*scene;
