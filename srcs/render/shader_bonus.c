@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/24 15:25:26 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/24 15:32:23 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,6 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	mat.ambient = vec_scale(vec_color(scene->alight.color), \
 	scene->alight.al);
 	mat.result = vec_add(mat.result, mat.ambient);
-	if (scene->x == 324 && scene->y == 144)
-		print_vec(&mat.result);
 	if (mat.result.x > 1)
 		mat.result.x = 1;
 	if (mat.result.y > 1)
