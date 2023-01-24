@@ -44,13 +44,20 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 	top = vec_add(cyl->pos, vec_scale(cyl->orientation, cyl->height / 2.0f));
 	bom = vec_sub(cyl->pos, vec_scale(cyl->orientation, cyl->height / 2.0f));
 	if (vec_length(vec_sub(info->hit_point, top)) < cyl->diameter / 2)
+	{
 		info->hit_normal = cyl->orientation;
+	}
 	else if (vec_length(vec_sub(info->hit_point, bom)) < cyl->diameter / 2)
+	{
 		info->hit_normal = vec_scale(cyl->orientation, -1.0f);
+	}
 	else
 	{
 		t = vec_dot(vec_sub(info->hit_point, cyl->pos), cyl->orientation);
 		pt = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
 	}
+	info->hit_uv.x = atan2f(info->hit_normal.y, info->hit_normal.x) / (M_PI);
+	info->hit_uv.y = info->hit_normal.z;
+	info->hit_uv.z = 0;
 }
