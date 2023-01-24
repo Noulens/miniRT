@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/24 15:28:56 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/24 15:31:22 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	do_transform(int keycode, t_scene *scene)
 		scene->cam.rotate.x -= 1.9f;
 }
 
-// TODO: remove this print_vec and matrix_print:
 int	move_cam(void *param, int keycode)
 {
 	t_scene	*scene;
@@ -112,7 +111,7 @@ int	ft_key(int key, void *param)
 	t_scene	*scn;
 
 	scn = (t_scene *)param;
-	printf("%d\n", key);
+	ft_printf("%d\n", key);
 	if (key == KEY_ESC)
 		ft_closebutton(param);
 	else if (key == KEY_C)

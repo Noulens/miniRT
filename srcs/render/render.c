@@ -12,28 +12,6 @@
 
 #include "render.h"
 
-void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
-{
-	t_sp		*sphere;
-
-	sphere = (t_sp *)obj->obj;
-	info->hit_normal = vec_normalize(vec_sub(info->hit_point, sphere->pos));
-	info->hit_uv.x = (1 + atan2(info->hit_normal.z, \
-	info->hit_normal.x) / M_PI) * 0.5;
-	info->hit_uv.y = acosf(info->hit_normal.y) / M_PI;
-	info->hit_uv.z = 0;
-	return ;
-}
-
-void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
-{
-	t_pl		*plane;
-
-	plane = (t_pl *)obj->obj;
-	info->hit_normal = vec_normalize(plane->orientation);
-	return ;
-}
-
 t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 {
 	info->view_dir = vec_normalize(vec_scale(ray.dir, -1));
@@ -42,6 +20,8 @@ t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 		hit_normal_sphere(info, obj);
 	if (obj->objtp == 2)
 		hit_normal_plane(info, obj);
+	if (obj->objtp == 1)
+		hit_normal_cyl(info, obj);
 	return (info);
 }
 
@@ -61,7 +41,7 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	{
 		get_surfaceinfo(&info, s->objtab[closest_obj], ray);
 		if (s->objtab[closest_obj]->objtp == 0 \
-		|| s->objtab[closest_obj]->objtp == 2)
+		|| s->objtab[closest_obj]->objtp == 2 || s->objtab[closest_obj]->objtp == 1)
 		{
 			hit_color = shading(s, &info, closest_obj, inter);
 			my_mlx_pixel_put(s->ig, i, j, hit_color);

@@ -13,19 +13,48 @@
 #include "math_func.h"
 #include <stdio.h>
 
+void	mtx_print_2(t_matrix4 *n)
+{
+	ft_putfloat_fd((*n).m[2][0], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd((*n).m[2][1], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd((*n).m[2][2], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd((*n).m[2][3], 2, 1);
+	ft_putchar_fd('\n', 1);
+	ft_putfloat_fd((*n).m[3][0], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd((*n).m[3][1], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd((*n).m[3][2], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd((*n).m[3][3], 2, 1);
+	ft_putchar_fd('\n', 1);
+}
+
 void	matrix_print(t_matrix4 n, int dir_flag)
 {
 	(void)dir_flag;
-	printf("--------matrix---------\n");
-	printf("%.2f %.2f %.2f %.2f\n", n.m[0][0], \
-	n.m[0][1], n.m[0][2], n.m[0][3]);
-	printf("%.2f %.2f %.2f %.2f\n", n.m[1][0], \
-	n.m[1][1], n.m[1][2], n.m[1][3]);
-	printf("%.2f %.2f %.2f %.2f\n", n.m[2][0], \
-	n.m[2][1], n.m[2][2], n.m[2][3]);
-	printf("%.2f %.2f %.2f %.2f\n", n.m[3][0], \
-	n.m[3][1], n.m[3][2], n.m[3][3]);
-	printf("----------------------\n");
+	printf("------matrix-------\n");
+	ft_putfloat_fd(n.m[0][0], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd(n.m[0][1], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd(n.m[0][2], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd(n.m[0][3], 2, 1);
+	ft_putchar_fd('\n', 1);
+	ft_putfloat_fd(n.m[1][0], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd(n.m[1][1], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd(n.m[1][2], 2, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putfloat_fd(n.m[1][3], 2, 1);
+	ft_putchar_fd('\n', 1);
+	mtx_print_2(&n);
+	printf("------------------\n");
 }
 
 void	matrix_vec_mult(t_matrix4 new, t_vec3 *vect)

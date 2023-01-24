@@ -115,5 +115,6 @@ int			ft_cmpchr(const char *s1, const char *s2, char c);
 char		*ft_strjoinsep(char const *s1, char const *s2, char *sep);
 float		ft_atof(const char *str);
 double		ft_atod(const char *str);
+void		ft_putfloat_fd(float x, int precision, int fd);
 
 #endif

@@ -12,7 +12,6 @@
 
 #include "interaction.h"
 
-//TODO: remove the print
 void	adjust_sphere(void *param, int keycode, t_scene *scene)
 {
 	t_sp	*sp;
@@ -27,7 +26,6 @@ void	adjust_sphere(void *param, int keycode, t_scene *scene)
 	print_vec(&sp->pos);
 }
 
-//TODO: remove the print
 static void	adjust_cylinder(t_stdobj *obj, int key, t_scene *scene)
 {
 	t_cy	*cy;
@@ -43,7 +41,6 @@ static void	adjust_cylinder(t_stdobj *obj, int key, t_scene *scene)
 	print_vec(&cy->pos);
 }
 
-//TODO: remove the print
 static void	adjust_plan(t_stdobj *obj, int key, t_scene *scene)
 {
 	t_pl	*pl;
