@@ -63,7 +63,7 @@ int	move_cam(void *param, int keycode)
 	set_transform(&scene->cam.translate, &vec_null, scene);
 	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
-	print_vec(&scene->cam.pos);
+	ft_print_vect(scene->cam.pos.x, scene->cam.pos.y, scene->cam.pos.z, 1);
 	return (0);
 }
 
