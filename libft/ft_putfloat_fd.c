@@ -92,7 +92,7 @@ void	ft_putfloat_fd(float x, int precision, int fd)
 		ft_putter(n, precision, fd);
 	}
 }
-
+/*
 #include <unistd.h>
 
 
@@ -100,4 +100,4 @@ int	main(void)
 {
 	ft_putfloat_fd(2147483647.0f, 2, 1);
 	return (0);
-}
+}*/
