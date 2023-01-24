@@ -37,5 +37,8 @@ void			get_inter_proj(t_ray *ray, t_vec3 *v, const float *quad);
 void			get_pointl_info(t_scene *s, t_surfaceinfo *i, t_vec3 *d, float *f);
 int				shadow_visibility(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldir);
 int				isacap(t_cy *cyl, t_inter_cy *ic, t_pl *cap, t_stdobj *capper);
+void			hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj);
+void			hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj);
+void			hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj);
 
 #endif
