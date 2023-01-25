@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/23 18:20:42 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 12:44:07 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	scenevarinit(t_scene *s)
 {
 	s->objects = NULL;
 	s->target = -1;
+	s->target_light = -1;
 	s->objtab = NULL;
 	s->lamp = NULL;
 	s->lamptab = NULL;
