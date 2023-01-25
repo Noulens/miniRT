@@ -56,9 +56,23 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 		t = vec_dot(vec_sub(info->hit_point, cyl->pos), cyl->orientation);
 		pt = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
-		info->hit_uv.x = atan2f(info->hit_point.y, info->hit_point.x) / ( 2 * (float)M_PI);
-		info->hit_uv.y = info->hit_point.z;
+
+//		float theta = atan2f(info->hit_point.y, info->hit_point.x);
+//		info->hit_uv.x = theta / (2 * (float)M_PI);
+//		info->hit_uv.y = info->hit_point.z;
+//		info->hit_uv.z = 0;
+
+		t_vec3 cart = vec_sub(info->hit_point, cyl->pos);
+		t_vec3 cylindr;
+		cylindr.x = sqrtf(cart.x * cart.x + cart.y * cart.y);
+		cylindr.y = atan2f(cart.x / cylindr.x, cart.y / cylindr.x);
+		cylindr.z = cart.z;
+		info->hit_uv = cylindr;
+
+		info->hit_uv.x = atan2f(cylindr.x, cylindr.y);
+		info->hit_uv.y = cylindr.z;
 		info->hit_uv.z = 0;
+
 		return ;
 	}
 	info->hit_uv.x = info->hit_point.x;

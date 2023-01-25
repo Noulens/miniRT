@@ -85,20 +85,14 @@ float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 	return (pattern);
 }
 
-float	modulo(float x)
-{
-	return (x - floorf(x));
-}
-
 float	calcule_cyl_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 {
 	float	pattern;
 	int		scale_u;
 	int		scale_v;
 
-	scale_u = 10;
-	scale_v = 10;
-//	(void)info;
+	scale_u = 5;
+	scale_v = 5;
 	pattern = (modulo(info->hit_uv.y * scale_u) > 0.5f)
 			^ (modulo(info->hit_uv.x * scale_v) > 0.5f);
 	if (pattern >= 0.5f)

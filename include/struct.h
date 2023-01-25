@@ -212,7 +212,6 @@ typedef struct s_scene
 	float		image_ratio;
 	int			num_objects_in_scene;
 	int			num_lamps;
-	t_light		light;
 	t_alight	alight;
 	t_stdobj	*objects;
 	t_stdobj	**objtab;
