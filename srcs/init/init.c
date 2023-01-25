@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/25 12:44:07 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 14:33:58 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	cam_init(t_scene *s)
 
 void	scene_init(t_scene *s)
 {
-	s->win_w = 500;
-	s->win_h = 300;
+	s->win_w = 1000;
+	s->win_h = 600;
 	s->image_ratio = (float)s->win_w / (float)s->win_h;
 	s->cam.focal_length = ((float)s->win_w / 2)
 		/ tanf(to_radian((s->cam.fov_w / 2)));
@@ -43,5 +43,6 @@ void	scenevarinit(t_scene *s)
 	s->objtab = NULL;
 	s->lamp = NULL;
 	s->lamptab = NULL;
+	s->msg = "camera : [c], light : [l], object : click object";
 	set_identity(&s->fwtfm);
 }

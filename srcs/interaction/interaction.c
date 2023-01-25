@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/25 14:05:37 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 15:11:35 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,67 +66,6 @@ int	move_cam(void *param, int keycode)
 	return (0);
 }
 
-int	find_light(t_scene *s, int keycode)
-{
-	int	num[9] = {NUMPAD_1, NUMPAD_2, NUMPAD_3, NUMPAD_4, NUMPAD_5, NUMPAD_6, NUMPAD_7, NUMPAD_8, NUMPAD_9};
-	int	i;
-
-	i = -1;
-	while (++i < s->num_lamps)
-	{
-		if (num[i] == keycode)
-			return (ft_printf("numpad %i clicked\n", i + 1), i);
-	}
-	return (-1);
-}
-
-void	do_transform_light(int keycode, t_scene *scene)
-{
-	if (keycode == KEY_D)
-		scene->lamptab[scene->target_light]->pos.x += 0.1f;
-	else if (keycode == KEY_A)
-		scene->lamptab[scene->target_light]->pos.x -= 0.1f;
-	else if (keycode == KEY_W)
-		scene->lamptab[scene->target_light]->pos.z += 0.1f;
-	else if (keycode == KEY_S)
-		scene->lamptab[scene->target_light]->pos.z -= 0.1f;
-	else if (keycode == KEY_SPACE)
-		scene->lamptab[scene->target_light]->pos.y += 0.1f;
-	else if (keycode == KEY_CTRL)
-		scene->lamptab[scene->target_light]->pos.y -= 0.1f;
-	else if (keycode == KEY_UP)
-		scene->lamptab[scene->target_light]->brightness += 0.1f;
-	else if (keycode == KEY_DOWN)
-		scene->lamptab[scene->target_light]->brightness -= 0.1;
-	if (scene->lamptab[scene->target_light]->brightness >= 1)
-		scene->lamptab[scene->target_light]->brightness = 1;
-	if (scene->lamptab[scene->target_light]->brightness <= 0)
-		scene->lamptab[scene->target_light]->brightness = 0;
-
-}
-
-int	move_light(void *param, int keycode)
-{
-	t_scene	*scene;
-
-	scene = (t_scene *)param;
-	if (is_lightkey(keycode))
-	{
-		scene->target_light = find_light(scene, keycode);
-		if (scene->target_light == -1)
-			return (ft_printf("No light available\n"), 0);
-		return (0);
-	}
-	if (scene->target_light != -1)
-	{
-		do_transform_light(keycode, scene);
-		print_vec(&scene->lamptab[scene->target_light]->pos);
-	}
-	else
-		ft_printf("target is -1\n");
-	return (1);
-}
-
 // TODO: remove this printf
 int	ft_key(int key, void *param)
 {
@@ -149,6 +88,7 @@ int	ft_key(int key, void *param)
 	clear_image(scn);
 	render(scn, scn->func_ptr);
 	mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);
+	put_debug_to_window(scn->ig->mlx, scn->ig->win, scn);
 	return (0);
 }
 
@@ -164,6 +104,8 @@ int	on_click(int code, int x, int y, void *param)
 		if (k != -1)
 		{
 			sn->target = k + 1;
+			mlx_put_image_to_window(sn->ig->mlx, sn->ig->win, sn->ig->img, 0, 0);
+			put_debug_to_window(sn->ig->mlx, sn->ig->win, sn);
 			ft_printf("This is object nb %d\nx=%d\ny=%d\n", sn->target, x, y);
 		}
 		else

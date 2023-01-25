@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:28:05 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/24 11:29:20 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 14:13:57 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,15 @@ int	is_keycam(int key)
 
 int	is_lightkey(int key)
 {
-	return (key == KEY_L || key == NUMPAD_1 || key == NUMPAD_2 || key == NUMPAD_3 || key == NUMPAD_4 || key == NUMPAD_5 || key == NUMPAD_6 || key == NUMPAD_7 || key == NUMPAD_8 || key == NUMPAD_9);
+	return (key == NUMPAD_1 || \
+			key == NUMPAD_2 || \
+			key == NUMPAD_3 || \
+			key == NUMPAD_4 || \
+			key == NUMPAD_5 || \
+			key == NUMPAD_6 || \
+			key == NUMPAD_7 || \
+			key == NUMPAD_8 || \
+			key == NUMPAD_9);
 }
 
 int	is_objkey(int key)
