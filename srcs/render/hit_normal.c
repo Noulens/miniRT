@@ -18,9 +18,9 @@ void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 
 	sphere = (t_sp *)obj->obj;
 	info->hit_normal = vec_normalize(vec_sub(info->hit_point, sphere->pos));
-	info->hit_uv.x = (1 + atan2(info->hit_normal.z, \
-	info->hit_normal.x) / M_PI) * 0.5;
-	info->hit_uv.y = acosf(info->hit_normal.y) / M_PI;
+	info->hit_uv.x = (1 + atan2f(info->hit_normal.z, \
+	info->hit_normal.x) / (float)M_PI) * 0.5f;
+	info->hit_uv.y = acosf(info->hit_normal.y) / (float)M_PI;
 	info->hit_uv.z = 0;
 }
 
@@ -56,7 +56,7 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 		t = vec_dot(vec_sub(info->hit_point, cyl->pos), cyl->orientation);
 		pt = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
-		info->hit_uv.x = atan2f(info->hit_point.y, info->hit_point.x) / ( 2 * M_PI);
+		info->hit_uv.x = atan2f(info->hit_point.y, info->hit_point.x) / ( 2 * (float)M_PI);
 		info->hit_uv.y = info->hit_point.z;
 		info->hit_uv.z = 0;
 		return ;

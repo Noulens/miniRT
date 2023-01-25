@@ -41,43 +41,36 @@ void	get_inter_proj(t_ray *ray, t_vec3 *v, const float *quad)
 				vec_dot(v[2], vec_scale(vec_sub(v[6], v[0]), 1 / quad[1]))));
 }
 
+void check_hitdistance(t_inter_cy *ic, const float *hit_dist)
+{
+	if (hit_dist[0] > hit_dist[1])
+		*ic->dist = hit_dist[1];
+	else
+		*ic->dist = hit_dist[0];
+}
+
 int	isacap(t_cy *cyl, t_inter_cy *ic, t_pl *cap, t_stdobj *capper)
 {
 	int		k;
-	int		lim;
 	float	hit_dist[2];
 
 	init_disk(cyl, ic->v, cap, capper);
 	hit_dist[0] = INFINITY;
 	hit_dist[1] = INFINITY;
-	if (cyl->height == 0)
-		lim = 1;
-	else
-		lim = 2;
 	k = -1;
-	while (++k < lim)
+	while (++k < 2)
 	{
 		if (intersect_plane(*ic->raycap, &capper[k], ic->dist))
 		{
 			if (getdouble(ic->raycap, ic->dist, cap[k])
 				<= ic->quad[0] * ic->quad[0])
-			{
 				hit_dist[k] = *ic->dist;
-			}
 		}
 	}
 	if (hit_dist[0] != INFINITY || hit_dist[1] != INFINITY)
 	{
-		if (hit_dist[0] > hit_dist[1])
-		{
-			*ic->dist = hit_dist[1];
-			return (1);
-		}
-		else
-		{
-			*ic->dist = hit_dist[0];
-			return (1);	
-		}
+		check_hitdistance(ic, hit_dist);
+		return (1);
 	}
 	return (0);
 }

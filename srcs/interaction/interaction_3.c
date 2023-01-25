@@ -70,9 +70,9 @@ void	do_transform_c(t_cy *cy, int key)
 		cy->diameter -= 0.5f;
 	else if (key == 112)
 		cy->diameter += 0.5f;
-	else if (key == 107 && (cy->height - 0.5f >= 0))
+	else if (key == 117 && (cy->height - 0.5f >= 0))
 		cy->height -= 0.5f;
-	else if (key == 108)
+	else if (key == 105)
 		cy->height += 0.5f;
 	else if (key == 65431)
 		cy->translate.y += 0.5f;

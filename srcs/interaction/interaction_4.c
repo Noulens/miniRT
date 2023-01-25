@@ -63,7 +63,7 @@ int	is_objkey(int key)
 		|| key == 57 || key == 55 || key == 45 || key == 61 || key == 65429
 		|| key == 65430 || key == 65431 || key == 65432 || key == 65433
 		|| key == 65434 || key == 48 || key == 56 || key == 111 || key == 112
-		|| key == 107 || key == 108);
+		|| key == 117 || key == 105);
 }
 
 //printf("%f, %f\n", scn->cam.pos.y, scn->cam.pos.z);
