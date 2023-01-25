@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shader_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 18:58:23 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:32:23 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ t_vec3	calcule_specular(t_vec3 lr, t_surfaceinfo *info, int vis, float li)
 float	calcule_sphere_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 {
 	float	pattern;
-	int		scale_U;
-	int		scale_V;
+	int		scale_u;
+	int		scale_v;
 
-	scale_U = 10;
-	scale_V = 10;
-	pattern = cos(info->hit_uv.y * 2 * M_PI * scale_V) * sin(info->hit_uv.x * 2 * M_PI * scale_U) * 0.5;
+	scale_u = 10;
+	scale_v = 10;
+	pattern = cos(info->hit_uv.y * 2 * M_PI * scale_v) * \
+	sin(info->hit_uv.x * 2 * M_PI * scale_u) * 0.5;
 	pattern += 0.5;
 	if (pattern >= 0.5f)
 		pattern = 1;
@@ -68,22 +69,44 @@ float	calcule_sphere_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 {
 	float	pattern;
-	int		scale_U;
-	int		scale_V;
-	scale_U = 1000;
-	scale_V = 1000;
+	int		scale_u;
+	int		scale_v;
 
+	scale_u = 1000;
+	scale_v = 1000;
 	(void) obj_color;
-	// printf("hit_point x: %f, sin : %f\n", info->hit_point.x * scale_U, sin(to_radian(info->hit_point.x * scale_U)));
-	// pattern = cos(info->hit_uv.y * 2 * M_PI * scale_V) * sin(info->hit_uv.x * 2 * M_PI * scale_U) * 0.5;
-	pattern = cos(to_radian(info->hit_point.z * scale_V)) * sin(to_radian(info->hit_point.x * scale_U));
+	pattern = cos(to_radian(info->hit_point.z * scale_v)) * \
+	sin(to_radian(info->hit_point.x * scale_u));
 	pattern += 0.5;
 	if (pattern >= 0.5f)
 		pattern = 1;
 	if (pattern < 0.5f)
-	{
 		pattern = 0;
-		// *obj_color = vec_scale(vec_color(ft_trgb(255, 255, 255, 255)), 1 / M_PI);
+	return (pattern);
+}
+
+float	modulo(float x)
+{
+	return (x - floorf(x));
+}
+
+float	calcule_cyl_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
+{
+	float	pattern;
+	int		scale_u;
+	int		scale_v;
+
+	scale_u = 10;
+	scale_v = 10;
+//	(void)info;
+	pattern = (modulo(info->hit_uv.y * scale_u) > 0.5f)
+			^ (modulo(info->hit_uv.x * scale_v) > 0.5f);
+	if (pattern >= 0.5f)
+		pattern = 1;
+	if (pattern < 0.5f)
+	{
+		pattern = 1;
+		*obj_color = vec_color(ft_trgb(255, 255, 255, 255));
 	}
 	return (pattern);
 }
@@ -105,7 +128,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 		scene->k = i;
 		light_intensity = scene->lamptab[i]->brightness;
 		obj_color = vec_color(scene->objtab[c_obj]->metacolor);
-		get_pointlight_info(scene, info, &light_dir, &light_intensity, i);
+		get_pointl_info(scene, info, &light_dir, &light_intensity);
 		light_intensity *= scene->lamp->exposure;
 		vis = shadow_visibility(scene, inter, info, light_dir);
 		mat.face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, \
@@ -115,12 +138,16 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 			pattern = calcule_sphere_pattern(info, &obj_color);
 		if (scene->objtab[c_obj]->objtp == 2)
 			pattern = calcule_plan_pattern(info, &obj_color);
-		mat.ambient = vec_scale(vec_color(scene->alight.color), scene->alight.al);
+		if (scene->objtab[c_obj]->objtp == 1)
+			pattern = calcule_cyl_pattern(info, &obj_color);
 		mat.diffuse = vec_scale(vec_scale(vec_color(scene->lamptab[i]->color), \
 						vis * light_intensity * pattern), mat.face_ratio);
 		mat.specular = calcule_specular(light_dir, info, vis, light_intensity);
-		mat.result = vec_add(vec_mult(vec_scale(vec_add(vec_add(mat.diffuse, mat.ambient), mat.specular), 1/3.0), obj_color), mat.result);
+		mat.result = vec_add(vec_mult(vec_scale(vec_add(mat.diffuse, mat.specular), 1 / 2.0), obj_color), mat.result);
 	}
+	mat.ambient = vec_scale(vec_color(scene->alight.color), \
+	scene->alight.al);
+	mat.result = vec_add(mat.result, mat.ambient);
 	if (mat.result.x > 1)
 		mat.result.x = 1;
 	if (mat.result.y > 1)

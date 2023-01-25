@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:38:24 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 16:58:37 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:37:54 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,13 @@ int	shadow_visibility(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldir)
 		return (0);
 }
 
-void	get_pointlight_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f, int k)
+void	get_pointl_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f)
 {
 	t_vec3	light_dir;
 	float	r2;
 
-	light_dir = vec_sub(i->hit_point, s->lamptab[k]->pos);
+	light_dir = vec_sub(i->hit_point, s->lamptab[s->k]->pos);
 	r2 = vec_length(light_dir);
 	*dir = vec_normalize(light_dir);
-	*f = s->lamptab[k]->brightness / (4 * M_PI * r2);
-	// printf("s->light.brightness: %f\n", s->light.brightness);
-	// printf("( 4 * M_PI * r2): %f\n", ( 4 * M_PI * r2));
-	// printf("intensity: %f\n", *f);
-	// printf("\n");
+	*f = s->lamptab[s->k]->brightness / (4 * M_PI * r2);
 }

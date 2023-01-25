@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 18:56:51 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:31:01 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ int	intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	t_sp		*sphere;
 
 	sphere = (t_sp *)tmp->obj;
-	sphere->radius = sphere->diameter / 4.0f;
+	sphere->radius = sphere->diameter / 2.0f;
 	l = vec_sub(sphere->pos, ray.origin);
 	tca = vec_dot(l, ray.dir);
 	if (tca < 0)
 		return (0);
 	d2 = vec_dot(l, l) - tca * tca;
-	if (d2 > sphere->radius)
+	if (d2 > powf(sphere->radius, 2))
 		return (0);
-	thc = sqrtf(sphere->radius - d2);
+	thc = sqrtf(powf(sphere->radius, 2) - d2);
 	return (intersect_sphere2(tca, thc, hit_distance));
 }
 
@@ -79,16 +79,16 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
  * 	quad 3 = b
  * 	quad 4 = c
  * 	quad 5 = delta
- * 	quad 6 = time -> this is the return value that is hit distance solution
+ * 	quad 6 = time -> this is the return value that is the solution, hit distance
  *
- * 	v0 = A -> coordinate of extremities of cyl adjusted with the orientation
- * 	v1 = B -> coordinate of extremities of cyl adjusted with the orientation
+ * 	v0 = A -> coordinate of extremities of cone adjusted with the orientation
+ * 	v1 = B -> coordinate of extremities of cone adjusted with the orientation
  * 	v2 = AB -> segment from extremity A to B in the direction of cylinder
  * 	v3 = AO
  * 	v4 = AOxAB
  * 	v5 = VxAB
- * 	v6 = intersection, point of intersection
- * 	v7 = projection, intersection point projected on cyl plane
+ * 	v6 = intersection
+ * 	v7 = projection
  */
 
 static void	init_quadra_cy(t_ray *ray, t_cy *cyl, t_vec3 *v, float *quad)
@@ -96,7 +96,7 @@ static void	init_quadra_cy(t_ray *ray, t_cy *cyl, t_vec3 *v, float *quad)
 	float	t;
 
 	t = cyl->height / 2.0f;
-	quad[0] = cyl->diameter / 2.0f;
+	quad[0] = cyl->diameter / 2;
 	v[0] = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 	v[1] = vec_sub(cyl->pos, vec_scale(cyl->orientation, t));
 	v[2] = vec_sub(v[1], v[0]);

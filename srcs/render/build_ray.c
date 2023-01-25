@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 09:24:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 17:17:40 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:31:43 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_ray	orient_camera(t_scene *scene, t_vec3 *pixel_camera)
 	rot.z = 0;
 	if (scene->cam.orientation.z == 1)
 		rot.y = 180;
-	origin = set_vec(0,0,0);
+	origin = set_vec(0, 0, 0);
 	matrix_vec_mult(set_transform2(&vec_null, &rot), &origin);
 	matrix_vec_mult(set_transform2(&vec_null, &rot), pixel_camera);
 	oriented_ray.origin = origin;
@@ -88,8 +88,10 @@ t_ray	build_camera_ray(t_scene *scene, int x, int y)
 	pixel_camera.y = pixel_screenspace.y * scene->cam.fov_h_len;
 	pixel_camera.z = -1;
 	oriented_ray = orient_camera(scene, &pixel_camera);
-	matrix_vec_mult(set_transform2(&scene->cam.translate, &scene->cam.rotate), &oriented_ray.origin);
-	matrix_vec_mult(set_transform2(&scene->cam.translate, &scene->cam.rotate), &pixel_camera);
+	matrix_vec_mult(set_transform2(&scene->cam.translate, \
+	&scene->cam.rotate), &oriented_ray.origin);
+	matrix_vec_mult(set_transform2(&scene->cam.translate, \
+	&scene->cam.rotate), &pixel_camera);
 	oriented_ray.dir = vec_sub(pixel_camera, oriented_ray.origin);
 	oriented_ray.dir = vec_normalize(oriented_ray.dir);
 	return (oriented_ray);

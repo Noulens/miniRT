@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   interaction_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:36:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/11 20:37:01 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:52:42 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interaction.h"
 
-//TODO: remove the print
 void	adjust_sphere(void *param, int keycode, t_scene *scene)
 {
 	t_sp	*sp;
@@ -27,7 +26,6 @@ void	adjust_sphere(void *param, int keycode, t_scene *scene)
 	print_vec(&sp->pos);
 }
 
-//TODO: remove the print
 static void	adjust_cylinder(t_stdobj *obj, int key, t_scene *scene)
 {
 	t_cy	*cy;
@@ -43,7 +41,6 @@ static void	adjust_cylinder(t_stdobj *obj, int key, t_scene *scene)
 	print_vec(&cy->pos);
 }
 
-//TODO: remove the print
 static void	adjust_plan(t_stdobj *obj, int key, t_scene *scene)
 {
 	t_pl	*pl;
@@ -66,6 +63,8 @@ int	modify_objects(void *param, int key)
 	scn = (t_scene *)param;
 	if (scn->target == -1)
 		return (ft_printf("No object selected, camera is active\n"), 0);
+	if (scn->target == -2)
+		return (ft_printf("No object selected, light is active\n"), 0);
 	if (scn->objtab[scn->target - 1]->objtp == SP)
 		adjust_sphere(scn->objtab[scn->target - 1]->obj, key, scn);
 	else if (scn->objtab[scn->target - 1]->objtp == CY)

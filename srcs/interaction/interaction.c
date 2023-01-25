@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 17:19:30 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/24 15:31:22 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,59 @@ void	do_transform(int keycode, t_scene *scene)
 		scene->cam.rotate.x -= 1.9f;
 }
 
-// TODO: remove this print_vec and matrix_print:
 int	move_cam(void *param, int keycode)
 {
 	t_scene	*scene;
 	t_vec3	vec_null;
 
-	vec_null = set_vec(0,0,0);
+	vec_null = set_vec(0, 0, 0);
 	scene = (t_scene *)param;
-	// scene->cam.translate = set_vec(0, 0, 0);
 	do_transform(keycode, scene);
 	do_orientation(keycode, &scene->cam.orientation);
 	set_transform(&scene->cam.translate, &vec_null, scene);
-	// matrix_print(scene->fwtfm, 1);
+	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
-	// print_vec(&scene->cam.pos);
+	print_vec(&scene->cam.pos);
 	return (0);
+}
+
+int	find_light(t_scene *s, int keycode)
+{
+	int	num[9] = {NUMPAD_1, NUMPAD_2, NUMPAD_3, NUMPAD_4, NUMPAD_5, NUMPAD_6, NUMPAD_7, NUMPAD_8, NUMPAD_9};
+	int	i;
+
+	i = -1;
+	while (++i < s->num_lamps)
+	{
+		printf("i is %i, max lumiere est %i\n", i, s->num_lamps);
+		if (num[i] == keycode)
+			return (ft_printf("numpad %i clicked\n", i + 1), i);
+	}
+	return (-1);
+}
+
+int	move_light(void *param, int keycode)
+{
+	t_scene	*s;
+	t_vec3	vec_null;
+	t_light	*l;
+	int		i;
+
+	(void) l;
+	(void) vec_null;
+	s = (t_scene *)param;
+	i = find_light(s, keycode);
+	s->k = i;
+	if (i == -1)
+		return (ft_printf("No light available\n"), 0);
+	l = s->lamptab[i];
+	vec_null = set_vec(0, 0, 0);
+	// l->translate = set_vec(0, 0, 0);
+	// set_transform(&l->translate, &vec_null, s);
+	// matrix_print(s->fwtfm, 1);
+	// matrix_vec_mult(s->fwtfm, &l->pos);
+	// print_vec(&l->pos);
+	return (i);
 }
 
 // TODO: remove this printf
@@ -74,13 +111,17 @@ int	ft_key(int key, void *param)
 	t_scene	*scn;
 
 	scn = (t_scene *)param;
-	printf("%d\n", key);
+	ft_printf("%d\n", key);
 	if (key == KEY_ESC)
 		ft_closebutton(param);
 	else if (key == KEY_C)
 		scn->target = -1;
 	else if (scn->target == -1 && is_keycam(key))
 		move_cam((void *)param, key);
+	else if (key == KEY_L)
+		scn->target = -2;
+	else if (scn->target == -2 && is_lightkey(key))
+		move_light((void *)param, key);
 	else if (is_objkey(key))
 		modify_objects((void *)param, key);
 	clear_image(scn);

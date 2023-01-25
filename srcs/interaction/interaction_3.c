@@ -66,11 +66,11 @@ void	rotate_plan(t_pl *pl, int key)
 
 void	do_transform_c(t_cy *cy, int key)
 {
-	if (key == 111)
+	if (key == 111 && (cy->diameter - 0.5f > 0))
 		cy->diameter -= 0.5f;
 	else if (key == 112)
 		cy->diameter += 0.5f;
-	else if (key == 107)
+	else if (key == 107 && (cy->height - 0.5f >= 0))
 		cy->height -= 0.5f;
 	else if (key == 108)
 		cy->height += 0.5f;
