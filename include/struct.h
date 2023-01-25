@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 16:57:44 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 12:43:56 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ typedef struct s_scene
 	int			bg_color;
 	t_img		*ig;
 	int			target;
+	int			target_light;
 	t_func		*func_ptr;
 	t_matrix4	fwtfm;
 }	t_scene;
