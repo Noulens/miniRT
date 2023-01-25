@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:32:44 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/10 04:29:46 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 15:07:51 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	win_launcher(t_scene *scene)
 			&img.endian);
 	render(scene, scene->func_ptr);
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
+	mlx_string_put(img.mlx, img.win, 10, 10, ft_trgb(255, 255, 255, 255), "MiniRT");
+	mlx_string_put(img.mlx, img.win, 10, 25, ft_trgb(255, 255, 255, 255), scene->msg);
 	mlx_hook(img.win, 17, 1L << 17, ft_closebutton, scene);
 	mlx_hook(img.win, 2, 1L << 0, ft_key, scene);
 	mlx_mouse_hook(img.win, on_click, scene);

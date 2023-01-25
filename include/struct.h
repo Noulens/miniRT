@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/25 12:43:56 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 14:26:32 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,27 +204,28 @@ typedef int	(*t_func[4])(t_ray ms, t_stdobj *inter, float *hit_distance);
 
 typedef struct s_scene
 {
+	t_stdobj	**objtab;
+	t_stdobj	*objects;
+	t_light		**lamptab;
+	t_light		*lamp;
+	t_img		*ig;
+	t_func		*func_ptr;
+	t_alight	alight;
+	t_matrix4	fwtfm;
+	t_light		light;
+	t_cam		cam;
+	float		image_ratio;
 	int			win_w;
 	int			win_h;
 	int			x;
 	int			y;
 	int			k;
-	float		image_ratio;
-	int			num_objects_in_scene;
-	int			num_lamps;
-	t_light		light;
-	t_alight	alight;
-	t_stdobj	*objects;
-	t_stdobj	**objtab;
-	t_light		*lamp;
-	t_light		**lamptab;
-	t_cam		cam;
-	int			bg_color;
-	t_img		*ig;
 	int			target;
 	int			target_light;
-	t_func		*func_ptr;
-	t_matrix4	fwtfm;
+	int			num_objects_in_scene;
+	int			num_lamps;
+	int			bg_color;
+	char		*msg;
 }	t_scene;
 
 #endif
