@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/25 14:29:48 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 15:47:48 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void	adjust_cone(t_stdobj *obj, int key, t_scene *scene);
 int		is_lightkey(int key);
 int		move_light(void *param, int keycode);
 void	put_debug_to_window(void *mlx, void *win, t_scene *scene);
+char	*ft_ftoa(float a, int precision);
 
 #endif

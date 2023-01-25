@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:46:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/20 14:49:41 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 18:33:14 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	do_transform_s(t_sp *sp, int key)
 		sp->translate.z += 0.5f;
 	else if (key == 65434)
 		sp->translate.z -= 0.5f;
+	if (sp->diameter <= 0)
+		sp->diameter = 0.1f;
 }
 
 void	rotate_cylinder(t_cy *cy, int key)
