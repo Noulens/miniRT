@@ -87,22 +87,25 @@ float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 
 float	calcule_cyl_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 {
-	float	pattern;
-	int		scale_u;
-	int		scale_v;
-
-	scale_u = 5;
-	scale_v = 5;
-	pattern = (modulo(info->hit_uv.y * scale_u) > 0.5f)
-			^ (modulo(info->hit_uv.x * scale_v) > 0.5f);
-	if (pattern >= 0.5f)
-		pattern = 1;
-	if (pattern < 0.5f)
-	{
-		pattern = 1;
-		*obj_color = vec_color(ft_trgb(255, 255, 255, 255));
-	}
-	return (pattern);
+//	float	pattern;
+//	int		scale_u;
+//	int		scale_v;
+//
+//	scale_u = 10;
+//	scale_v = 10;
+//	pattern = (modulo(info->hit_uv.y * scale_u) > 0.5f)
+//			^ (modulo(info->hit_uv.x * scale_v) > 0.5f);
+//	if (pattern >= 0.5f)
+//		pattern = 1;
+//	if (pattern < 0.5f)
+//	{
+//		pattern = 1;
+//		*obj_color = vec_color(ft_trgb(255, 255, 255, 255));
+//	}
+//	return (pattern);
+	(void)info;
+	(void)obj_color;
+	return (1);
 }
 
 int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
