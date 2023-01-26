@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 09:46:17 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 10:21:19 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,18 @@ void	put_debug_to_window_obj(t_scene *s, char *rot[4])
 	}
 	// else if (s->objtab[s->target - 1]->objtp == 3)
 	// 	t = "Cone";
-	inst[0] = "[  4  ] - X + [  6  ]";
-	inst[1] = "[  7  ] - Y + [  9  ]";
-	inst[2] = "[  8  ] - Z + [  2  ]";
-	inst[3] = NULL;
+	init_instructions((inst), "[  4  ] - X + [  6  ]", \
+	"[  7  ] - Y + [  9  ]", "[  8  ] - Z + [  2  ]");
 	s->norminettev = pos;
 	ft_mlx_vec_out(s, 65, "Translate", inst);
+}
+
+void	init_instructions(char *inst[4], char *x, char *y, char *z)
+{
+	(inst)[0] = x;
+	(inst)[1] = y;
+	(inst)[2] = z;
+	(inst)[3] = NULL;
 }
 
 void	put_debug_to_window(void *mlx, void *win, t_scene *s)
@@ -87,14 +93,10 @@ void	put_debug_to_window(void *mlx, void *win, t_scene *s)
 
 	mlx_string_put(mlx, win, 10, 10, -1, "MiniRT");
 	mlx_string_put(mlx, win, 10, 25, -1, s->msg);
-	inst[0][0] = "[  A  ] - X + [  D  ]";
-	inst[0][1] = "[ CTR ] - Y + [SPACE]";
-	inst[0][2] = "[  S  ] - Z + [  W  ]";
-	inst[0][3] = NULL;
-	inst[1][0] = "[right] - X + [left]";
-	inst[1][1] = "[ down] - Y + [ up ]";
-	inst[1][2] = "[  -  ] - Z + [  + ]";
-	inst[1][3] = NULL;
+	init_instructions((inst[0]), "[  A  ] - X + [  D  ]", \
+	"[ CTR ] - Y + [SPACE]", "[  S  ] - Z + [  W  ]");
+	init_instructions((inst[1]), "[right] - X + [ left]", \
+	"[ down] - Y + [  up ]", "[  -  ] - Z + [  +  ]");
 	if (s->target == -1)
 	{
 		mlx_string_put(mlx, win, 10, 50, -1, "Mode : Camera");
