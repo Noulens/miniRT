@@ -89,7 +89,7 @@ int	copy_sp(t_scene *scn, const int tgt)
 	copy = (t_sp *)malloc(sizeof(t_sp));
 	if (!copy)
 		return (ft_fprintf(2, "Copy fail, bad malloc\n"), FAIL);
-	copy->pos = vec_add(sp->pos, set_vec(0.2f, 0.2f, 0.2f));
+	copy->pos = sp->pos;
 	copy->diameter = sp->diameter;
 	copy->color = sp->color;
 	copy->rotate = sp->rotate;
