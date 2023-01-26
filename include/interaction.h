@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/25 15:47:48 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 00:07:25 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define KEY_CTRL 65507
 # define KEY_C 99
 # define KEY_L 108
+# define NUMPAD_0 65438
 # define NUMPAD_1 65436
 # define NUMPAD_2 65433
 # define NUMPAD_3 65435
@@ -60,5 +61,8 @@ int		is_lightkey(int key);
 int		move_light(void *param, int keycode);
 void	put_debug_to_window(void *mlx, void *win, t_scene *scene);
 char	*ft_ftoa(float a, int precision);
+void	put_debug_to_window(void *mlx, void *win, t_scene *s);
+char	*ft_ftoa(float a, int precision);
+char	*vec_to_string(t_vec3 vec);
 
 #endif

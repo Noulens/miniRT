@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/25 18:20:34 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:13:40 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,10 @@ void	do_transform(int keycode, t_scene *scene)
 int	move_cam(void *param, int keycode)
 {
 	t_scene	*scene;
-	// t_vec3	vec_null;
 
-	// vec_null = set_vec(0, 0, 0);
 	scene = (t_scene *)param;
 	do_transform(keycode, scene);
 	do_orientation(keycode, &scene->cam.orientation);
-	// set_transform(&scene->cam.translate, &vec_null, scene);
-	// matrix_print(scene->fwtfm, 1);
-	// matrix_vec_mult(scene->fwtfm, &scene->cam.pos);
-	// print_vec(&scene->cam.pos);
 	return (0);
 }
 
@@ -111,8 +105,8 @@ int	on_click(int code, int x, int y, void *param)
 			ft_printf("This is the background\nx=%d\ny=%d\n, x, y");
 			sn->target = 0;
 		}
-			mlx_put_image_to_window(sn->ig->mlx, sn->ig->win, sn->ig->img, 0, 0);
-			put_debug_to_window(sn->ig->mlx, sn->ig->win, sn);
+		mlx_put_image_to_window(sn->ig->mlx, sn->ig->win, sn->ig->img, 0, 0);
+		put_debug_to_window(sn->ig->mlx, sn->ig->win, sn);
 	}
 	return (0);
 }
