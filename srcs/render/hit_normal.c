@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_normal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waxxy <waxxy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/24 16:13:17 by waxxy            ###   ########.fr       */
+/*   Updated: 2023/01/26 21:07:34 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,23 @@ void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 	info->hit_normal = vec_normalize(plane->orientation);
 }
 
+void	hit_uv_cyl(t_surfaceinfo *info, t_cy *cyl)
+{
+	float	x = info->hit_point.x;
+	float	y = info->hit_point.y;
+	float	z = info->hit_point.z;
+	float	angle;
+
+	angle = atan2(z, x);
+	info->hit_uv.x = angle / 2 * M_PI;
+	info->hit_uv.y = y / cyl->height;
+	// print_vec(&cyl->orientation);
+	// print_vec(&cyl->pos);
+	// print_vec(&cyl->rotate);
+	// printf("%f\n", cyl->diameter);
+	// printf("%f\n", cyl->height);
+}
+
 void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 {
 	t_cy	*cyl;
@@ -53,4 +70,5 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 		pt = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
 	}
+	hit_uv_cyl(info, cyl);
 }
