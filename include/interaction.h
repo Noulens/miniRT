@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 09:32:35 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 11:52:29 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,16 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
-# define KEY_PLUS 65451
-# define KEY_MINUS 65453
 # define KEY_SPACE 32
 # define KEY_CTRL 65507
+# define KEY_PLUS 61
+# define KEY_MINUS 45
 # define KEY_C 99
 # define KEY_L 108
+# define KEY_0 48
+# define KEY_9 57
+# define KEY_8 56
+# define KEY_7 55
 # define NUMPAD_0 65438
 # define NUMPAD_1 65436
 # define NUMPAD_2 65433
@@ -39,6 +43,8 @@
 # define NUMPAD_7 65429
 # define NUMPAD_8 65431
 # define NUMPAD_9 65434
+# define NUMPAD_PLUS 65451
+# define NUMPAD_MINUS 65453
 
 # include "init.h"
 # include "destroy.h"
