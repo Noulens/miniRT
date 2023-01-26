@@ -38,7 +38,8 @@ SRCS		=	$(addprefix srcs/,									\
 												interaction_2.c		\
 												interaction_3.c		\
 												interaction_4.c		\
-												debug_interaction.c	\
+												debug_win_utils.c	\
+												debug_win.c			\
 												interaction_5.c)	\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
@@ -77,7 +78,8 @@ SRCS_B		=	$(addprefix srcs/,									\
 												interaction_3.c		\
 												interaction_4.c		\
 												interaction_5.c		\
-												debug_interaction.c	\
+												debug_win_utils.c	\
+												debug_win.c			\
 												adjust_cone_bonus.c)\
 					$(addprefix render/,		render.c			\
 												windows_rend.c		\
