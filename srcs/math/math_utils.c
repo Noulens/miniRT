@@ -31,3 +31,8 @@ float	ft_remap(float v, float fe, float te)
 {
 	return ((v * te / fe));
 }
+
+float	modulo(float x)
+{
+	return (x - floorf(x));
+}

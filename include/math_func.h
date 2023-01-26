@@ -44,5 +44,6 @@ float		ft_max(float a, float b);
 float		ft_remap(float v, float fe, float te);
 t_matrix4	inverse(t_matrix4 t);
 int			cannot_norm(float x, float y, float z);
+float		modulo(float x);
 
 #endif

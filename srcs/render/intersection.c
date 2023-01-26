@@ -135,3 +135,39 @@ int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 	*dist = ic.quad[6];
 	return (1);
 }
+
+int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
+{
+	t_co		*cyl;
+
+	cyl = (t_co *)obj->obj;
+	float A = cyl->pos.x - ray.origin.x;
+	float B = cyl->pos.z - ray.origin.z;
+	float D = cyl->height - cyl->pos.y + ray.origin.y;
+
+	float tan = ((cyl->diameter / 2) / cyl->height) * ((cyl->diameter / 2) / cyl->height);
+
+	float a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z) - (tan*(ray.dir.y * ray.dir.y));
+	float b = (2*A*ray.dir.x) + (2*B*ray.dir.z) + (2*tan*D*ray.dir.y);
+	float c = (A*A) + (B*B) - (tan*(D*D));
+
+	float delta = b*b - 4*(a*c);
+	if(fabsf(delta) < 0.001) return 0;
+	if(delta < 0.0) return 0;
+
+	float t1 = (-b - sqrtf(delta))/(2*a);
+	float t2 = (-b + sqrtf(delta))/(2*a);
+	float t;
+
+	if (t1>t2) t = t2;
+	else t = t1;
+
+	float r = cyl->pos.y + t*ray.dir.y;
+
+	if ((r > ray.origin.y) && (r < ray.origin.y + cyl->height))
+	{
+		*dist = t;
+		return 1;
+	}
+	else return 0;
+}
