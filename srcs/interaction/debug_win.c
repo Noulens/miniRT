@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 10:27:34 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 10:46:49 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,30 @@ void	init_instructions(char *inst[4], char *x, char *y, char *z)
 	(inst)[3] = NULL;
 }
 
-void	put_debug_to_window_obj(t_scene *s, char *rot[4])
+t_vec3	put_debug_to_window_cy_co(t_scene *s, char *rot[4])
 {
 	t_vec3	pos;
 	int		i;
+
+	if (s->objtab[s->target - 1]->objtp == CY)
+	{
+		pos = ((t_cy *)s->objtab[s->target - 1]->obj)->pos;
+		s->norminettev = ((t_cy *)s->objtab[s->target - 1]->obj)->rotate;
+		i = ft_mlx_vec_out(s, 155, " Rotate ", rot);
+		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->diameter;
+		i = ft_mlx_float_out(s, i + 20, "Diameter", "[ O ] - Diameter + [ P ]");
+		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->height;
+		i = ft_mlx_float_out(s, i + 20, "Height", "[ U ] - Height + [ I ]");
+		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cylindre");
+	}
+	else if (s->objtab[s->target - 1]->objtp == CO)
+		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cone");
+	return (pos);
+}
+
+void	put_debug_to_window_obj(t_scene *s, char *rot[4])
+{
+	t_vec3	pos;
 	char	*inst[4];
 
 	mlx_string_put(s->ig->mlx, s->ig->win, 10, 50, -1, "Mode : Object");
@@ -67,19 +87,8 @@ void	put_debug_to_window_obj(t_scene *s, char *rot[4])
 		ft_mlx_vec_out(s, 155, "Orientation", rot);
 		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Plan");
 	}
-	else if (s->objtab[s->target - 1]->objtp == CY)
-	{
-		pos = ((t_cy *)s->objtab[s->target - 1]->obj)->pos;
-		s->norminettev = ((t_cy *)s->objtab[s->target - 1]->obj)->rotate;
-		i = ft_mlx_vec_out(s, 155, " Rotate ", rot);
-		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->diameter;
-		i = ft_mlx_float_out(s, i + 20, "Diameter", "[ O ] - Diameter + [ P ]");
-		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->height;
-		i = ft_mlx_float_out(s, i + 20, "Height", "[ U ] - Height + [ I ]");
-		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cylindre");
-	}
-	// else if (s->objtab[s->target - 1]->objtp == 3)
-	 	// t = "Cone";
+	else
+		pos = put_debug_to_window_cy_co(s, rot);
 	init_instructions((inst), "[  4  ] - X + [  6  ]", \
 	"[  7  ] - Y + [  9  ]", "[  8  ] - Z + [  2  ]");
 	s->norminettev = pos;

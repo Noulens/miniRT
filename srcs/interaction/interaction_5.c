@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:13:43 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 10:38:44 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 10:47:03 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*ft_ftoa(float a, int precision)
 	ret = ft_strjoinsep(integer, flo, ".");
 	return (free(integer), free(flo), ret);
 }
-
 
 void	do_transform_light(int keycode, t_scene *scene)
 {
