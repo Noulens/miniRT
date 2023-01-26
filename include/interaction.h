@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 08:21:54 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 09:32:35 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ void	put_debug_to_window(void *mlx, void *win, t_scene *s);
 char	*ft_ftoa(float a, int precision);
 char	*vec_to_string(t_vec3 vec);
 int		ft_mlx_inst_out(t_scene *s, char *param, char *inst[4], int a);
-int		ft_mlx_vec_out(t_scene *s, t_vec3 v, int i, int gap);
-int		ft_mlx_float_out(t_scene *s, float f, int i, int gap);
+int		ft_mlx_vec_out(t_scene *s, int i, char *p, char *t[4]);
+int		ft_mlx_float_out(t_scene *s, int i, char *p, char *t);
+// int		ft_mlx_vec_out(t_scene *s, t_vec3 v, int i, int gap);
+// int		ft_mlx_float_out(t_scene *s, float f, int i, int gap);
 
 #endif

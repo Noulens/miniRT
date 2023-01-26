@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 08:05:32 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 08:31:11 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 09:30:37 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,33 @@ int	ft_mlx_inst_out(t_scene *s, char *param, char *inst[4], int a)
 	return (a + (gap * i));
 }
 
-int	ft_mlx_vec_out(t_scene *s, t_vec3 v, int i, int gap)
+int	ft_mlx_vec_out(t_scene *s, int i, char *param, char *inst[4])
 {
 	char	*str;
+	int		a;
+	int		gap;
 
-	str = vec_to_string(v);
-	mlx_string_put(s->ig->mlx, s->ig->win, 30, i + gap, -1, str);
+	gap = 15;
+	str = vec_to_string(s->norminettev);
+	a = ft_mlx_inst_out(s, param, inst, i);
+	mlx_string_put(s->ig->mlx, s->ig->win, 30, a + gap, -1, str);
 	free(str);
-	return (i + gap);
+	return (a + gap);
 }
 
-int	ft_mlx_float_out(t_scene *s, float f, int i, int gap)
+int	ft_mlx_float_out(t_scene *s, int i, char *param, char *inst)
 {
 	char	*str;
+	int		gap;
+	int		a;
+	char	*new_inst[4];
 
-	str = ft_ftoa(f, 1);
-	mlx_string_put(s->ig->mlx, s->ig->win, 30, i + gap, -1, str);
+	new_inst[0] = inst;
+	new_inst[1] = NULL;
+	gap = 15;
+	str = ft_ftoa(s->norminettef, 1);
+	a = ft_mlx_inst_out(s, param, new_inst, i);
+	mlx_string_put(s->ig->mlx, s->ig->win, 30, a + gap, -1, str);
 	free(str);
-	return (i + gap);
+	return (a + gap);
 }
