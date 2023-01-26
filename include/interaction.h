@@ -71,7 +71,6 @@ int		move_light(void *param, int keycode);
 void	put_debug_to_window(void *mlx, void *win, t_scene *scene);
 char	*ft_ftoa(float a, int precision);
 void	put_debug_to_window(void *mlx, void *win, t_scene *s);
-char	*ft_ftoa(float a, int precision);
 char	*vec_to_string(t_vec3 vec);
 int		ft_mlx_inst_out(t_scene *s, char *param, char *inst[4], int a);
 int		ft_mlx_vec_out(t_scene *s, int i, char *p, char *t[4]);

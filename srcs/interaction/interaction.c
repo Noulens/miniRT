@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 11:51:48 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 13:29:06 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_key(int key, void *param)
 		scn->target = -2;
 	else if (scn->target == -2 && (is_keycam(key) || is_lightkey(key)))
 		move_light((void *)param, key);
-	else if (is_objkey(key))
+	else if (is_objkey(key) && scn->target != -3)
 		modify_objects((void *)param, key);
 	else if (key == KEY_T)
 		copy_paste(scn);
@@ -107,7 +107,7 @@ int	on_click(int code, int x, int y, void *param)
 		else
 		{
 			ft_printf("This is the background\nx=%d\ny=%d\n, x, y");
-			sn->target = 0;
+			sn->target = -3;
 		}
 		mlx_put_image_to_window(sn->ig->mlx, sn->ig->win, sn->ig->img, 0, 0);
 		put_debug_to_window(sn->ig->mlx, sn->ig->win, sn);
