@@ -30,7 +30,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	mat.ambient = vec_scale(vec_mult(obj_color, \
 	vec_color(scene->alight.color)), scene->alight.al);
 	mat.diffuse = vec_scale(vec_mult(obj_color, vec_color(scene->lamp->color)), \
-	vis * mat.face_ratio * light_intensity);
+	(float)vis * mat.face_ratio * light_intensity);
 	mat.result = vec_scale(vec_add(mat.ambient, mat.diffuse), 0.5f);
 	if (mat.result.x > 1)
 		mat.result.x = 1;

@@ -24,8 +24,8 @@ void	cam_init(t_scene *s)
 
 void	scene_init(t_scene *s)
 {
-	s->win_w = 500;
-	s->win_h = 300;
+	s->win_w = 1920;
+	s->win_h = 1080;
 	s->image_ratio = (float)s->win_w / (float)s->win_h;
 	s->cam.focal_length = ((float)s->win_w / 2)
 		/ tanf(to_radian((s->cam.fov_w / 2)));

@@ -65,7 +65,7 @@ int	copy_pl(t_scene *scn, const int tgt)
 	copy = (t_pl *)malloc(sizeof(t_pl));
 	if (!copy)
 		return (ft_fprintf(2, "Copy fail, bad malloc\n"), FAIL);
-	copy->pos = vec_add(pl->pos, set_vec(0.2f, 0.2f, 0.2f));
+	copy->pos = pl->pos;
 	copy->orientation = pl->orientation;
 	copy->color = pl->color;
 	copy->rotate = pl->rotate;

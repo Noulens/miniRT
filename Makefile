@@ -154,6 +154,8 @@ ifeq (bonus, $(filter bonus,$(MAKECMDGOALS)))
 	DEFINE	=	-D BONUS=1
 else ifeq (rebonus, $(filter rebonus,$(MAKECMDGOALS)))
 	DEFINE	=	-D BONUS=1
+else ifeq (lcb, $(filter lcb,$(MAKECMDGOALS)))
+	DEFINE	=	-D BONUS=1
 else
 	DEFINE	=	-D BONUS=0
 endif

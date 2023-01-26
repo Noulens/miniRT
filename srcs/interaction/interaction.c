@@ -113,24 +113,3 @@ int	on_click(int code, int x, int y, void *param)
 	}
 	return (0);
 }
-
-// this code can be used in on_click:
-
-// t_ray	ray;
-//
-// ray = build_camera_ray(sn, x, y);
-// if (code == 1)
-// {
-// 	while (k < 2)
-// 	{
-// 		if ((*sn->func_ptr[sn->objtab[k]->objtp])(ray,
-// 				sn->objtab[k], &hit_dist))
-// 		{
-// 			sn->target = sn->objtab[k]->objid;
-// 			ft_printf(RESET"click on object nb %d:\nx = %d\ny = %d\n",
-// 					sn->target, x, y);
-// 			return (1);
-// 		}
-// 		k++;
-// 	}
-// }
