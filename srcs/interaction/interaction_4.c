@@ -29,6 +29,8 @@ static void	check(int key, t_vec3 *ori, float d)
 	else
 		return ;
 	*ori = vec_normalize(*ori);
+	printf("%.2f, %.2f, %.2f\n", ori->x, ori->y, ori->z);
+	print_vec(ori);
 }
 
 void	do_orientation(int key, t_vec3 *orientation)

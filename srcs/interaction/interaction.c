@@ -81,6 +81,8 @@ int	ft_key(int key, void *param)
 		modify_objects((void *)param, key);
 	else if (key == KEY_T)
 		copy_paste(scn);
+	else if (key == KEY_Y && BONUS == TRUE)
+		save_scene(scn);
 	clear_image(scn);
 	render(scn, scn->func_ptr);
 	mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);

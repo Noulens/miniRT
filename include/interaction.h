@@ -19,6 +19,7 @@
 # define KEY_D 100
 # define KEY_W 119
 # define KEY_T 116
+# define KEY_Y 121
 # define KEY_UP 65362
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
@@ -49,6 +50,7 @@
 # include "init.h"
 # include "destroy.h"
 # include "render.h"
+# include <fcntl.h>
 
 int		ft_closebutton(void *param);
 int		ft_key(int key, void *img);
@@ -75,6 +77,14 @@ int		ft_mlx_inst_out(t_scene *s, char *param, char *inst[4], int a);
 int		ft_mlx_vec_out(t_scene *s, int i, char *p, char *t[4]);
 int		ft_mlx_float_out(t_scene *s, int i, char *p, char *t);
 int		copy_paste(t_scene *scn);
+void	save_scene(t_scene *scn);
+void	save_objs(const t_scene *scn, int fd);
+void	save_lamp(const t_scene *scn, int fd);
+void	save_cam(const t_scene *scn, int fd);
+void	save_plan(const t_scene *scn, int fd, int k);
+void	save_co(const t_scene *scn, int fd, int k);
+void	save_cy(const t_scene *scn, int fd, int k);
+void	save_sp(const t_scene *scn, int fd, int k);
 // int		ft_mlx_vec_out(t_scene *s, t_vec3 v, int i, int gap);
 // int		ft_mlx_float_out(t_scene *s, float f, int i, int gap);
 
