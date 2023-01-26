@@ -212,7 +212,6 @@ typedef struct s_scene
 	t_func		*func_ptr;
 	t_alight	alight;
 	t_matrix4	fwtfm;
-	t_light		light;
 	t_cam		cam;
 	float		image_ratio;
 	int			win_w;

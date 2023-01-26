@@ -41,12 +41,6 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 	t_vec3	bom;
 
 	cyl = (t_cy *)obj->obj;
-
-//	t_vec3 cart = vec_add(info->hit_point, cyl->pos);
-//	t_vec3 cylindr;
-//	cylindr.x = sqrtf(cart.x * cart.x + cart.y * cart.y);
-//	cylindr.y = atan2f(cart.x / cylindr.x, cart.y / cylindr.x);
-//	cylindr.z = cart.z;
 	top = vec_add(cyl->pos, vec_scale(cyl->orientation, cyl->height / 2.0f));
 	bom = vec_sub(cyl->pos, vec_scale(cyl->orientation, cyl->height / 2.0f));
 	if (vec_length(vec_sub(info->hit_point, top)) < cyl->diameter / 2)
@@ -58,7 +52,5 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 		t = vec_dot(vec_sub(info->hit_point, cyl->pos), cyl->orientation);
 		pt = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
-//		info->hit_uv.x = atan2f(cylindr.y, cylindr.x);
-//		info->hit_uv.y = cylindr.z;
 	}
 }

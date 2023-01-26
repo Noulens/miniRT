@@ -79,6 +79,8 @@ int	ft_key(int key, void *param)
 		move_light((void *)param, key);
 	else if (is_objkey(key))
 		modify_objects((void *)param, key);
+	else if (key == KEY_T)
+		copy_paste(scn);
 	clear_image(scn);
 	render(scn, scn->func_ptr);
 	mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);

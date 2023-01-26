@@ -85,8 +85,8 @@ float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 	return (pattern);
 }
 
-float	calcule_cyl_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
-{
+//float	calcule_cyl_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
+//{
 //	float	pattern;
 //	int		scale_u;
 //	int		scale_v;
@@ -103,10 +103,7 @@ float	calcule_cyl_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 //		*obj_color = vec_color(ft_trgb(255, 255, 255, 255));
 //	}
 //	return (pattern);
-	(void)info;
-	(void)obj_color;
-	return (1);
-}
+//}
 
 int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 {
@@ -131,12 +128,10 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 		mat.face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, \
 		vec_scale(light_dir, -1)));
 		pattern = 1;
-		if (scene->objtab[c_obj]->objtp == 0)
+		if (scene->objtab[c_obj]->objtp == SP)
 			pattern = calcule_sphere_pattern(info, &obj_color);
-		if (scene->objtab[c_obj]->objtp == 2)
+		if (scene->objtab[c_obj]->objtp == PL)
 			pattern = calcule_plan_pattern(info, &obj_color);
-		if (scene->objtab[c_obj]->objtp == 1)
-			pattern = calcule_cyl_pattern(info, &obj_color);
 		mat.diffuse = vec_scale(vec_scale(vec_color(scene->lamptab[i]->color), \
 						vis * light_intensity * pattern), mat.face_ratio);
 		mat.specular = calcule_specular(light_dir, info, vis, light_intensity);
