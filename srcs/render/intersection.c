@@ -135,6 +135,59 @@ int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 	*dist = ic.quad[6];
 	return (1);
 }
+/*
+struct Cone
+{
+	float cosa;	// half cone angle
+	float h;	// height
+	vec3 c;		// tip position
+	vec3 v;		// axis
+	Material m;	// material
+};*/
+/*
+int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
+{
+	t_co		*cyl;
+	t_inter_cy	ic;
+	t_pl		cap[2];
+	t_stdobj	capper[2];
+
+	cyl = (t_co *)obj->obj;
+
+	float t = cyl->height / 2.0f;
+	float rad = cyl->diameter / 2;
+	float theta = 10;//compute half cone angle;
+	t_vec3 tip = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
+	t_vec3 bottom = vec_sub(cyl->pos, vec_scale(cyl->orientation, t));
+
+//		vec3 co = r.o - s.c;
+		t_vec3	co = vec_sub(ray.origin, tip);
+
+		float a = dot(r.d,s.v)*dot(r.d,s.v) - s.cosa*s.cosa;
+		float b = 2. * (dot(r.d,s.v)*dot(co,s.v) - dot(r.d,co)*s.cosa*s.cosa);
+		float c = dot(co,s.v)*dot(co,s.v) - dot(co,co)*s.cosa*s.cosa;
+
+		float det = b*b - 4.*a*c;
+		if (det < 0.) return noHit;
+
+		det = sqrt(det);
+		float t1 = (-b - det) / (2. * a);
+		float t2 = (-b + det) / (2. * a);
+
+		// This is a bit messy; there ought to be a more elegant solution.
+		float time = t1;
+		if (time < 0. || t2 > 0. && t2 < time) t = t2;
+		if (time < 0.) return noHit;
+
+		vec3 cp = r.o + time*r.d - s.c;
+		float h = dot(cp, s.v);
+		if (h < 0. || h > s.h) return noHit;
+
+		vec3 n = normalize(cp * dot(s.v, cp) / dot(cp, cp) - s.v);
+
+		return Hit(time, n, s.m);
+
+}*/
 
 int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
 {
@@ -161,12 +214,12 @@ int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
 
 	if (t1>t2) t = t2;
 	else t = t1;
-
 	float r = cyl->pos.y + t*ray.dir.y;
 
 	if ((r > ray.origin.y) && (r < ray.origin.y + cyl->height))
 	{
-		*dist = t;
+		if (t > 0)
+			*dist = t;
 		return 1;
 	}
 	else return 0;
