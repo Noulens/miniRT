@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 13:28:27 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 16:17:47 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	put_debug_to_window_obj(t_scene *s, char *rot[4])
 	else
 		pos = put_debug_to_window_cy_co(s, rot);
 	init_instructions((inst), "[  4  ] - X + [  6  ]", \
-	"[  7  ] - Y + [  9  ]", "[  8  ] - Z + [  2  ]");
+	"[  2  ] - Y + [  8  ]", "[  9  ] - Z + [  7  ]");
 	s->norminettev = pos;
 	ft_mlx_vec_out(s, 65, "Translate", inst);
 }

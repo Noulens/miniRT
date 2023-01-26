@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 13:29:06 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 16:09:37 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	move_cam(void *param, int keycode)
 
 	scene = (t_scene *)param;
 	do_transform(keycode, scene);
-	do_orientation(keycode, &scene->cam.orientation);
 	return (0);
 }
 
