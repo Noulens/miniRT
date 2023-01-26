@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/25 23:13:40 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 11:51:48 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	do_transform(int keycode, t_scene *scene)
 		scene->cam.rotate.y += 1.9f;
 	else if (keycode == KEY_DOWN)
 		scene->cam.rotate.y -= 1.9f;
-	else if (keycode == KEY_PLUS)
+	else if (keycode == NUMPAD_PLUS)
 		scene->cam.rotate.z += 1.9f;
-	else if (keycode == KEY_MINUS)
+	else if (keycode == NUMPAD_MINUS)
 		scene->cam.rotate.z -= 1.9f;
 	else if (keycode == KEY_LEFT)
 		scene->cam.rotate.x += 1.9f;

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 10:46:49 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 12:01:54 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ t_vec3	put_debug_to_window_cy_co(t_scene *s, char *rot[4])
 	if (s->objtab[s->target - 1]->objtp == CY)
 	{
 		pos = ((t_cy *)s->objtab[s->target - 1]->obj)->pos;
-		s->norminettev = ((t_cy *)s->objtab[s->target - 1]->obj)->rotate;
-		i = ft_mlx_vec_out(s, 155, " Rotate ", rot);
+		s->norminettev = ((t_cy *)s->objtab[s->target - 1]->obj)->orientation;
+		i = ft_mlx_vec_out(s, 155, " Orientation ", rot);
 		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->diameter;
 		i = ft_mlx_float_out(s, i + 20, "Diameter", "[ O ] - Diameter + [ P ]");
 		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->height;

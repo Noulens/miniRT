@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:28:05 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/25 21:27:16 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 12:01:34 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static void	check(int key, t_vec3 *ori, float d)
 {
-	if (key == 48 && !cannot_norm(ori->y - d, ori->x, ori->z))
+	if (key == KEY_DOWN && !cannot_norm(ori->y - d, ori->x, ori->z))
 		ori->y -= d;
-	else if (key == 57 && !cannot_norm(ori->y + d, ori->x, ori->z))
+	else if (key == KEY_UP && !cannot_norm(ori->y + d, ori->x, ori->z))
 		ori->y += d;
-	else if (key == 56 && !cannot_norm(ori->x - d, ori->y, ori->z))
+	else if (key == KEY_RIGHT && !cannot_norm(ori->x - d, ori->y, ori->z))
 		ori->x -= d;
-	else if (key == 55 && !cannot_norm(ori->x + d, ori->y, ori->z))
+	else if (key == KEY_LEFT && !cannot_norm(ori->x + d, ori->y, ori->z))
 		ori->x += d;
-	else if (key == 45 && !cannot_norm(ori->z - d, ori->y, ori->x))
+	else if (key == NUMPAD_MINUS && !cannot_norm(ori->z - d, ori->y, ori->x))
 		ori->z -= d;
-	else if (key == 61 && !cannot_norm(ori->z + d, ori->y, ori->x))
+	else if (key == NUMPAD_PLUS && !cannot_norm(ori->z + d, ori->y, ori->x))
 		ori->z += d;
 	else
 		return ;
@@ -43,10 +43,10 @@ int	is_keycam(int key)
 {
 	return (key == KEY_A || key == KEY_D || key == KEY_S
 		|| key == KEY_W || key == KEY_SPACE || key == KEY_CTRL
-		|| key == KEY_PLUS || key == KEY_MINUS || key == KEY_UP
+		|| key == NUMPAD_PLUS || key == NUMPAD_MINUS || key == KEY_UP
 		|| key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
-		|| key == 61 || key == 48 || key == 57 || key == 56 || key == 55
-		|| key == 45 || key == 111 || key == 112);
+		|| key == KEY_PLUS || key == KEY_0 || key == KEY_9 || key == KEY_8
+		|| key == KEY_7 || key == KEY_MINUS || key == 111 || key == 112);
 }
 
 int	is_lightkey(int key)
@@ -67,7 +67,7 @@ int	is_objkey(int key)
 {
 	return (key == KEY_A || key == KEY_D || key == KEY_S
 		|| key == KEY_W || key == KEY_SPACE || key == KEY_CTRL
-		|| key == KEY_PLUS || key == KEY_MINUS || key == KEY_UP
+		|| key == NUMPAD_PLUS || key == NUMPAD_MINUS || key == KEY_UP
 		|| key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT
 		|| key == 57 || key == 55 || key == 45 || key == 61 || key == 65429
 		|| key == 65430 || key == 65431 || key == 65432 || key == 65433
