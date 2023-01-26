@@ -6,22 +6,19 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:13:43 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 00:07:01 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 10:38:44 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interaction.h"
 
-char *ft_ftoa(float a, int precision)
+char	*get_float(int precision, float a)
 {
-	int		i;
-	char	*integer;
 	char	*flo;
+	int		i;
 	char	*ret;
 
-	ret = NULL;
 	i = -1;
-	integer = ft_itoa((int)a);
 	flo = malloc(sizeof(char) * precision + 1);
 	if (!flo)
 		return (NULL);
@@ -41,29 +38,33 @@ char *ft_ftoa(float a, int precision)
 			a = a - (int)a;
 		}
 	}
+	return (flo);
+}
+
+char	*ft_ftoa(float a, int precision)
+{
+	char	*integer;
+	char	*flo;
+	char	*ret;
+
+	ret = NULL;
+	if (a < 0 && a > -1)
+	{
+		ret = ft_itoa((int)a);
+		integer = ft_strjoin("-", ret);
+		if (!integer)
+			return (free(ret), NULL);
+		free(ret);
+	}
+	else
+		integer = ft_itoa((int)a);
+	flo = get_float(precision, a);
+	if (!flo)
+		return (NULL);
 	ret = ft_strjoinsep(integer, flo, ".");
 	return (free(integer), free(flo), ret);
 }
 
-char	*vec_to_string(t_vec3 vec)
-{
-	char	*x;
-	char	*y;
-	char	*z;
-	char	*tmp;
-	char	*ret;
-
-	x = ft_ftoa(vec.x, 3);
-	y = ft_ftoa(vec.y, 3);
-	z = ft_ftoa(vec.z, 3);
-	tmp = ft_strjoinsep(x, y, " ");
-	ret = ft_strjoinsep(tmp, z, " ");
-	free(x);
-	free(y);
-	free(z);
-	free(tmp);
-	return (ret);
-}
 
 void	do_transform_light(int keycode, t_scene *scene)
 {

@@ -6,11 +6,31 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 08:05:32 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 09:30:37 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 10:38:59 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interaction.h"
+
+char	*vec_to_string(t_vec3 vec)
+{
+	char	*x;
+	char	*y;
+	char	*z;
+	char	*tmp;
+	char	*ret;
+
+	x = ft_ftoa(vec.x, 3);
+	y = ft_ftoa(vec.y, 3);
+	z = ft_ftoa(vec.z, 3);
+	tmp = ft_strjoinsep(x, y, " ");
+	ret = ft_strjoinsep(tmp, z, " ");
+	free(x);
+	free(y);
+	free(z);
+	free(tmp);
+	return (ret);
+}
 
 int	ft_mlx_inst_out(t_scene *s, char *param, char *inst[4], int a)
 {

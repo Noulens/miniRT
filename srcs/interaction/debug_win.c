@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 10:21:19 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 10:27:34 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ void	put_debug_to_window_light(t_scene *s, char *trans[4])
 		s->norminettef = s->lamptab[s->target_light - 1]->brightness;
 		ft_mlx_float_out(s, i + 20, "Brightness", "[down] - Brightness + [up]");
 	}
+}
+
+void	init_instructions(char *inst[4], char *x, char *y, char *z)
+{
+	(inst)[0] = x;
+	(inst)[1] = y;
+	(inst)[2] = z;
+	(inst)[3] = NULL;
 }
 
 void	put_debug_to_window_obj(t_scene *s, char *rot[4])
@@ -71,19 +79,11 @@ void	put_debug_to_window_obj(t_scene *s, char *rot[4])
 		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cylindre");
 	}
 	// else if (s->objtab[s->target - 1]->objtp == 3)
-	// 	t = "Cone";
+	 	// t = "Cone";
 	init_instructions((inst), "[  4  ] - X + [  6  ]", \
 	"[  7  ] - Y + [  9  ]", "[  8  ] - Z + [  2  ]");
 	s->norminettev = pos;
 	ft_mlx_vec_out(s, 65, "Translate", inst);
-}
-
-void	init_instructions(char *inst[4], char *x, char *y, char *z)
-{
-	(inst)[0] = x;
-	(inst)[1] = y;
-	(inst)[2] = z;
-	(inst)[3] = NULL;
 }
 
 void	put_debug_to_window(void *mlx, void *win, t_scene *s)
