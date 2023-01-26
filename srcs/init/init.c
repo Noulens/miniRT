@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/26 08:54:43 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 09:41:19 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void	scenevarinit(t_scene *s)
 	s->objtab = NULL;
 	s->lamp = NULL;
 	s->lamptab = NULL;
+	s->msg = "camera : [C], light : [L], object : click object";
 	set_identity(&s->fwtfm);
 }

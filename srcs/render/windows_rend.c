@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:32:44 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/26 08:56:13 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 09:41:44 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ void	win_launcher(t_scene *scene)
 {
 	t_img	img;
 	t_func	intersect_func;
-	char	*msg;
 
 	scene->ig = &img;
-	msg = "camera : [C], light : [L], object : click object";
 	init_intersect_fun(&intersect_func);
 	scene->func_ptr = &intersect_func;
 	img.mlx = mlx_init();
@@ -50,7 +48,7 @@ void	win_launcher(t_scene *scene)
 	render(scene, scene->func_ptr);
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	mlx_string_put(img.mlx, img.win, 10, 10, -1, "MiniRT");
-	mlx_string_put(img.mlx, img.win, 10, 25, -1, msg);
+	mlx_string_put(img.mlx, img.win, 10, 25, -1, scene->msg);
 	mlx_hook(img.win, 17, 1L << 17, ft_closebutton, scene);
 	mlx_hook(img.win, 2, 1L << 0, ft_key, scene);
 	mlx_mouse_hook(img.win, on_click, scene);

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 09:35:23 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 09:46:17 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void	put_debug_to_window(void *mlx, void *win, t_scene *s)
 	int		i;
 
 	mlx_string_put(mlx, win, 10, 10, -1, "MiniRT");
-	mlx_string_put(mlx, win, 10, 25, -1, \
-	"camera : [C], light : [L], object : click object");
+	mlx_string_put(mlx, win, 10, 25, -1, s->msg);
 	inst[0][0] = "[  A  ] - X + [  D  ]";
 	inst[0][1] = "[ CTR ] - Y + [SPACE]";
 	inst[0][2] = "[  S  ] - Z + [  W  ]";

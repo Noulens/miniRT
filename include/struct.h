@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/26 09:08:02 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 09:41:10 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ typedef struct s_scene
 	int			bg_color;
 	t_vec3		norminettev;
 	float		norminettef;
+	char		*msg;
 }	t_scene;
 
 #endif
