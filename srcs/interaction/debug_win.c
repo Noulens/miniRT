@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 12:01:54 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 13:28:27 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	put_debug_to_window(void *mlx, void *win, t_scene *s)
 	}
 	else if (s->target == -2)
 		put_debug_to_window_light(s, inst[0]);
-	else if (s->target == 0)
+	else if (s->target == -3)
 		mlx_string_put(mlx, win, 10, 50, -1, "Mode : B G");
 	else
 		put_debug_to_window_obj(s, inst[1]);

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 11:52:29 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 13:19:31 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,10 @@ int		move_light(void *param, int keycode);
 void	put_debug_to_window(void *mlx, void *win, t_scene *scene);
 char	*ft_ftoa(float a, int precision);
 void	put_debug_to_window(void *mlx, void *win, t_scene *s);
-char	*ft_ftoa(float a, int precision);
 char	*vec_to_string(t_vec3 vec);
 int		ft_mlx_inst_out(t_scene *s, char *param, char *inst[4], int a);
 int		ft_mlx_vec_out(t_scene *s, int i, char *p, char *t[4]);
 int		ft_mlx_float_out(t_scene *s, int i, char *p, char *t);
 int		copy_paste(t_scene *scn);
-// int		ft_mlx_vec_out(t_scene *s, t_vec3 v, int i, int gap);
-// int		ft_mlx_float_out(t_scene *s, float f, int i, int gap);
 
 #endif
