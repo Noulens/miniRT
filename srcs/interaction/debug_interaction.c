@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 00:19:39 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/26 00:24:45 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,53 +46,6 @@ int	print_f(t_scene *s, float f, int i, int gap)
 	return (i + gap);
 }
 
-void	put_objdebug_to_window(void *mlx, void *win, t_scene *s, char *rot[4])
-{
-	t_vec3	pos;
-	int		i;
-	char	*t;
-	char	*trans[4];
-	char	*tmp[4];
-	t_pl	*pl;
-	t_cy	*cy;
-	t_sp	*sp;
-
-	mlx_string_put(mlx, win, 10, 50, -1, "Mode : Object");
-	if (s->objtab[s->target - 1]->objtp == SP)
-	{
-		sp = s->objtab[s->target - 1]->obj;
-		pos = sp->pos;
-		tmp[0] = "[ O ] - Diameter + [ P ]";
-		print_f(s, sp->diameter, print_xyz(s, "---- Diameter ----", tmp, 155), 15);
-		t = "Sphere";
-	}
-	if (s->objtab[s->target - 1]->objtp == PL)
-	{
-		pl = s->objtab[s->target - 1]->obj;
-		pos = pl->pos;
-		print_v(s, pl->rotate, print_xyz(s, "-----Orientation-----", rot, 155), 15);
-		t = "Plan";
-	}
-	if (s->objtab[s->target - 1]->objtp == CY)
-	{
-		cy = s->objtab[s->target - 1]->obj;
-		pos = cy->pos;
-		i = print_v(s, cy->rotate, print_xyz(s, "-----  Rotate  -----", rot, 155), 15);
-		tmp[0] = "[ O ] - Diameter + [ P ]";
-		i = print_f(s, cy->diameter, print_xyz(s, "---- Diameter ----", tmp, i + 25), 15);
-		i = print_f(s, cy->height, print_xyz(s, "---- Height ----", tmp, i + 25), 15);
-		t = "Cylindre";
-	}
-	if (s->objtab[s->target - 1]->objtp == 3)
-		t = "Cone";
-	mlx_string_put(mlx, win, 100, 50, -1, t);
-	trans[0] = "[ 4 ] - X + [ 6 ]";
-	trans[1] = "[ 7 ] - Y + [ 9 ]";
-	trans[2] = "[ 8 ] - Z + [ 2 ]";
-	trans[3] = NULL;
-	i = print_v(s, pos, print_xyz(s, "----- Translate -----", trans, 65), 15);
-}
-
 void put_debug_to_window(void *mlx, void *win, t_scene *s)
 {
 	char	*t;
@@ -100,6 +53,7 @@ void put_debug_to_window(void *mlx, void *win, t_scene *s)
 	char	*rot[4];
 	char	*tmp[4];
 	int		i;
+	t_vec3	pos;
 
 	mlx_string_put(mlx, win, 10, 10, -1, "MiniRT");
 	mlx_string_put(mlx, win, 10, 25, -1, s->msg);
@@ -113,6 +67,8 @@ void put_debug_to_window(void *mlx, void *win, t_scene *s)
 	rot[3] = NULL;
 	tmp[0] = NULL;
 	tmp[1] = NULL;
+	tmp[2] = NULL;
+	tmp[3] = NULL;
 	if (s->target == -1)
 	{
 		mlx_string_put(mlx, win, 10, 50, -1, "Mode : Camera");
@@ -142,5 +98,42 @@ void put_debug_to_window(void *mlx, void *win, t_scene *s)
 	else if (s->target == 0)
 		mlx_string_put(mlx, win, 10, 50, -1, "Mode : B G");
 	else
-		put_objdebug_to_window(mlx, win, s, rot);
+	{
+		mlx_string_put(mlx, win, 10, 50, -1, "Mode : Object");
+		if (s->objtab[s->target - 1]->objtp == SP)
+		{
+			t_sp	*sp;
+			sp = s->objtab[s->target - 1]->obj;
+			pos = sp->pos;
+			tmp[0] = "[ O ] - Diameter + [ P ]";
+			print_f(s, sp->diameter, print_xyz(s, "---- Diameter ----", tmp, 155), 15);
+			t = "Sphere";
+		}
+		if (s->objtab[s->target - 1]->objtp == PL)
+		{
+			t_pl *pl;
+			pl = s->objtab[s->target - 1]->obj;
+			pos = pl->pos;
+			print_v(s, pl->rotate, print_xyz(s, "-----Orientation-----", rot, 155), 15);
+			t = "Plan";
+		}
+		if (s->objtab[s->target - 1]->objtp == CY)
+		{
+			t_cy *cy;
+			cy = s->objtab[s->target - 1]->obj;
+			pos = cy->pos;
+			i = print_v(s, cy->rotate, print_xyz(s, "-----  Rotate  -----", rot, 155), 15);
+			tmp[0] = "[ O ] - Diameter + [ P ]";
+			i = print_f(s, cy->diameter, print_xyz(s, "---- Diameter ----", tmp, i + 25), 15);
+			i = print_f(s, cy->height, print_xyz(s, "---- Height ----", tmp, i + 25), 15);
+			t = "Cylindre";
+		}
+		if (s->objtab[s->target - 1]->objtp == 3)
+			t = "Cone";
+		mlx_string_put(mlx, win, 100, 50, -1, t);
+		trans[0] = "[ 4 ] - X + [ 6 ]";
+		trans[1] = "[ 7 ] - Y + [ 9 ]";
+		trans[2] = "[ 8 ] - Z + [ 2 ]";
+		i = print_v(s, pos, print_xyz(s, "----- Translate -----", trans, 65), 15);
+	}
 }
