@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/27 09:29:33 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/27 09:31:36 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 // 	scale_v = 500;
 // 	scale_u = scale_v * ratio;
 // 	(void) obj_color;
-// 	pattern = cos(to_radian(info->hit_uv.x * scale_v)) * \
-// 	sin(to_radian(info->hit_uv.y * scale_u));
+// 	pattern = cos(to_radian(info->hit_uv.x * scale_v)) * sin(to_radian(info->hit_uv.y * scale_u));
 // 	pattern += 0.5;
 // 	if (pattern >= 0.5f)
 // 		pattern = 1;
