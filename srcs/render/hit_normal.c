@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/26 21:07:34 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/27 00:13:31 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,36 @@ void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 	info->hit_normal = vec_normalize(plane->orientation);
 }
 
-void	hit_uv_cyl(t_surfaceinfo *info, t_cy *cyl)
+float	inverse_rot(float f, t_vec3 rot)
 {
-	float	x = info->hit_point.x;
-	float	y = info->hit_point.y;
-	float	z = info->hit_point.z;
-	float	angle;
 
-	angle = atan2(z, x);
-	info->hit_uv.x = angle / 2 * M_PI;
-	info->hit_uv.y = y / cyl->height;
+}
+
+float	inverse_trans(float f, t_vec3 rot)
+{
+
+}
+
+void	hit_uv_cyl(t_scene *s, t_surfaceinfo *info, t_cy *cyl)
+{
+	t_vec3	no_orient;
+	float	x;
+	float	y;
+	float	z;
+	float	angle;
+	t_vec3	vec_null;
+	t_vec3	inv_rotate;
+	// t_vec3	middle_dot = vec_sub(info->hit_point, vec_scale(vec_scale(info->hit_normal, -1), cyl->diameter / 2));
+
+	vec_null = set_vec(0, 0, 0);
+	inv_rotate = vec_scale(cyl->rotate, -1);
+	no_orient = vec_sub(info->hit_point, cyl->pos);
+	set_transform(&vec_null, &inv_rotate, s);
+	matrix_vec_mult(s->fwtfm, &no_orient);
+
+	angle = atan2(no_orient.z, no_orient.x);
+	info->hit_uv.x = angle / 2 * M_PI * (cyl->diameter / 2);
+	info->hit_uv.y = no_orient.y / cyl->height;
 	// print_vec(&cyl->orientation);
 	// print_vec(&cyl->pos);
 	// print_vec(&cyl->rotate);
@@ -49,7 +69,7 @@ void	hit_uv_cyl(t_surfaceinfo *info, t_cy *cyl)
 	// printf("%f\n", cyl->height);
 }
 
-void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
+void	hit_normal_cyl(t_scene *s, t_surfaceinfo *info, t_stdobj *obj)
 {
 	t_cy	*cyl;
 	float	t;
@@ -70,5 +90,5 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 		pt = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
 	}
-	hit_uv_cyl(info, cyl);
+	hit_uv_cyl(s, info, cyl);
 }

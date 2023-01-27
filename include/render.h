@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:07:10 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 18:23:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/27 00:12:04 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int				shadow_visibility(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldi
 int				isacap(t_cy *cyl, t_inter_cy *ic, t_pl *cap, t_stdobj *capper);
 void			hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj);
 void			hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj);
-void			hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj);
+void			hit_normal_cyl(t_scene *s, t_surfaceinfo *info, t_stdobj *obj);
 
 #endif
