@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/27 00:13:31 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/27 09:11:09 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,8 @@ void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 	info->hit_normal = vec_normalize(plane->orientation);
 }
 
-float	inverse_rot(float f, t_vec3 rot)
-{
-
-}
-
-float	inverse_trans(float f, t_vec3 rot)
-{
-
-}
-
-void	hit_uv_cyl(t_scene *s, t_surfaceinfo *info, t_cy *cyl)
+/*
+void	hit_uv_cyl(t_surfaceinfo *info, t_cy *cyl)
 {
 	t_vec3	no_orient;
 	float	x;
@@ -68,8 +59,9 @@ void	hit_uv_cyl(t_scene *s, t_surfaceinfo *info, t_cy *cyl)
 	// printf("%f\n", cyl->diameter);
 	// printf("%f\n", cyl->height);
 }
+*/
 
-void	hit_normal_cyl(t_scene *s, t_surfaceinfo *info, t_stdobj *obj)
+void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 {
 	t_cy	*cyl;
 	float	t;
@@ -90,5 +82,4 @@ void	hit_normal_cyl(t_scene *s, t_surfaceinfo *info, t_stdobj *obj)
 		pt = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
 		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
 	}
-	hit_uv_cyl(s, info, cyl);
 }

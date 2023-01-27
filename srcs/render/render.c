@@ -6,13 +6,13 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/27 00:11:54 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/27 09:09:04 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-t_surfaceinfo	*get_surfaceinfo(t_scene *s, t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
+t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 {
 	info->view_dir = vec_normalize(vec_scale(ray.dir, -1));
 	info->hit_point = vec_add(ray.origin, vec_scale(ray.dir, info->hit_dist));
@@ -21,7 +21,7 @@ t_surfaceinfo	*get_surfaceinfo(t_scene *s, t_surfaceinfo *info, t_stdobj *obj, t
 	if (obj->objtp == 2)
 		hit_normal_plane(info, obj);
 	if (obj->objtp == 1)
-		hit_normal_cyl(s, info, obj);
+		hit_normal_cyl(info, obj);
 	return (info);
 }
 
@@ -39,7 +39,7 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	closest_obj = find_closest_obj(s, ray, inter, &info.hit_dist);
 	if (closest_obj != -1)
 	{
-		get_surfaceinfo(s, &info, s->objtab[closest_obj], ray);
+		get_surfaceinfo(&info, s->objtab[closest_obj], ray);
 		if (s->objtab[closest_obj]->objtp == 0 \
 		|| s->objtab[closest_obj]->objtp == 2 || s->objtab[closest_obj]->objtp == 1)
 		{
