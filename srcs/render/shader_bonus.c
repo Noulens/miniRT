@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 20:57:10 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/27 09:29:33 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,27 @@ float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 	return (pattern);
 }
 
-float	calcule_cyl_pattern(t_scene *s, int c_obj, t_surfaceinfo *info, t_vec3 *obj_color)
-{
-	float	pattern;
-	int		scale_u;
-	int		scale_v;
-	t_cy	*cy;
-	float	ratio;
-	cy = s->objtab[c_obj]->obj;
-	ratio = cy->height / cy->diameter * M_PI;
-	scale_v = 500;
-	scale_u = scale_v * ratio;
-	(void) obj_color;
-	pattern = cos(to_radian(info->hit_uv.x * scale_v)) * \
-	sin(to_radian(info->hit_uv.y * scale_u));
-	pattern += 0.5;
-	if (pattern >= 0.5f)
-		pattern = 1;
-	if (pattern < 0.5f)
-		pattern = 0;
-	return (pattern);
-}
+// float	calcule_cyl_pattern(t_scene *s, int c_obj, t_surfaceinfo *info, t_vec3 *obj_color)
+// {
+// 	float	pattern;
+// 	int		scale_u;
+// 	int		scale_v;
+// 	t_cy	*cy;
+// 	float	ratio;
+// 	cy = s->objtab[c_obj]->obj;
+// 	ratio = cy->height / cy->diameter * M_PI;
+// 	scale_v = 500;
+// 	scale_u = scale_v * ratio;
+// 	(void) obj_color;
+// 	pattern = cos(to_radian(info->hit_uv.x * scale_v)) * \
+// 	sin(to_radian(info->hit_uv.y * scale_u));
+// 	pattern += 0.5;
+// 	if (pattern >= 0.5f)
+// 		pattern = 1;
+// 	if (pattern < 0.5f)
+// 		pattern = 0;
+// 	return (pattern);
+// }
 
 // float	calcule_cyl_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 // {
@@ -154,12 +154,12 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 			pattern = calcule_sphere_pattern(info, &obj_color);
 		if (scene->objtab[c_obj]->objtp == PL)
 			pattern = calcule_plan_pattern(info, &obj_color);
-		if (scene->objtab[c_obj]->objtp == CY)
-			pattern = calcule_cyl_pattern(scene, c_obj, info, &obj_color);
+		// if (scene->objtab[c_obj]->objtp == CY)
+			// pattern = calcule_cyl_pattern(scene, c_obj, info, &obj_color);
 		mat.diffuse = vec_scale(vec_scale(vec_color(scene->lamptab[i]->color), \
 						vis * light_intensity * pattern), mat.face_ratio);
 		mat.specular = calcule_specular(light_dir, info, vis, light_intensity);
-		mat.result = vec_add(vec_mult(vec_scale(vec_add(mat.diffuse, mat.specular), 1 / 2.0), obj_color), mat.result);
+		mat.result = vec_add(vec_mult((vec_add(mat.diffuse, mat.specular)), obj_color), mat.result);
 	}
 	mat.ambient = vec_scale(vec_color(scene->alight.color), \
 	scene->alight.al);
