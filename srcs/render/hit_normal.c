@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/27 09:11:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/28 23:07:21 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,46 @@ void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 {
 	t_pl		*plane;
+	t_vec3		vec_null;
+	float		pattern;
+	int			scale_v;
+	int			scale_u;
+	t_vec3	orient_parsing;
+	t_vec3	plane_n;
+	float	angle;
+	t_vec3	t;
+	t_vec3	axis;
+	t_matrix4	rot_m;
 
+	(void) vec_null;
+	scale_u = 1000;
+	scale_v = 1000;
+	vec_null = set_vec(0, 0, 0);
 	plane = (t_pl *)obj->obj;
-	info->hit_normal = vec_normalize(plane->orientation);
+	plane_n = set_vec(0, 1, 0);
+	orient_parsing = vec_normalize(plane->orientation);
+	t = vec_cross(plane_n, vec_normalize(orient_parsing));
+	if (vec_length(t) != 0)
+	{
+		axis = vec_normalize(t);
+		angle = acosf(vec_dot(plane_n, vec_normalize(orient_parsing)));
+		plane_n = rotate_from_axis_angle(plane_n, axis, angle);
+	}
+	matrix_vec_mult(set_transform2(&vec_null, &plane->rotate), &plane_n);
+	info->hit_normal = vec_normalize(plane_n);
+	t_vec3	inv_t;
+
+	inv_t = vec_add(info->hit_point, vec_scale(plane->translate, -1));
+	rot_m = set_transform2(&vec_null, &plane->rotate);
+	matrix_vec_mult(rot_m, &inv_t);
+	pattern = cos(to_radian(inv_t.z * scale_v)) * \
+	sin(to_radian(inv_t.x * scale_u));
+	pattern += 0.5;
+	if (pattern >= 0.5f)
+		info->hit_uv = set_vec(1, 1, 1);
+	if (pattern < 0.5f)
+		info->hit_uv = set_vec(0, 0, 0);
+
 }
 
 /*

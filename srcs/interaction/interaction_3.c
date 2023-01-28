@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:46:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/26 12:09:19 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/28 01:48:00 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ void	rotate_cylinder(t_cy *cy, int key)
 
 void	rotate_plan(t_pl *pl, int key)
 {
-	if (key == KEY_0)
+	if (key == KEY_UP)
 		pl->rotate.y += 1.9f;
-	else if (key == KEY_9)
+	else if (key == KEY_DOWN)
 		pl->rotate.y += -1.9f;
-	else if (key == KEY_PLUS)
+	else if (key == NUMPAD_PLUS)
 		pl->rotate.z += 1.9f;
-	else if (key == KEY_MINUS)
+	else if (key == NUMPAD_MINUS)
 		pl->rotate.z += -1.9f;
-	else if (key == KEY_8)
+	else if (key == KEY_LEFT)
 		pl->rotate.x += 1.9f;
-	else if (key == KEY_7)
+	else if (key == KEY_RIGHT)
 		pl->rotate.x += -1.9f;
 }
 
@@ -94,17 +94,17 @@ void	do_transform_c(t_cy *cy, int key)
 
 void	do_transform_p(t_pl *pl, int key)
 {
-	if (key == 65431)
+	if (key == NUMPAD_8)
 		pl->translate.y += 0.5f;
-	else if (key == 65433)
+	else if (key == NUMPAD_2)
 		pl->translate.y -= 0.5f;
-	else if (key == 65430)
+	else if (key == NUMPAD_4)
 		pl->translate.x -= 0.5f;
-	else if (key == 65432)
+	else if (key == NUMPAD_6)
 		pl->translate.x += 0.5f;
-	else if (key == 65429)
+	else if (key == NUMPAD_7)
 		pl->translate.z += 0.5f;
-	else if (key == 65434)
+	else if (key == NUMPAD_9)
 		pl->translate.z -= 0.5f;
 	else
 		rotate_plan(pl, key);

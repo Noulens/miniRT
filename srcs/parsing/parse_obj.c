@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:32:49 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 13:07:00 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/28 01:50:30 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parse_pl(char *line, t_scene *scn)
 		return (free(plan), ft_fprintf(2, "Error\nbad malloc plan\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
 		return (ft_free_split(ptr), ft_fprintf(2, "Error\nplan pos\n"), FAIL);
-	get_floats(ptr[0], &plan->pos, 'P');
+	get_floats(ptr[0], &plan->translate, 'P');
 	if (check_fformat(&i, &commas, ptr[1])
 		|| get_floats(ptr[1], &plan->orientation, 'O'))
 		return (ft_free_split(ptr), free(plan), ft_fprintf(2, PLAN_ORI), FAIL);

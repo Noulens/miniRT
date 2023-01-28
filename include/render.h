@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:07:10 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/27 09:10:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/27 22:27:00 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int				isacap(t_cy *cyl, t_inter_cy *ic, t_pl *cap, t_stdobj *capper);
 void			hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj);
 void			hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj);
 void			hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj);
+t_matrix4		set_transform2(t_vec3 *trans, t_vec3 *rot);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 11:52:29 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/28 01:36:30 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	save_plan(const t_scene *scn, int fd, int k);
 void	save_co(const t_scene *scn, int fd, int k);
 void	save_cy(const t_scene *scn, int fd, int k);
 void	save_sp(const t_scene *scn, int fd, int k);
+void	rotate_plan(t_pl *pl, int key);
+
 // int		ft_mlx_vec_out(t_scene *s, t_vec3 v, int i, int gap);
 // int		ft_mlx_float_out(t_scene *s, float f, int i, int gap);
 

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 18:31:01 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/28 23:14:37 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,30 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	t_pl	*plane;
 	t_vec3	plane_n;
 	t_vec3	intersect_pos;
+	t_vec3	vec_null;
+	t_vec3	orient_parsing;
+	t_vec3	axis;
+	t_vec3	t;
+	float	angle;
 	float	denom;
 	float	dist_btw_cam_planeinter;
 
+	vec_null = set_vec(0, 0, 0);
 	plane = (t_pl *)tmp->obj;
-	plane_n = plane->orientation;
+	plane_n = set_vec(0, 1, 0);
+	orient_parsing = vec_normalize(plane->orientation);
+	t = vec_cross(plane_n, vec_normalize(orient_parsing));
+	if (vec_length(t) != 0)
+	{
+		axis = vec_normalize(t);
+		angle = acosf(vec_dot(plane_n, vec_normalize(orient_parsing)));
+		plane_n = rotate_from_axis_angle(plane_n, axis, angle);
+	}
+	matrix_vec_mult(set_transform2(&vec_null, &plane->rotate), &plane_n);
 	denom = vec_dot(plane_n, ray.dir);
 	if (denom != 0)
 	{
-		intersect_pos = vec_sub(plane->pos, ray.origin);
+		intersect_pos = vec_sub(plane->translate, ray.origin);
 		dist_btw_cam_planeinter = vec_dot(intersect_pos, plane_n) / denom;
 		*hit_distance = dist_btw_cam_planeinter;
 		return (dist_btw_cam_planeinter >= 0);
