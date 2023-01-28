@@ -62,13 +62,13 @@ typedef struct s_ray
 	t_vec3	dir;
 }	t_ray;
 
-typedef struct s_inter_cy
+typedef struct s_inter_c
 {
 	t_vec3	v[8];
 	float	quad[7];
 	t_ray	*raycap;
 	float	*dist;
-}	t_inter_cy;
+}	t_inter_c;
 
 typedef struct s_data
 {
@@ -167,7 +167,7 @@ typedef struct s_co
 	t_vec3	rotate;
 	int		color;
 	float	height;
-	float	diameter;
+	float	rad;
 }	t_co;
 
 typedef struct s_cam

@@ -16,7 +16,7 @@ int	copy_co(t_scene *scn, const int tgt)
 	copy->pos = vec_add(cyl->pos, set_vec(0.2f, 0.2f, 0.2f));
 	copy->orientation = cyl->orientation;
 	copy->height = cyl->height;
-	copy->diameter = cyl->diameter;
+	copy->rad = cyl->rad;
 	copy->color = cyl->color;
 	copy->rotate = cyl->rotate;
 	copy->translate = cyl->translate;
