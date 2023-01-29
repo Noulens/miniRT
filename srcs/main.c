@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 17:12:29 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/28 23:10:26 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/29 20:53:02 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,41 +83,6 @@ void	print_objects_infos(t_scene *scene)
 	printf(YELLOW"\nnb of objects: %d\n"RESET, scene->num_objects_in_scene);
 }*/
 
-// t_matrix4	ft_get_hat(t_vec3 rot)
-// {
-// 	t_matrix4 ret;
-
-// 	init_matrix(&ret);
-// 	ret.m[0][0] = 0;
-// 	ret.m[0][1] = -rot.z;
-// 	ret.m[0][2] = rot.y;
-// 	ret.m[1][0] = rot.z;
-// 	ret.m[1][1] = 0;
-// 	ret.m[1][2] = -rot.x;
-// 	ret.m[2][0] = -rot.y;
-// 	ret.m[2][1] = rot.x;
-// 	ret.m[2][2] = 0;
-// }
-t_vec3	rotate_from_axis_angle(t_vec3 vector, t_vec3 axis, float angle)
-{
-	t_vec3	d;
-	t_vec3	r;
-	t_vec3	rcos;
-	t_vec3	axiscross;
-	t_vec3	ssin;
-	float	tmp;
-
-
-	axis = vec_normalize(axis);
-	tmp = vec_dot(axis, vector);
-	d = vec_scale(axis, tmp);
-	r = vec_sub(vector, d);
-	rcos = vec_scale(r, cosf(angle));
-	axiscross = vec_cross(axis, r);
-	ssin = vec_scale(axiscross, sinf(angle));
-	return (vec_add(vec_add(ssin, rcos), d));
-}
-
 int	main(int argc, char **argv)
 {
 	t_scene	scn;
@@ -125,13 +90,6 @@ int	main(int argc, char **argv)
 	if (scenevarinit(&scn), argc == 2 && rt_name_checker(argv[1])
 		&& !parse(&scn, argv[1]))
 	{
-		// t_vec3	axis_u;
-		// t_vec3	axis_v;
-		// t_vec3	normal;
-
-		// normal = set_vec(0, 1, 0);
-
-
 		win_launcher(&scn);
 	}
 	else
@@ -142,46 +100,3 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
-
-/*
-		t_vec3	a = set_vec(1, 2, 3);
-		t_vec3	b = set_vec(1, 2, 3);
-		t_vec3	rot = set_vec(30, 20, 10);
-		t_vec3	vec_null;
-		t_matrix4	rot_m;
-
-		vec_null = set_vec(0, 0, 0);
-		rot_m = set_transform2(&vec_null, &rot);
-		matrix_vec_mult(rot_m, &a);
-		matrix_vec_mult(rot_m, &b);
-		printf("\nresult : %f %f %f\n", a.x, a.y, a.z);
-		rot_m = inverse(rot_m);
-		matrix_vec_mult(rot_m, &b);
-		printf("\nresult : %f %f %f\n", b.x, b.y, b.z);
-
-	t_vec3	a = set_vec(0, 1, 0);
-	t_vec3	b = set_vec(0.5, 0.5, 0);
-
-	t_vec3	axis;
-	float	angle;
-	float	dot;
-	t_vec3	ret;
-
-	printf("a : \n");
-	a = vec_normalize(a);
-	print_vec(&a);
-	b = vec_normalize(b);
-	printf("b : \n");
-	print_vec(&b);
-	printf("\n");
-	axis = vec_cross(vec_normalize(a), vec_normalize(b));
-	axis = vec_normalize(axis);
-	dot = vec_dot(vec_normalize(a), vec_normalize(b));
-	printf("dot(a, b) : %f\n", dot);
-	angle = acosf(vec_dot(vec_normalize(a), vec_normalize(b)));
-	// vec_null = set_vec(0, 0, 0);
-	printf("axis of rotation : %f %f %f\n", axis.x, axis.y, axis.z);
-	printf("angle(radian) between a, b : %f, (degree) : %f\n", angle, to_degree(angle));
-	ret = rotate_from_axis_angle(a, axis, angle);
-	printf("\nresult : %f %f %f\n", ret.x, ret.y, ret.z);
-*/

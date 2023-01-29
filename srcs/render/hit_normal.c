@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/28 23:07:21 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/29 22:06:03 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,49 +24,101 @@ void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 	info->hit_uv.z = 0;
 }
 
+t_vec3	from_two_vec_do_rotation(t_vec3 origin1, t_vec3 target1, t_vec3 origin2)
+{
+	float	angle;
+	t_vec3	perpendicular_axis;
+	t_vec3	target2;
+
+	(void)angle;
+	(void)origin2;
+	if (vec_compt(origin1, target1, 2))
+		return (origin2);
+	origin1 = vec_normalize(origin1);
+	target1 = vec_normalize(target1);
+	perpendicular_axis = vec_cross(origin1, vec_normalize(target1));
+	if (vec_length(perpendicular_axis) != 0)
+	{
+		perpendicular_axis = vec_normalize(perpendicular_axis);
+		angle = acosf(vec_dot(origin1, vec_normalize(target1)));
+		if (origin2.x == 0 && origin2.y == 0 && origin2.z == 0)
+			return (target1);
+		target2 = rotate_from_axis_angle(origin2, perpendicular_axis, angle);
+		return (target2);
+	}
+	return (set_vec(0, 0, 0));
+}
+
+float	get_length_texture(t_pl *pl, t_vec3 axis_u, t_vec3 axis_v, t_vec3 hit_point)
+{
+	t_ray	ray1;
+	t_ray	ray2;
+	t_vec3	intersect_point;
+
+	// (void) intersect_point;
+	// (void) hit_point;
+	// (void) axis_v;
+	// printf("axis_u:\n");
+	// print_vec(&axis_u);
+	ray1.origin = set_vec_point_dir(pl->translate, vec_normalize(axis_u), 1.00);
+	ray1.dir = set_vec_point_dir(pl->translate, vec_normalize(axis_u), 3.00);
+	// printf("ray1:\n");
+	// print_vec(&ray1.origin);
+	// print_vec(&ray1.dir);
+	ray2.origin = set_vec_point_dir(hit_point, vec_normalize(axis_v), 1.00);
+	ray2.dir = set_vec_point_dir(hit_point, vec_normalize(axis_v), 2.00);
+	// printf("ray2:\n");
+	// print_vec(&ray2.origin);
+	// print_vec(&ray2.dir);
+	// printf("\n");
+
+	if (query_intersection(ray1, ray2, &intersect_point))
+	{
+		// print_vec(&intersect_point);
+	// print_vec(&info->hit_point);
+		return (vec_length(vec_sub(intersect_point, pl->translate)));
+	}
+	return (-1.0);
+}
+
 void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 {
 	t_pl		*plane;
-	t_vec3		vec_null;
+	// t_vec3		vec_null;
 	float		pattern;
 	int			scale_v;
 	int			scale_u;
-	t_vec3	orient_parsing;
-	t_vec3	plane_n;
-	float	angle;
-	t_vec3	t;
-	t_vec3	axis;
-	t_matrix4	rot_m;
+	float	u;
+	// float	v;
+	t_vec3	axis_u;
+	t_vec3	axis_v;
 
-	(void) vec_null;
+	// (void) vec_null;
+	(void) scale_v;
+	(void) scale_u;
+	(void) axis_u;
+	(void) axis_v;
+	// (void) hit_point;
 	scale_u = 1000;
 	scale_v = 1000;
-	vec_null = set_vec(0, 0, 0);
 	plane = (t_pl *)obj->obj;
-	plane_n = set_vec(0, 1, 0);
-	orient_parsing = vec_normalize(plane->orientation);
-	t = vec_cross(plane_n, vec_normalize(orient_parsing));
-	if (vec_length(t) != 0)
-	{
-		axis = vec_normalize(t);
-		angle = acosf(vec_dot(plane_n, vec_normalize(orient_parsing)));
-		plane_n = rotate_from_axis_angle(plane_n, axis, angle);
-	}
-	matrix_vec_mult(set_transform2(&vec_null, &plane->rotate), &plane_n);
-	info->hit_normal = vec_normalize(plane_n);
-	t_vec3	inv_t;
-
-	inv_t = vec_add(info->hit_point, vec_scale(plane->translate, -1));
-	rot_m = set_transform2(&vec_null, &plane->rotate);
-	matrix_vec_mult(rot_m, &inv_t);
-	pattern = cos(to_radian(inv_t.z * scale_v)) * \
-	sin(to_radian(inv_t.x * scale_u));
+	info->hit_normal = vec_normalize(plane->orientation);
+	axis_u = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, set_vec(1, 0, 0));
+	axis_v = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, set_vec(0, 0, 1));
+	// printf("%f\n", info->hit_dist);
+	u = get_length_texture(plane, axis_u, axis_v, info->hit_point);
+	// printf("u : %f\n", u);
+	// inv_t = vec_add(info->hit_point, vec_scale(plane->translate, -1));
+	// rot_m = set_transform2(&vec_null, &plane->rotate);
+	// matrix_vec_mult(rot_m, &inv_t);
+	// pattern = cos(to_radian(inv_t.z * scale_v)) * sin(to_radian(inv_t.x * scale_u));
+	pattern = cos(to_radian(u * scale_v));
 	pattern += 0.5;
 	if (pattern >= 0.5f)
 		info->hit_uv = set_vec(1, 1, 1);
 	if (pattern < 0.5f)
 		info->hit_uv = set_vec(0, 0, 0);
-
+	// axis_u = rotate_from_axis_angle();
 }
 
 /*
