@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:07:10 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/27 09:10:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 15:28:17 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void			hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj);
 void			hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj);
 void			hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj);
 void			hit_normal_co(t_surfaceinfo *info, t_stdobj *obj);
+t_matrix4		set_transform2(t_vec3 *trans, t_vec3 *rot);
 
 #endif

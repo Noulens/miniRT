@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:46:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/26 12:09:19 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 15:36:15 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ void	rotate_cylinder(t_cy *cy, int key)
 
 void	rotate_plan(t_pl *pl, int key)
 {
-	if (key == KEY_0)
+	if (key == KEY_UP)
 		pl->rotate.y += 1.9f;
-	else if (key == KEY_9)
+	else if (key == KEY_DOWN)
 		pl->rotate.y += -1.9f;
-	else if (key == KEY_PLUS)
+	else if (key == NUMPAD_PLUS)
 		pl->rotate.z += 1.9f;
-	else if (key == KEY_MINUS)
+	else if (key == NUMPAD_MINUS)
 		pl->rotate.z += -1.9f;
-	else if (key == KEY_8)
+	else if (key == KEY_LEFT)
 		pl->rotate.x += 1.9f;
-	else if (key == KEY_7)
+	else if (key == KEY_RIGHT)
 		pl->rotate.x += -1.9f;
 }
 

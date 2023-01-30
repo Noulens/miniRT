@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 05:58:45 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 18:34:45 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 14:59:45 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec3	vec_normalize(t_vec3 vec)
 
 	len = vec_length(vec);
 	if (len == 0)
-		return (ft_printf("Error\nvec length is 0\n"), set_vec(0, 0, 0));
+		return (set_vec(0, 0, 0));
 	return (set_vec(vec.x * 1 / len, vec.y * 1 / len, vec.z * 1 / len));
 }
 
