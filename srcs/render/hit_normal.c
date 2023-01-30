@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/30 01:07:38 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 01:28:13 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ float	get_length_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit)
 	t_vec3	intersect_point;
 	t_vec3	tmp;
 
-	tmp = vec_sub(pl->translate, set_vec(-1000, -1000, -1000));
+	tmp = vec_sub(pl->translate, set_vec(0, 0, 0));
 	ray1.origin = set_vec_point_dir(tmp, vec_normalize(a), 1.00);
 	ray1.dir = set_vec_point_dir(tmp, vec_normalize(a), 2.00);
-	tmp = vec_sub(hit, set_vec(-1000, -1000, -1000));
+	tmp = vec_sub(hit, set_vec(0, 0, 0));
 	ray2.origin = set_vec_point_dir(tmp, vec_normalize(b), 1.00);
 	ray2.dir = set_vec_point_dir(tmp, vec_normalize(b), 2.00);
 	if (query_intersection(ray1, ray2, &intersect_point))
