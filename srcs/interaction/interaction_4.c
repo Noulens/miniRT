@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:28:05 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/26 22:51:43 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 15:35:43 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,6 @@ void	do_orientation(int key, t_vec3 *orientation)
 	d = 0.1f;
 	check(key, orientation, d);
 }
-
-// void	do_orientation2(int key, t_vec3 *orientation)
-// {
-// 	float	d;
-
-// 	d = 0.1f;
-// 	check(key, orientation, d);
-// }
 
 int	is_keycam(int key)
 {
