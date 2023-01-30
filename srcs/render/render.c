@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/30 01:12:54 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 01:14:46 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 {
 	info->view_dir = vec_normalize(vec_scale(ray.dir, -1));
 	info->hit_point = vec_add(ray.origin, vec_scale(ray.dir, info->hit_dist));
-	if (obj->objtp == 0)
+	if (obj->objtp == SP)
 		hit_normal_sphere(info, obj);
-	if (obj->objtp == 2)
+	if (obj->objtp == PL)
 		hit_normal_plane(info, obj);
-	if (obj->objtp == 1)
+	if (obj->objtp == CY)
 		hit_normal_cyl(info, obj);
+	if (BONUS == 1 && obj->objtp == CO)
+		hit_normal_co(info, obj);
 	return (info);
 }
 
@@ -39,9 +41,9 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	if (closest_obj != -1)
 	{
 		get_surfaceinfo(&info, s->objtab[closest_obj], ray);
-		if (s->objtab[closest_obj]->objtp == 0 \
-		|| s->objtab[closest_obj]->objtp == 2 || \
-		s->objtab[closest_obj]->objtp == 1)
+		if (s->objtab[closest_obj]->objtp == SP \
+		|| s->objtab[closest_obj]->objtp == PL || \
+		s->objtab[closest_obj]->objtp == CY)
 			my_mlx_pixel_put(s->ig, i, j, \
 			shading(s, &info, closest_obj, inter));
 		else

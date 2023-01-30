@@ -85,7 +85,11 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	return (0);
 }
 
-/*	quad 0  = radius
+/*
+ * I used this :
+ * https://www.illusioncatalyst.com/notes.php
+ *
+ *	quad 0  = radius
  * 	quad 1 = 2ab
  * 	quad 2 = a
  * 	quad 3 = b
@@ -93,9 +97,9 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
  * 	quad 5 = delta
  * 	quad 6 = time -> this is the return value that is the solution, hit distance
  *
- * 	v0 = A -> coordinate of extremities of cone adjusted with the orientation
- * 	v1 = B -> coordinate of extremities of cone adjusted with the orientation
- * 	v2 = AB -> segment from extremity A to B in the direction of cylinder
+ * 	v0 = A -> coordinate of extremities of obj adjusted with the orientation
+ * 	v1 = B -> coordinate of extremities of obj adjusted with the orientation
+ * 	v2 = AB -> segment from extremity A to B in the direction of obj
  * 	v3 = AO
  * 	v4 = AOxAB
  * 	v5 = VxAB
@@ -105,12 +109,9 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 
 static void	init_quadra_cy(t_ray *ray, t_cy *cyl, t_vec3 *v, float *quad)
 {
-	float	t;
-
-	t = cyl->height / 2.0f;
 	quad[0] = cyl->diameter / 2;
-	v[0] = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
-	v[1] = vec_sub(cyl->pos, vec_scale(cyl->orientation, t));
+	v[0] = vec_add(cyl->pos, vec_scale(cyl->orientation, cyl->height));
+	v[1] = cyl->pos;
 	v[2] = vec_sub(v[1], v[0]);
 	v[3] = vec_sub((*ray).origin, v[0]);
 	v[4] = vec_cross(v[3], v[2]);
@@ -125,7 +126,7 @@ static void	init_quadra_cy(t_ray *ray, t_cy *cyl, t_vec3 *v, float *quad)
 int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 {
 	t_cy		*cyl;
-	t_inter_cy	ic;
+	t_inter_c	ic;
 	t_pl		cap[2];
 	t_stdobj	capper[2];
 
@@ -147,92 +148,95 @@ int	intersect_cylinder(t_ray ray, t_stdobj *obj, float *dist)
 	*dist = ic.quad[6];
 	return (1);
 }
-/*
-struct Cone
+
+void	init_diskcone(t_co *cyl, t_vec3 v, t_pl *cap, t_stdobj *capper)
 {
-	float cosa;	// half cone angle
-	float h;	// height
-	vec3 c;		// tip position
-	vec3 v;		// axis
-	Material m;	// material
-};*/
-/*
-int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
-{
-	t_co		*cyl;
-	t_inter_cy	ic;
-	t_pl		cap[2];
-	t_stdobj	capper[2];
-
-	cyl = (t_co *)obj->obj;
-
-	float t = cyl->height / 2.0f;
-	float rad = cyl->diameter / 2;
-	float theta = 10;//compute half cone angle;
-	t_vec3 tip = vec_add(cyl->pos, vec_scale(cyl->orientation, t));
-	t_vec3 bottom = vec_sub(cyl->pos, vec_scale(cyl->orientation, t));
-
-//		vec3 co = r.o - s.c;
-		t_vec3	co = vec_sub(ray.origin, tip);
-
-		float a = dot(r.d,s.v)*dot(r.d,s.v) - s.cosa*s.cosa;
-		float b = 2. * (dot(r.d,s.v)*dot(co,s.v) - dot(r.d,co)*s.cosa*s.cosa);
-		float c = dot(co,s.v)*dot(co,s.v) - dot(co,co)*s.cosa*s.cosa;
-
-		float det = b*b - 4.*a*c;
-		if (det < 0.) return noHit;
-
-		det = sqrt(det);
-		float t1 = (-b - det) / (2. * a);
-		float t2 = (-b + det) / (2. * a);
-
-		// This is a bit messy; there ought to be a more elegant solution.
-		float time = t1;
-		if (time < 0. || t2 > 0. && t2 < time) t = t2;
-		if (time < 0.) return noHit;
-
-		vec3 cp = r.o + time*r.d - s.c;
-		float h = dot(cp, s.v);
-		if (h < 0. || h > s.h) return noHit;
-
-		vec3 n = normalize(cp * dot(s.v, cp) / dot(cp, cp) - s.v);
-
-		return Hit(time, n, s.m);
-
-}*/
+	cap->pos = v;
+	cap->orientation = cyl->orientation;
+	capper->obj = (void *)cap;
+}
 
 int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
 {
-	t_co		*cyl;
+	t_co *cyl;
+	t_inter_c ic;
+	t_pl cap;
+	t_stdobj capper;
 
-	cyl = (t_co *)obj->obj;
-	float A = cyl->pos.x - ray.origin.x;
-	float B = cyl->pos.z - ray.origin.z;
-	float D = cyl->height - cyl->pos.y + ray.origin.y;
-
-	float tan = ((cyl->diameter / 2) / cyl->height) * ((cyl->diameter / 2) / cyl->height);
-
-	float a = (ray.dir.x * ray.dir.x) + (ray.dir.z * ray.dir.z) - (tan*(ray.dir.y * ray.dir.y));
-	float b = (2*A*ray.dir.x) + (2*B*ray.dir.z) + (2*tan*D*ray.dir.y);
-	float c = (A*A) + (B*B) - (tan*(D*D));
-
-	float delta = b*b - 4*(a*c);
-	if(fabsf(delta) < 0.001) return 0;
-	if(delta < 0.0) return 0;
-
-	float t1 = (-b - sqrtf(delta))/(2*a);
-	float t2 = (-b + sqrtf(delta))/(2*a);
-	float t;
-
-	if (t1>t2) t = t2;
-	else t = t1;
-	float r = cyl->pos.y + t*ray.dir.y;
-
-	if ((r > ray.origin.y) && (r < ray.origin.y + cyl->height))
+	cyl = (t_co *) obj->obj;
+	ic.raycap = &ray;
+	ic.dist = dist;
+	t_vec3 tip = vec_add(cyl->pos, vec_scale(cyl->orientation, cyl->height));
+	t_vec3 bottom = cyl->pos;
+	t_vec3 h = vec_sub(bottom, tip);
+	float length = vec_length(h);
+	float m = (cyl->rad * cyl->rad) / (length * length);
+	t_vec3 w = vec_sub(ray.origin, tip);
+	t_vec3 hh = vec_scale(h, 1 / length);
+	float a = vec_dot(ray.dir, ray.dir) - m * vec_dot(ray.dir, hh) * vec_dot(ray.dir, hh) - vec_dot(ray.dir, hh) * vec_dot(ray.dir, hh);
+	float b = 2 * (vec_dot(ray.dir, w) - m * vec_dot(ray.dir, hh) * vec_dot(w, hh) -
+			vec_dot(ray.dir, hh) * vec_dot(w, hh));
+	float c = vec_dot(w,w) - m * vec_dot(w, hh) * vec_dot(w, hh) - vec_dot(w, hh) * vec_dot(w, hh);
+	float d = b * b - 4.0f * a * c;
+	if (d < 10e-6)
+		return (0);
+	float sq = sqrtf(d);
+	float t0 = (- b + sq) / ( 2.0f * a);
+	float t1 = (- b - sq) / ( 2.0f * a);
+	float tc;
+	if (t0 > t1)
+		tc = t1;
+	else
 	{
-		if (t > 0)
-			*dist = t;
-		return 1;
+		tc = t0;
 	}
-	else return 0;
+	if (tc < 10e-6)
+	{
+		float	hit_dist;
+		init_diskcone(cyl, bottom, &cap, &capper);
+		hit_dist = INFINITY;
+		if (intersect_plane(*ic.raycap, &capper, ic.dist))
+		{
+			if (getdouble(ic.raycap, ic.dist, cap)
+				<= cyl->rad * cyl->rad)
+				hit_dist = *ic.dist;
+		}
+		if (hit_dist != INFINITY)
+		{
+			return (hit_dist >= 0);
+		}
+		return (0);
+	}
+	if (tc > 10e-6)
+	{
+		t_vec3 hit_point = vec_add(ray.origin, vec_scale(ray.dir, tc));
+		float hit_test = vec_dot(vec_sub(hit_point, tip), hh);
+//		if 0≤(Lint−H)⋅h^≤∥h∥
+//		The intersection is on the cone surface.
+		if ((hit_test >= 0 && hit_test < length))
+		{
+			*dist = tc;
+			return (tc >= 0);
+		}
+//		if (Lint−H)⋅h^>∥h∥
+//		The intersection is below the base of the cone. Test the intersection with the cone base cap.
+		if (hit_test > length)
+		{
+			float	hit_dist;
+			init_diskcone(cyl, bottom, &cap, &capper);
+			hit_dist = INFINITY;
+			if (intersect_plane(*ic.raycap, &capper, ic.dist))
+			{
+				if (getdouble(ic.raycap, ic.dist, cap)
+					<= cyl->rad * cyl->rad)
+					hit_dist = *ic.dist;
+			}
+			if (hit_dist != INFINITY)
+			{
+				return (hit_dist >= 0);
+			}
+			return (0);
+		}
+	}
+	return (0);
 }

@@ -76,7 +76,7 @@ void	save_co(const t_scene *scn, int fd, int k)
 	ft_putchar_fd(',', fd);
 	ft_putfloat_fd(co->orientation.z, 2, fd);
 	ft_putchar_fd(' ', fd);
-	ft_putfloat_fd(co->diameter, 2, fd);
+	ft_putfloat_fd(co->rad, 2, fd);
 	ft_putchar_fd(' ', fd);
 	ft_putfloat_fd(co->height, 2, fd);
 	ft_putchar_fd(' ', fd);

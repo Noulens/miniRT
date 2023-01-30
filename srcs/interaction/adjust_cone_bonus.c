@@ -31,9 +31,9 @@ static void	rotate_co(t_co *co, int key)
 static void	do_transform_co(t_co *co, int key)
 {
 	if (key == 111)
-		co->diameter -= 0.5f;
+		co->rad -= 0.5f;
 	else if (key == 112)
-		co->diameter += 0.5f;
+		co->rad += 0.5f;
 	else if (key == 65431)
 		co->translate.y += 0.5f;
 	else if (key == 65433)

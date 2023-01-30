@@ -48,7 +48,7 @@ int	parse_co(char *line, t_scene *scn)
 		return (ft_free_split(ptr), free(cone), ft_fprintf(2, ERO2), FAIL);
 	if (check_float_nb(ptr[2]))
 		return (ft_free_split(ptr), free(cone), ft_fprintf(2, ERO3), FAIL);
-	cone->diameter = ft_atof(ptr[2]);
+	cone->rad = ft_atof(ptr[2]) / 2.0f;
 	if (parse_co_2(ptr, cone, scn))
 		return (ft_free_split(ptr), FAIL);
 	return (ft_free_split(ptr), SUCCESS);

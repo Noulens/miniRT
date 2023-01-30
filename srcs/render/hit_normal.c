@@ -126,8 +126,8 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 	t_vec3	bom;
 
 	cyl = (t_cy *)obj->obj;
-	top = vec_add(cyl->pos, vec_scale(cyl->orientation, cyl->height / 2.0f));
-	bom = vec_sub(cyl->pos, vec_scale(cyl->orientation, cyl->height / 2.0f));
+	top = vec_add(cyl->pos, vec_scale(cyl->orientation, cyl->height));
+	bom = cyl->pos;
 	if (vec_length(vec_sub(info->hit_point, top)) < cyl->diameter / 2)
 		info->hit_normal = cyl->orientation;
 	else if (vec_length(vec_sub(info->hit_point, bom)) < cyl->diameter / 2)

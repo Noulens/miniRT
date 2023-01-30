@@ -41,7 +41,7 @@ void	get_inter_proj(t_ray *ray, t_vec3 *v, const float *quad)
 				vec_dot(v[2], vec_scale(vec_sub(v[6], v[0]), 1 / quad[1]))));
 }
 
-void check_hitdistance(t_inter_cy *ic, const float *hit_dist)
+void check_hitdistance(t_inter_c *ic, const float *hit_dist)
 {
 	if (hit_dist[0] > hit_dist[1])
 		*ic->dist = hit_dist[1];
@@ -49,7 +49,7 @@ void check_hitdistance(t_inter_cy *ic, const float *hit_dist)
 		*ic->dist = hit_dist[0];
 }
 
-int	isacap(t_cy *cyl, t_inter_cy *ic, t_pl *cap, t_stdobj *capper)
+int	isacap(t_cy *cyl, t_inter_c *ic, t_pl *cap, t_stdobj *capper)
 {
 	int		k;
 	float	hit_dist[2];
