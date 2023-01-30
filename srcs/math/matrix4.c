@@ -69,3 +69,13 @@ void	matrix_vec_mult(t_matrix4 new, t_vec3 *vect)
 	vect->z = new.m[2][0] * tmp.x + new.m[2][1] * tmp.y + new.m[2][2] * tmp.z
 		+ new.m[2][3] * tmp.t;
 }
+
+int	cannot_norm(float x, float y, float z)
+{
+	if (!x && !y && !z)
+	{
+		ft_fprintf(2, "Error\nnull vector\n");
+		return (TRUE);
+	}
+	return (FALSE);
+}

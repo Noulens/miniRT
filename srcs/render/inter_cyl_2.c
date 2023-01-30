@@ -41,7 +41,7 @@ void	get_inter_proj(t_ray *ray, t_vec3 *v, const float *quad)
 				vec_dot(v[2], vec_scale(vec_sub(v[6], v[0]), 1 / quad[1]))));
 }
 
-void check_hitdistance(t_inter_c *ic, const float *hit_dist)
+void	check_hitdistance(t_inter_c *ic, const float *hit_dist)
 {
 	if (hit_dist[0] > hit_dist[1])
 		*ic->dist = hit_dist[1];

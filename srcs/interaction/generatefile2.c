@@ -1,12 +1,20 @@
-//
-// Created by waxxy on 26/01/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generatefile2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/30 19:02:54 by tnoulens          #+#    #+#             */
+/*   Updated: 2023/01/30 19:02:58 by tnoulens         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "interaction.h"
 
 void	save_objs(const t_scene *scn, int fd)
 {
-	int k;
+	int	k;
 
 	k = -1;
 	while (++k < scn->num_objects_in_scene)

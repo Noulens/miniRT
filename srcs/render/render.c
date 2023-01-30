@@ -49,7 +49,9 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 			my_mlx_pixel_put(s->ig, i, j, hit_color);
 		}
 		else
+		{
 			my_mlx_pixel_put(s->ig, i, j, s->objtab[closest_obj]->metacolor);
+		}
 	}
 	else
 		my_mlx_pixel_put(s->ig, i, j, s->bg_color);

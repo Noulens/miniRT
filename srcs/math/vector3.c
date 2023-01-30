@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "math_func.h"
-#include <stdio.h>
 
 float	vec_dot(t_vec3 a, t_vec3 b)
 {
@@ -41,16 +40,6 @@ t_vec3	vec_cross(t_vec3 a, t_vec3 b)
 	return (set_vec(a.y * b.z - a.z * b.y, \
 					a.z * b.x - a.x * b.z, \
 					a.x * b.y - a.y * b.x));
-}
-
-int	cannot_norm(float x, float y, float z)
-{
-	if (!x && !y && !z)
-	{
-		ft_fprintf(2, "Error\nnull vector\n");
-		return (TRUE);
-	}
-	return (FALSE);
 }
 
 void	print_vec(t_vec3 *a)

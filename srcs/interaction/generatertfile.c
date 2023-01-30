@@ -1,6 +1,14 @@
-//
-// Created by waxxy on 26/01/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generatertfile.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/30 19:03:26 by tnoulens          #+#    #+#             */
+/*   Updated: 2023/01/30 19:03:29 by tnoulens         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "interaction.h"
 
@@ -89,7 +97,7 @@ void	save_co(const t_scene *scn, int fd, int k)
 
 void	save_sp(const t_scene *scn, int fd, int k)
 {
-	t_sp *sp;
+	t_sp	*sp;
 
 	sp = (t_sp *)scn->objtab[k]->obj;
 	ft_fprintf(fd, "\nsp ");
@@ -112,8 +120,8 @@ void	save_scene(t_scene *scn)
 {
 	int			fd;
 	static int	v;
-	char 		*name;
-	char 		*save;
+	char		*name;
+	char		*save;
 
 	save = ft_itoa(v++);
 	if (!save)
