@@ -6,11 +6,43 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/27 09:11:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 21:50:22 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
+
+t_vec3	from_two_vec_do_rotation(t_vec3 origin1, t_vec3 target1, t_vec3 origin2)
+{
+	float	angle;
+	float	dot;
+	t_vec3	perpendicular_axis;
+	t_vec3	target2;
+	t_vec3	vec_null;
+	t_vec3	rot;
+
+	(void)dot;
+	if (vec_compt(origin1, target1, 2))
+		return (origin2);
+	origin1 = vec_normalize(origin1);
+	target1 = vec_normalize(target1);
+	perpendicular_axis = vec_cross(origin1, vec_normalize(target1));
+	dot = vec_dot(origin1, vec_normalize(target1));
+	if (vec_length(perpendicular_axis) != 0)
+	{
+		perpendicular_axis = vec_normalize(perpendicular_axis);
+		angle = acosf(vec_dot(origin1, vec_normalize(target1)));
+		if (origin2.x == 0 && origin2.y == 0 && origin2.z == 0)
+			return (target1);
+		target2 = rotate_from_axis_angle(origin2, perpendicular_axis, angle);
+		return (target2);
+	}
+	vec_null = set_vec(0, 0, 0);
+	rot = set_vec(0, 180, 0);
+	target2 = set_vec(origin2.x, origin2.y, origin2.z);
+	matrix_vec_mult(set_transform2(&vec_null, &rot), &target2);
+	return (target2);
+}
 
 void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 {

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 23:10:34 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 16:17:47 by hyunah           ###   ########.fr       */
+/*   Created: 2023/01/25 2m3:10:34 by hyunah            #+#    #+#             */
+/*   Updated: 2023/01/30 21:46:12 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ void	put_debug_to_window_obj(t_scene *s, char *rot[4])
 	}
 	else if (s->objtab[s->target - 1]->objtp == PL)
 	{
-		pos = ((t_pl *)s->objtab[s->target - 1]->obj)->pos;
+		pos = ((t_pl *)s->objtab[s->target - 1]->obj)->translate;
 		s->norminettev = ((t_pl *)s->objtab[s->target - 1]->obj)->rotate;
-		ft_mlx_vec_out(s, 155, "Orientation", rot);
+		ft_mlx_vec_out(s, 155, "Rotation", rot);
 		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Plan");
 	}
 	else

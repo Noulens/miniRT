@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:32:49 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 13:07:00 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:37:56 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+// int	parse_pl(char *line, t_scene *scn)
+// {
+// 	int		i;
+// 	int		commas;
+// 	t_pl	*plan;
+// 	char	**ptr;
+
+// 	if (count_element(line) != 3)
+// 		return (ft_fprintf(2, "Error\nin PL data: bad elements nb\n"), FAIL);
+// 	plan = (t_pl *)malloc(sizeof(t_pl));
+// 	if (!plan)
+// 		return (ft_fprintf(2, "Error\nbad malloc plan\n"), FAIL);
+// 	ptr = ft_split(line, ' ');
+// 	if (!ptr)
+// 		return (free(plan), ft_fprintf(2, "Error\nbad malloc plan\n"), FAIL);
+// 	if (check_fformat(&i, &commas, ptr[0]))
+// 		return (ft_free_split(ptr), ft_fprintf(2, "Error\nplan pos\n"), FAIL);
+// 	get_floats(ptr[0], &plan->pos, 'P');
+// 	if (check_fformat(&i, &commas, ptr[1])
+// 		|| get_floats(ptr[1], &plan->orientation, 'O'))
+// 		return (ft_free_split(ptr), free(plan), ft_fprintf(2, PLAN_ORI), FAIL);
+// 	if (check_rgb(ptr[2]))
+// 		return (ft_free_split(ptr), FAIL);
+// 	plan->color = atorgb(ptr[2]);
+// 	if (objadd_front(&scn->objects, plan, PL, plan->color))
+// 		return (ft_free_split(ptr), free(plan), FAIL);
+// 	return (ft_free_split(ptr), SUCCESS);
+// }
 
 int	parse_pl(char *line, t_scene *scn)
 {
@@ -25,11 +54,13 @@ int	parse_pl(char *line, t_scene *scn)
 	if (!plan)
 		return (ft_fprintf(2, "Error\nbad malloc plan\n"), FAIL);
 	ptr = ft_split(line, ' ');
+	plan->pos = set_vec(0, 0, 0);
+	plan->rotate = set_vec(0, 0, 0);
 	if (!ptr)
 		return (free(plan), ft_fprintf(2, "Error\nbad malloc plan\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
 		return (ft_free_split(ptr), ft_fprintf(2, "Error\nplan pos\n"), FAIL);
-	get_floats(ptr[0], &plan->pos, 'P');
+	get_floats(ptr[0], &plan->translate, 'P');
 	if (check_fformat(&i, &commas, ptr[1])
 		|| get_floats(ptr[1], &plan->orientation, 'O'))
 		return (ft_free_split(ptr), free(plan), ft_fprintf(2, PLAN_ORI), FAIL);
