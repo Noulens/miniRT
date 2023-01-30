@@ -65,7 +65,7 @@ typedef struct s_ray
 typedef struct s_inter_c
 {
 	t_vec3	v[8];
-	float	quad[7];
+	float	quad[9];
 	t_ray	*raycap;
 	float	*dist;
 }	t_inter_c;

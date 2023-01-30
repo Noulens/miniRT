@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "render.h"
 
 void	hit_normal_co(t_surfaceinfo *info, t_stdobj *obj)

@@ -14,7 +14,7 @@
 
 static void	put_zero(int prec, int fd, int mode)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (prec == 0)
@@ -87,8 +87,8 @@ static int	ft_recursive_power(int n, int power)
 void	ft_putfloat_fd(float x, int precision, int fd)
 {
 	long	n;
-	int 	pow;
-	int 	len;
+	int		pow;
+	int		len;
 
 	pow = ft_recursive_power(10, precision);
 	x *= pow;

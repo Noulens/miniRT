@@ -1,6 +1,14 @@
-//
-// Created by waxxy on 26/01/23.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   copy_paste.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnoulens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/30 19:02:42 by tnoulens          #+#    #+#             */
+/*   Updated: 2023/01/30 19:02:47 by tnoulens         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "interaction.h"
 
@@ -106,8 +114,8 @@ int	copy_sp(t_scene *scn, const int tgt)
 
 int	copy_paste(t_scene *scn)
 {
-	int tgt;
-	int res;
+	int	tgt;
+	int	res;
 
 	tgt = scn->target;
 	res = SUCCESS;

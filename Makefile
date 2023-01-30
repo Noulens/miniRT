@@ -91,6 +91,7 @@ SRCS_B		=	$(addprefix srcs/,									\
 												shader_common.c		\
 												shader_bonus.c		\
 												intersection.c		\
+												inter_co_bonus.c	\
 												inter_cyl_2.c		\
                                                 hit_normal.c		\
                                                 hit_normal_bonus.c)	\
