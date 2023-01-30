@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:32:44 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/26 09:41:44 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:51:29 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	init_intersect_fun(t_func *inter)
 {
 	(*inter)[0] = intersect_sphere;
 	(*inter)[1] = intersect_cylinder;
-	(*inter)[2] = intersect_plane;
+	(*inter)[2] = intersect_plane_new;
 	if (BONUS == TRUE)
 		(*inter)[3] = intersect_cone;
 }

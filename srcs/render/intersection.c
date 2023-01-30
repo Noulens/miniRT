@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 05:59:59 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/30 21:49:44 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:50:44 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	intersect_sphere(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	return (intersect_sphere2(tca, thc, hit_distance));
 }
 
-int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
+int	intersect_plane_new(t_ray ray, t_stdobj *tmp, float *hit_distance)
 {
 	t_pl	*plane;
 	t_vec3	plane_n;
@@ -70,6 +70,27 @@ int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
 	if (denom != 0)
 	{
 		intersect_pos = vec_sub(plane->translate, ray.origin);
+		dist_btw_cam_planeinter = vec_dot(intersect_pos, plane_n) / denom;
+		*hit_distance = dist_btw_cam_planeinter;
+		return (dist_btw_cam_planeinter >= 0);
+	}
+	return (0);
+}
+
+int	intersect_plane(t_ray ray, t_stdobj *tmp, float *hit_distance)
+{
+	t_pl	*plane;
+	t_vec3	plane_n;
+	t_vec3	intersect_pos;
+	float	denom;
+	float	dist_btw_cam_planeinter;
+
+	plane = (t_pl *)tmp->obj;
+	plane_n = plane->orientation;
+	denom = vec_dot(plane_n, ray.dir);
+	if (denom != 0)
+	{
+		intersect_pos = vec_sub(plane->pos, ray.origin);
 		dist_btw_cam_planeinter = vec_dot(intersect_pos, plane_n) / denom;
 		*hit_distance = dist_btw_cam_planeinter;
 		return (dist_btw_cam_planeinter >= 0);

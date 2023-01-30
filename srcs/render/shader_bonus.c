@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/27 09:31:36 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:29:36 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,26 @@ float	calcule_sphere_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 
 float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 {
-	float	pattern;
-	int		scale_u;
-	int		scale_v;
+	float		pattern;
+	int			scale_v;
+	int			scale_u;
+	float		u;
+	float		v;
 
-	scale_u = 1000;
-	scale_v = 1000;
-	(void) obj_color;
-	pattern = cos(to_radian(info->hit_point.z * scale_v)) * \
-	sin(to_radian(info->hit_point.x * scale_u));
-	pattern += 0.5;
+	u = info->hit_uv.x;
+	v = info->hit_uv.y;
+	scale_u = 1;
+	scale_v = 1;
+	pattern = (modulo(u * scale_u) > 0.5f)
+			^ (modulo(v * scale_v) > 0.5f);
 	if (pattern >= 0.5f)
 		pattern = 1;
 	if (pattern < 0.5f)
-		pattern = 0;
-	return (pattern);
+	{
+		pattern = 1;
+		*obj_color = vec_color(ft_trgb(255, 255, 255, 255));
+	}
+	return (1);
 }
 
 // float	calcule_cyl_pattern(t_scene *s, int c_obj, t_surfaceinfo *info, t_vec3 *obj_color)
