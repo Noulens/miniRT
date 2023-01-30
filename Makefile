@@ -30,6 +30,7 @@ SRCS		=	$(addprefix srcs/,									\
 					$(addprefix destroy/,		des_mlx.c)			\
 					$(addprefix math/,			vector3_simple.c	\
 												vector3.c			\
+												vector3_algo.c		\
 												matrix4.c			\
 												matrix4_2.c			\
 												inverse_matrix.c	\
@@ -69,6 +70,7 @@ SRCS_B		=	$(addprefix srcs/,									\
 					$(addprefix init/,			init.c)				\
 					$(addprefix destroy/,		des_mlx.c)			\
 					$(addprefix math/,			vector3_simple.c	\
+												vector3_algo.c		\
 												vector3.c			\
 												matrix4.c			\
 												matrix4_2.c			\

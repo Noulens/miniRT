@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 20:50:45 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/29 22:03:15 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/29 23:38:56 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,67 +100,3 @@ t_vec3	set_vec_point_dir(t_vec3 point, t_vec3 dir, float t)
 	v.z = point.z + (t * orient.z);
 	return (v);
 }
-
-	// t_vec3	orient1;
-	// t_vec3	orient2;
-	// t_vec3	point1;
-	// t_vec3	point2;
-	// t_vec3	intersect_point;
-	// // float	t;
-	// t_ray	ray1;
-	// t_ray	ray2;
-	// point1 = set_vec(3, 2, 4);
-	// orient1 = vec_normalize(set_vec(2, -1, 3));
-	// point2 = set_vec(1, 3, -2);
-	// orient2 = vec_normalize(set_vec(-6, 3, 0));
-
-	// ray1.origin = set_vec_point_dir(point1, orient1, 1.00);
-	// ray1.dir = set_vec_point_dir(point1, orient1, 2.00);
-	// ray2.origin = set_vec_point_dir(point2, orient2, 1.00);
-	// ray2.dir = set_vec_point_dir(point2, orient2, 2.00);
-	// if (query_intersection(ray1, ray2, &intersect_point))
-	// 	print_vec(&intersect_point);
-	// else
-	// 	printf("Not intersecting");
-/*
-		t_vec3	a = set_vec(1, 2, 3);
-		t_vec3	b = set_vec(1, 2, 3);
-		t_vec3	rot = set_vec(30, 20, 10);
-		t_vec3	vec_null;
-		t_matrix4	rot_m;
-
-		vec_null = set_vec(0, 0, 0);
-		rot_m = set_transform2(&vec_null, &rot);
-		matrix_vec_mult(rot_m, &a);
-		matrix_vec_mult(rot_m, &b);
-		printf("\nresult : %f %f %f\n", a.x, a.y, a.z);
-		rot_m = inverse(rot_m);
-		matrix_vec_mult(rot_m, &b);
-		printf("\nresult : %f %f %f\n", b.x, b.y, b.z);
-
-	t_vec3	a = set_vec(0, 1, 0);
-	t_vec3	b = set_vec(0.5, 0.5, 0);
-
-	t_vec3	axis;
-	float	angle;
-	float	dot;
-	t_vec3	ret;
-
-	printf("a : \n");
-	a = vec_normalize(a);
-	print_vec(&a);
-	b = vec_normalize(b);
-	printf("b : \n");
-	print_vec(&b);
-	printf("\n");
-	axis = vec_cross(vec_normalize(a), vec_normalize(b));
-	axis = vec_normalize(axis);
-	dot = vec_dot(vec_normalize(a), vec_normalize(b));
-	printf("dot(a, b) : %f\n", dot);
-	angle = acosf(vec_dot(vec_normalize(a), vec_normalize(b)));
-	// vec_null = set_vec(0, 0, 0);
-	printf("axis of rotation : %f %f %f\n", axis.x, axis.y, axis.z);
-	printf("angle(radian) between a, b : %f, (degree) : %f\n", angle, to_degree(angle));
-	ret = rotate_from_axis_angle(a, axis, angle);
-	printf("\nresult : %f %f %f\n", ret.x, ret.y, ret.z);
-*/
