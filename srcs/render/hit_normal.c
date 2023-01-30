@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/30 00:56:02 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 01:07:38 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,35 +69,23 @@ float	get_length_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit)
 
 void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 {
-	t_pl		*plane;
-	t_vec3		vec_null;
-	float		pattern;
-	int			scale_v;
-	int			scale_u;
-	float	u;
-	float	v;
+	t_pl	*plane;
+	t_vec3	vec_null;
 	t_vec3	axis_u;
 	t_vec3	axis_v;
 
-	scale_u = 700;
-	scale_v = 700;
-	pattern = 0;
 	plane = (t_pl *)obj->obj;
 	vec_null = set_vec(0.0, 0.0, 0.0);
-	info->hit_normal = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, set_vec(0, 1, 0));
-	axis_u = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, set_vec(1, 0, 0));
+	info->hit_normal = from_two_vec_do_rotation(set_vec(0, 1, 0), \
+	plane->orientation, set_vec(0, 1, 0));
+	axis_u = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, \
+	set_vec(1, 0, 0));
 	matrix_vec_mult(set_transform2(&vec_null, &plane->rotate), &axis_u);
-	axis_v = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, set_vec(0, 0, 1));
+	axis_v = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, \
+	set_vec(0, 0, 1));
 	matrix_vec_mult(set_transform2(&vec_null, &plane->rotate), &axis_v);
-	u = get_length_texture(plane, axis_u, axis_v, info->hit_point);
-	v = get_length_texture(plane, axis_v, axis_u, info->hit_point);
-	if (u != -1 || v != -1)
-		pattern = cos(to_radian(u * scale_u)) * sin(to_radian(v * scale_v));
-	pattern += 0.5;
-	if (pattern >= 0.5f)
-		info->hit_uv = set_vec(1, 1, 1);
-	if (pattern < 0.5f)
-		info->hit_uv = set_vec(0, 0, 0);
+	info->hit_uv.x = get_length_texture(plane, axis_u, axis_v, info->hit_point);
+	info->hit_uv.y = get_length_texture(plane, axis_v, axis_u, info->hit_point);
 }
 
 /*

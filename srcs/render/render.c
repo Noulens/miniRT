@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/27 09:09:04 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 01:12:54 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 {
 	t_ray			ray;
 	int				closest_obj;
-	int				hit_color;
 	t_surfaceinfo	info;
 
 	closest_obj = -1;
@@ -41,11 +40,10 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	{
 		get_surfaceinfo(&info, s->objtab[closest_obj], ray);
 		if (s->objtab[closest_obj]->objtp == 0 \
-		|| s->objtab[closest_obj]->objtp == 2 || s->objtab[closest_obj]->objtp == 1)
-		{
-			hit_color = shading(s, &info, closest_obj, inter);
-			my_mlx_pixel_put(s->ig, i, j, hit_color);
-		}
+		|| s->objtab[closest_obj]->objtp == 2 || \
+		s->objtab[closest_obj]->objtp == 1)
+			my_mlx_pixel_put(s->ig, i, j, \
+			shading(s, &info, closest_obj, inter));
 		else
 			my_mlx_pixel_put(s->ig, i, j, s->objtab[closest_obj]->metacolor);
 	}

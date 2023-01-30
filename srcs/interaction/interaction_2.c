@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:36:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/28 01:36:35 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/30 01:08:33 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,7 @@ static void	adjust_plan(t_stdobj *obj, int key, t_scene *scene)
 
 	pl = (t_pl *)obj;
 	(void) scene;
-	// pl->translate = set_vec(0, 0, 0);
-	// pl->rotate = set_vec(0, 0, 0);
 	do_transform_p(pl, key);
-	// set_transform(&pl->translate, &pl->rotate, scene);
-	// matrix_print(scene->fwtfm, 1);
-	// matrix_vec_mult(scene->fwtfm, &pl->pos);
-	// print_vec(&pl->pos);
 }
 
 int	modify_objects(void *param, int key)
