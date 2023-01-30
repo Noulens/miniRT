@@ -46,14 +46,13 @@ void	init_instructions(char *inst[4], char *x, char *y, char *z)
 	(inst)[3] = NULL;
 }
 
-t_vec3	put_debug_to_window_cy_co(t_scene *s, char *rot[4])
+void	put_debug_to_window_cy_co(t_scene *s, char *rot[4], t_vec3 *pos)
 {
-	t_vec3	pos;
 	int		i;
 
 	if (s->objtab[s->target - 1]->objtp == CY)
 	{
-		pos = ((t_cy *)s->objtab[s->target - 1]->obj)->pos;
+		*pos = ((t_cy *)s->objtab[s->target - 1]->obj)->pos;
 		s->norminettev = ((t_cy *)s->objtab[s->target - 1]->obj)->orientation;
 		i = ft_mlx_vec_out(s, 155, " Orientation ", rot);
 		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->diameter;
@@ -62,9 +61,12 @@ t_vec3	put_debug_to_window_cy_co(t_scene *s, char *rot[4])
 		i = ft_mlx_float_out(s, i + 20, "Height", "[ U ] - Height + [ I ]");
 		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cylindre");
 	}
-	else if (s->objtab[s->target - 1]->objtp == CO)
+	else if (BONUS == 1 && s->objtab[s->target - 1]->objtp == CO)
+	{
+		*pos = ((t_co *)s->objtab[s->target - 1]->obj)->pos;
 		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cone");
-	return (pos);
+		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cone");
+	}
 }
 
 void	put_debug_to_window_obj(t_scene *s, char *rot[4])
@@ -88,7 +90,7 @@ void	put_debug_to_window_obj(t_scene *s, char *rot[4])
 		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Plan");
 	}
 	else
-		pos = put_debug_to_window_cy_co(s, rot);
+		put_debug_to_window_cy_co(s, rot, &pos);
 	init_instructions((inst), "[  4  ] - X + [  6  ]", \
 	"[  2  ] - Y + [  8  ]", "[  9  ] - Z + [  7  ]");
 	s->norminettev = pos;
