@@ -41,6 +41,15 @@
 // 	return (ft_free_split(ptr), SUCCESS);
 // }
 
+void	init_vect_plan(t_pl *plan)
+{
+	plan->pos = set_vec(0, 0, 0);
+	plan->rotate = set_vec(0, 0, 0);
+	plan->u_axis = set_vec(INFINITY, INFINITY, INFINITY);
+	plan->v_axis = set_vec(INFINITY, INFINITY, INFINITY);
+	plan->hit_normal = set_vec(INFINITY, INFINITY, INFINITY);
+}
+
 int	parse_pl(char *line, t_scene *scn)
 {
 	int		i;
@@ -54,11 +63,6 @@ int	parse_pl(char *line, t_scene *scn)
 	if (!plan)
 		return (ft_fprintf(2, "Error\nbad malloc plan\n"), FAIL);
 	ptr = ft_split(line, ' ');
-	plan->pos = set_vec(0, 0, 0);
-	plan->rotate = set_vec(0, 0, 0);
-	plan->u_axis = set_vec(INFINITY, INFINITY, INFINITY);
-	plan->v_axis = set_vec(INFINITY, INFINITY, INFINITY);
-	plan->hit_normal = set_vec(INFINITY, INFINITY, INFINITY);
 	if (!ptr)
 		return (free(plan), ft_fprintf(2, "Error\nbad malloc plan\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
@@ -72,7 +76,7 @@ int	parse_pl(char *line, t_scene *scn)
 	plan->color = atorgb(ptr[2]);
 	if (objadd_front(&scn->objects, plan, PL, plan->color))
 		return (ft_free_split(ptr), free(plan), FAIL);
-	return (ft_free_split(ptr), SUCCESS);
+	return (ft_free_split(ptr), init_vect_plan(plan), SUCCESS);
 }
 
 int	parse_cy(char *line, t_scene *scn)
