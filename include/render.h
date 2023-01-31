@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:07:10 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 11:11:06 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 15:01:21 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray);
 void			init_disk(t_cy *cyl, t_vec3 *v, t_pl *cap, t_stdobj *capper);
 float			getdouble(t_ray *ray, const float *dist, const t_pl cap);
 void			get_inter_proj(t_ray *ray, t_vec3 *v, const float *quad);
-void			get_pointl_info(t_scene *s, t_surfaceinfo *i, t_vec3 *d, float *f);
+void			get_pointl_info(t_scene *s, t_surfaceinfo *i, t_vec3 *d, \
+float *f);
 int				shadow_vis(t_scene *s, t_func *f, t_surfaceinfo *i, t_vec3 d);
 int				isacap(t_cy *cyl, t_inter_c *ic, t_pl *cap, t_stdobj *capper);
 void			hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj);
@@ -43,5 +44,7 @@ void			hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj);
 void			hit_normal_co(t_surfaceinfo *info, t_stdobj *obj);
 int				intersect_plane_new(t_ray r, t_stdobj *t, float *hit);
 t_vec3			calcule_uv_point_plane(t_pl *pl, t_surfaceinfo *info);
+void			get_render_info(t_scene *s, t_surfaceinfo *i, \
+int c, t_material *m);
 
 #endif

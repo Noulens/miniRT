@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:38:24 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/31 11:11:06 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 15:08:00 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ void	get_pointl_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f)
 	r2 = vec_length(light_dir);
 	*dir = vec_normalize(light_dir);
 	*f = s->lamptab[s->k]->brightness / (4 * M_PI * r2);
+}
+
+void	get_render_info(t_scene *s, t_surfaceinfo *i, int c_obj, t_material *m)
+{
+	m->l_intensity = s->lamptab[s->k]->brightness;
+	m->obj_color = vec_color(s->objtab[c_obj]->metacolor);
+	get_pointl_info(s, i, &(m->l_dir), &m->l_intensity);
+	m->l_intensity *= s->lamp->exposure;
+	m->face_ratio = ft_max(0.0f, vec_dot(i->hit_normal, \
+	vec_scale(m->l_dir, -1)));
 }
