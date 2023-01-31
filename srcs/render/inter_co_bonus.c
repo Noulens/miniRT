@@ -68,7 +68,7 @@ static float	init_quadra_co(float*dist, t_co*cyl, t_ray*ray, t_inter_c*ic)
 	return ((*ic).quad[5]);
 }
 
-static void	cap(const t_co *cyl, t_pl *cap, t_inter_c *ic, t_stdobj *capper)
+static void	captst(const t_co *cyl, t_pl *cap, t_inter_c *ic, t_stdobj *capper)
 {
 	(*ic).quad[7] = INFINITY;
 	if (intersect_plane(*(*ic).raycap, capper, (*ic).dist))
@@ -97,7 +97,7 @@ int	intersect_cone(t_ray ray, t_stdobj *obj, float *dist)
 	if (init_quadra_co(dist, cyl, &ray, &ic) < 10e-6)
 		return (0);
 	init_diskcone(cyl, cyl->pos, &cap, &capper);
-	cap(cyl, &cap, &ic, &capper);
+	captst(cyl, &cap, &ic, &capper);
 	if (ic.quad[6] >= 10e-6)
 	{
 		if (ic.quad[7] < ic.quad[6])
