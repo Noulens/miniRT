@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/27 09:09:04 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 09:04:40 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_surfaceinfo	*get_surfaceinfo(t_surfaceinfo *info, t_stdobj *obj, t_ray ray)
 	if (obj->objtp == SP)
 		hit_normal_sphere(info, obj);
 	if (obj->objtp == PL)
-		hit_normal_plane(info, obj);
+		hit_normal_plane(info, (t_pl *)obj->obj);
 	if (obj->objtp == CY)
 		hit_normal_cyl(info, obj);
 	if (BONUS == 1 && obj->objtp == CO)

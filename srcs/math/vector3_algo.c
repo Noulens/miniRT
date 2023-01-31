@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 20:50:45 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/29 23:38:56 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 09:40:00 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,6 @@ t_vec3	get_contact_point(t_vec3 normal, t_vec3 planedot, t_vec3 a, t_vec3 b)
 	return (vec_add(a, tmp2));
 }
 
-int	vec_compt(t_vec3 a, t_vec3 b, int precision)
-{
-	int	x_same;
-	int	y_same;
-	int	z_same;
-
-	x_same = 0;
-	y_same = 0;
-	z_same = 0;
-	a = vec_scale(a, pow(10, precision));
-	b = vec_scale(b, pow(10, precision));
-	if (roundf(a.x) == roundf(b.x))
-		x_same = 1;
-	if (roundf(a.y) == roundf(b.y))
-		y_same = 1;
-	if (roundf(a.z) == roundf(b.z))
-		z_same = 1;
-	if (x_same && y_same && z_same)
-		return (1);
-	return (0);
-}
-
 int	query_intersection(t_ray ray1, t_ray ray2, t_vec3 *intersect_point)
 {
 	t_vec3	ret;
@@ -89,14 +67,42 @@ int	query_intersection(t_ray ray1, t_ray ray2, t_vec3 *intersect_point)
 	return (0);
 }
 
-t_vec3	set_vec_point_dir(t_vec3 point, t_vec3 dir, float t)
+t_vec3	opposite_direction(t_vec3 target1, t_vec3 origin2)
 {
-	t_vec3	v;
-	t_vec3	orient;
+	t_vec3	vec_null;
+	t_vec3	rot;
+	t_vec3	target2;
 
-	orient = vec_normalize(dir);
-	v.x = point.x + (t * orient.x);
-	v.y = point.y + (t * orient.y);
-	v.z = point.z + (t * orient.z);
-	return (v);
+	if (vec_compt(target1, set_vec(0, 0, 1), 2))
+		rot = set_vec(0, 180, 0);
+	if (vec_compt(target1, set_vec(0, -1, 0), 2))
+		rot = set_vec(0, 0, 180);
+	vec_null = set_vec(0, 0, 0);
+	target2 = set_vec(origin2.x, origin2.y, origin2.z);
+	matrix_vec_mult(set_transform2(&vec_null, &rot), &target2);
+	return (target2);
+}
+
+t_vec3	from_two_vec_do_rotation(t_vec3 origin1, t_vec3 target1, t_vec3 origin2)
+{
+	float	angle;
+	t_vec3	perpendicular_axis;
+	t_vec3	target2;
+
+	if (vec_compt(origin1, target1, 2))
+		return (origin2);
+	origin1 = vec_normalize(origin1);
+	target1 = vec_normalize(target1);
+	perpendicular_axis = vec_cross(origin1, vec_normalize(target1));
+	if (vec_length(perpendicular_axis) != 0)
+	{
+		perpendicular_axis = vec_normalize(perpendicular_axis);
+		angle = acosf(vec_dot(origin1, vec_normalize(target1)));
+		if (origin2.x == 0 && origin2.y == 0 && origin2.z == 0)
+			return (target1);
+		target2 = rotate_from_axis_angle(origin2, perpendicular_axis, angle);
+		return (target2);
+	}
+	target2 = opposite_direction(target1, origin2);
+	return (target2);
 }

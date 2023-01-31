@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/31 01:51:34 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 09:25:46 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 	v = info->hit_uv.y;
 	scale_u = 0.5;
 	scale_v = 0.5;
-	pattern = (modulo(u * scale_u) > 0.5f)
-			^ (modulo(v * scale_v) > 0.5f);
+	pattern = (modulo(u * scale_u) > 0.5f) ^ (modulo(v * scale_v) > 0.5f);
 	if (pattern >= 0.5f)
 		pattern = 1;
 	if (pattern < 0.5f)

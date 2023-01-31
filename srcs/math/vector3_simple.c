@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3_simple.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 07:16:47 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 14:23:09 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/31 09:40:08 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,36 @@ t_vec3	set_vec(float x, float y, float z)
 	return (new);
 }
 
-t_vec3	vec_add(t_vec3 a, t_vec3 b)
+int	vec_compt(t_vec3 a, t_vec3 b, int precision)
 {
-	return (set_vec(a.x + b.x, a.y + b.y, a.z + b.z));
+	int	x_same;
+	int	y_same;
+	int	z_same;
+
+	x_same = 0;
+	y_same = 0;
+	z_same = 0;
+	a = vec_scale(a, pow(10, precision));
+	b = vec_scale(b, pow(10, precision));
+	if (roundf(a.x) == roundf(b.x))
+		x_same = 1;
+	if (roundf(a.y) == roundf(b.y))
+		y_same = 1;
+	if (roundf(a.z) == roundf(b.z))
+		z_same = 1;
+	if (x_same && y_same && z_same)
+		return (1);
+	return (0);
 }
 
-t_vec3	vec_sub(t_vec3 a, t_vec3 b)
+t_vec3	set_vec_point_dir(t_vec3 point, t_vec3 dir, float t)
 {
-	return (set_vec(a.x - b.x, a.y - b.y, a.z - b.z));
-}
+	t_vec3	v;
+	t_vec3	orient;
 
-t_vec3	vec_mult(t_vec3 a, t_vec3 b)
-{
-	return (set_vec(a.x * b.x, a.y * b.y, a.z * b.z));
-}
-
-t_vec3	vec_scale(t_vec3 a, float b)
-{
-	return (set_vec(a.x * b, a.y * b, a.z * b));
+	orient = vec_normalize(dir);
+	v.x = point.x + (t * orient.x);
+	v.y = point.y + (t * orient.y);
+	v.z = point.z + (t * orient.z);
+	return (v);
 }

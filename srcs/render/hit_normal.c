@@ -6,50 +6,11 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 02:15:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 09:34:57 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-
-t_vec3	from_two_vec_do_rotation(t_vec3 origin1, t_vec3 target1, t_vec3 origin2)
-{
-	float	angle;
-	float	dot;
-	t_vec3	perpendicular_axis;
-	t_vec3	target2;
-	t_vec3	vec_null;
-	t_vec3	rot;
-
-	(void)dot;
-	if (vec_compt(origin1, target1, 2))
-		return (origin2);
-	origin1 = vec_normalize(origin1);
-	target1 = vec_normalize(target1);
-	perpendicular_axis = vec_cross(origin1, vec_normalize(target1));
-	dot = vec_dot(origin1, vec_normalize(target1));
-	if (vec_length(perpendicular_axis) != 0)
-	{
-		perpendicular_axis = vec_normalize(perpendicular_axis);
-		angle = acosf(vec_dot(origin1, vec_normalize(target1)));
-		if (origin2.x == 0 && origin2.y == 0 && origin2.z == 0)
-			return (target1);
-		target2 = rotate_from_axis_angle(origin2, perpendicular_axis, angle);
-		return (target2);
-	}
-	else
-	{
-		if (vec_compt(target1, set_vec(0, 0, 1), 2))
-			rot = set_vec(0, 180, 0);
-		if (vec_compt(target1, set_vec(0, -1, 0), 2))
-			rot = set_vec(0, 0, 180);
-
-	}
-	vec_null = set_vec(0, 0, 0);
-	target2 = set_vec(origin2.x, origin2.y, origin2.z);
-	matrix_vec_mult(set_transform2(&vec_null, &rot), &target2);
-	return (target2);
-}
 
 void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 {
@@ -63,7 +24,7 @@ void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 	info->hit_uv.z = 0;
 }
 
-float	get_length_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit, t_vec3 *inter_pt)
+t_vec3	get_length_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit)
 {
 	t_ray	ray1;
 	t_ray	ray2;
@@ -78,36 +39,38 @@ float	get_length_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit, t_vec3 *inter
 	ray2.dir = set_vec_point_dir(point, vec_normalize(b), 2.00);
 	if (query_intersection(ray1, ray2, &intersect_point))
 	{
-		*inter_pt = intersect_point;
-		return (vec_length(intersect_point));
+		return (intersect_point);
 	}
-	return (-1.0);
+	return (set_vec(0, 0, 0));
 }
 
-void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
+void	hit_normal_plane(t_surfaceinfo *info, t_pl *pl)
 {
-	t_pl	*plane;
 	t_vec3	vec_null;
-	t_vec3	axis_u;
-	t_vec3	axis_v;
+	t_vec3	u_axis;
+	t_vec3	v_axis;
 	t_vec3	u_point;
 	t_vec3	v_point;
 
-	plane = (t_pl *)obj->obj;
 	vec_null = set_vec(0.0, 0.0, 0.0);
-	info->hit_normal = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, set_vec(0, 1, 0));
-	axis_u = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, \
+	info->hit_normal = from_two_vec_do_rotation(set_vec(0, 1, 0), \
+	pl->orientation, set_vec(0, 1, 0));
+	u_axis = from_two_vec_do_rotation(set_vec(0, 1, 0), pl->orientation, \
 	set_vec(1, 0, 0));
-	matrix_vec_mult(set_transform2(&vec_null, &plane->rotate), &axis_u);
-	axis_v = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, \
+	matrix_vec_mult(set_transform2(&vec_null, &pl->rotate), &u_axis);
+	v_axis = from_two_vec_do_rotation(set_vec(0, 1, 0), pl->orientation, \
 	set_vec(0, 0, 1));
-	matrix_vec_mult(set_transform2(&vec_null, &plane->rotate), &axis_v);
-	info->hit_uv.x = get_length_texture(plane, axis_u, axis_v, info->hit_point, &u_point);
-	info->hit_uv.y = get_length_texture(plane, axis_v, axis_u, info->hit_point, &v_point);
-	if (vec_dot((u_point), (axis_u)) < 0)
-		info->hit_uv.y *= -1;
-	if (vec_dot((v_point), (axis_v)) < 0)
-		info->hit_uv.x *= -1;
+	matrix_vec_mult(set_transform2(&vec_null, &pl->rotate), &v_axis);
+	u_point = get_length_texture(pl, u_axis, v_axis, info->hit_point);
+	v_point = get_length_texture(pl, v_axis, u_axis, info->hit_point);
+	if (vec_dot((u_point), (u_axis)) < 0)
+		info->hit_uv.y = -1 * vec_length(v_point);
+	else
+		info->hit_uv.y = vec_length(v_point);
+	if (vec_dot((v_point), (v_axis)) < 0)
+		info->hit_uv.x = -1 * vec_length(u_point);
+	else
+		info->hit_uv.x = vec_length(u_point);
 }
 
 /*
