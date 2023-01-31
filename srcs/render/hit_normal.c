@@ -41,7 +41,8 @@ void	hit_uv_cyl(t_surfaceinfo *info, t_cy *cyl)
 	float	angle;
 	t_vec3	vec_null;
 	t_vec3	inv_rotate;
-	// t_vec3	middle_dot = vec_sub(info->hit_point, vec_scale(vec_scale(info->hit_normal, -1), cyl->diameter / 2));
+	// t_vec3	middle_dot = vec_sub(info->hit_point, \
+ 	vec_scale(vec_scale(info->hit_normal, -1), cyl->diameter / 2));
 
 	vec_null = set_vec(0, 0, 0);
 	inv_rotate = vec_scale(cyl->rotate, -1);
@@ -86,8 +87,18 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 void	hit_normal_co(t_surfaceinfo *info, t_stdobj *obj)
 {
 	t_co	*co;
+	t_vec3	res;
+	float	angle;
 
 	co = (t_co *)obj->obj;
-	(void)co;
-	(void)info;
+	if (co->height)
+	{
+		angle = atanf(co->rad / co->height);
+		res = vec_sub(info->hit_point, co->pos);
+		info->hit_normal = vec_sub(res, vec_scale(co->orientation, \
+		(vec_length(res) / cosf(angle))));
+		info->hit_normal = vec_normalize(info->hit_normal);
+	}
+	else
+		info->hit_normal = vec_scale(co->orientation, -1.0f);
 }
