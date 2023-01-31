@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/30 23:37:29 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 01:44:44 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,24 @@ void	hit_normal_sphere(t_surfaceinfo *info, t_stdobj *obj)
 	info->hit_uv.z = 0;
 }
 
-float	get_length_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit)
+float	get_length_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit, t_vec3 *inter_pt)
 {
 	t_ray	ray1;
 	t_ray	ray2;
 	t_vec3	intersect_point;
-	t_vec3	tmp;
+	t_vec3	point;
 
-	tmp = vec_sub(pl->translate, set_vec(0, 0, 0));
-	ray1.origin = set_vec_point_dir(tmp, vec_normalize(a), 1.00);
-	ray1.dir = set_vec_point_dir(tmp, vec_normalize(a), 2.00);
-	tmp = vec_sub(hit, set_vec(0, 0, 0));
-	ray2.origin = set_vec_point_dir(tmp, vec_normalize(b), 1.00);
-	ray2.dir = set_vec_point_dir(tmp, vec_normalize(b), 2.00);
+	point = pl->translate;
+	ray1.origin = set_vec_point_dir(point, vec_normalize(a), 1.00);
+	ray1.dir = set_vec_point_dir(point, vec_normalize(a), 2.00);
+	point = hit;
+	ray2.origin = set_vec_point_dir(point, vec_normalize(b), 1.00);
+	ray2.dir = set_vec_point_dir(point, vec_normalize(b), 2.00);
 	if (query_intersection(ray1, ray2, &intersect_point))
+	{
+		*inter_pt = intersect_point;
 		return (vec_length(vec_sub(intersect_point, pl->translate)));
+	}
 	return (-1.0);
 }
 
@@ -87,6 +90,8 @@ void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 	t_vec3	vec_null;
 	t_vec3	axis_u;
 	t_vec3	axis_v;
+	t_vec3	u_point;
+	t_vec3	v_point;
 
 	plane = (t_pl *)obj->obj;
 	vec_null = set_vec(0.0, 0.0, 0.0);
@@ -97,8 +102,12 @@ void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 	axis_v = from_two_vec_do_rotation(set_vec(0, 1, 0), plane->orientation, \
 	set_vec(0, 0, 1));
 	matrix_vec_mult(set_transform2(&vec_null, &plane->rotate), &axis_v);
-	info->hit_uv.x = get_length_texture(plane, axis_u, axis_v, info->hit_point);
-	info->hit_uv.y = get_length_texture(plane, axis_v, axis_u, info->hit_point);
+	info->hit_uv.x = get_length_texture(plane, axis_u, axis_v, info->hit_point, &u_point);
+	info->hit_uv.y = get_length_texture(plane, axis_v, axis_u, info->hit_point, &v_point);
+	if (vec_dot((u_point), (axis_u)) < 0)
+		info->hit_uv.x *= -1;
+	if (vec_dot((v_point), (axis_v)) > 0)
+		info->hit_uv.y *= -1;
 }
 
 /*
