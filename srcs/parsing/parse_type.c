@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:12:13 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/27 09:50:43 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 15:30:34 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	get_infos_c(char *line, t_scene *scn)
 	char	**ptr;
 
 	scn->cam.translate = set_vec(0, 0, 0);
+	scn->cam.pos = set_vec(0, 0, 0);
+	scn->cam.rotate = set_vec(0, 0, 0);
 	if (count_element(line) != 3)
 		return (ft_fprintf(2, "Error\nin C data, bad elements nb\n"), FAIL);
 	ptr = ft_split(line, ' ');
