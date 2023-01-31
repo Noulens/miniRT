@@ -32,10 +32,8 @@ int	check_rgb(char *str)
 		i++;
 	if (i > 11)
 		return (ft_fprintf(2, "Error\nrgb not valid\n"), FAIL);
-	if (str[i])
-		++i;
-	while (str[i++] != '\0')
-		if (!ft_isspace(str[i]))
+	while (str[i] != '\0')
+		if (!ft_isspace(str[i++]))
 			return (ft_fprintf(2, "Error\nrgb not valid\n"), FAIL);
 	return (rgb_range_checker(str));
 }
@@ -146,19 +144,19 @@ int	get_infos_l(char *line, t_scene *scn)
 		return (ft_fprintf(2, "Error\nbadmem\n"), FAIL);
 	ptr = ft_split(line, ' ');
 	if (!ptr)
-		return (lpdes_l(scn->lamp), ft_fprintf(2, "Error\nbadmem\n"), FAIL);
+		return (ft_fprintf(2, "Error\nbadmem\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
-		return (lpdes_l(scn->lamp), ft_free_split(ptr), ft_fprintf(2, FFL), 1);
+		return (ft_free_split(ptr), ft_fprintf(2, FFL), 1);
 	get_floats(ptr[0], &scn->lamp->pos, 'L');
 	if (check_float_nb(ptr[1]))
-		return (lpdes_l(scn->lamp), ft_free_split(ptr), FAIL);
+		return ( ft_free_split(ptr), FAIL);
 	scn->lamp->brightness = ft_atof(ptr[1]);
 	if (float_range_checker(scn->lamp->brightness, 0.0f, 1.0f, TRUE) == FALSE)
-		return (lpdes_l(scn->lamp), ft_free_split(ptr),
+		return (ft_free_split(ptr),
 			ft_fprintf(2, "Error\nin L data\n"), FAIL);
 	if (check_rgb(ptr[2]) == SUCCESS)
 		scn->lamp->color = atorgb(ptr[2]);
 	else
-		return (lpdes_l(scn->lamp), ft_free_split(ptr), FAIL);
+		return (ft_free_split(ptr), FAIL);
 	return (ft_free_split(ptr), SUCCESS);
 }

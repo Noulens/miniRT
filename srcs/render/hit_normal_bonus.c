@@ -12,13 +12,6 @@
 
 #include "render.h"
 
-void	hit_normal_co(t_surfaceinfo *info, t_stdobj *obj)
-{
-	(void)info;
-	(void)obj;
-	return ;
-}
-
 t_vec3	get_len_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit)
 {
 	t_ray	ray1;

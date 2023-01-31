@@ -38,6 +38,10 @@ int	check_int_part(int *i, int *commas, char *line)
 {
 	if (line[*i] == '-')
 		++*i;
+	if (!ft_isdigit(line[*i]))
+	{
+		return (ft_fprintf(2, "Error\nnot a good coord format\n"), FAIL);
+	}
 	while (line[*i] != '.' && line[*i] != ',')
 	{
 		if (!ft_isdigit(line[*i]))

@@ -82,3 +82,12 @@ void	hit_normal_cyl(t_surfaceinfo *info, t_stdobj *obj)
 		info->hit_normal = vec_normalize(vec_sub(info->hit_point, pt));
 	}
 }
+
+void	hit_normal_co(t_surfaceinfo *info, t_stdobj *obj)
+{
+	t_co	*co;
+
+	co = (t_co *)obj->obj;
+	(void)co;
+	(void)info;
+}

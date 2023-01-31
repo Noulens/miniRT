@@ -12,55 +12,59 @@
 
 #include "interaction.h"
 
-static void	rotate_co(t_co *co, int key)
+static void	rotate_co(t_co *cy, int key)
 {
-	if (key == KEY_UP)
-		co->rotate.y = 1.9f;
-	else if (key == KEY_DOWN)
-		co->rotate.y = -1.9f;
-	else if (key == NUMPAD_PLUS)
-		co->rotate.z = 1.9f;
-	else if (key == NUMPAD_MINUS)
-		co->rotate.z = -1.9f;
-	else if (key == KEY_LEFT)
-		co->rotate.x = 1.9f;
-	else if (key == KEY_RIGHT)
-		co->rotate.x = -1.9f;
+	if (key == KEY_0)
+		cy->rotate.y = 1.9f;
+	else if (key == KEY_9)
+		cy->rotate.y = -1.9f;
+	else if (key == KEY_PLUS)
+		cy->rotate.z = 1.9f;
+	else if (key == KEY_MINUS)
+		cy->rotate.z = -1.9f;
+	else if (key == KEY_8)
+		cy->rotate.x = 1.9f;
+	else if (key == KEY_7)
+		cy->rotate.x = -1.9f;
 }
 
-static void	do_transform_co(t_co *co, int key)
+static void	do_transform_co(t_co *cy, int key)
 {
-	if (key == 111)
-		co->rad -= 0.5f;
+	if (key == 111 && (cy->rad - 0.5f > 0))
+		cy->rad -= 0.5f;
 	else if (key == 112)
-		co->rad += 0.5f;
-	else if (key == 65431)
-		co->translate.y += 0.5f;
-	else if (key == 65433)
-		co->translate.y -= 0.5f;
-	else if (key == 65430)
-		co->translate.x -= 0.5f;
-	else if (key == 65432)
-		co->translate.x += 0.5f;
-	else if (key == 65429)
-		co->translate.z += 0.5f;
-	else if (key == 65434)
-		co->translate.z -= 0.5f;
+		cy->rad += 0.5f;
+	else if (key == 117 && (cy->height - 0.5f >= 0))
+		cy->height -= 0.5f;
+	else if (key == 105)
+		cy->height += 0.5f;
+	else if (key == NUMPAD_8)
+		cy->translate.y += 0.5f;
+	else if (key == NUMPAD_2)
+		cy->translate.y -= 0.5f;
+	else if (key == NUMPAD_4)
+		cy->translate.x -= 0.5f;
+	else if (key == NUMPAD_6)
+		cy->translate.x += 0.5f;
+	else if (key == NUMPAD_7)
+		cy->translate.z += 0.5f;
+	else if (key == NUMPAD_9)
+		cy->translate.z -= 0.5f;
 	else
-		rotate_co(co, key);
+		rotate_co(cy, key);
 }
 
 void	adjust_cone(t_stdobj *obj, int key, t_scene *scene)
 {
-	t_co	*co;
+	t_co	*cy;
 
-	co = (t_co *)obj;
-	co->translate = set_vec(0, 0, 0);
-	co->rotate = set_vec(0, 0, 0);
-	do_transform_co(co, key);
-	do_orientation(key, &co->orientation);
-	set_transform(&co->translate, &co->rotate, scene);
+	cy = (t_co *)obj;
+	cy->translate = set_vec(0, 0, 0);
+	cy->rotate = set_vec(0, 0, 0);
+	do_transform_co(cy, key);
+	do_orientation(key, &cy->orientation);
+	set_transform(&cy->translate, &cy->rotate, scene);
 	matrix_print(scene->fwtfm, 1);
-	matrix_vec_mult(scene->fwtfm, &co->pos);
-	print_vec(&co->pos);
+	matrix_vec_mult(scene->fwtfm, &cy->pos);
+	print_vec(&cy->pos);
 }

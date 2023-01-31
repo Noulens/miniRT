@@ -42,15 +42,8 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	if (closest_obj != -1)
 	{
 		get_surfaceinfo(&info, s->objtab[closest_obj], ray);
-		if (s->objtab[closest_obj]->objtp == PL \
-		|| s->objtab[closest_obj]->objtp == CY || \
-		s->objtab[closest_obj]->objtp == SP)
-		{
-			hit_color = shading(s, &info, closest_obj, inter);
-			my_mlx_pixel_put(s->ig, i, j, hit_color);
-		}
-		else
-			my_mlx_pixel_put(s->ig, i, j, s->objtab[closest_obj]->metacolor);
+		hit_color = shading(s, &info, closest_obj, inter);
+		my_mlx_pixel_put(s->ig, i, j, hit_color);
 	}
 	else
 		my_mlx_pixel_put(s->ig, i, j, s->bg_color);
