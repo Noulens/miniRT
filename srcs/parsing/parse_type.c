@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:12:13 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 15:30:34 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 19:54:24 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int	get_infos_l(char *line, t_scene *scn)
 		return (ft_free_split(ptr), ft_fprintf(2, FFL), 1);
 	get_floats(ptr[0], &scn->lamp->pos, 'L');
 	if (check_float_nb(ptr[1]))
-		return ( ft_free_split(ptr), FAIL);
+		return (ft_free_split(ptr), FAIL);
 	scn->lamp->brightness = ft_atof(ptr[1]);
 	if (float_range_checker(scn->lamp->brightness, 0.0f, 1.0f, TRUE) == FALSE)
 		return (ft_free_split(ptr),
