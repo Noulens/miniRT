@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/30 23:29:36 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 01:51:34 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ float	calcule_sphere_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 {
 	float		pattern;
-	int			scale_v;
-	int			scale_u;
+	float		scale_v;
+	float		scale_u;
 	float		u;
 	float		v;
 
 	u = info->hit_uv.x;
 	v = info->hit_uv.y;
-	scale_u = 1;
-	scale_v = 1;
+	scale_u = 0.5;
+	scale_v = 0.5;
 	pattern = (modulo(u * scale_u) > 0.5f)
 			^ (modulo(v * scale_v) > 0.5f);
 	if (pattern >= 0.5f)

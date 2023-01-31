@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 01:44:44 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 02:15:09 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,16 @@ float	get_length_texture(t_pl *pl, t_vec3 a, t_vec3 b, t_vec3 hit, t_vec3 *inter
 	t_vec3	intersect_point;
 	t_vec3	point;
 
-	point = pl->translate;
+	point = set_vec(0, 0, 0);
 	ray1.origin = set_vec_point_dir(point, vec_normalize(a), 1.00);
 	ray1.dir = set_vec_point_dir(point, vec_normalize(a), 2.00);
-	point = hit;
+	point = vec_sub(hit, pl->translate);
 	ray2.origin = set_vec_point_dir(point, vec_normalize(b), 1.00);
 	ray2.dir = set_vec_point_dir(point, vec_normalize(b), 2.00);
 	if (query_intersection(ray1, ray2, &intersect_point))
 	{
 		*inter_pt = intersect_point;
-		return (vec_length(vec_sub(intersect_point, pl->translate)));
+		return (vec_length(intersect_point));
 	}
 	return (-1.0);
 }
@@ -105,9 +105,9 @@ void	hit_normal_plane(t_surfaceinfo *info, t_stdobj *obj)
 	info->hit_uv.x = get_length_texture(plane, axis_u, axis_v, info->hit_point, &u_point);
 	info->hit_uv.y = get_length_texture(plane, axis_v, axis_u, info->hit_point, &v_point);
 	if (vec_dot((u_point), (axis_u)) < 0)
-		info->hit_uv.x *= -1;
-	if (vec_dot((v_point), (axis_v)) > 0)
 		info->hit_uv.y *= -1;
+	if (vec_dot((v_point), (axis_v)) < 0)
+		info->hit_uv.x *= -1;
 }
 
 /*
