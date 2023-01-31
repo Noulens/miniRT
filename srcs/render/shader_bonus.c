@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/31 11:21:42 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 14:57:32 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,36 +133,27 @@ float	calcule_plan_pattern(t_surfaceinfo *info, t_vec3 *obj_color)
 int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 {
 	t_material	mat;
-	float		light_intensity;
 	float		pattern;
-	int			vis;
 	int			i;
-	t_vec3		obj_color;
-	t_vec3		light_dir;
 
 	i = -1;
 	mat.result = set_vec(0, 0, 0);
 	while (++i < scene->num_lamps)
 	{
 		scene->k = i;
-		light_intensity = scene->lamptab[i]->brightness;
-		obj_color = vec_color(scene->objtab[c_obj]->metacolor);
-		get_pointl_info(scene, info, &light_dir, &light_intensity);
-		light_intensity *= scene->lamp->exposure;
-		vis = shadow_vis(scene, inter, info, light_dir);
-		mat.face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, \
-		vec_scale(light_dir, -1)));
+		get_render_info(scene, info, c_obj, &mat);
+		mat.vis = shadow_vis(scene, inter, info, mat.l_dir);
 		pattern = 1;
 		if (scene->objtab[c_obj]->objtp == SP)
-			pattern = calcule_sphere_pattern(info, &obj_color);
+			pattern = calcule_sphere_pattern(info, &mat.obj_color);
 		if (scene->objtab[c_obj]->objtp == PL)
-			pattern = calcule_plan_pattern(info, &obj_color);
+			pattern = calcule_plan_pattern(info, &mat.obj_color);
 		// if (scene->objtab[c_obj]->objtp == CY)
 			// pattern = calcule_cyl_pattern(scene, c_obj, info, &obj_color);
 		mat.diffuse = vec_scale(vec_scale(vec_color(scene->lamptab[i]->color), \
-						vis * light_intensity * pattern), mat.face_ratio);
-		mat.specular = calcule_specular(light_dir, info, vis, light_intensity);
-		mat.result = vec_add(vec_mult((vec_add(mat.diffuse, mat.specular)), obj_color), mat.result);
+						mat.vis * mat.l_intensity * pattern), mat.face_ratio);
+		mat.specular = calcule_specular(mat.l_dir, info, mat.vis, mat.l_intensity);
+		mat.result = vec_add(vec_mult((vec_add(mat.diffuse, mat.specular)), mat.obj_color), mat.result);
 	}
 	mat.ambient = vec_scale(vec_color(scene->alight.color), \
 	scene->alight.al);

@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 10:36:18 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 14:01:05 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,11 @@ typedef struct s_material
 	t_vec3	diffuse;
 	t_vec3	specular;
 	t_vec3	result;
+	t_vec3	obj_color;
 	float	face_ratio;
+	int		vis;
+	float	l_intensity;
+	t_vec3	l_dir;
 }	t_material;
 
 typedef struct s_stdobj
