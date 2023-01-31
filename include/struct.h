@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:47:21 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/26 09:41:10 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 10:36:18 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,9 @@ typedef struct s_plan
 	t_vec3	orientation;
 	t_vec3	translate;
 	t_vec3	rotate;
+	t_vec3	u_axis;
+	t_vec3	v_axis;
+	t_vec3	hit_normal;
 	int		color;
 }	t_pl;
 

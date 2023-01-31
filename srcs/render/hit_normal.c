@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 10:22:33 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 10:44:01 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,23 @@ void	hit_normal_plane(t_surfaceinfo *info, t_pl *pl)
 	t_vec3	u_point;
 	t_vec3	v_point;
 
+	u_axis = pl->u_axis;
+	v_axis = pl->v_axis;
 	vec_null = set_vec(0.0, 0.0, 0.0);
-	info->hit_normal = from_two_vec_do_rotation(set_vec(0, 1, 0), \
-	pl->orientation, set_vec(0, 1, 0));
+	info->hit_normal = pl->hit_normal;
+	// info->hit_normal = from_two_vec_do_rotation(set_vec(0, 1, 0), 
+	// pl->orientation, set_vec(0, 1, 0));
 	if (BONUS == 1)
 	{
-		u_axis = from_two_vec_do_rotation(set_vec(0, 1, 0), pl->orientation, \
-		set_vec(1, 0, 0));
-		matrix_vec_mult(set_transform2(&vec_null, &pl->rotate), &u_axis);
-		v_axis = from_two_vec_do_rotation(set_vec(0, 1, 0), pl->orientation, \
-		set_vec(0, 0, 1));
-		matrix_vec_mult(set_transform2(&vec_null, &pl->rotate), &v_axis);
+		if (vec_compt(u_axis, set_vec(INT_MAX, INT_MAX, INT_MAX), 1))
+		{
+			u_axis = from_two_vec_do_rotation(set_vec(0, 1, 0), pl->orientation, \
+			set_vec(1, 0, 0));
+			matrix_vec_mult(set_transform2(&vec_null, &pl->rotate), &u_axis);
+			v_axis = from_two_vec_do_rotation(set_vec(0, 1, 0), pl->orientation, \
+			set_vec(0, 0, 1));
+			matrix_vec_mult(set_transform2(&vec_null, &pl->rotate), &v_axis);
+		}
 		u_point = get_length_texture(pl, u_axis, v_axis, info->hit_point);
 		v_point = get_length_texture(pl, v_axis, u_axis, info->hit_point);
 		if (vec_dot((u_point), (u_axis)) < 0)
