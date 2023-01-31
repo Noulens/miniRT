@@ -80,7 +80,7 @@ int	ft_key(int key, void *param)
 		modify_objects((void *)param, key);
 	else if (key == KEY_T)
 		copy_paste(scn);
-	else if (key == KEY_Y && BONUS == TRUE)
+	else if (key == KEY_Y)
 		save_scene(scn);
 	clear_image(scn);
 	render(scn, scn->func_ptr);

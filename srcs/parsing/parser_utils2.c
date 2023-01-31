@@ -112,6 +112,8 @@ int	check_float_nb(char *line)
 	int	i;
 
 	i = 0;
+	if (line[i] == '-')
+		i++;
 	if (ft_strchr(line, '.') == NULL)
 		return (check_int_nb(i, line));
 	while (line[i] != '.')
