@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/31 09:25:46 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 11:21:42 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 		obj_color = vec_color(scene->objtab[c_obj]->metacolor);
 		get_pointl_info(scene, info, &light_dir, &light_intensity);
 		light_intensity *= scene->lamp->exposure;
-		vis = shadow_visibility(scene, inter, info, light_dir);
+		vis = shadow_vis(scene, inter, info, light_dir);
 		mat.face_ratio = ft_max(0.0f, vec_dot(info->hit_normal, \
 		vec_scale(light_dir, -1)));
 		pattern = 1;
@@ -167,11 +167,8 @@ int	shading(t_scene *scene, t_surfaceinfo *info, int c_obj, t_func *inter)
 	mat.ambient = vec_scale(vec_color(scene->alight.color), \
 	scene->alight.al);
 	mat.result = vec_scale(vec_add(mat.result, mat.ambient), 0.5f);
-	if (mat.result.x > 1)
-		mat.result.x = 1;
-	if (mat.result.y > 1)
-		mat.result.y = 1;
-	if (mat.result.z > 1)
-		mat.result.z = 1;
+	keep_between_zero_one(&mat.result.x);
+	keep_between_zero_one(&mat.result.y);
+	keep_between_zero_one(&mat.result.z);
 	return (int_color(mat.result));
 }

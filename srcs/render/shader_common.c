@@ -6,13 +6,13 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:38:24 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/23 18:37:54 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 11:11:06 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-int	shadow_visibility(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldir)
+int	shadow_vis(t_scene *s, t_func *inter, t_surfaceinfo *i, t_vec3 ldir)
 {
 	float	hit_dist;
 	int		vis;

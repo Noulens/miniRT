@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:46:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/31 10:36:37 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 11:28:35 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	do_transform_p(t_pl *pl, int key)
 		pl->translate.z -= 0.5f;
 	else
 		rotate_plan(pl, key);
-	pl->u_axis = set_vec(INT_MAX, INT_MAX, INT_MAX);
-	pl->v_axis = set_vec(INT_MAX, INT_MAX, INT_MAX);
-	pl->hit_normal = set_vec(INT_MAX, INT_MAX, INT_MAX);
+	pl->u_axis = set_vec(INFINITY, INFINITY, INFINITY);
+	pl->v_axis = set_vec(INFINITY, INFINITY, INFINITY);
+	pl->hit_normal = set_vec(INFINITY, INFINITY, INFINITY);
 }

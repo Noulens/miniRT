@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:32:56 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/31 09:04:40 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 11:26:10 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ int	compute_pixel(t_scene *s, int i, int j, t_func *inter)
 	{
 		get_surfaceinfo(&info, s->objtab[closest_obj], ray);
 		if (s->objtab[closest_obj]->objtp == PL \
-		|| s->objtab[closest_obj]->objtp == CY || s->objtab[closest_obj]->objtp == SP)
+		|| s->objtab[closest_obj]->objtp == CY || \
+		s->objtab[closest_obj]->objtp == SP)
 		{
 			hit_color = shading(s, &info, closest_obj, inter);
 			my_mlx_pixel_put(s->ig, i, j, hit_color);
 		}
 		else
-		{
 			my_mlx_pixel_put(s->ig, i, j, s->objtab[closest_obj]->metacolor);
-		}
 	}
 	else
 		my_mlx_pixel_put(s->ig, i, j, s->bg_color);

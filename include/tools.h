@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:44:04 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/23 14:27:30 by tnoulens         ###   ########.fr       */
+/*   Updated: 2023/01/31 11:17:01 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int		objadd_front_l(t_light **lst);
 void	lpdes_l(t_light *lst);
 int		objlstsize_l(t_light *lst);
 int		list_to_tab_l(t_scene *scn);
+void	keep_between_zero_one(float *f);
 
 #endif

@@ -50,6 +50,7 @@ SRCS		=	$(addprefix srcs/,									\
 												shader_common.c		\
 												shader.c			\
 												intersection.c		\
+												intersection_pl.c	\
 												inter_cyl_2.c		\
 												hit_normal.c)		\
 					$(addprefix tools/,			rgb_utils.c			\
@@ -95,6 +96,7 @@ SRCS_B		=	$(addprefix srcs/,									\
 												shader_common.c		\
 												shader_bonus.c		\
 												intersection.c		\
+												intersection_pl.c	\
 												inter_co_bonus.c	\
 												inter_cyl_2.c		\
                                                 hit_normal.c		\

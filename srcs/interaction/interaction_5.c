@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:13:43 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 10:47:03 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 11:20:16 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ void	do_transform_light(int keycode, t_scene *scene)
 		light->brightness += 0.1f;
 	else if (keycode == KEY_DOWN)
 		light->brightness -= 0.1;
-	if (light->brightness >= 1)
-		light->brightness = 1;
-	if (light->brightness <= 0)
-		light->brightness = 0;
+	keep_between_zero_one(&light->brightness);
 }
 
 int	find_light(t_scene *s, int keycode)
@@ -136,8 +133,7 @@ int	move_light(void *param, int keycode)
 			scene->alight.al += 0.1f;
 		if (keycode == KEY_DOWN)
 			scene->alight.al -= 0.1f;
-		if (scene->alight.al <= 0)
-			scene->alight.al = 0;
+		keep_between_zero_one(&scene->alight.al);
 	}
 	else if (scene->target_light != -1)
 		do_transform_light(keycode, scene);

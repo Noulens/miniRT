@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 16:32:49 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 10:36:23 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 11:28:35 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	parse_pl(char *line, t_scene *scn)
 	ptr = ft_split(line, ' ');
 	plan->pos = set_vec(0, 0, 0);
 	plan->rotate = set_vec(0, 0, 0);
-	plan->u_axis = set_vec(INT_MAX, INT_MAX, INT_MAX);
-	plan->v_axis = set_vec(INT_MAX, INT_MAX, INT_MAX);
-	plan->hit_normal = set_vec(INT_MAX, INT_MAX, INT_MAX);
+	plan->u_axis = set_vec(INFINITY, INFINITY, INFINITY);
+	plan->v_axis = set_vec(INFINITY, INFINITY, INFINITY);
+	plan->hit_normal = set_vec(INFINITY, INFINITY, INFINITY);
 	if (!ptr)
 		return (free(plan), ft_fprintf(2, "Error\nbad malloc plan\n"), FAIL);
 	if (check_fformat(&i, &commas, ptr[0]))
