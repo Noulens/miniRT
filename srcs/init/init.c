@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:22:52 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/02/01 04:50:23 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 09:51:14 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	scene_init(t_scene *s)
 	s->cam.focal_length = ((float)s->win_w / 2)
 		/ tanf(to_radian((s->cam.fov_w / 2)));
 	s->bg_color = ft_trgb(255, 0, 0, 0);
-	s->lamp->exposure = 50;
+	s->lamp->exposure = 20;
 	s->k = 0;
 	cam_init(s);
 }
@@ -43,6 +43,7 @@ void	scenevarinit(t_scene *s)
 	s->objtab = NULL;
 	s->lamp = NULL;
 	s->lamptab = NULL;
-	s->msg = "camera : [C], light : [L], object : click object, copy : [T], save param : [Y]";
+	s->msg = "camera : [C], light : [L], object : click object, \
+	copy : [T], save param : [Y]";
 	set_identity(&s->fwtfm);
 }

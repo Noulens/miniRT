@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:07:10 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 19:52:13 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 08:19:35 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ int				intersect_plane_new(t_ray r, t_stdobj *t, float *hit);
 t_vec3			calcule_uv_point_plane(t_pl *pl, t_surfaceinfo *info);
 void			get_render_info(t_scene *s, t_surfaceinfo *i, \
 int c, t_material *m);
-void			shader_bonus2(t_scene *scene, t_material *mat);
+void			keep_between_zero_one_vector(t_vec3 *v);
 
 #endif

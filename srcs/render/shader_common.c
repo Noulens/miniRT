@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 10:38:24 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/31 19:53:33 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 09:54:47 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,17 @@ void	get_pointl_info(t_scene *s, t_surfaceinfo *i, t_vec3 *dir, float *f)
 
 void	get_render_info(t_scene *s, t_surfaceinfo *i, int c_obj, t_material *m)
 {
-	m->l_intensity = s->lamptab[s->k]->brightness;
+	m->l_inten = s->lamptab[s->k]->brightness;
 	m->obj_color = vec_color(s->objtab[c_obj]->metacolor);
-	get_pointl_info(s, i, &(m->l_dir), &m->l_intensity);
-	m->l_intensity *= s->lamp->exposure;
+	get_pointl_info(s, i, &(m->l_dir), &m->l_inten);
+	m->l_inten *= s->lamp->exposure;
 	m->face_ratio = ft_max(0.0f, vec_dot(i->hit_normal, \
 	vec_scale(m->l_dir, -1)));
 }
 
-void	shader_bonus2(t_scene *scene, t_material *mat)
+void	keep_between_zero_one_vector(t_vec3 *v)
 {
-	mat->ambient = vec_scale(vec_color(scene->alight.color), \
-	scene->alight.al);
-	mat->result = vec_scale(vec_add(mat->result, mat->ambient), 0.5f);
-	keep_between_zero_one(&mat->result.x);
-	keep_between_zero_one(&mat->result.y);
-	keep_between_zero_one(&mat->result.z);
+	keep_between_zero_one(&v->x);
+	keep_between_zero_one(&v->y);
+	keep_between_zero_one(&v->z);
 }
