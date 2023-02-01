@@ -6,7 +6,7 @@
 /*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 07:23:37 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/18 20:45:10 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/01/31 15:40:17 by hyunah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	mtx_print_2(t_matrix4 *n)
 void	matrix_print(t_matrix4 n, int dir_flag)
 {
 	(void)dir_flag;
-	printf("------matrix-------\n");
+	ft_printf("------matrix-------\n");
 	ft_putfloat_fd(n.m[0][0], 2, 1);
 	ft_putchar_fd(' ', 1);
 	ft_putfloat_fd(n.m[0][1], 2, 1);
@@ -54,7 +54,7 @@ void	matrix_print(t_matrix4 n, int dir_flag)
 	ft_putfloat_fd(n.m[1][3], 2, 1);
 	ft_putchar_fd('\n', 1);
 	mtx_print_2(&n);
-	printf("------------------\n");
+	ft_printf("------------------\n");
 }
 
 void	matrix_vec_mult(t_matrix4 new, t_vec3 *vect)
