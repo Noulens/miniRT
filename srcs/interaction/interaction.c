@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyujung <hyujung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:34:48 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 16:09:37 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:16:37 by hyujung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	move_cam(void *param, int keycode)
 	return (0);
 }
 
-//ft_printf("%d\n", key);
 int	ft_key(int key, void *param)
 {
 	t_scene	*scn;
@@ -83,9 +82,9 @@ int	ft_key(int key, void *param)
 		save_scene(scn);
 	clear_image(scn);
 	render(scn, scn->func_ptr);
-	mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, \
-	scn->ig->img, 0, 0);
-	put_debug_to_window(scn->ig->mlx, scn->ig->win, scn);
+	mlx_put_image_to_window(scn->ig->mlx, scn->ig->win, scn->ig->img, 0, 0);
+	if (put_debug_to_window(scn->ig->mlx, scn->ig->win, scn))
+		return (ft_closebutton(param), 1);
 	return (0);
 }
 
@@ -110,7 +109,8 @@ int	on_click(int code, int x, int y, void *param)
 		}
 		mlx_put_image_to_window(sn->ig->mlx, sn->ig->win, \
 		sn->ig->img, 0, 0);
-		put_debug_to_window(sn->ig->mlx, sn->ig->win, sn);
+		if (put_debug_to_window(sn->ig->mlx, sn->ig->win, sn))
+			return (ft_closebutton(param), 1);
 	}
 	return (0);
 }

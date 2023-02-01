@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   debug_win_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyujung <hyujung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 08:05:32 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 10:38:59 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:12:57 by hyujung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interaction.h"
+
+void	free_four_str(char *a, char *b, char *c, char *d)
+{
+	free(a);
+	free(b);
+	free(c);
+	free(d);
+}
 
 char	*vec_to_string(t_vec3 vec)
 {
@@ -21,14 +29,21 @@ char	*vec_to_string(t_vec3 vec)
 	char	*ret;
 
 	x = ft_ftoa(vec.x, 3);
+	if (!x)
+		return (NULL);
 	y = ft_ftoa(vec.y, 3);
+	if (!y)
+		return (free(x), NULL);
 	z = ft_ftoa(vec.z, 3);
+	if (!z)
+		return (free(x), free(y), NULL);
 	tmp = ft_strjoinsep(x, y, " ");
+	if (!tmp)
+		return (free(x), free(y), free(z), NULL);
 	ret = ft_strjoinsep(tmp, z, " ");
-	free(x);
-	free(y);
-	free(z);
-	free(tmp);
+	if (!ret)
+		return (free_four_str(x, y, z, tmp), NULL);
+	free_four_str(x, y, z, tmp);
 	return (ret);
 }
 
@@ -43,7 +58,11 @@ int	ft_mlx_inst_out(t_scene *s, char *param, char *inst[4], int a)
 	gap = 15;
 	str = "----";
 	tmp = ft_strjoinsep(str, param, " ");
+	if (!tmp)
+		return (-1);
 	ret = ft_strjoinsep(tmp, str, " ");
+	if (!ret)
+		return (free(tmp), -1);
 	mlx_string_put(s->ig->mlx, s->ig->win, 10, a, -1, ret);
 	free(ret);
 	free(tmp);
@@ -62,7 +81,11 @@ int	ft_mlx_vec_out(t_scene *s, int i, char *param, char *inst[4])
 
 	gap = 15;
 	str = vec_to_string(s->norminettev);
+	if (!str)
+		return (-1);
 	a = ft_mlx_inst_out(s, param, inst, i);
+	if (a == -1)
+		return (free(str), -1);
 	mlx_string_put(s->ig->mlx, s->ig->win, 30, a + gap, -1, str);
 	free(str);
 	return (a + gap);
@@ -79,7 +102,11 @@ int	ft_mlx_float_out(t_scene *s, int i, char *param, char *inst)
 	new_inst[1] = NULL;
 	gap = 15;
 	str = ft_ftoa(s->norminettef, 1);
+	if (!str)
+		return (-1);
 	a = ft_mlx_inst_out(s, param, new_inst, i);
+	if (a == -1)
+		return (free(str), -1);
 	mlx_string_put(s->ig->mlx, s->ig->win, 30, a + gap, -1, str);
 	free(str);
 	return (a + gap);

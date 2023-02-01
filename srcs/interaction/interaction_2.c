@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyujung <hyujung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 20:36:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/30 21:49:54 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:09:15 by hyujung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,31 @@ int	modify_objects(void *param, int key)
 	else if (BONUS == 1 && scn->objtab[scn->target - 1]->objtp == CO)
 		adjust_cone(scn->objtab[scn->target - 1]->obj, key, scn);
 	return (0);
+}
+
+int	move_light(void *param, int keycode)
+{
+	t_scene	*scene;
+
+	scene = (t_scene *)param;
+	if (is_lightkey(keycode))
+	{
+		scene->target_light = find_light(scene, keycode);
+		if (scene->target_light == -1)
+			return (0);
+		return (0);
+	}
+	if (scene->target_light == 0)
+	{
+		if (keycode == KEY_UP)
+			scene->alight.al += 0.1f;
+		if (keycode == KEY_DOWN)
+			scene->alight.al -= 0.1f;
+		keep_between_zero_one(&scene->alight.al);
+	}
+	else if (scene->target_light != -1)
+		do_transform_light(keycode, scene);
+	else
+		ft_printf("target is -1\n");
+	return (1);
 }

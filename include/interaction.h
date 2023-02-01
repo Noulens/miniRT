@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyujung <hyujung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/26 11:52:29 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:29:25 by hyujung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,8 @@ int		is_objkey(int key);
 void	adjust_cone(t_stdobj *obj, int key, t_scene *scene);
 int		is_lightkey(int key);
 int		move_light(void *param, int keycode);
-void	put_debug_to_window(void *mlx, void *win, t_scene *scene);
+int		put_debug_to_window(void *mlx, void *win, t_scene *scene);
 char	*ft_ftoa(float a, int precision);
-void	put_debug_to_window(void *mlx, void *win, t_scene *s);
 char	*vec_to_string(t_vec3 vec);
 int		ft_mlx_inst_out(t_scene *s, char *param, char *inst[4], int a);
 int		ft_mlx_vec_out(t_scene *s, int i, char *p, char *t[4]);
@@ -84,7 +83,9 @@ void	save_plan(const t_scene *scn, int fd, int k);
 void	save_co(const t_scene *scn, int fd, int k);
 void	save_cy(const t_scene *scn, int fd, int k);
 void	save_sp(const t_scene *scn, int fd, int k);
-// int		ft_mlx_vec_out(t_scene *s, t_vec3 v, int i, int gap);
-// int		ft_mlx_float_out(t_scene *s, float f, int i, int gap);
+void	do_transform_light(int keycode, t_scene *scene);
+int		find_light(t_scene *s, int keycode);
+void	init_instructions(char *inst[4], char *x, char *y, char *z);
+int		put_debug_to_window_obj(t_scene *s, char *rot[4]);
 
 #endif

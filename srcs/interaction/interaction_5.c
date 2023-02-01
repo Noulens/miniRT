@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction_5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyujung <hyujung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:13:43 by hyunah            #+#    #+#             */
-/*   Updated: 2023/01/31 11:20:16 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:09:35 by hyujung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ char	*get_float(int precision, float a)
 	return (flo);
 }
 
-char	*ft_ftoa(float a, int precision)
+char	*get_int(float a)
 {
 	char	*integer;
-	char	*flo;
 	char	*ret;
 
 	ret = NULL;
@@ -57,11 +56,30 @@ char	*ft_ftoa(float a, int precision)
 		free(ret);
 	}
 	else
+	{
 		integer = ft_itoa((int)a);
+		if (!integer)
+			return (free(ret), NULL);
+	}
+	return (integer);
+}
+
+char	*ft_ftoa(float a, int precision)
+{
+	char	*integer;
+	char	*flo;
+	char	*ret;
+
+	ret = NULL;
+	integer = get_int(a);
+	if (!integer)
+		return (NULL);
 	flo = get_float(precision, a);
 	if (!flo)
-		return (NULL);
+		return (free(integer), NULL);
 	ret = ft_strjoinsep(integer, flo, ".");
+	if (!ret)
+		return (free(integer), free(flo), NULL);
 	return (free(integer), free(flo), ret);
 }
 
@@ -113,31 +131,4 @@ int	find_light(t_scene *s, int keycode)
 			return (i);
 	}
 	return (-1);
-}
-
-int	move_light(void *param, int keycode)
-{
-	t_scene	*scene;
-
-	scene = (t_scene *)param;
-	if (is_lightkey(keycode))
-	{
-		scene->target_light = find_light(scene, keycode);
-		if (scene->target_light == -1)
-			return (0);
-		return (0);
-	}
-	if (scene->target_light == 0)
-	{
-		if (keycode == KEY_UP)
-			scene->alight.al += 0.1f;
-		if (keycode == KEY_DOWN)
-			scene->alight.al -= 0.1f;
-		keep_between_zero_one(&scene->alight.al);
-	}
-	else if (scene->target_light != -1)
-		do_transform_light(keycode, scene);
-	else
-		ft_printf("target is -1\n");
-	return (1);
 }

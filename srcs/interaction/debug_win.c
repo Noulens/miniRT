@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   debug_win.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyujung <hyujung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 02:10:03 by  hyunah           #+#    #+#             */
-/*   Updated: 2023/01/31 11:04:56 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/01 19:02:02 by hyujung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interaction.h"
-
-void	put_debug_to_window_light(t_scene *s, char *trans[4])
-{
-	char	*t;
-	int		i;
-
-	mlx_string_put(s->ig->mlx, s->ig->win, 10, 50, -1, "Mode : Light");
-	if (s->target_light == -1)
-		mlx_string_put(s->ig->mlx, s->ig->win, 10, 60, -1, \
-		"Select light by num keypad. From 0 (Ambient) to Number of light(s)");
-	else if (s->target_light == 0)
-	{
-		s->norminettef = s->alight.al;
-		ft_mlx_float_out(s, 65, "Ambient", "[down] - Brightness + [up]");
-	}
-	else
-	{
-		t = ft_itoa(s->target_light);
-		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, t);
-		free(t);
-		s->norminettev = s->lamptab[s->target_light - 1]->pos;
-		i = ft_mlx_vec_out(s, 65, "Translate", trans);
-		s->norminettef = s->lamptab[s->target_light - 1]->brightness;
-		ft_mlx_float_out(s, i + 20, "Brightness", "[down] - Brightness + [up]");
-	}
-}
 
 void	init_instructions(char *inst[4], char *x, char *y, char *z)
 {
@@ -46,62 +20,70 @@ void	init_instructions(char *inst[4], char *x, char *y, char *z)
 	(inst)[3] = NULL;
 }
 
-void	put_debug_to_window_cy_co(t_scene *s, char *rot[4], t_vec3 *pos)
+int	put_debug_to_window_spotl(t_scene *s, char *trans[4])
 {
+	char	*t;
 	int		i;
 
-	if (s->objtab[s->target - 1]->objtp == CY)
-	{
-		*pos = ((t_cy *)s->objtab[s->target - 1]->obj)->pos;
-		s->norminettev = ((t_cy *)s->objtab[s->target - 1]->obj)->orientation;
-		i = ft_mlx_vec_out(s, 155, " Orientation ", rot);
-		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->diameter;
-		i = ft_mlx_float_out(s, i + 20, "Diameter", "[ O ] - Diameter + [ P ]");
-		s->norminettef = ((t_cy *)s->objtab[s->target - 1]->obj)->height;
-		i = ft_mlx_float_out(s, i + 20, "Height", "[ U ] - Height + [ I ]");
-		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cylindre");
-	}
-	else if (BONUS == 1 && s->objtab[s->target - 1]->objtp == CO)
-	{
-		*pos = ((t_co *)s->objtab[s->target - 1]->obj)->pos;
-		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cone");
-		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Cone");
-	}
+	t = ft_itoa(s->target_light);
+	if (!t)
+		return (1);
+	mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, t);
+	free(t);
+	s->norminettev = s->lamptab[s->target_light - 1]->pos;
+	i = ft_mlx_vec_out(s, 65, "Translate", trans);
+	if (i == -1)
+		return (1);
+	s->norminettef = s->lamptab[s->target_light - 1]->brightness;
+	i = ft_mlx_float_out(s, i + 20, "Brightness", "[down] - Brightness + [up]");
+	if (i == -1)
+		return (1);
+	return (0);
 }
 
-void	put_debug_to_window_obj(t_scene *s, char *rot[4])
+int	put_debug_to_window_light(t_scene *s, char *trans[4])
 {
-	t_vec3	pos;
-	char	*inst[4];
-
-	mlx_string_put(s->ig->mlx, s->ig->win, 10, 50, -1, "Mode : Object");
-	if (s->objtab[s->target - 1]->objtp == SP)
+	mlx_string_put(s->ig->mlx, s->ig->win, 10, 50, -1, "Mode : Light");
+	if (s->target_light == -1)
+		mlx_string_put(s->ig->mlx, s->ig->win, 10, 60, -1, \
+		"Select light by num keypad. From 0 (Ambient) to Number of light(s)");
+	else if (s->target_light == 0)
 	{
-		pos = ((t_sp *)s->objtab[s->target - 1]->obj)->pos;
-		s->norminettef = ((t_sp *)s->objtab[s->target - 1]->obj)->diameter;
-		ft_mlx_float_out(s, 155, "Diameter", "[ O ] - Diameter + [ P ]");
-		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Sphere");
-	}
-	else if (s->objtab[s->target - 1]->objtp == PL)
-	{
-		pos = ((t_pl *)s->objtab[s->target - 1]->obj)->translate;
-		s->norminettev = ((t_pl *)s->objtab[s->target - 1]->obj)->rotate;
-		ft_mlx_vec_out(s, 155, "Rotation", rot);
-		mlx_string_put(s->ig->mlx, s->ig->win, 100, 50, -1, "Plan");
+		s->norminettef = s->alight.al;
+		if (ft_mlx_float_out(s, 65, "Ambient", \
+		"[down] - Brightness + [up]") == -1)
+			return (1);
 	}
 	else
-		put_debug_to_window_cy_co(s, rot, &pos);
-	init_instructions((inst), "[  4  ] - X + [  6  ]", \
-	"[  2  ] - Y + [  8  ]", "[  9  ] - Z + [  7  ]");
-	s->norminettev = pos;
-	ft_mlx_vec_out(s, 65, "Translate", inst);
+	{
+		if (put_debug_to_window_spotl(s, trans))
+			return (1);
+	}
+	return (0);
 }
 
-void	put_debug_to_window(void *mlx, void *win, t_scene *s)
+int	put_debug_to_window_cam(t_scene *s, char *inst[2][4])
+{
+	int	i;
+
+	i = 0;
+	mlx_string_put(s->ig->mlx, s->ig->win, 10, 50, -1, "Mode : Camera");
+	s->norminettev = s->cam.translate;
+	i = ft_mlx_vec_out(s, 65, "Translate", inst[0]);
+	if (i == -1)
+		return (1);
+	s->norminettev = s->cam.rotate;
+	if (ft_mlx_vec_out(s, i + 20, "Rotate", inst[1]) == -1)
+		return (1);
+	return (0);
+}
+
+int	put_debug_to_window(void *mlx, void *win, t_scene *s)
 {
 	char	*inst[2][4];
-	int		i;
+	int		error;
 
+	error = 0;
 	mlx_string_put(mlx, win, 10, 10, -1, "MiniRT");
 	mlx_string_put(mlx, win, 10, 25, -1, s->msg);
 	init_instructions((inst[0]), "[  A  ] - X + [  D  ]", \
@@ -109,17 +91,14 @@ void	put_debug_to_window(void *mlx, void *win, t_scene *s)
 	init_instructions((inst[1]), "[right] - X + [ left]", \
 	"[ down] - Y + [  up ]", "[  -  ] - Z + [  +  ]");
 	if (s->target == -1)
-	{
-		mlx_string_put(mlx, win, 10, 50, -1, "Mode : Camera");
-		s->norminettev = s->cam.translate;
-		i = ft_mlx_vec_out(s, 65, "Translate", inst[0]);
-		s->norminettev = s->cam.rotate;
-		ft_mlx_vec_out(s, i + 20, "Rotate", inst[1]);
-	}
+		error = put_debug_to_window_cam(s, inst);
 	else if (s->target == -2)
-		put_debug_to_window_light(s, inst[0]);
+		error = put_debug_to_window_light(s, inst[0]);
 	else if (s->target == -3)
 		mlx_string_put(mlx, win, 10, 50, -1, "Mode : B G");
 	else
-		put_debug_to_window_obj(s, inst[1]);
+		error = put_debug_to_window_obj(s, inst[1]);
+	if (error)
+		return (1);
+	return (0);
 }
