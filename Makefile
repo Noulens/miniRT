@@ -87,8 +87,8 @@ SRCS_B		=	$(addprefix srcs/,									\
 												interaction_3.c		\
 												interaction_4.c		\
 												interaction_5.c		\
-												debug_win_utils.c	\
 												debug_win_obj.c		\
+												debug_win_utils.c	\
 												debug_win.c			\
 												adjust_cone_bonus.c	\
 												copy_paste.c		\
