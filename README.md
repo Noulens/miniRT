@@ -17,4 +17,6 @@ Run `make` in the root of the projet and launch as follows:
 
 - `filename.rt` -- the scene you want to display.
 
-Run `make bonus` to add the bonus features such Phong reflexion model, cones and texture mapping
+Run `make bonus` to add the bonus features such Phong reflexion model, cones and texture mapping:
+
+    ./miniRT_bonus <filename.rt>
