@@ -21,9 +21,8 @@ void	adjust_sphere(void *param, int keycode, t_scene *scene)
 	sp->rotate = set_vec(0, 0, 0);
 	do_transform_s(sp, keycode);
 	set_transform(&sp->translate, &sp->rotate, scene);
-	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &sp->pos);
-	print_vec(&sp->pos);
+	ft_fprintf(2, "Sphere adjustment ok\n");
 }
 
 static void	adjust_cylinder(t_stdobj *obj, int key, t_scene *scene)
@@ -36,9 +35,8 @@ static void	adjust_cylinder(t_stdobj *obj, int key, t_scene *scene)
 	do_transform_c(cy, key);
 	do_orientation(key, &cy->orientation);
 	set_transform(&cy->translate, &cy->rotate, scene);
-	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &cy->pos);
-	print_vec(&cy->pos);
+	ft_fprintf(2, "Cylinder adjustment ok\n");
 }
 
 static void	adjust_plan(t_stdobj *obj, int key, t_scene *scene)
@@ -48,6 +46,7 @@ static void	adjust_plan(t_stdobj *obj, int key, t_scene *scene)
 	pl = (t_pl *)obj;
 	(void)scene;
 	do_transform_p(pl, key);
+	ft_fprintf(2, "Plan adjustment ok\n");
 }
 
 int	modify_objects(void *param, int key)

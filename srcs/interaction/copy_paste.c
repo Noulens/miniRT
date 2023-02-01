@@ -137,5 +137,6 @@ int	copy_paste(t_scene *scn)
 		if (res == FAIL)
 			ft_closebutton((void *)scn);
 	}
+	ft_fprintf(2, "Copy successfull !!!\n");
 	return (SUCCESS);
 }

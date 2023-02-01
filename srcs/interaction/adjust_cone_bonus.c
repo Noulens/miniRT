@@ -30,15 +30,7 @@ static void	rotate_co(t_co *cy, int key)
 
 static void	do_transform_co(t_co *cy, int key)
 {
-	if (key == 111 && (cy->rad - 0.5f > 0))
-		cy->rad -= 0.5f;
-	else if (key == 112)
-		cy->rad += 0.5f;
-	else if (key == 117 && (cy->height - 0.5f >= 0))
-		cy->height -= 0.5f;
-	else if (key == 105)
-		cy->height += 0.5f;
-	else if (key == NUMPAD_8)
+	if (key == NUMPAD_8)
 		cy->translate.y += 0.5f;
 	else if (key == NUMPAD_2)
 		cy->translate.y -= 0.5f;
@@ -64,7 +56,6 @@ void	adjust_cone(t_stdobj *obj, int key, t_scene *scene)
 	do_transform_co(cy, key);
 	do_orientation(key, &cy->orientation);
 	set_transform(&cy->translate, &cy->rotate, scene);
-	matrix_print(scene->fwtfm, 1);
 	matrix_vec_mult(scene->fwtfm, &cy->pos);
-	print_vec(&cy->pos);
+	ft_fprintf(2, "Cone adjustment ok\n");
 }

@@ -18,11 +18,11 @@ void	save_plan(const t_scene *scn, int fd, int k)
 
 	pl = (t_pl *)scn->objtab[k]->obj;
 	ft_fprintf(fd, "\npl ");
-	ft_putfloat_fd(pl->pos.x, 2, fd);
+	ft_putfloat_fd(pl->translate.x, 2, fd);
 	ft_putchar_fd(',', fd);
-	ft_putfloat_fd(pl->pos.y, 2, fd);
+	ft_putfloat_fd(pl->translate.y, 2, fd);
 	ft_putchar_fd(',', fd);
-	ft_putfloat_fd(pl->pos.z, 2, fd);
+	ft_putfloat_fd(pl->translate.z, 2, fd);
 	ft_putchar_fd(' ', fd);
 	ft_putfloat_fd(pl->orientation.x, 2, fd);
 	ft_putchar_fd(',', fd);
@@ -142,4 +142,5 @@ void	save_scene(t_scene *scn)
 	free(name);
 	free(save);
 	close (fd);
+	ft_fprintf(2, "scene saved successfully!!!\n");
 }
