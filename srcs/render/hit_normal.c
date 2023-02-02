@@ -89,16 +89,26 @@ void	hit_normal_co(t_surfaceinfo *info, t_stdobj *obj)
 	t_co	*co;
 	t_vec3	res;
 	float	angle;
+	float	rad_test;
+	float	test_pl;
 
 	co = (t_co *)obj->obj;
-	if (co->height)
+	t_vec3 tip = vec_add(co->pos, vec_scale(co->orientation, co->height));
+	rad_test = (info->hit_point.x - co->pos.x) \
+	* (info->hit_point.x - co->pos.x) + (info->hit_point.y - co->pos.y) \
+	* (info->hit_point.y - co->pos.y) + (info->hit_point.z - co->pos.z) \
+	* (info->hit_point.z - co->pos.z);
+	test_pl = (info->hit_point.x - co->pos.x) * co->orientation.x + \
+	(info->hit_point.y - co->pos.y) * co->orientation.y \
+	+ (info->hit_point.z - co->pos.z) * co->orientation.z;
+	if (rad_test <= co->rad * 2.5f && test_pl > -10e-6 && test_pl < 10e-6)
+		info->hit_normal = vec_scale(co->orientation, -1.0f);
+	else
 	{
 		angle = atanf(co->rad / co->height);
-		res = vec_sub(info->hit_point, co->pos);
+		res = vec_sub(info->hit_point, tip);
 		info->hit_normal = vec_sub(res, vec_scale(co->orientation, \
-		(vec_length(res) / cosf(angle))));
+		(-vec_length(res) / cosf(angle))));
 		info->hit_normal = vec_normalize(info->hit_normal);
 	}
-	else
-		info->hit_normal = vec_scale(co->orientation, -1.0f);
 }
