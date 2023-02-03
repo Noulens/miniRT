@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction_4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:28:05 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/30 15:35:43 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:51:40 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ static void	check(int key, t_vec3 *ori, float d)
 	else
 		return ;
 	*ori = vec_normalize(*ori);
+	round_ori(ori);
 }
 
 void	do_orientation(int key, t_vec3 *orientation)
 {
 	float	d;
 
-	d = 0.1f;
+	d = 0.2f;
 	check(key, orientation, d);
 }
 

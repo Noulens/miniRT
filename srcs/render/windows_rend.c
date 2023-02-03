@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   windows_rend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:32:44 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/30 23:51:29 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/02 17:08:46 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	win_launcher(t_scene *scene)
 	scene->func_ptr = &intersect_func;
 	img.mlx = mlx_init();
 	if (!img.mlx)
-	{
-		des_minirt(scene);
-		exit(EXIT_FAILURE);
-	}
+		return (ft_fprintf(2, "Error\nNo env\n"), des_minirt(scene), \
+		exit(EXIT_FAILURE), (void)0);
 	scene_init(scene);
 	img.win = mlx_new_window(img.mlx, scene->win_w, scene->win_h, "miniRT");
 	img.img = mlx_new_image(img.mlx, scene->win_w, scene->win_h);

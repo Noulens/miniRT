@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_normal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:13:08 by waxxy             #+#    #+#             */
-/*   Updated: 2023/01/31 11:03:09 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:15:25 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,15 @@ void	hit_normal_co(t_surfaceinfo *info, t_stdobj *obj)
 	t_co	*co;
 	t_vec3	res;
 	float	angle;
-	float	rad_test;
 	float	test_pl;
+	t_vec3	tip;
 
 	co = (t_co *)obj->obj;
-	t_vec3 tip = vec_add(co->pos, vec_scale(co->orientation, co->height));
-	rad_test = (info->hit_point.x - co->pos.x) \
-	* (info->hit_point.x - co->pos.x) + (info->hit_point.y - co->pos.y) \
-	* (info->hit_point.y - co->pos.y) + (info->hit_point.z - co->pos.z) \
-	* (info->hit_point.z - co->pos.z);
+	tip = vec_add(co->pos, vec_scale(co->orientation, co->height));
 	test_pl = (info->hit_point.x - co->pos.x) * co->orientation.x + \
 	(info->hit_point.y - co->pos.y) * co->orientation.y \
 	+ (info->hit_point.z - co->pos.z) * co->orientation.z;
-	if (rad_test <= co->rad * 2.5f && test_pl > -10e-6 && test_pl < 10e-6)
+	if (test_pl > -10e-6 && test_pl < 10e-6)
 		info->hit_normal = vec_scale(co->orientation, -1.0f);
 	else
 	{

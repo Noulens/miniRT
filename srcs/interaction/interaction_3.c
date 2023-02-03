@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:46:57 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/31 11:28:35 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:55:49 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	do_transform_s(t_sp *sp, int key)
 	else if (key == 65434)
 		sp->translate.z -= 0.5f;
 	if (sp->diameter <= 0)
-		sp->diameter = 0.1f;
+		sp->diameter = 0.5f;
 }
 
 void	rotate_cylinder(t_cy *cy, int key)
@@ -53,17 +53,17 @@ void	rotate_cylinder(t_cy *cy, int key)
 void	rotate_plan(t_pl *pl, int key)
 {
 	if (key == KEY_UP)
-		pl->rotate.y += 1.9f;
+		pl->rotate.y += 10.f;
 	else if (key == KEY_DOWN)
-		pl->rotate.y += -1.9f;
+		pl->rotate.y += -10.f;
 	else if (key == NUMPAD_PLUS)
-		pl->rotate.z += 1.9f;
+		pl->rotate.z += 10.f;
 	else if (key == NUMPAD_MINUS)
-		pl->rotate.z += -1.9f;
+		pl->rotate.z += -10.f;
 	else if (key == KEY_LEFT)
-		pl->rotate.x += 1.9f;
+		pl->rotate.x += 10.f;
 	else if (key == KEY_RIGHT)
-		pl->rotate.x += -1.9f;
+		pl->rotate.x += -10.f;
 }
 
 void	do_transform_c(t_cy *cy, int key)

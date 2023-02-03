@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interaction.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyujung <hyujung@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:21:14 by hyunah            #+#    #+#             */
-/*   Updated: 2023/02/01 18:29:25 by hyujung          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:52:22 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void	do_transform_light(int keycode, t_scene *scene);
 int		find_light(t_scene *s, int keycode);
 void	init_instructions(char *inst[4], char *x, char *y, char *z);
 int		put_debug_to_window_obj(t_scene *s, char *rot[4]);
+void	round_ori(t_vec3 *ori);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shader_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 07:56:52 by hyunah            #+#    #+#             */
-/*   Updated: 2023/02/01 09:54:47 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/02 17:54:51 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_vec3	calcule_specular(t_vec3 lr, t_surfaceinfo *info, int vis, float li)
 	int		spec_lightcolor;
 	int		exponent;
 
-	exponent = 32;
+	exponent = 500;
 	spec_lightcolor = ft_trgb(255, 255, 255, 255);
 	r = reflect(lr, info->hit_normal);
 	spec = vis * li * powf(ft_max(0.0f, vec_dot(r, info->view_dir)), exponent);

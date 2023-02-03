@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_win_obj.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyujung <hyujung@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 18:25:38 by hyujung           #+#    #+#             */
-/*   Updated: 2023/02/01 18:51:08 by hyujung          ###   ########.fr       */
+/*   Updated: 2023/02/02 19:45:10 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,20 @@ int	put_debug_to_window_obj(t_scene *s, char *rot[4])
 	if (error == -1)
 		return (1);
 	return (0);
+}
+
+void	round_ori(t_vec3 *ori)
+{
+	if (ori->y <= 0.1f && ori->y >= -0.1)
+		ori->y = 0;
+	if (ori->y >= 0.90f && ori->y <= 1.1)
+		ori->y = 1;
+	if (ori->x <= 0.1f && ori->x >= -0.1)
+		ori->x = 0;
+	if (ori->x >= 0.9f && ori->x <= 1.1)
+		ori->x = 1;
+	if (ori->z <= 0.1f && ori->z >= -0.1)
+		ori->z = 0;
+	if (ori->z >= 0.9f && ori->z <= 1.1)
+		ori->z = 1;
 }

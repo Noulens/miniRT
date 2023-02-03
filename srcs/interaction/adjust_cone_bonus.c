@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adjust_cone_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunah <hyunah@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tnoulens <tnoulens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 13:56:04 by tnoulens          #+#    #+#             */
-/*   Updated: 2023/01/26 11:51:48 by hyunah           ###   ########.fr       */
+/*   Updated: 2023/02/02 17:00:14 by tnoulens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,15 @@ static void	rotate_co(t_co *cy, int key)
 
 static void	do_transform_co(t_co *cy, int key)
 {
-	if (key == NUMPAD_8)
+	if (key == 111 && (cy->rad - 0.5f > 0))
+		cy->rad -= 0.5f;
+	else if (key == 112)
+		cy->rad += 0.5f;
+	else if (key == 117 && (cy->height - 0.5f > 0))
+		cy->height -= 0.5f;
+	else if (key == 105)
+		cy->height += 0.5f;
+	else if (key == NUMPAD_8)
 		cy->translate.y += 0.5f;
 	else if (key == NUMPAD_2)
 		cy->translate.y -= 0.5f;
