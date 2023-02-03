@@ -20,3 +20,20 @@ Run `make` in the root of the projet and launch as follows:
 Run `make bonus` to add the bonus features such [Phong reflexion model](https://en.wikipedia.org/wiki/Phong_reflection_model "Phong reflexion model"), cones and texture mapping:
 
     ./miniRT_bonus <filename.rt>
+
+ --- 
+
+<!-- Images -->
+Complex scene with multiple objects and lights:
+
+![42.miniRT](https://github.com/Noulens/miniRT/blob/main/images/temple.png)
+
+---
+Alignment of spheres
+
+![42.miniRT](https://github.com/Noulens/miniRT/blob/main/images/shading.png)
+
+---
+White objects reflecting three colored lights
+
+![42.miniRT](https://github.com/Noulens/miniRT/blob/main/images/multiple.png)
