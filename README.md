@@ -29,7 +29,7 @@ Complex scene with multiple objects and lights:
 ![42.miniRT](https://github.com/Noulens/miniRT/blob/main/images/temple.png)
 
 ---
-Alignment of spheres
+Succession of spheres
 
 ![42.miniRT](https://github.com/Noulens/miniRT/blob/main/images/shading.png)
 
