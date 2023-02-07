@@ -5,7 +5,7 @@ This project is about creating a basic ray tracing engine in C. The purpose is t
 
 The goal of miniRT program is to generate images using the Raytracing protocol. Those computer-generated images will each represent a scene, as seen from a specific angle and position, defined by simple geometric objects, and each with its own lighting system..
 
-Authorized functions for the assignment: `open`, `close`, `read`, `write`, `printf`, `malloc`, `free`, `perror`, `strerror`, `exit`
+Authorized functions for the assignment: `open`, `close`, `read`, `write`, `printf`, `malloc`, `free`, `perror`, `strerror`, `exit` as well as all lib math functions;
 
 Code written in accordance with **42 C** coding style.
 
